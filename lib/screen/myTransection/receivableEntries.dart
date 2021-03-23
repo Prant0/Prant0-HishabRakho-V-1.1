@@ -41,15 +41,18 @@ class _TransactionReceivableEntriesState
   Color boxColor = Color(0xFF021A2C);
   double iconSize = 40;
 
-  Future<dynamic> getMyRecievableEntries() async {
+  /*Future<dynamic> getMyRecievableEntries() async {
+    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     setState(() {
       onProgress = true;
     });
     final data = await CustomHttpRequests.myReceiveableEntriesData();
     print("my Recievable Entries data areeee $data");
-    setState(() {
-      onProgress = false;
-    });
+    if(mounted){
+      setState(() {
+        onProgress = false;
+      });
+    }
     for (var entries in data) {
       model = MyTransectionModel(
         id: entries["id"],
@@ -73,11 +76,19 @@ class _TransactionReceivableEntriesState
         });
       }
     }
-  }
+  }*/
 
+
+  getTransectionData() async {
+    print("get MyRecievable Entries");
+    final data = await Provider.of<MyTransectionprovider>(context, listen: false)
+        .getMyRecievableEntries();
+    print("getMyRecievableEntries  ${data}");
+  }
   @override
   void initState() {
-    getMyRecievableEntries();
+   // getMyRecievableEntries();
+    getTransectionData();
     super.initState();
   }
 
@@ -85,6 +96,7 @@ class _TransactionReceivableEntriesState
 
   @override
   Widget build(BuildContext context) {
+    list = Provider.of<MyTransectionprovider>(context).myReceivableEntriesList;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
@@ -194,10 +206,25 @@ class _TransactionReceivableEntriesState
 
                     secondaryActions: <Widget>[
                       new IconSlideAction(
-                        caption: 'More',
+                        caption: 'Edit',
                         color: Colors.black45,
                         icon: Icons.more_horiz,
-                        // onTap: () => _showSnackBar('More'),
+                        onTap:  () {
+                          print(
+                              "transection type id :${list[index].transactionTypeId}");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditTransaction(
+                                        model: list[
+                                        index],
+                                        type: type,
+                                      ))) .then((value) => setState(() {
+                                        getTransectionData();
+                                        }));
+                                        },
+
                       ),
                       new IconSlideAction(
                         caption: 'Delete',
@@ -243,7 +270,6 @@ class _TransactionReceivableEntriesState
                                             list
                                                 .removeAt(
                                                 index);
-                                            Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
                                           });
                                           showInSnackBar(
                                             "1 Item Delete",

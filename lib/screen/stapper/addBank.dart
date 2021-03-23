@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/services.dart';
 import 'package:anthishabrakho/screen/stapper/addMfs.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
@@ -38,10 +39,10 @@ class _AddBankStapperState extends State<AddBankStapper> {
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
+        //initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -79,8 +80,10 @@ class _AddBankStapperState extends State<AddBankStapper> {
         backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: WillPopScope(
+
           onWillPop: onBackPressed,
           child: ModalProgressHUD(
+            progressIndicator: Spin(),
             inAsyncCall: onProgress,
             child: Container(
               margin: EdgeInsets.symmetric( horizontal: 20),
@@ -131,7 +134,12 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                   )),
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: EdgeInsets.only(top: 25,),
+                                  child: Text("Choose your bank",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                                ),
                                 GestureDetector(
                                   onTap: () async {
                                     List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
@@ -154,11 +162,16 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(bankName??"Choose Bank",style: myStyle(16,Colors.white),overflow: TextOverflow.ellipsis,),
+                                        Text(bankName??"Choose Bank",style: myStyle(16,BrandColors.colorDimText),overflow: TextOverflow.ellipsis,),
                                         Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
                                       ],
                                     ),
                                   ),
+                                ),
+
+                                Padding(
+                                  padding: EdgeInsets.only(top: 25,),
+                                  child: Text("Account Number",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
                                 ),
                                 SenderTextEdit(
                                   keyy: "number",
@@ -183,12 +196,17 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     }
                                   },
                                 ),
+
+                                Padding(
+                                  padding: EdgeInsets.only(top: 25,),
+                                  child: Text("Account Name",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                                ),
                                 SenderTextEdit(
                                   keyy: "name",
                                   data: _data,
                                   name: bankAccountNameController,
                                   lebelText: "Your Name",
-                                  hintText: "Account Holder Name",
+                                 // hintText: "Account Holder Name",
                                   icon: Icons.drive_file_rename_outline,
                                   function: (String value) {
                                     if (value.isEmpty) {
@@ -377,7 +395,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
             color: Colors.white,fontWeight: FontWeight.w800
         ),
       ),
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.indigo,
     ));
   }
 

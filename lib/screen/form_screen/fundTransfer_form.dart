@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -8,6 +9,7 @@ import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/chooseBank.dart';
 import 'package:anthishabrakho/widget/chooseMfs.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -35,7 +37,6 @@ class _FundTransferFormState extends State<FundTransferForm> {
 
   TextStyle _ts = TextStyle(fontSize: 18.0);
   DateTime _currentDate = DateTime.now();
-  int id;
   List mfsList;
   String _myMfs;
   String cashId;
@@ -46,6 +47,8 @@ class _FundTransferFormState extends State<FundTransferForm> {
   bool isBank = false;
   bool isMfs = false;
   bool isCash = false;
+  String bankName;
+  String mfsName;
 
   Future<bool> check() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -60,10 +63,9 @@ class _FundTransferFormState extends State<FundTransferForm> {
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -148,12 +150,16 @@ class _FundTransferFormState extends State<FundTransferForm> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat("d-MMMM-y").format(_currentDate);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
 
       body: ModalProgressHUD(
+        progressIndicator: Spin(),
+        opacity: 0.0,
         inAsyncCall: onProgress,
         child: Container(
+          height: double.infinity,
           padding: EdgeInsets.only(top: 30,left: 18,right: 18),
           child: Form(
             key: _formKey,
@@ -173,10 +179,15 @@ class _FundTransferFormState extends State<FundTransferForm> {
                               style:
                               myStyle(18, Colors.white, FontWeight.w700),
                             ),
-                            Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 20,
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                             )
                           ],
                         ),
@@ -270,38 +281,87 @@ class _FundTransferFormState extends State<FundTransferForm> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                       ),*/
+
+                      SizedBox(height: 20,),
                       Visibility(
                           visible: isBank==true,
-                          child: ListTile(
-                            onTap: () async {
-                              var bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
-                                types: "single",
-                              )));
-                              setState(() {
-                                _myBank=bal;
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
-                                print("the bal is ${_myBank}");
-                              });
-                            },
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),side: BorderSide(color: Colors.white70,width: 1)),
-                            title: Text("Choose Bank",style: myStyle(16,Colors.white),),
-                            trailing: Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                              Text(banktext,style: myStyle(16,BrandColors.colorDimText),),
+                              GestureDetector(
+                                onTap:  () async {
+                                  List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
+                                    types: "single",
+                                  )));
+                                  setState(() {
+                                    _myBank=bal[0];
+                                    bankName=bal[1];
+                                    print("the bal is ${bal[0]}");
+                                    print("the bal is ${bal[1]}");
+                                    //isStorage=true;
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  margin: EdgeInsets.symmetric(vertical: 15,),
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: BrandColors.colorPrimary,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(bankName??"Choose Bank",style: myStyle(16,Colors.white),),
+                                      Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           )
+                      ),
+                      SizedBox(
+                        height: 15,
                       ),
                       Visibility(
                           visible: isMfs==true,
-                          child: ListTile(
-                            onTap: () async {
-                              var bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs()));
-                              setState(() {
-                                _myMfs=bal;
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(mfstext,style: myStyle(16,BrandColors.colorDimText),),
 
-                                print("the Mfs is ${_myMfs}");
-                              });
-                            },
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),side: BorderSide(color: Colors.white70,width: 1)),
-                            title: Text("Choose Bank",style: myStyle(16,Colors.white),),
-                            trailing: Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                              GestureDetector(
+                                onTap: () async {
+                                  List bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs(
+                                    types: "single",
+                                  )));
+                                  setState(() {
+                                    _myMfs=bal[0];
+                                    mfsName=bal[1];
+                                    print("the Mfs is ${mfsName}");
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  margin: EdgeInsets.symmetric(vertical: 15,),
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: BrandColors.colorPrimary,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(mfsName??"Choose Mfs",style: myStyle(16,Colors.white),),
+                                      Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           )
                       ),
                       /*Visibility(
@@ -484,26 +544,31 @@ class _FundTransferFormState extends State<FundTransferForm> {
                       children: [
                         Expanded(
                           flex: 10,
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  color: Colors.deepPurpleAccent, width: 1.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.white70,
-                                  size: 15,
-                                ),
-                                Text(
-                                  "Go Back",
-                                  style: myStyle(16, Colors.white),
-                                )
-                              ],
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                    color: Colors.deepPurpleAccent, width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                  Text(
+                                    "Go Back",
+                                    style: myStyle(16, Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -683,7 +748,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -728,7 +793,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -773,7 +838,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -818,7 +883,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -863,7 +928,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -907,7 +972,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(" Failed , Choose Storage Hub.");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;

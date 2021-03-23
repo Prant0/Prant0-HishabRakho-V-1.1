@@ -35,15 +35,22 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
   }
 
+  getTransectionData() async {
+    print("get MyRecievable Entries");
+    final data = await Provider.of<MyTransectionprovider>(context, listen: false)
+        .getMyEarningEntries();
+    print("getMyRecievableEntries  ${data}");
+  }
+
   @override
   void initState() {
-    getMyEarningEntries();
+    getTransectionData();
     super.initState();
   }
 
   MyTransectionModel model;
 
-  Future<dynamic> getMyEarningEntries() async {
+  /*Future<dynamic> getMyEarningEntries() async {
     setState(() {
       onProgress = true;
     });
@@ -78,11 +85,12 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
         });
       }
     }
-  }
+  }*/
 
   bool onProgress = false;
   @override
   Widget build(BuildContext context) {
+    list = Provider.of<MyTransectionprovider>(context).myEarningEntriesList;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
@@ -193,10 +201,25 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
 
                     secondaryActions: <Widget>[
                       new IconSlideAction(
-                        caption: 'More',
+                        caption: 'Edit',
                         color: Colors.black45,
                         icon: Icons.more_horiz,
-                        // onTap: () => _showSnackBar('More'),
+                        onTap:  () {
+                          print(
+                              "transection type id :${list[index].transactionTypeId}");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditTransaction(
+                                        model: list[
+                                        index],
+                                        type: type,
+                                      ))) .then((value) => setState(() {
+                            getTransectionData();
+                          }));
+                        },
+
                       ),
                       new IconSlideAction(
                         caption: 'Delete',

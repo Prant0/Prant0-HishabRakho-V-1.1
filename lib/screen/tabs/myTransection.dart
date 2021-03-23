@@ -25,11 +25,11 @@ class MyTransection extends StatefulWidget {
 class _MyTransectionState extends State<MyTransection> with SingleTickerProviderStateMixin{
   Color textColor = Colors.white;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<MyTransectionModel> allEntries = [];
+  /*List<MyTransectionModel> allEntries = [];
   List<MyTransectionModel> receivableEntries = [];
   List<MyTransectionModel> payableEntries = [];
   List<MyTransectionModel> earningEntries = [];
-  List<MyTransectionModel> expenditureEntries = [];
+  List<MyTransectionModel> expenditureEntries = [];*/
   List<MyTransectionModel> storageEntries = [];
 
   @override
@@ -43,7 +43,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
     controller = TabController(length: 6, vsync: this, initialIndex: 1);
     super.initState();
   }
-
+/*
   myEntriesDetails() async {
     final data =
     await Provider.of<MyTransectionprovider>(context, listen: false)
@@ -76,7 +76,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
     final data =
     await Provider.of<MyTransectionprovider>(context, listen: false)
         .getMyExpenditureEntries();
-  }
+  }*/
 
 
 
@@ -149,7 +149,6 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                   children: [
                     TabBar(
                       physics: BouncingScrollPhysics(),
-                     // automaticIndicatorColorAdjustment: true,
                       labelColor: Colors.green,
                       indicatorColor: Colors.grey,
                       unselectedLabelColor:
@@ -223,7 +222,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
               ),
             ),
             Expanded(
-                flex: 8,
+                flex: 7,
                 child: Container(
                   padding: EdgeInsets.only(
                       bottom: 6, left: 6, right: 6),

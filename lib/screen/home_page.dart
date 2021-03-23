@@ -6,6 +6,8 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
 import 'package:anthishabrakho/models/user_model.dart';
 import 'package:anthishabrakho/providers/user_dertails_provider.dart';
+import 'package:anthishabrakho/screen/login_page.dart';
+import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/bank.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
@@ -31,8 +33,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   Color textColor = Color(0xFFce93d8);
-  SharedPreferences sharedPreferences;
-  String userName;
+  SharedPreferences sharedPreferences ;
+
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Future<bool> check() async {
@@ -48,8 +51,27 @@ class _HomePageState extends State<HomePage>
 
   List<DashBoardModel> allData = [];
   DashBoardModel dashBoardModel;
+  String userName;
+  String image;
+
+  loadUserImage()async{
+    sharedPreferences = await SharedPreferences.getInstance();
+    userName= sharedPreferences.getString("userName");
+    print("user anme issssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss ${userName}");
+    image= sharedPreferences.getString("image");
+    print("image is $image");
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    loadUserImage();
+    super.didChangeDependencies();
+  }
 
   void loadDashBoardData() async {
+
+
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/summary",
       headers: await CustomHttpRequests.getHeaderWithToken(),
@@ -69,24 +91,20 @@ class _HomePageState extends State<HomePage>
     }
     print("totalBankAmount is :${dashBoardModel.bankDetails}");
   }
-
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
   void _onRefresh() async {
     loadDashBoardData();
     await Future.delayed(Duration(milliseconds: 1000));
     _refreshController.refreshCompleted();
   }
-
   @override
   void initState() {
+
     check().then((intenet) {
       if (intenet != null && intenet) {
         if (mounted) {
           loadDashBoardData();
-         // loadUserDetails();
-
         }
       } else
         showInSnackBar("No Internet Connection");
@@ -95,42 +113,41 @@ class _HomePageState extends State<HomePage>
     super.initState();
   }
 
-  String xx;
-
+  TabController controller;
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
+/*  List<UserModel> user = [];
 
-  List<UserModel> user = [];
-  TabController controller;
 
   loadUserDetails() async {
     await Provider.of<UserDetailsProvider>(context, listen: false)
         .getUserDetails();
 
-  }
-
-
-
-
-
-
-
+  }*/
   @override
   Widget build(BuildContext context) {
-    user = Provider.of<UserDetailsProvider>(context).userData;
-
+  //user = Provider.of<UserDetailsProvider>(context).userData;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: BrandColors.colorPrimaryDark,
         elevation: 8,
         actions: [
-          Icon(
-            Icons.notifications_active_outlined,
-            color: BrandColors.colorWhite,
-            size: 25,
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile())).then((value) => setState(() {
+             loadUserImage();
+              }));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                  radius: 30,
+                  backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/$image",)),
+            ),
           ),
           SizedBox(
             width: 10,
@@ -153,50 +170,53 @@ class _HomePageState extends State<HomePage>
                     children: [
                       Expanded(
                           flex: 2,
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "pppp" ,
-                                    style: myStyle(18, Colors.white,
-                                        FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "Welcome back !",
-                                    style: myStyle(18, Colors.white,
-                                        FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "৳ 43,054.25",
-                                    style: myStyle(16, Colors.white,
-                                        FontWeight.w700),
-                                  ),
-                                  Text(
-                                    "Your financial position ",
-                                    style: myStyle(
-                                        12,
-                                        BrandColors.colorDimText,
-                                        FontWeight.w600),
-                                  ),
-                                ],
-                              )
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${userName ??""} " ,
+                                      style: myStyle(18, Colors.white,
+                                          FontWeight.w500),
+                                    ),
+                                    Text(
+                                      "Welcome back !",
+                                      style: myStyle(18, Colors.white,
+                                          FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "৳ 43,054.25",
+                                      style: myStyle(16, Colors.white,
+                                          FontWeight.w700),
+                                    ),
+                                    Text(
+                                      "Your financial position ",
+                                      style: myStyle(
+                                          12,
+                                          BrandColors.colorDimText,
+                                          FontWeight.w600),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           )),
                       Expanded(
                         flex: 13,

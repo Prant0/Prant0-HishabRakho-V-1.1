@@ -5,6 +5,7 @@ import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/screen/stapper/add_Payable.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/chooseMfs.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -31,13 +32,13 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
   DateTime _currentDate = DateTime.now();
   TextStyle _ts = TextStyle(fontSize: 18.0);
 
+
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -98,7 +99,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                           height: 20,
                         ),
                         Container(
-                            margin: EdgeInsets.only(bottom: 20,top: 30,),
+                            margin: EdgeInsets.only(bottom: 35,top: 35,),
                             child: Text(
                               "Add a Mfs Account ",
                               style: myStyle(20, Colors.white, FontWeight.w600),
@@ -130,7 +131,12 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                               )),
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 25,),
+                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                            ),
                             GestureDetector(
                               onTap: () async {
                                 List bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs(
@@ -159,8 +165,12 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 25,),
+                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                            ),
                             SenderTextEdit(
-                              keyy: "name",
+                              keyy: "number",
                               data: _data,
                               name: mfsNumberController,
                               lebelText: "MFS Number",

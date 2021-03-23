@@ -218,6 +218,7 @@ class _DrawerrState extends State<Drawerr> {
                 onPressed: () async{
                   SharedPreferences preferences = await SharedPreferences.getInstance();
                   await preferences.remove('token');
+                  await preferences.remove('userName');
                   Provider.of<UserDetailsProvider>(context,listen: false).deletedetails();
                   Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
                   Navigator.pop(context);

@@ -1,3 +1,5 @@
+import 'package:anthishabrakho/widget/Circular_progress.dart';
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/extra%20widget.dart';
 import 'package:flutter/services.dart';
 import 'package:anthishabrakho/providers/storageHubProvider.dart';
@@ -24,21 +26,20 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
 
   TextEditingController amountController =  TextEditingController();
 
-  Map<String, dynamic> _data = Map<String, dynamic>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   DateTime _currentDate = DateTime.now();
   TextStyle _ts = TextStyle(fontSize: 16.0);
-  var noSimbolInUSFormat = new NumberFormat.currency(locale: "en_US",symbol: "");
   bool isLoading=false;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Storage Hub",
           style: TextStyle(fontSize: 18),
@@ -47,38 +48,42 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
       ),
 
       body: ModalProgressHUD(
+        progressIndicator: Spin(),
         inAsyncCall: isLoading,
         child: Container(
+          height: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+
           child: Form(
             key:_formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: MoneyTextFormField(
-                      settings: MoneyTextFormFieldSettings(
-                        controller: amountController,
-                        moneyFormatSettings: MoneyFormatSettings(
-                           amount: double.tryParse(widget.model.balance.toString()),
-                           // amount: null,
-                            currencySymbol: ' ৳ ',
-                            displayFormat: MoneyDisplayFormat.symbolOnLeft),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12,vertical: 30),
+                        child: MoneyTextFormField(
+                          settings: MoneyTextFormFieldSettings(
+                            controller: amountController,
+                            moneyFormatSettings: MoneyFormatSettings(
+                                amount: double.tryParse(widget.model.balance.toString()),
+                                // amount: null,
+                                currencySymbol: ' ৳ ',
+                                displayFormat: MoneyDisplayFormat.symbolOnLeft),
                             appearanceSettings: AppearanceSettings(
-                            padding: EdgeInsets.all(15.0),
-                            labelText: 'Initial Balance* ',
-                            hintText: ' Balance',
-                            labelStyle: myStyle(20,Colors.purple,FontWeight.w600),
-                            inputStyle: _ts.copyWith(color: Colors.purple),
-                            formattedStyle:
-                               _ts.copyWith(color: Colors.black54),
+                              padding: EdgeInsets.all(15.0),
+                              labelText: 'Initial Balance* ',
+                              hintText: ' Balance',
+                              labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                              inputStyle: _ts.copyWith(color: Colors.white),
+                              formattedStyle:
+                              _ts.copyWith(color: Colors.white),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
 /*
                   SenderTextEdit(
                     keytype:  TextInputType.numberWithOptions(decimal: true),
@@ -116,7 +121,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                   ),*/
 
 
-                /*TextField(
+                      /*TextField(
                  // controller: amountController,
                   onChanged:(value){
                     setState(() {
@@ -130,7 +135,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
 
                 ),*/
 
-                 /* TextField(
+                      /* TextField(
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
                     controller: amountController,
                     onChanged: (text) {
@@ -143,36 +148,118 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                     },
                   ),*/
 
-                //  Text("$valuee"),
+                      //  Text("$valuee"),
 
-                  SizedBox(
-                    height: 10,
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      if (!_formKey.currentState.validate()) return;
-                      _formKey.currentState.save();
+                      SizedBox(
+                        height: 10,
+                      ),
+                      /*RaisedButton(
+                        onPressed: () {
+                          if (!_formKey.currentState.validate()) return;
+                          _formKey.currentState.save();
 
-                     // double.parse(amountController.text.toString())<1? showInSnackBar("Amount is required") :
-                      amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
-                    },
-                    color: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 100,
-                    ),
-                    child: Text(
-                      "Submit",
-                      style: myStyle(18, Colors.white),
+                          // double.parse(amountController.text.toString())<1? showInSnackBar("Amount is required") :
+                          amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
+                        },
+                        color: Colors.purple,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 100,
+                        ),
+                        child: Text(
+                          "Submit",
+                          style: myStyle(18, Colors.white),
+                        ),
+                      ),*/
+
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 8,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: BrandColors.colorPrimaryDark,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                    color: Colors.deepPurpleAccent, width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                  Text(
+                                    "Go Back",
+                                    style: myStyle(16, Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 10,
+                          child: InkWell(
+                            onTap:  () {
+                              if (!_formKey.currentState.validate()) return;
+                              _formKey.currentState.save();
+
+                              // double.parse(amountController.text.toString())<1? showInSnackBar("Amount is required") :
+                              amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.deepPurpleAccent,
+                                border: Border.all(
+                                    color: Colors.deepPurpleAccent,
+                                    width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Proceed",
+                                    style: myStyle(16, Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
+                )
+              ],
+            )
           ),
         ),
       ),
@@ -221,10 +308,10 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
       content: Text(
         value,
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.white70,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../globals.dart';
@@ -40,8 +40,12 @@ class _MfsWidgetState extends State<MfsWidget> {
             physics: NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: widget.model.length >2 ? widget.model.getRange(0, 2).length :widget.model.length == 1?widget.model.getRange(0, 1).length :widget.model.length,
-              itemBuilder: (context, index) {
+            itemCount: widget.model.length > 2
+                ? widget.model.getRange(0, 2).length
+                : widget.model.length == 1
+                    ? widget.model.getRange(0, 1).length
+                    : widget.model.length,
+            itemBuilder: (context, index) {
               return widget.model == null
                   ? Text("Please Add account from Storage Hub")
                   : ListTile(

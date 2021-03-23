@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/user_model.dart';
 import 'package:anthishabrakho/providers/user_dertails_provider.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -13,7 +14,7 @@ import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+ String userNames;
 class LoginScreen extends StatefulWidget {
   static const String id = 'loginpage';
 
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool onProgress = false;
   bool _obscureText = true;
   String token;
-  String userName;
+
   String email;
   SharedPreferences sharedPreferences;
   String x, y;
@@ -101,14 +102,20 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Pranto the login data are : $data");
       if (data["token"] != null) {
         setState(() {
+          onProgress = false;
           sharedPreferences.setString("token", data['token']);
-
-
+          sharedPreferences.setString("userName", data['user_details']["name"]);
+          sharedPreferences.setString("email", data['user_details']["email"]);
+          sharedPreferences.setString("image", data['user_details']["image"]);
+          token = sharedPreferences.getString("token");
+          print('token is $token');
+          print('email is ${sharedPreferences.getString("email")}');
+          print('image is ${sharedPreferences.getString("image")}');
+          userNames = sharedPreferences.getString("userName");
+          print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee isssssssssssss is $userNames');
         });
-        print("save token");
-        token = sharedPreferences.getString("token");
-        print('token is $token');
-       // getUserDetails();
+
+        // getUserDetails();
         return true;
       } else {
         return false;
@@ -143,6 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
        backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: ModalProgressHUD(
+          progressIndicator: Spin(),
           inAsyncCall: onProgress,
           child: Form(
             key: _formKey,
@@ -169,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
 
                         Container(
-                          margin: EdgeInsets.only(top: 80.0,bottom: 20,left: 20),
+                          margin: EdgeInsets.only(top: 50.0,bottom: 20,left: 20),
                           child: Text("Welcome back !",style: myStyle(22,Colors.white,FontWeight.w600),),
                         ),
 

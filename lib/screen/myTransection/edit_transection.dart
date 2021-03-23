@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:anthishabrakho/providers/myTransectionProvider.dart';
+import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/globals.dart';
@@ -8,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditTransaction extends StatefulWidget {
@@ -56,10 +60,10 @@ class _EditTransactionState extends State<EditTransaction> {
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 3),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
+
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -91,53 +95,57 @@ class _EditTransactionState extends State<EditTransaction> {
     print("Type is ${widget.type}");
     print("Type is ${widget.model.transactionTypeId}");
     return Scaffold(
+      backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Entries",
-          style: TextStyle(),
         ),
         centerTitle: true,
       ),
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
-        child: Container(
-          child: Form(
-            key: _formKey,
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 12),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        seleceDate(context);
-                      });
-                    },
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(width: 1, color: Colors.grey)),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Date : ${formattedDate}",
-                              style: myStyle(16, Colors.purple, FontWeight.w700),
-                            ),
-                            Icon(Icons.date_range_outlined),
-                          ],
-                        )),
-                  ),
-                  /*SenderTextEdit(
+        child: Stack(
+          children: [
+            Container(
+              color:  BrandColors.colorPrimaryDark,
+              child: Form(
+                key: _formKey,
+                child: Card(
+                  color:  BrandColors.colorPrimaryDark,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                  margin: EdgeInsets.symmetric(vertical: 10,horizontal: 12),
+                  child: ListView(
+                    children: [
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            seleceDate(context);
+                          });
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(width: 1, color: Colors.grey)),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Date : ${formattedDate}",
+                                  style: myStyle(16, Colors.white, FontWeight.w700),
+                                ),
+                                Icon(Icons.date_range_outlined,color: Colors.white,),
+                              ],
+                            )),
+                      ),
+                      /*SenderTextEdit(
                     keytype: TextInputType.number,
                     formatter:  <TextInputFormatter>[
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -156,146 +164,229 @@ class _EditTransactionState extends State<EditTransaction> {
                     },
                   ),*/
 
-                 Visibility(
-                    visible: isPayable == true,
-                    child: SenderTextEdit(
-                      keyy: "Payable",
-                      data: _data,
-                      name: nameController,
-                      lebelText: "${widget.model.friendName} ?? ",
-                      hintText: " Payable to",
-                      icon: Icons.person,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Name required";
-                        }
-                        if (value.length < 3) {
-                          return "Name Too Short ( Min 3 character )";
-                        }if (value.length > 30) {
-                          return "Name Too long (Max 30 character)";
-                        }
-                      },
-                    ),
-                  ),
-                  Visibility(
-                    visible: isReceive == true,
-                    child: SenderTextEdit(
-                      keyy: "Receivable",
-                      data: _data,
-                      name: nameController,
-                      lebelText: "${widget.model.friendName} ?? "" ",
-                      hintText: " Receivable from",
-                      icon: Icons.person,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Name required";
-                        }
-                        if (value.length < 3) {
-                          return "Name Too Short. ( Min 3 character )";
-                        }if (value.length > 30) {
-                          return "Name Too long. ( Max 30 character )";
-                        }
-                      },
-                    ),
-                  ),
-                  SenderTextEdit(
-                    keyy: "Details",
-                    maxNumber: 4,
-                    data: _data,
-                    name:detailsController ,
-                    lebelText: widget.model.details ?? "",
-                    hintText: " Details",
-                    icon: Icons.details,
-                    function: (String value) {
-
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: MoneyTextFormField(
-                      settings: MoneyTextFormFieldSettings(
-                        controller: amountController,
-                        moneyFormatSettings: MoneyFormatSettings(
-                          amount: double.tryParse(widget.model.amount.toString()),
-                            currencySymbol: ' ৳ ',
-                            displayFormat: MoneyDisplayFormat.symbolOnLeft),
-                        appearanceSettings: AppearanceSettings(
-                          
-                            padding: EdgeInsets.all(15.0),
-                            hintText: 'Amount required',
-                            labelText: 'Amount ',
-                            labelStyle: myStyle(20,Colors.purple,FontWeight.w600),
-                            inputStyle: _ts.copyWith(color: Colors.purple),
-                            formattedStyle:
-                            _ts.copyWith(color: Colors.black54)),
-
+                      Visibility(
+                        visible: isPayable == true,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 25,),
+                              child: Text("Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                            ),
+                            SenderTextEdit(
+                              keyy: "Payable",
+                              data: _data,
+                              name: nameController,
+                              lebelText: "${widget.model.friendName} ?? ",
+                              //hintText: " Payable to",
+                              icon: Icons.person,
+                              function: (String value) {
+                                if (value.isEmpty) {
+                                  return "Name required";
+                                }
+                                if (value.length < 3) {
+                                  return "Name Too Short ( Min 3 character )";
+                                }if (value.length > 30) {
+                                  return "Name Too long (Max 30 character)";
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // ignore: deprecated_member_use
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: RaisedButton(
-                      onPressed:() {
-                        if (!_formKey.currentState.validate()) return;
-                        _formKey.currentState.save();
-                        print("tap");
-                        final note = MyTransectionModel(
-                          amount: double.parse(amountController.text.toString()),
-                          details:detailsController.text.toString(),
-                          date: _currentDate.toString(),
-                          eventId: widget.model.eventId.toInt(),
-                          transactionTypeId: widget.model.transactionTypeId.toInt(),
-                          eventType: widget.model.eventType.toString(),
-                        );
-                        final payableNote = MyTransectionModel(
-                          amount: double.parse(amountController.text.toString()),
-                          details:detailsController.text.toString(),
-                          date: _currentDate.toString(),
-                          eventId: widget.model.eventId,
-                          transactionTypeId: widget.model.transactionTypeId,
-                          eventType: widget.model.eventType.toString(),
-                          friendName: nameController.text.toString(),
-                        );
-                        widget.type == "Earning"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateEarning(note)
-                            : widget.type == "Expenditure"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateExpenditure(note)
-                            : widget.type == "Payable"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updatePayable(payableNote)
-                            : widget.type == "Receivable"
-                            ? amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateReceivable(payableNote)
-                            : "";
-                        setState(() {
-                          amountController.clear();
-                          detailsController.clear();
-                        });
-                        print("event id is : ${widget.model.eventId.toString()}");
-                      },
-                      color: Colors.purple,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
+                      Visibility(
+                        visible: isReceive == true,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 25,),
+                              child: Text("Receivable drom",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                            ),
+                            SenderTextEdit(
+                              keyy: "Receivable",
+                              data: _data,
+                              name: nameController,
+                              lebelText: "${widget.model.friendName} ?? "" ",
+                              // hintText: " Receivable from",
+                              icon: Icons.person,
+                              function: (String value) {
+                                if (value.isEmpty) {
+                                  return "Name required";
+                                }
+                                if (value.length < 3) {
+                                  return "Name Too Short. ( Min 3 character )";
+                                }if (value.length > 30) {
+                                  return "Name Too long. ( Max 30 character )";
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 25,),
+                        child: Text("Details",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                      ),
+                      SenderTextEdit(
+                        keyy: "Details",
+                        maxNumber: 4,
+                        data: _data,
+                        name:detailsController ,
+                        lebelText: widget.model.details ?? "",
+                        hintText: " Details",
+                        icon: Icons.details,
+                        function: (String value) {
 
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 100,
+                        },
                       ),
-                      child: Text(
-                        "Submit",
-                        style: myStyle(18, Colors.white),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: MoneyTextFormField(
+                          settings: MoneyTextFormFieldSettings(
+                            controller: amountController,
+                            moneyFormatSettings: MoneyFormatSettings(
+                                amount: double.tryParse(widget.model.amount.toString()),
+                                currencySymbol: ' ৳ ',
+                                displayFormat: MoneyDisplayFormat.symbolOnLeft),
+                            appearanceSettings: AppearanceSettings(
+
+                                padding: EdgeInsets.all(15.0),
+                                hintText: 'Amount required',
+                                labelText: 'Amount ',
+                                labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                                inputStyle: _ts.copyWith(color: Colors.white),
+                                formattedStyle:
+                                _ts.copyWith(color: Colors.white)),
+
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      // ignore: deprecated_member_use
+
+                    ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+            Positioned(
+              bottom: 8,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: BrandColors.colorPrimaryDark,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(left: 12),
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(
+                                color: Colors.deepPurpleAccent, width: 1.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white70,
+                                size: 15,
+                              ),
+                              Text(
+                                "Go Back",
+                                style: myStyle(16, Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: InkWell(
+                        onTap: () {
+                          if (!_formKey.currentState.validate()) return;
+                          _formKey.currentState.save();
+                          print("tap");
+                          final note = MyTransectionModel(
+                            amount: double.parse(amountController.text.toString()),
+                            details:detailsController.text.toString(),
+                            date: _currentDate.toString(),
+                            eventId: widget.model.eventId.toInt(),
+                            transactionTypeId: widget.model.transactionTypeId.toInt(),
+                            eventType: widget.model.eventType.toString(),
+                          );
+                          final payableNote = MyTransectionModel(
+                            amount: double.parse(amountController.text.toString()),
+                            details:detailsController.text.toString(),
+                            date: _currentDate.toString(),
+                            eventId: widget.model.eventId,
+                            transactionTypeId: widget.model.transactionTypeId,
+                            eventType: widget.model.eventType.toString(),
+                            friendName: nameController.text.toString(),
+                          );
+                          widget.type == "Earning"
+                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateEarning(note)
+                              : widget.type == "Expenditure"
+                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateExpenditure(note)
+                              : widget.type == "Payable"
+                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updatePayable(payableNote)
+                              : widget.type == "Receivable"
+                              ? amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateReceivable(payableNote)
+                              : "";
+                          setState(() {
+                            amountController.clear();
+                            detailsController.clear();
+                          });
+                          print("event id is : ${widget.model.eventId.toString()}");
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(left: 12),
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.deepPurpleAccent,
+                            border: Border.all(
+                                color: Colors.deepPurpleAccent,
+                                width: 1.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Proceed",
+                                style: myStyle(16, Colors.white),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                color: Colors.white70,
+                                size: 15,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
       ),
     );
   }
@@ -319,10 +410,13 @@ class _EditTransactionState extends State<EditTransaction> {
         if (data.statusCode == 201) {
           return {print("Earaning Data updated succesfully"),
             showInSnackBar("Updated successfully"),
+          Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
+
                 onProgress=false;
                 Navigator.of(context).pop();
+
               });
             }),
           };
@@ -355,12 +449,11 @@ class _EditTransactionState extends State<EditTransaction> {
       if (data.statusCode == 201) {
         return {
           print("Expenditure Data updated succesfully"),
-          setState(() {
-            amountController.clear();
-          }),
+          Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
           showInSnackBar("Updated successfully"),
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
+              amountController.clear();
               onProgress=false;
               Navigator.of(context).pop();
             });
@@ -388,6 +481,7 @@ class _EditTransactionState extends State<EditTransaction> {
         return {
           print("payable Data updated succesfully"),
           showInSnackBar("Updated successfully"),
+          Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               onProgress=false;
@@ -417,7 +511,9 @@ class _EditTransactionState extends State<EditTransaction> {
       if (data.statusCode == 201) {
         print("updated value ${data.body}");
           print("Receivable Data updated successfully");
+        Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
           showInSnackBar("Updated successfully");
+
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               onProgress=false;

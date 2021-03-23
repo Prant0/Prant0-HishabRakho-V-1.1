@@ -89,8 +89,9 @@ class _RegistationPageState extends State<RegistationPage> {
     File pickedImage = await ImagePicker.pickImage(source: ImageSource.camera);
     if(pickedImage !=null){
       _cropImage(pickedImage);
+      Navigator.pop(context);
     }
-    Navigator.pop(context);
+
   }
 
   selectImage(parentContext) {
@@ -748,7 +749,10 @@ class SenderTextEdit extends StatelessWidget {
           labelText: hintText,
           hintStyle: TextStyle(color: BrandColors.colorDimText),
 
-          suffixIcon: suffixIcon,
+          suffixIcon: Icon(
+            suffixIcon,
+            color: BrandColors.colorDimText,
+          ),
           prefixIcon: Icon(
             icon,
             color: BrandColors.colorDimText,

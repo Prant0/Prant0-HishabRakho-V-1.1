@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -50,10 +49,8 @@ class _EarningFormState extends State<EarningForm> {
   TextStyle _ts = TextStyle(fontSize: 18.0);
   bool isCash = false;
   List mfsList;
- // String _myMfs;
   String cashId;
-  List bankList;
- // String _myBank;
+
   String storageHubId;
   bool isGetMoneyNow = false;
   bool isGetMoneyLater = false;
@@ -62,8 +59,7 @@ class _EarningFormState extends State<EarningForm> {
   bool others = true;
   bool x = false;
   bool y = false;
-  bool z = false;
-
+bool transactionType =false;
   @override
   void initState() {
     check().then((intenet) {
@@ -71,7 +67,6 @@ class _EarningFormState extends State<EarningForm> {
         if (mounted) {
           loanTypee();
         }
-
       } else
         showInSnackBar("No Internet Connection");
     });
@@ -134,10 +129,9 @@ class _EarningFormState extends State<EarningForm> {
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
-        firstDate: DateTime(DateTime.now().year - 7),
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -153,22 +147,6 @@ class _EarningFormState extends State<EarningForm> {
   String storageType;
   int id;
   String moneyType;
-
-  List<String> _getMoneyType = [
-    "Get Money Now",
-    "Get Money Later",
-  ];
-
-  List<String> _expenditureMoneyType = [
-    "Pay Now",
-    "Pay Later",
-  ];
-
-  List<String> _getStorageHub = [
-    "BANK",
-    "MFS",
-    "CASH",
-  ];
 
   Future<bool> check() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
@@ -214,7 +192,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -257,7 +235,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -305,7 +283,7 @@ class _EarningFormState extends State<EarningForm> {
                 amountController.clear();
                 receiveFrom.clear();
               });
-              showInSnackBar("Add successfully");
+              showInSnackBar("Added successfully");
               Future.delayed(const Duration(seconds: 1), () {
                 setState(() {
                   Navigator.of(context).pop();
@@ -348,7 +326,7 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Add successfully");
+          showInSnackBar("Added successfully");
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
@@ -400,7 +378,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -444,7 +422,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -488,7 +466,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -528,7 +506,7 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Add successfully");
+          showInSnackBar("Added successfully");
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
@@ -581,7 +559,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -625,7 +603,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -668,7 +646,7 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Add successfully");
+            showInSnackBar("Added successfully");
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
@@ -710,7 +688,7 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Add successfully");
+          showInSnackBar("Added successfully");
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
@@ -739,7 +717,7 @@ class _EarningFormState extends State<EarningForm> {
           value,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.indigo,
       ),
     );
   }
@@ -801,14 +779,6 @@ class _EarningFormState extends State<EarningForm> {
       resizeToAvoidBottomInset: true,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
-      /* appBar: AppBar(
-        backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text(
-          widget.title,
-          style: myStyle(17, Colors.white, FontWeight.w700),
-        ),
-
-      ),*/
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
         child: Container(
@@ -826,15 +796,22 @@ class _EarningFormState extends State<EarningForm> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                widget.title,
-                                style:
-                                myStyle(18, Colors.white, FontWeight.w700),
+                              FittedBox(
+                                child: Text(
+                                  widget.title,
+                                  style:
+                                  myStyle(17, Colors.white, FontWeight.w700),overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 20,
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
                               )
                             ],
                           ),
@@ -945,6 +922,7 @@ class _EarningFormState extends State<EarningForm> {
                                         : "Get Money Now";
                                     x = true;
                                     y = false;
+                                    transactionType =true;
                                     isGetMoneyNow = true;
                                     isGetMoneyLater = false;
                                   });
@@ -976,8 +954,10 @@ class _EarningFormState extends State<EarningForm> {
                                     updateColor(2);
                                     x = false;
                                     y = false;
+                                    transactionType =true;
                                     isGetMoneyNow = false;
                                     isGetMoneyLater = true;
+                                    isStorage=true;
                                     moneyType = widget.name == "Expenditure"
                                         ? "Pay Later"
                                         : "Get Money Later";
@@ -1053,7 +1033,6 @@ class _EarningFormState extends State<EarningForm> {
                                         isMfs = false;
                                         isCash = false;
                                         isStorage=false;
-                                        //getBankDetails();
 
                                       });
                                     },
@@ -1077,7 +1056,7 @@ class _EarningFormState extends State<EarningForm> {
                                         isCash = false;
                                         isStorage=false;
                                       });
-                                    // getMfsDetails();
+
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(right: 10),
@@ -1097,268 +1076,10 @@ class _EarningFormState extends State<EarningForm> {
 
                             ],
                           ),
-                        )
-
-                        /*Container(
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            setState(() {
-                              updateStorage(1);
-                            });
-                            print("ppppppppppppppp");
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 11),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: cashColor,
-                                border: Border.all(color: Colors.white)
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.money_sharp,color: Colors.white70,),
-                                SizedBox(width: 6,),
-                                Text( "Cash" ,style: myStyle(14,Colors.white),),
-                              ],
-                            )
-                          ),
                         ),
-
-
-                        GestureDetector(
-                          onTap: (){
-                            setState(() {
-                              updateStorage(2);
-                            });
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left: 15),
-                            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: bankColor,
-                                border: Border.all(color: Colors.white)
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.credit_card_rounded,color: Colors.white70,),
-                                SizedBox(width: 6,),
-                                Text( "Bank" ,style: myStyle(14,Colors.white),),
-                              ],
-                            )
-                          ),
-                        ),
-
-                        GestureDetector(
-                          onTap: (){
-                            setState(() {
-                              updateStorage(3);
-                            });
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left: 15),
-                            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: mfsColor,
-                                border: Border.all(color: Colors.white)
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.mobile_screen_share_outlined,color: Colors.white70,),
-                                SizedBox(width: 6,),
-                                Text( "MFS" ,style: myStyle(14,Colors.white),),
-                              ],
-                            )
-                          ),
-                        )
-                      ],
-                    ),
-                  ),*/
-
-                        /*Visibility(
-                    visible: others == true,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      margin:
-                          EdgeInsets.symmetric(vertical: 15),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.circular(12.0)),
-                      //margin: EdgeInsets.only(top: 20),
-                      height: 60,
-                      child: Center(
-                        child: DropdownButtonFormField<String>(
-                          isExpanded: true,
-                          icon: Icon(
-                            Icons.arrow_drop_down,
-                            size: 35,
-                          ),
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          value: moneyType,
-                          hint: Text(
-                            'Choose Type',
-                            overflow: TextOverflow.ellipsis,
-                            style:
-                                TextStyle(color: Colors.purple, fontSize: 16),
-                          ),
-                          validator: (value) =>
-                              value == null ? 'field required' : null,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              moneyType = newValue;
-                            });
-                          },
-                          items: widget.name == "Expenditure"
-                              ? _expenditureMoneyType.map((String weightvalue) {
-                                  return DropdownMenuItem(
-                                    value: weightvalue,
-                                    child: Text(
-                                      "$weightvalue ",
-                                      style: myStyle(16, Colors.purple),
-                                    ),
-                                    onTap: () {
-                                      if (weightvalue == "Pay Now") {
-                                        moneyType = "Pay Now";
-                                        setState(() {
-                                          x = true;
-                                          y = false;
-                                          isGetMoneyNow = true;
-                                          isGetMoneyLater = false;
-                                        });
-                                      } else {
-                                        weightvalue = "Pay Later";
-                                        setState(() {
-                                          x = false;
-                                          y = false;
-                                          isGetMoneyNow = false;
-                                          isGetMoneyLater = true;
-                                          moneyType = "Pay Later";
-                                        });
-                                      }
-
-                                      print("value is :${moneyType}");
-                                    },
-                                  );
-                                }).toList()
-                              : _getMoneyType.map((String weightvalue) {
-                                  return DropdownMenuItem(
-                                    value: weightvalue,
-                                    child: Text(
-                                      "$weightvalue ",
-                                      style: myStyle(16, Colors.purple),
-                                    ),
-                                    onTap: () {
-                                      if (weightvalue == "Get Money Now") {
-                                        moneyType = "Get Money Now";
-                                        setState(() {
-                                          x = true;
-                                          y = false;
-                                          isGetMoneyNow = true;
-                                          isGetMoneyLater = false;
-                                        });
-                                      } else {
-                                        weightvalue = "Get Money Later";
-                                        setState(() {
-                                          x = false;
-                                          y = false;
-                                          isGetMoneyNow = false;
-                                          isGetMoneyLater = true;
-                                          moneyType = "Get Money Later";
-                                        });
-                                      }
-
-                                      print("value is :${moneyType}");
-                                    },
-                                  );
-                                }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),*/
-
-                        /*Visibility(
-                          visible: isGetMoneyNow == true,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            margin: EdgeInsets.symmetric(vertical: 15),
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(12.0)),
-                            //margin: EdgeInsets.only(top: 20),
-                            height: 60,
-                            child: Center(
-                              child: DropdownButtonFormField<String>(
-                                isExpanded: true,
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  size: 30,
-                                ),
-                                decoration:
-                                    InputDecoration.collapsed(hintText: ''),
-                                hint: Text(
-                                  "Choose Storage Hub ",
-                                  style: myStyle(16, Colors.white),
-                                ),
-                                value: storageType,
-                                style: myStyle(16, Colors.purple),
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    storageType = newValue;
-                                  });
-                                },
-                                validator: (value) =>
-                                    value == null ? 'field required' : null,
-                                items:
-                                    _getStorageHub.map((String storageValue) {
-                                  return DropdownMenuItem(
-                                    value: storageValue,
-                                    child: Text("$storageValue "),
-                                    onTap: () {
-                                      if (storageValue == "BANK") {
-                                        setState(() {
-                                          id = 5;
-                                          y = true;
-                                          z = false;
-                                          isBank = true;
-                                          isMfs = false;
-                                          isCash = false;
-                                          getBankDetails();
-                                        });
-                                      } else if (storageValue == "MFS") {
-                                        id = 6;
-                                        y = false;
-                                        z = true;
-                                        isBank = false;
-                                        isMfs = true;
-                                        isCash = false;
-                                        getMfsDetails();
-                                      } else {
-                                        storageValue = "CASH";
-                                        id = 7;
-                                        y = false;
-                                        z = false;
-                                        isBank = false;
-                                        isMfs = false;
-                                        isCash = true;
-                                        getCashDetails();
-                                      }
-                                      print(id);
-                                      print("Cash  value is $cashId");
-                                    },
-                                  );
-                                }).toList(),
-                              ),
-                            ),
-                          ),
-                        ),*/,
                         SizedBox(height: 10,),
-
                         Visibility(
-                            visible: isBank==true,
+                            visible:isGetMoneyNow && isBank==true,
                             child: GestureDetector(
                               onTap: () async {
                                 List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
@@ -1374,6 +1095,7 @@ class _EarningFormState extends State<EarningForm> {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 15),
+                                margin: EdgeInsets.symmetric(vertical: 15,),
                                 height: 60,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -1390,7 +1112,7 @@ class _EarningFormState extends State<EarningForm> {
                             )
                         ),
                         Visibility(
-                            visible: isMfs==true,
+                            visible:isGetMoneyNow && isMfs==true,
                             child:GestureDetector(
                               onTap: () async {
                                 List bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs(
@@ -1405,6 +1127,7 @@ class _EarningFormState extends State<EarningForm> {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 15),
+                                margin: EdgeInsets.symmetric(vertical: 15,),
                                 height: 60,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -1422,135 +1145,6 @@ class _EarningFormState extends State<EarningForm> {
 
                         ),
 
-
-
-                        /* Visibility(
-                          visible: isBank == true,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            margin: EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                                color: BrandColors.colorPrimary,
-                                border:
-                                    Border.all(color: Colors.white, width: 1),
-                                borderRadius: BorderRadius.circular(12.0)),
-                            //margin: EdgeInsets.only(top: 20),
-                            height: 60,
-                            child: Center(
-                              child: DropdownButtonFormField<String>(
-                                dropdownColor: BrandColors.colorPrimary,
-                                isExpanded: true,
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                decoration:
-                                    InputDecoration.collapsed(hintText: ''),
-                                hint: Text(
-                                  "Select Bank ",
-                                  style: myStyle(16, Colors.white),
-                                ),
-                                validator: (value) =>
-                                    value == null ? 'field required' : null,
-                                value: _myBank,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _myBank = newValue;
-                                    print("my Bank is ${_myBank}");
-                                    // print();
-                                  });
-                                },
-                                items: bankList?.map((item) {
-                                      return new DropdownMenuItem(
-                                        child: new Text(
-                                            "${item['storage_hub_name']} ${item['user_storage_hub_account_number']}"),
-                                        value: item['id'].toString(),
-                                      );
-                                    })?.toList() ??
-                                    [],
-                              ),
-                            ),
-                          ),
-                        ),*/
-                        /*Visibility(
-                          visible: isMfs == true,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            margin: EdgeInsets.symmetric(vertical: 15),
-                            decoration: BoxDecoration(
-                                color: BrandColors.colorPrimary,
-                                border:
-                                Border.all(color: Colors.white, width: 1),
-                                borderRadius: BorderRadius.circular(12.0)),
-                            //margin: EdgeInsets.only(top: 20),
-                            height: 60,
-                            child: Center(
-                              child: DropdownButtonFormField<String>(
-                                dropdownColor: BrandColors.colorPrimary,
-                                isExpanded: true,
-                                icon: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                                decoration:
-                                InputDecoration.collapsed(hintText: ''),
-                                hint: Text(
-                                  "Select MFS ",
-                                  style: myStyle(16, Colors.white),
-                                ),
-                                validator: (value) =>
-                                value == null ? 'field required' : null,
-                                value: _myMfs,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    _myMfs = newValue;
-                                    print("my Mfs is ${_myMfs}");
-                                    // print();
-                                  });
-                                },
-                                items: mfsList?.map((item) {
-                                  return new DropdownMenuItem(
-                                    child: new Text(
-                                        "${item['storage_hub_name']} ${item['user_storage_hub_account_number']}"),
-                                    value: item['id'].toString(),
-                                  );
-                                })?.toList() ??
-                                    [],
-                              ),
-                            ),
-                          ),
-                        ),*/
-                        /*SenderTextEdit(
-                    keytype: TextInputType.number,
-                    formatter:  <TextInputFormatter>[
-                     */ /* FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      CurrencyInputFormatter(),*/ /*
-                    ],
-                    keyy: "amount",
-                    data: _data,
-                    name: amountController,
-                    lebelText: "Enter Amount",
-                    hintText: "Amount",
-                    icon: Icons.money,
-                    function: (String value) {
-                      if (value.isEmpty) {
-                        return "Amount required";
-                      }
-                      if (value.length > 16) {
-                        return "Amount Too long. ( Max 12 digit)";
-                      }
-                    },
-                  ),*/
                         SenderTextEdit(
                           keyy: "receive",
                           data: _data,
@@ -1623,38 +1217,7 @@ class _EarningFormState extends State<EarningForm> {
                         SizedBox(
                           height: 10,
                         ),
-                        /*RaisedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-                          print("widget name ${widget.name}");
-                          widget.name == "Earning"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : uploadEarningData(context)
-                              : widget.name == "Expenditure"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : uploadExpenditureData(context)
-                              : widget.name == "Loan"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : uploadLoanData(context)
-                              : amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : uploadFundData(context);
-                        },
-                        color: Colors.purple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 100,
-                        ),
-                        child: Text(
-                          "Submit",
-                          style: myStyle(18, Colors.white),
-                        ),
-                      ),*/
+
                         SizedBox(
                           height: 200,
                         ),
@@ -1712,7 +1275,7 @@ class _EarningFormState extends State<EarningForm> {
                                 if (!_formKey.currentState.validate()) return;
                                 _formKey.currentState.save();
                                 print("widget name ${widget.name}");
-                                isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
+                                transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
                                     ?  uploadEarningData(context)
                                     : widget.name == "Expenditure"
                                     ?
@@ -1758,36 +1321,8 @@ class _EarningFormState extends State<EarningForm> {
     );
   }
 
-  Future<dynamic> getBankDetails() async {
-    setState(() {
-      onProgress = true;
-    });
-    await CustomHttpRequests.bankDetails().then((responce) {
-      var dataa = json.decode(responce.body);
-      setState(() {
-        bankList = dataa;
-        bankList.isEmpty ? showInSnackBar("Empty Bank Storage") : "";
-        onProgress = false;
-        print("aaaaaaaaaaaaaaaaaaaaaaaaa${bankList}");
-      });
-    });
-  }
 
-  Future<dynamic> getMfsDetails() async {
-    setState(() {
-      onProgress = true;
-    });
-    await CustomHttpRequests.mfsDetails().then((responce) {
-      var dataa = json.decode(responce.body);
 
-      setState(() {
-        mfsList = dataa;
-        mfsList.isEmpty ? showInSnackBar("Empty MFS Storage") : "";
-        onProgress = false;
-        print("bbbbbbbbbbbbbbbbbbbb${mfsList}");
-      });
-    });
-  }
 
   Future<dynamic> getCashDetails() async {
     await CustomHttpRequests.cashDetails().then((responce) {

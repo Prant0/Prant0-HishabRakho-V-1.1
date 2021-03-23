@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -23,7 +24,7 @@ class _ChooseBankState extends State<ChooseBank> {
 
   Future<List<BankModel>> getUserBankData()async{
     if(widget.types=="single"){
-      print("llllllllll");
+      print("single");
       var data = await http.get("http://api.hishabrakho.com/api/user/personal/banks",headers: await CustomHttpRequests.getHeaderWithToken());
       var jsonData = json.decode(data.body);
       print(jsonData);
@@ -45,7 +46,6 @@ class _ChooseBankState extends State<ChooseBank> {
       print("${bankList.length}");
       return bankList;
     }else{
-
       var data = await http.get("http://api.hishabrakho.com/api/bank/details",headers: await CustomHttpRequests.getHeaderWithToken());
       var jsonData = json.decode(data.body);
       print(jsonData);
@@ -70,27 +70,8 @@ class _ChooseBankState extends State<ChooseBank> {
   }
 
 
-  /* Future<List<BankModel>> fetchUserBankList()async{
-    try{
-      final responce = await http.get("http://api.hishabrakho.com/api/user/personal/banks",headers:await CustomHttpRequests.getHeaderWithToken());
-      if(20==responce.statusCode){
-        final List<BankModel> bankModels = bankModelFromJson(responce.body);
-        print("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        return bankModels;
-      }else{
-        // ignore: deprecated_member_use
-        return List<BankModel>();
-      }
-    }
-    catch(e){
-      // ignore: deprecated_member_use
-      return List<BankModel>();
-    }
-  }*/
-
   @override
   void initState() {
-    print("llll");
     getUserBankData();
     super.initState();
   }
@@ -98,11 +79,12 @@ class _ChooseBankState extends State<ChooseBank> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text("Your Bank",style: myStyle(20,Colors.white,FontWeight.w600),),
+        title: Text(widget.types=="single"? "My Bank" : "Bank Storage",style: myStyle(20,Colors.white,FontWeight.w600),),
       ),
 
       body: ModalProgressHUD(
@@ -111,9 +93,10 @@ class _ChooseBankState extends State<ChooseBank> {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Container(
 
+                  child: _searchBar(),
                 ),
               ),
               Expanded(
@@ -145,20 +128,26 @@ class _ChooseBankState extends State<ChooseBank> {
                                 list.add(bankList[index].storageHubName.toString());
                                 Navigator.of(context).pop(list);
                               },
-                              child: Column(
+                              child: Flex(
+                                mainAxisAlignment:MainAxisAlignment.center,
+                                direction: Axis.vertical,
+                               // mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-
+                                   //
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
                                       color: BrandColors.colorPrimary
                                     ),
-                                    padding: EdgeInsets.all(18),
-                                    width: 100,height: 100,
-                                    child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}"),
+                                   // padding: EdgeInsets.all(18),
+
+                                   // width: 100,height: 100,
+                                    child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}",fit: BoxFit.fill,height: 80,width: 80,),
                                   ),
-                                  SizedBox(height:15 ,),
-                                  Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(16,Colors.white),)
+                                  SizedBox(height:12 ,),
+                                  Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(16,Colors.white),overflow: TextOverflow.ellipsis,),
+                                  widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(16,BrandColors.colorDimText),overflow: TextOverflow.ellipsis,) :SizedBox(height: 2,)
+
                                 ],
                               ),
                             );
@@ -174,6 +163,57 @@ class _ChooseBankState extends State<ChooseBank> {
       ),
     );
   }
+
+
+  _searchBar(){
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24,),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(18.0)),
+      child: TextField(
+          style:myStyle(16,Colors.white,FontWeight.w600),
+          decoration: InputDecoration(
+            hintStyle: myStyle(16,Colors.white,FontWeight.w600),
+            hintText: "Search",
+            filled: true,
+            focusedBorder: InputBorder.none,
+            suffixIcon: Icon(Icons.search,color: BrandColors.colorDimText,),
+            contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+            fillColor: BrandColors.colorPrimary,
+          ),
+          onChanged: (text){
+            text=text.toLowerCase();
+            setState(() {
+              bankList=bankList.where((post) {
+                var postTitle = post.storageHubName.toLowerCase();
+                return postTitle.contains(text);
+              }).toList();
+            });
+          },
+        ),
+
+    );
+  }
+  /* _searchBar(){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: TextField(
+        style:myStyle(16,Colors.white,FontWeight.w600),
+        decoration: InputDecoration(
+          hintStyle: myStyle(16,Colors.white,FontWeight.w600),
+          hintText: "Search"
+        ),
+        onChanged: (text){
+          text=text.toLowerCase();
+          setState(() {
+            bankList=bankList.where((post) {
+              var postTitle = post.storageHubName.toLowerCase();
+              return postTitle.contains(text);
+            }).toList();
+          });
+        },
+      ),
+    );
+  }*/
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(
       new SnackBar(
@@ -181,7 +221,7 @@ class _ChooseBankState extends State<ChooseBank> {
           value,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.indigo,
       ),
     );
   }

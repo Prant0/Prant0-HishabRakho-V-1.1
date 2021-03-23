@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -35,7 +36,7 @@ class _ChooseMfsState extends State<ChooseMfs> {
           userStorageHubAccountNumber: u["user_storage_hub_account_number"],
         );
         try {
-          mfsList.firstWhere((element) => element.id == u["id"]);
+          mfsList.firstWhere((element) => element.balance == u["balance"]);
         }
         catch(e){
           mfsList.add(bankModel);
@@ -79,7 +80,7 @@ class _ChooseMfsState extends State<ChooseMfs> {
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text("Your Bank",style: myStyle(20,Colors.white,FontWeight.w600),),
+        title: Text("Your MFS",style: myStyle(20,Colors.white,FontWeight.w600),),
       ),
 
       body: ModalProgressHUD(
@@ -88,9 +89,9 @@ class _ChooseMfsState extends State<ChooseMfs> {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 1,
                 child: Container(
-
+                  child: _searchBar(),
                 ),
               ),
               Expanded(
@@ -106,40 +107,49 @@ class _ChooseMfsState extends State<ChooseMfs> {
                         );
                       }else
                       {
-                        return GridView.builder(
-                          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2
-                          ),
+                        return Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: GridView.builder(
+                            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 2,
+                                mainAxisSpacing: 2
+                            ),
 
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (BuildContext context,int index){
-                            return GestureDetector(
-                              onTap: (){
-                                List list =[];
-                                list.add(mfsList[index].id.toString());
-                                list.add(mfsList[index].storageHubName.toString());
-                                Navigator.of(context).pop(list);
-                              },
-                              child: Column(
-                                children: [
-                                  Container(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (BuildContext context,int index){
+                              return GestureDetector(
+                                onTap: (){
+                                  List list =[];
+                                  list.add(mfsList[index].id.toString());
+                                  list.add(mfsList[index].storageHubName.toString());
+                                  Navigator.of(context).pop(list);
+                                },
+                                child: Flex(
+                                  mainAxisAlignment:MainAxisAlignment.center,
+                                  direction: Axis.vertical,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      //
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          color: BrandColors.colorPrimary
+                                      ),
+                                      // padding: EdgeInsets.all(18),
 
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: BrandColors.colorPrimary
+                                      // width: 100,height: 100,
+                                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}",fit: BoxFit.fill,height: 80,width: 80,),
                                     ),
-                                    padding: EdgeInsets.all(18),
-                                    width: 100,height: 100,
-                                    child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}"),
-                                  ),
-                                  SizedBox(height:15 ,),
-                                  Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(16,Colors.white),)
-                                ],
-                              ),
-                            );
-                          },
+                                    SizedBox(height:12 ,),
+                                    Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(16,Colors.white),overflow: TextOverflow.ellipsis,),
+                                    widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(16,BrandColors.colorDimText),) :SizedBox()
+
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         );
                       }
                     },
@@ -149,6 +159,35 @@ class _ChooseMfsState extends State<ChooseMfs> {
           ),
         ),
       ),
+    );
+  }
+
+  _searchBar(){
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24,),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(18.0)),
+      child: TextField(
+        style:myStyle(16,Colors.white,FontWeight.w600),
+        decoration: InputDecoration(
+          hintStyle: myStyle(16,Colors.white,FontWeight.w600),
+          hintText: "Search",
+          filled: true,
+          focusedBorder: InputBorder.none,
+          suffixIcon: Icon(Icons.search,color: BrandColors.colorDimText,),
+          contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+          fillColor: BrandColors.colorPrimary,
+        ),
+        onChanged: (text){
+          text=text.toLowerCase();
+          setState(() {
+            mfsList=mfsList.where((post) {
+              var postTitle = post.storageHubName.toLowerCase();
+              return postTitle.contains(text);
+            }).toList();
+          });
+        },
+      ),
+
     );
   }
   void showInSnackBar(String value) {

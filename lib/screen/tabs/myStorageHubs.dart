@@ -149,6 +149,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
   List<DashBoardModel> allData = [];
   DashBoardModel dashBoardModel;
   void loadDashBoardData() async {
+    allData.clear();
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/summary",
       headers: await CustomHttpRequests.getHeaderWithToken(),
@@ -183,6 +184,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: true,
       backgroundColor: BrandColors.colorPrimaryDark,
       drawer: Drawerr(_scaffoldKey),
       appBar: AppBar(
@@ -362,68 +364,76 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                     id: cashList[index].id,
                                     name: cashList[index]
                                         .storageHubName,
+
                                   )));
                     },
-                    child: Container(
-                        height: 80,
-                        margin: EdgeInsets.only(bottom: 25),
-                        padding: EdgeInsets.symmetric(horizontal: 25),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          color: BrandColors.colorPrimary,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Current Balance",
-                                  style: myStyle(14, BrandColors.colorDimText),
-                                ),
-                                Text(
-                                    NumberFormat
-                                        .compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(allData[
-                                    index]
-                                        .totalCashAmount ?? 0),
-                                    style: myStyle(
-                                        14, Colors.white))
-                              ],
+                    child: ListView.builder(
+                      itemCount: cashList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index){
+                        return Container(
+                            height: 80,
+                            margin: EdgeInsets.only(bottom: 25),
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              color: BrandColors.colorPrimary,
                             ),
-                            InkWell(
-                              onTap: () {
-                                String type = "cash";
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UpdateStorageHubCash(
-                                        model: cashList[index],
-                                        type: type,
-                                      )),
-                                ).then((value) => setState(() {
-                                  myCashDetails();
-                                }));
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.symmetric(vertical: 18),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(color: Colors.deepPurpleAccent)),
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 20,
-                                  color: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Current Balance",
+                                      style: myStyle(14, BrandColors.colorDimText),
+                                    ),
+                                    Text(
+                                        NumberFormat
+                                            .compactCurrency(
+                                          symbol: ' ৳ ',
+                                        ).format(cashList[
+                                        index]
+                                            .totalBalance ?? 0),
+                                        style: myStyle(
+                                            14, Colors.white))
+                                  ],
                                 ),
-                              ),
-                            )
-                          ],
-                        )),
+                                InkWell(
+                                  onTap: () {
+                                    String type = "cash";
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => UpdateStorageHubCash(
+                                            model: cashList[index],
+                                            type: type,
+                                          )),
+                                    ).then((value) => setState(() {
+                                      myCashDetails();
+                                      loadDashBoardData();
+                                    }));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.symmetric(vertical: 18),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(color: Colors.deepPurpleAccent)),
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ));
+                      },
+                    )
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 20),
@@ -444,6 +454,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                               )),
                             ).then((value) => setState(() {
                               mybankDetails();
+                              loadDashBoardData();
                             }));
                           },
                           child: Text(
@@ -654,6 +665,9 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                           id: bankList[index].id,
                                           name: bankList[index]
                                               .storageHubName,
+                                          image: bankList[index].photo,
+                                          number: bankList[index].userStorageHubAccountNumber,
+
                                         )));
                           },
                           child: StorageCart(
@@ -691,6 +705,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                     )),
                               ).then((value) => setState(() {
                                 mybankDetails();
+                                loadDashBoardData();
                               }));
                             },
 
@@ -717,6 +732,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                               )),
                             ).then((value) => setState(() {
                               myMfsDetails();
+                              loadDashBoardData();
                             }));
                           },
                           child: Text(
@@ -748,6 +764,8 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                           id: mfsList[index].id,
                                           name: mfsList[index]
                                               .storageHubName,
+                                          image: mfsList[index].photo,
+                                          number: mfsList[index].userStorageHubAccountNumber,
                                         )));
                           },
                           child: StorageCart(
@@ -784,6 +802,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                         )),
                               ).then((value) => setState(() {
                                 myMfsDetails();
+                                loadDashBoardData();
                               }));
                             },
 

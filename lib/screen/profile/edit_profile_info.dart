@@ -1,5 +1,7 @@
 
+import 'dart:convert';
 import 'dart:io';
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/providers/user_dertails_provider.dart';
@@ -12,6 +14,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditInfo extends StatefulWidget {
   final UserModel model;
@@ -34,19 +37,19 @@ class _EditInfoState extends State<EditInfo> {
 
   _cropImage(File pickedImage)async{
     File cropped = await ImageCropper.cropImage(
-      androidUiSettings:AndroidUiSettings(
-        lockAspectRatio: false,
-        statusBarColor: Colors.purpleAccent,
-        toolbarColor: Colors.purple,
-        toolbarTitle: "Crop Image",
-          toolbarWidgetColor: Colors.white
-      ) ,
+        androidUiSettings:AndroidUiSettings(
+            lockAspectRatio: false,
+            statusBarColor: Colors.purpleAccent,
+            toolbarColor: Colors.purple,
+            toolbarTitle: "Crop Image",
+            toolbarWidgetColor: Colors.white
+        ) ,
         sourcePath: pickedImage.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio16x9,
-        CropAspectRatioPreset.ratio4x3,
-      ]
+        aspectRatioPresets: [
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio16x9,
+          CropAspectRatioPreset.ratio4x3,
+        ]
     );
     if(cropped != null){
       setState(() {
@@ -57,6 +60,7 @@ class _EditInfoState extends State<EditInfo> {
 
 
   Future chooseGallery() async {
+    // ignore: deprecated_member_use
     File pickedImage = await ImagePicker.pickImage(source: ImageSource.gallery);
     if(pickedImage !=null){
       _cropImage(pickedImage);
@@ -119,10 +123,10 @@ class _EditInfoState extends State<EditInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       key:_scaffoldKey ,
-      backgroundColor: Colors.black54,
+      backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
         title: Text("Edit Info"),
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
         centerTitle: true,
       ),
       body: Form(
@@ -150,7 +154,7 @@ class _EditInfoState extends State<EditInfo> {
 
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+
                       borderRadius: BorderRadius.circular(18),
 
                     ),
@@ -160,7 +164,7 @@ class _EditInfoState extends State<EditInfo> {
                       data: _data,
                       name: nameController,
                       lebelText: "User Name",
-                      hintText: " ${widget.model.username}",
+                      //hintText: " ${widget.model.username}",
                       icon: Icons.person_outline_sharp,
                       function: (String value) {
                         if (value.isEmpty) {
@@ -209,7 +213,10 @@ class _EditInfoState extends State<EditInfo> {
     }
     return false;
   }
+  SharedPreferences sharedPreferences;
+  String img;
   Future updateProfile(BuildContext context) async {
+    sharedPreferences = await SharedPreferences.getInstance();
     try {
       check().then((intenet)async {
         if (intenet != null && intenet) {
@@ -230,7 +237,19 @@ class _EditInfoState extends State<EditInfo> {
         var responseString = String.fromCharCodes(responseData);
         print("responseBody " + responseString);
         if (response.statusCode == 201) {
+          await sharedPreferences.remove('image');
+          await sharedPreferences.remove('userName');
         print("responseBody1 " + responseString);
+        var data = jsonDecode(responseString);
+          setState(() {
+            sharedPreferences.setString("image", data['image']);
+            sharedPreferences.setString("userName", data['name']);
+
+          });
+          print("save image");
+          img = sharedPreferences.getString("image");
+          print('img is $img');
+          print('name is${sharedPreferences.getString("userName")}');
         showInSnackBar("update successful");
         Future.delayed(const Duration(seconds: 2), () {
         if(mounted){
@@ -269,5 +288,7 @@ class _EditInfoState extends State<EditInfo> {
       ),
       backgroundColor: Colors.purple,
     ));
+
+
   }
 }

@@ -329,15 +329,15 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
 
                                     Expanded(
                                         flex: 3,
-                                        child: Text(
+                                        child:Text(
                                           NumberFormat.currency(
                                               symbol: ' ৳ ',
                                               decimalDigits: (dataa[index]
                                                   .balance) is int ? 0 :2,
-                                              locale: "en-in").format(500.00),
+                                              locale: "en-in").format(dataa[index].balance),
                                           style: myStyle(
-                                              14, Colors.white),
-                                        ),
+                                              14,Colors.white),
+                                        )
                                     ),
                                   ],
                                 )
@@ -639,6 +639,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
         transactionTypeId: entries["transaction_type_id"],
         userPersonalStorageHubId: entries["user_personal_storage_hub_id"],
         amount: entries["amount"],
+        balance: entries["balance"],
         eventType: entries["event_type"],
         date: entries["date"],
         friendName: entries["friend_name"],
@@ -669,6 +670,8 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
         transactionTypeId: entries["transaction_type_id"],
         userPersonalStorageHubId: entries["user_personal_storage_hub_id"],
         amount: entries["amount"],
+        balance: entries["balance"],
+
         eventType: entries["event_type"],
         date: entries["date"],
         friendName: entries["friend_name"],
@@ -699,6 +702,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
         transactionTypeId: entries["transaction_type_id"],
         userPersonalStorageHubId: entries["user_personal_storage_hub_id"],
         amount: entries["amount"],
+        balance: entries["balance"],
         eventType: entries["event_type"],
         date: entries["date"],
         friendName: entries["friend_name"],

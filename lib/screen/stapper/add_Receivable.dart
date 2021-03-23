@@ -149,7 +149,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                           keyy: "pay",
                           data: _data,
                           name: nameController,
-                          lebelText: "Payable to",
+                          lebelText: "Receivable from",
                           icon: Icons.person,
                           function: (String value) {
                             if (value.isEmpty) {

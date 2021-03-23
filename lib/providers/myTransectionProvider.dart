@@ -61,6 +61,7 @@ class MyTransectionprovider with ChangeNotifier {
   MyTransectionModel model;
 
   void deleteTransaction(){
+    print("deleting transection");
     myEntriesList.clear();
     myReceivableEntriesList.clear();
     myPayableEntriesList.clear();
@@ -84,7 +85,9 @@ class MyTransectionprovider with ChangeNotifier {
   void deleteMyEntries(){
     _myEntriesList.clear();
   }
-  
+  void d(int id){
+    _myEarningEntriesList.removeWhere((element) => element.id==id);
+  }
 
   Future<dynamic> addEntryesHome() async {
     final data = await CustomHttpRequests.addEntriesHome();
@@ -147,7 +150,7 @@ class MyTransectionprovider with ChangeNotifier {
       );
       try {
         print(" my Recievable entries data are ${entries['id']}");
-        _myReceivableEntriesList.firstWhere((element) => element.id == entries['id']);
+        _myReceivableEntriesList.firstWhere((element) =>element.balance==entries["balance"]);
       } catch (e) {
         _myReceivableEntriesList.add(model);
       }
@@ -221,7 +224,7 @@ class MyTransectionprovider with ChangeNotifier {
 
   Future<dynamic> getMyExpenditureEntries() async {
     final data = await CustomHttpRequests.myExpendituresEntriesData();
-    print("my Expenditure data are the $data");
+    print("my Expenditure data are theee $data");
     for (var entries in data) {
       model = MyTransectionModel(
         id: entries["id"],
@@ -231,6 +234,9 @@ class MyTransectionprovider with ChangeNotifier {
         eventSubCategoryName: entries["event_sub_category_name"],
         friendName: entries["friend_name"],
         balance: entries["balance"],
+        eventType: entries["event_type"],
+        eventSubCategoryId: entries["event_sub_category_id"],
+        transactionTypeId: entries["transaction_type_id"],
       );
       try {
         print(" Expenditure entries ${entries['friend_name']}");

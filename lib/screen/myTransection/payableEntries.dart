@@ -38,13 +38,21 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
 
   @override
   void initState() {
-    getMyPayableEntries();
+    getTransectionData();
     super.initState();
   }
 
   MyTransectionModel model;
 
-  Future<dynamic> getMyPayableEntries() async {
+
+  getTransectionData() async {
+    print("get getMyPayableEntries");
+    final data = await Provider.of<MyTransectionprovider>(context, listen: false)
+        .getMyPayableEntries();
+    print("getMyPayableEntries  ${data.toString()}");
+  }
+
+ /* Future<dynamic> getMyPayableEntries() async {
     setState(() {
       onProgress=true;
     });
@@ -72,12 +80,14 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
         print(" Payable entries ${entries['id']}");
         list.firstWhere((element) => element.id == entries['id']);
       } catch (e) {
-        setState(() {
-          list.add(model);
-        });
+       if(mounted){
+         setState(() {
+           list.add(model);
+         });
+       }
       }
     }
-  }
+  }*/
 
   Color boxColor = Color(0xFF021A2C);
   double iconSize = 40;
@@ -85,6 +95,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
   bool onProgress = false;
   @override
   Widget build(BuildContext context) {
+    list = Provider.of<MyTransectionprovider>(context).myPayableEntriesList;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
@@ -194,10 +205,25 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
 
                     secondaryActions: <Widget>[
                       new IconSlideAction(
-                        caption: 'More',
+                        caption: 'Edit',
                         color: Colors.black45,
                         icon: Icons.more_horiz,
-                        // onTap: () => _showSnackBar('More'),
+                        onTap:  () {
+                          print(
+                              "transection type id :${list[index].transactionTypeId}");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditTransaction(
+                                        model: list[
+                                        index],
+                                        type: type,
+                                      ))) .then((value) => setState(() {
+                            getTransectionData();
+                          }));
+                        },
+
                       ),
                       new IconSlideAction(
                         caption: 'Delete',

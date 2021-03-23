@@ -189,12 +189,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                     ),
 
                     secondaryActions: <Widget>[
-                      new IconSlideAction(
-                        caption: 'More',
-                        color: Colors.black45,
-                        icon: Icons.more_horiz,
-                       // onTap: () => _showSnackBar('More'),
-                      ),
+
                       new IconSlideAction(
                         caption: 'Delete',
                         color: Colors.red,

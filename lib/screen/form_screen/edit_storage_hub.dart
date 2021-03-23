@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/services.dart';
 import 'package:anthishabrakho/screen/home_page.dart';
 import 'package:http/http.dart' as http;
@@ -68,9 +70,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
       isBank = false;
     }
   }
-  initialValue(val) {
-    return TextEditingController(text: widget.model.userStorageHubAccountName);
-  }
+
+
   TextStyle _ts = TextStyle(fontSize: 18.0);
 
 
@@ -86,8 +87,9 @@ class _EditStorageHubState extends State<EditStorageHub> {
     print("Update type isssss :${widget.type} ");
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Storage Hub",
           style: TextStyle(fontSize: 18),
@@ -95,18 +97,25 @@ class _EditStorageHubState extends State<EditStorageHub> {
         centerTitle: true,
       ),
       body: ModalProgressHUD(
+
+        progressIndicator: Spin(),
         inAsyncCall: isLoading,
         child: Container(
+          height: double.infinity,padding: EdgeInsets.symmetric(horizontal: 20),
+
           child: Form(
             key:_formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                  ),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 50.0,
+                      ),
 
-                  /*SenderTextEdit(
+                      /*SenderTextEdit(
                     formatter: <TextInputFormatter>[
 
                     ],
@@ -129,111 +138,213 @@ class _EditStorageHubState extends State<EditStorageHub> {
                       }
                     },
                   ),*/
-                  Visibility(
-                    visible: isBank == true,
-                    child: SenderTextEdit(
-                      keyy: "name",
-                      data: _data,
-                      name:nameController,
-                      //initialText: widget.model.userStorageHubAccountName,
-                      hintText: "Account Name",
-                      lebelText:  "Account Name" ,
-                      icon: Icons.drive_file_rename_outline,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Account Name required";
-                        }
-                        if (value.length < 3) {
-                          return "Account Name is Too Short. ( Min 3 character )";
-                        }
-                        if (value.length > 30) {
-                          return "Account Name is Too Long. ( Max 30 character )";
-                        }
-                      },
-                    ),
-                  ),
-                  Visibility(
-                    visible: isBank == true || isMfs == true,
-                    child: SenderTextEdit(
-                      keytype: TextInputType.number,
-                      formatter:  <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      ],
-                      keyy: "number",
-                      data: _data,
-                      name:  accountnumber,
-                      lebelText: "Account Number",
-                      hintText: "Account Number",
-                      icon: Icons.confirmation_number_outlined,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Account Number required";
-                        }
-                        if (value.length < 11) {
-                          return "Account Number is Too Short( Min 11 digit )";
-                        }
-                        if (value.length > 18) {
-                          return "Account Number is Too Long ( Max 18 digit )";
-                        }
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: MoneyTextFormField(
-                      settings: MoneyTextFormFieldSettings(
+                      Visibility(
+                        visible: isBank == true,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 6),
+                              child: Text("Account Name",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
+                            ),
+                            SenderTextEdit(
+                              keyy: "name",
+                              data: _data,
+                              name:nameController,
+                              //initialText: widget.model.userStorageHubAccountName,
 
-                        controller: amountController,
-                        moneyFormatSettings: MoneyFormatSettings(
-                            amount: double.tryParse(widget.model.totalBalance.toString()),
-                            currencySymbol: ' ৳ ',
-                            displayFormat: MoneyDisplayFormat.symbolOnLeft),
-                        appearanceSettings: AppearanceSettings(
-                            padding: EdgeInsets.all(15.0),
-                            labelText: 'Initial balance ',
-                            hintText: ' Initial balance',
-                            labelStyle: myStyle(20,Colors.purple,FontWeight.w600),
-                            inputStyle: _ts.copyWith(color: Colors.purple),
-                            formattedStyle:
-                            _ts.copyWith(color: Colors.black54)),
-
+                              lebelText:  "Account Name" ,
+                              icon: Icons.drive_file_rename_outline,
+                              function: (String value) {
+                                if (value.isEmpty) {
+                                  return "Account Name required";
+                                }
+                                if (value.length < 3) {
+                                  return "Account Name is Too Short. ( Min 3 character )";
+                                }
+                                if (value.length > 30) {
+                                  return "Account Name is Too Long. ( Max 30 character )";
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: Text("Account Number",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
+                      ),
+                      Visibility(
+                        visible: isBank == true || isMfs == true,
+                        child: SenderTextEdit(
+                          keytype: TextInputType.number,
+                          formatter:  <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
+                          keyy: "number",
+                          data: _data,
+                          name:  accountnumber,
+                          lebelText: "Account Number",
+                          icon: Icons.confirmation_number_outlined,
+                          function: (String value) {
+                            if (value.isEmpty) {
+                              return "Account Number required";
+                            }
+                            if (value.length < 11) {
+                              return "Account Number is Too Short( Min 11 digit )";
+                            }
+                            if (value.length > 18) {
+                              return "Account Number is Too Long ( Max 18 digit )";
+                            }
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: MoneyTextFormField(
+                          settings: MoneyTextFormFieldSettings(
+
+                            controller: amountController,
+                            moneyFormatSettings: MoneyFormatSettings(
+                                amount: double.tryParse(widget.model.totalBalance.toString()),
+                                currencySymbol: ' ৳ ',
+                                displayFormat: MoneyDisplayFormat.symbolOnRight),
+                            appearanceSettings: AppearanceSettings(
+                                padding: EdgeInsets.all(15.0),
+                                labelText: 'Initial balance ',
+                                
+                                labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                                inputStyle: _ts.copyWith(color: Colors.white),
+                                formattedStyle:
+                                _ts.copyWith(color: Colors.white)),
+
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      /*RaisedButton(
+                        onPressed: () {
+                          if (!_formKey.currentState.validate()) return;
+                          _formKey.currentState.save();
+                          widget.type == "bank"
+                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateBankData(context)
+                              : widget.type == "mfs"
+                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
+                        },
+                        color: Colors.purple,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 100,
+                        ),
+                        child: Text(
+                          "Submit",
+                          style: myStyle(18, Colors.white),
+                        ),
+                      ),*/
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 8,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: BrandColors.colorPrimaryDark,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                    color: Colors.deepPurpleAccent, width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                  Text(
+                                    "Go Back",
+                                    style: myStyle(16, Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 10,
+                          child: InkWell(
+                            onTap:  () {
+                              if (!_formKey.currentState.validate()) return;
+                              _formKey.currentState.save();
+                              widget.type == "bank"
+                                  ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateBankData(context)
+                                  : widget.type == "mfs"
+                                  ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.deepPurpleAccent,
+                                border: Border.all(
+                                    color: Colors.deepPurpleAccent,
+                                    width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Proceed",
+                                    style: myStyle(16, Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      if (!_formKey.currentState.validate()) return;
-                      _formKey.currentState.save();
-                      widget.type == "bank"
-                          ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateBankData(context)
-                          : widget.type == "mfs"
-                          ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
-                    },
-                    color: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 100,
-                    ),
-                    child: Text(
-                      "Submit",
-                      style: myStyle(18, Colors.white),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
-            ),
+                )
+              ],
+            )
           ),
         ),
       ),
     );
   }
+
+
   Future updateBankData(BuildContext context) async {
     try {
       setState(() {
@@ -352,7 +463,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 
