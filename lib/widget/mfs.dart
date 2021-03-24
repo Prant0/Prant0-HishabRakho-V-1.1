@@ -80,6 +80,8 @@ class _MfsWidgetState extends State<MfsWidget> {
                     );
             },
           ),
+          Text(  widget.model.length > 2 ? "View All" :"",style: myStyle(14,BrandColors.colorPurple),),
+          SizedBox(height: 8,),
         ],
       ),
     ));

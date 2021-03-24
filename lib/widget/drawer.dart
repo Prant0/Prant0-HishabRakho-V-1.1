@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,15 +46,15 @@ class _DrawerrState extends State<Drawerr> {
       child: Drawer(
 
         child: Container(
-          color: Colors.black,
+          color: BrandColors.colorPrimaryDark,
           child: ListView(
             padding: EdgeInsets.all(0),
             children: [
 
               Container(
-                color: Colors.black,
+
                 //height: 200,
-                padding: EdgeInsets.symmetric(vertical: 50),
+                padding: EdgeInsets.only(top: 50,left: 25,bottom: 25),
                 child:  ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -61,48 +62,31 @@ class _DrawerrState extends State<Drawerr> {
                   itemCount: user.length,
                   itemBuilder: (context, index) {
                     return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
 
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/${user[index].photo}",
-                            ),
-
-                            maxRadius: 50,
+                          child: Image.network(
+                              "http://hishabrakho.com/admin/user/${user[index].photo}",height: 100,width: 85,fit: BoxFit.cover,
                           ),
 
-                        /*ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                              'http://hishabrakho.com/admin/user/${user[index].photo}',height: 80.0,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Padding(
-                                child: CircularProgressIndicator(
-                                  value: 5.0,
-                                  backgroundColor: Colors.purple,
-                                ),
-                                padding: EdgeInsets.all(20.0),
-                              ),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
-                            ),
-                          ),*/
                           onTap: (){
                             Navigator.pop(context);
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
                           },
                         ),
-                        SizedBox(height: 8,),
+                        SizedBox(height: 10,),
                         Text(
                           "${user[index].username}",
                           style: myStyle(20, Colors.white, FontWeight.w800),
                         ),
-                        SizedBox(height: 8,),
+
                         Text(
                           "${user[index].email}",
-                          style: myStyle(14, Colors.white, FontWeight.w600),
+                          style: myStyle(14, BrandColors.colorDimText, FontWeight.w600),
                         ),
+
 
 
                       ],
@@ -110,13 +94,37 @@ class _DrawerrState extends State<Drawerr> {
                   },
                 ),
               ),
+              Divider(
 
+                thickness: 0.5,color:  BrandColors.colorDimText,
+              ),
               Container(
                // color: Colors.black,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
+
                     SizedBox(height: 15,),
+                    InkWell(
+                      onTap: (){
+                        Navigator.pop(context);
+                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+                      },
+                      child: Container(
+
+                          height: 50,
+                          child: Row(
+                            children: [
+                              Icon(Icons.home_outlined,size: 25,color: BrandColors.colorDimText,),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text("Home",style: myStyle(16,Colors.white70),),
+
+                            ],
+                          )
+                      ),
+                    ),
                     InkWell(
                       onTap: (){
                         Navigator.pop(context);
@@ -127,17 +135,16 @@ class _DrawerrState extends State<Drawerr> {
                           height: 50,
                           child: Row(
                             children: [
-                              Icon(Icons.person,size: 35,color: Colors.purple.shade300,),
+                              Icon(Icons.person,size: 25,color: BrandColors.colorDimText,),
                               SizedBox(
-                                width: 15,
+                                width: 16,
                               ),
-                              Text("My Profile",style: myStyle(15,Colors.white70),),
+                              Text("My Profile",style: myStyle(16, BrandColors.colorDimText,),),
 
                             ],
                           )
                       ),
                     ),
-                    Divider(color: Colors.purpleAccent.withOpacity(0.5),height: 1,thickness: 1,),
 
                     InkWell(
                       onTap: (){
@@ -149,11 +156,11 @@ class _DrawerrState extends State<Drawerr> {
                           height: 50,
                           child: Row(
                             children: [
-                              Icon(Icons.people_alt_outlined,size: 35,color: Colors.purple.shade300,),
+                              Icon(Icons.people_alt_outlined,size: 25,color:  BrandColors.colorDimText,),
                               SizedBox(
-                                width: 15,
+                                width: 16,
                               ),
-                              Text("My Friends",style: myStyle(15,Colors.white70),),
+                              Text("My Friends",style: myStyle(16, BrandColors.colorDimText,),),
 
                             ],
                           )
@@ -161,7 +168,6 @@ class _DrawerrState extends State<Drawerr> {
                     ),
 
 
-                    Divider(color: Colors.purpleAccent.withOpacity(0.5),height: 1,thickness: 1,),
 
                     InkWell(onTap: (){
                       displayTextInputDialog(context);
@@ -172,17 +178,27 @@ class _DrawerrState extends State<Drawerr> {
                           height: 50,
                           child: Row(
                             children: [
-                              Icon(Icons.assignment_returned_outlined,size: 35,color: Colors.purple.shade300,),
+                              Icon(Icons.assignment_returned_outlined,size: 25,color: BrandColors.colorDimText,),
                               SizedBox(
-                                width: 15,
+                                width: 16,
                               ),
-                              Text("Log Out",style: myStyle(15,Colors.white70),),
+                              Text("Log Out",style: myStyle(16, BrandColors.colorDimText,),),
                             ],
                           )
                       ),
                     ),
-                    Divider(color: Colors.purpleAccent.withOpacity(0.5),height: 1,thickness: 1,),
-                  ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Image(
+                        image: AssetImage('assets/lgo.png'),
+                        //height: 130.0,
+                        //width: 130.0,
+                      ),
+                    ),
+                    ],
                 ),
               )
 

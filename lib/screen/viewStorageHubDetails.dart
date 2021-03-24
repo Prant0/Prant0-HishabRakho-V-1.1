@@ -53,7 +53,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                   padding: EdgeInsets.all(20),
                   child: Card(
                     elevation: 15.0,
-                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 80,width: 80,fit: BoxFit.cover,)),
+                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 80,width: 80,fit: BoxFit.fill,)),
                 ),
                 SizedBox(height: 10,),
                 Text(" ${widget.name}",style: myStyle(16,Colors.white70,),),
@@ -133,8 +133,8 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                               NumberFormat.currency(
                                   symbol: ' ৳ ',
                                   decimalDigits: (dataa[index]
-                                      .balance) is int ? 0 :2,
-                                  locale: "en-in").format(500.00),
+                                      .balance??"") is int ? 0 :2,
+                                  locale: "en-in").format(dataa[index].balance??""),
                               style: myStyle(
                                   14, Colors.white),
                             ),
@@ -169,6 +169,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
         transactionTypeId: entries["transaction_type_id"],
         userPersonalStorageHubId: entries["user_personal_storage_hub_id"],
         amount: entries["amount"],
+        balance: entries["balance"],
         eventType: entries["event_type"],
         date: entries["formated_date"],
         friendName: entries["friend_name"],

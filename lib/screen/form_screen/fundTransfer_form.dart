@@ -150,24 +150,23 @@ class _FundTransferFormState extends State<FundTransferForm> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat("d-MMMM-y").format(_currentDate);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
 
       body: ModalProgressHUD(
         progressIndicator: Spin(),
-        opacity: 0.0,
         inAsyncCall: onProgress,
         child: Container(
           height: double.infinity,
           padding: EdgeInsets.only(top: 30,left: 18,right: 18),
           child: Form(
             key: _formKey,
-            child: Stack(
-              children: [
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
 
-                SingleChildScrollView(
-                  child: Column(
+                  Column(
                     children: [
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 22),
@@ -289,7 +288,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              Text(banktext,style: myStyle(16,BrandColors.colorDimText),),
+                              Text(banktext ??"",style: myStyle(16,BrandColors.colorDimText),),
                               GestureDetector(
                                 onTap:  () async {
                                   List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
@@ -331,7 +330,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(mfstext,style: myStyle(16,BrandColors.colorDimText),),
+                              Text(mfstext??"",style: myStyle(16,BrandColors.colorDimText),),
 
                               GestureDetector(
                                 onTap: () async {
@@ -533,118 +532,118 @@ class _FundTransferFormState extends State<FundTransferForm> {
                       ),
                     ],
                   ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    color: BrandColors.colorPrimaryDark,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 10,
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                    color: Colors.deepPurpleAccent, width: 1.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.white70,
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    "Go Back",
-                                    style: myStyle(16, Colors.white),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
-                        ),
-                        Expanded(
-                          flex: 10,
-                          child: InkWell(
-                            onTap: () {
-                              if (!_formKey.currentState.validate()) return;
-                              _formKey.currentState.save();
-                              print("widget name ${widget.name}");
-                              print("widget name ${widget.title}");
-                              widget.title == "Bank to Cash"
-                                  ? amountController.text.toString().isEmpty
-                                  ? showInSnackBar("Amount Required")
-                                  : bankToCash(context)
-                                  : widget.title == "Bank to MFS"
-                                  ? amountController.text.toString().isEmpty
-                                  ? showInSnackBar("Amount Required")
-                                  : bankToMfs(context)
-                                  : widget.title == "Cash to Bank"
-                                  ? amountController.text.toString().isEmpty
-                                  ? showInSnackBar("Amount Required")
-                                  : cashToBank(context)
-                                  : widget.title == "Cash to MFS"
-                                  ? amountController.text.toString().isEmpty
-                                  ? showInSnackBar("Amount Required")
-                                  : cashToMfs(context)
-                                  : widget.title == "MFS to Bank"
-                                  ? amountController.text
-                                  .toString()
-                                  .isEmpty
-                                  ? showInSnackBar(
-                                  "Amount Required")
-                                  : mfsToBank(context)
-                                  : amountController.text
-                                  .toString()
-                                  .isEmpty
-                                  ? showInSnackBar(
-                                  "Amount Required")
-                                  : mfsTOCash(context);
-                            },
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.deepPurpleAccent,
-                                border: Border.all(
-                                    color: Colors.deepPurpleAccent,
-                                    width: 1.0),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Proceed",
-                                    style: myStyle(16, Colors.white),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white70,
-                                    size: 15,
-                                  ),
-                                ],
+                  Positioned(
+                    bottom: 10,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      color: BrandColors.colorPrimaryDark,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 10,
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                      color: Colors.deepPurpleAccent, width: 1.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Colors.white70,
+                                      size: 15,
+                                    ),
+                                    Text(
+                                      "Go Back",
+                                      style: myStyle(16, Colors.white),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        )
-                      ],
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: InkWell(
+                              onTap: () {
+                                if (!_formKey.currentState.validate()) return;
+                                _formKey.currentState.save();
+                                print("widget name ${widget.name}");
+                                print("widget name ${widget.title}");
+                                widget.title == "Bank to Cash"
+                                    ? amountController.text.toString().isEmpty
+                                    ? showInSnackBar("Amount Required")
+                                    : bankToCash(context)
+                                    : widget.title == "Bank to MFS"
+                                    ? amountController.text.toString().isEmpty
+                                    ? showInSnackBar("Amount Required")
+                                    : bankToMfs(context)
+                                    : widget.title == "Cash to Bank"
+                                    ? amountController.text.toString().isEmpty
+                                    ? showInSnackBar("Amount Required")
+                                    : cashToBank(context)
+                                    : widget.title == "Cash to MFS"
+                                    ? amountController.text.toString().isEmpty
+                                    ? showInSnackBar("Amount Required")
+                                    : cashToMfs(context)
+                                    : widget.title == "MFS to Bank"
+                                    ? amountController.text
+                                    .toString()
+                                    .isEmpty
+                                    ? showInSnackBar(
+                                    "Amount Required")
+                                    : mfsToBank(context)
+                                    : amountController.text
+                                    .toString()
+                                    .isEmpty
+                                    ? showInSnackBar(
+                                    "Amount Required")
+                                    : mfsTOCash(context);
+                              },
+                              child: Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.deepPurpleAccent,
+                                  border: Border.all(
+                                      color: Colors.deepPurpleAccent,
+                                      width: 1.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Proceed",
+                                      style: myStyle(16, Colors.white),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: Colors.white70,
+                                      size: 15,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ),
         ),

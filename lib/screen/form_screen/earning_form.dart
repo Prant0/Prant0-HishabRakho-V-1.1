@@ -80,6 +80,7 @@ bool transactionType =false;
         others = false;
         x = true;
         isGetMoneyNow = true;
+        transactionType=true;
       });
     } else if (widget.title == "Take Loan from Someone") {
       loanType = "Take Loan";
@@ -87,6 +88,7 @@ bool transactionType =false;
         others = false;
         x = true;
         isGetMoneyNow = true;
+        transactionType=true;
       });
     } else if (widget.title == "Give Loan to Someone") {
       loanType = "Give Loan";
@@ -94,6 +96,7 @@ bool transactionType =false;
         others = false;
         x = true;
         isGetMoneyNow = true;
+        transactionType=true;
       });
     } else if (widget.title == "Get Back Loan You Gave to Someone") {
       loanType = "Get Back Loan";
@@ -101,6 +104,7 @@ bool transactionType =false;
         others = false;
         x = true;
         isGetMoneyNow = true;
+        transactionType=true;
       });
     }
 
@@ -776,19 +780,19 @@ bool transactionType =false;
     String formattedDate = new DateFormat("d-MMMM-y").format(_currentDate);
     print("widget name is : ${widget.name}");
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
-        child: Container(
-          padding: EdgeInsets.only(top: 30, left: 20, right: 20),
-          child: Form(
-              key: _formKey,
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: Column(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+            child: Form(
+                key: _formKey,
+                child: Stack(
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
@@ -846,11 +850,14 @@ bool transactionType =false;
                                 ],
                               )),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 15, top: 25),
-                          child: Text(
-                            "Transaction Type",
-                            style: myStyle(16, Colors.white),
+                        Visibility(
+                          visible: x!=true,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 15, top: 25),
+                            child: Text(
+                              "Transaction Type",
+                              style: myStyle(16, Colors.white),
+                            ),
                           ),
                         ),
 
@@ -910,82 +917,85 @@ bool transactionType =false;
                         ),
                       ),*/
 
-                        Container(
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    updateColor(1);
-                                    moneyType = widget.name == "Expenditure"
-                                        ? "Pay Now"
-                                        : "Get Money Now";
-                                    x = true;
-                                    y = false;
-                                    transactionType =true;
-                                    isGetMoneyNow = true;
-                                    isGetMoneyLater = false;
-                                  });
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: isGetMoneyNow == true
-                                          ? BrandColors.colorPrimary
-                                          : Colors.transparent,
-                                      border: Border.all(
-                                          color: isGetMoneyNow == true
-                                              ? Colors.white
-                                              : Colors.deepPurpleAccent,
-                                          width: 1)),
-                                  child: Text(
-                                    widget.name == "Expenditure"
-                                        ? "Pay Now"
-                                        : "Get Money Now",
-                                    style: myStyle(14, Colors.white),
+                        Visibility(
+                          visible: x!=true,
+                          child: Container(
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      updateColor(1);
+                                      moneyType = widget.name == "Expenditure"
+                                          ? "Pay Now"
+                                          : "Get Money Now";
+                                      x = true;
+                                      y = false;
+                                      transactionType =true;
+                                      isGetMoneyNow = true;
+                                      isGetMoneyLater = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 15),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        color: isGetMoneyNow == true
+                                            ? BrandColors.colorPrimary
+                                            : Colors.transparent,
+                                        border: Border.all(
+                                            color: isGetMoneyNow == true
+                                                ? Colors.white
+                                                : Colors.deepPurpleAccent,
+                                            width: 1)),
+                                    child: Text(
+                                      widget.name == "Expenditure"
+                                          ? "Pay Now"
+                                          : "Get Money Now",
+                                      style: myStyle(14, Colors.white),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    updateColor(2);
-                                    x = false;
-                                    y = false;
-                                    transactionType =true;
-                                    isGetMoneyNow = false;
-                                    isGetMoneyLater = true;
-                                    isStorage=true;
-                                    moneyType = widget.name == "Expenditure"
-                                        ? "Pay Later"
-                                        : "Get Money Later";
-                                  });
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 15),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: isGetMoneyLater == true
-                                          ? BrandColors.colorPrimary
-                                          : Colors.transparent,
-                                      border: Border.all(
-                                          color: isGetMoneyLater == true
-                                              ? Colors.white
-                                              : Colors.deepPurpleAccent,
-                                          width: 1)),
-                                  child: Text(
-                                    widget.name == "Expenditure"
-                                        ? "Pay Later"
-                                        : "Get Money Later",
-                                    style: myStyle(14, Colors.white),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      updateColor(2);
+                                      x = false;
+                                      y = false;
+                                      transactionType =true;
+                                      isGetMoneyNow = false;
+                                      isGetMoneyLater = true;
+                                      isStorage=true;
+                                      moneyType = widget.name == "Expenditure"
+                                          ? "Pay Later"
+                                          : "Get Money Later";
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 15),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        color: isGetMoneyLater == true
+                                            ? BrandColors.colorPrimary
+                                            : Colors.transparent,
+                                        border: Border.all(
+                                            color: isGetMoneyLater == true
+                                                ? Colors.white
+                                                : Colors.deepPurpleAccent,
+                                            width: 1)),
+                                    child: Text(
+                                      widget.name == "Expenditure"
+                                          ? "Pay Later"
+                                          : "Get Money Later",
+                                      style: myStyle(14, Colors.white),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
 
@@ -1150,9 +1160,9 @@ bool transactionType =false;
                           data: _data,
                           name: receiveFrom,
                           lebelText: widget.name == "Earning"
-                              ? "Receive from"
+                              ? "Receive/Receivable from"
                               : widget.name == "Expenditure"
-                              ? "Payable to"
+                              ? "Pay/Payable to"
                               : widget.name == "Loan"
                               ? loanType == "Take Loan"
                               ? "Name "
@@ -1168,7 +1178,8 @@ bool transactionType =false;
                               ? loanType == "Take Loan"
                               ? "Take Loan From "
                               : loanType == "Give Loan"
-                              ? "Give Loan to"
+                              ? "Give Loan to":
+                               loanType=="Pay Back Loan"? "Pay Back Loan from"
                               : "Get Back Loan From"
                               : "Pay Back Loan To",
                           icon: Icons.person,
@@ -1214,108 +1225,106 @@ bool transactionType =false;
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+
 
                         SizedBox(
-                          height: 200,
+                          height: 100,
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    bottom: 8,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      color: BrandColors.colorPrimaryDark,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 10,
-                            child: GestureDetector(
-                              onTap: (){
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(
-                                      color: Colors.deepPurpleAccent, width: 1.0),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Colors.white70,
-                                      size: 15,
-                                    ),
-                                    Text(
-                                      "Go Back",
-                                      style: myStyle(16, Colors.white),
-                                    )
-                                  ],
+                    Positioned(
+                      bottom: 8,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        color: BrandColors.colorPrimaryDark,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 10,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                        color: Colors.deepPurpleAccent, width: 1.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.arrow_back_ios,
+                                        color: Colors.white70,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        "Go Back",
+                                        style: myStyle(16, Colors.white),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Container(),
-                          ),
-                          Expanded(
-                            flex: 10,
-                            child: InkWell(
-                              onTap: () {
+                            Expanded(
+                              flex: 1,
+                              child: Container(),
+                            ),
+                            Expanded(
+                              flex: 10,
+                              child: InkWell(
+                                onTap: () {
 
-                                print("storage hub type issssssssssssssssssss $storageType");
-                                if (!_formKey.currentState.validate()) return;
-                                _formKey.currentState.save();
-                                print("widget name ${widget.name}");
-                                transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
-                                    ?  uploadEarningData(context)
-                                    : widget.name == "Expenditure"
-                                    ?
-                                     uploadExpenditureData(context)
-                                    : widget.name == "Loan"
-                                    ?  uploadLoanData(context)
-                                    : uploadFundData(context);
-                              },
-                              child: Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: Colors.deepPurpleAccent,
-                                  border: Border.all(
-                                      color: Colors.deepPurpleAccent,
-                                      width: 1.0),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Proceed",
-                                      style: myStyle(16, Colors.white),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      color: Colors.white70,
-                                      size: 15,
-                                    ),
-                                  ],
+                                  print("storage hub type issssssssssssssssssss $storageType");
+                                  if (!_formKey.currentState.validate()) return;
+                                  _formKey.currentState.save();
+                                  print("widget name ${widget.name}");
+                                  transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
+                                      ?  uploadEarningData(context)
+                                      : widget.name == "Expenditure"
+                                      ?
+                                       uploadExpenditureData(context)
+                                      : widget.name == "Loan"
+                                      ?  uploadLoanData(context)
+                                      : uploadFundData(context);
+                                },
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.deepPurpleAccent,
+                                    border: Border.all(
+                                        color: Colors.deepPurpleAccent,
+                                        width: 1.0),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Proceed",
+                                        style: myStyle(16, Colors.white),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white70,
+                                        size: 15,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              )),
+                    )
+                  ],
+                )),
+          ),
         ),
       ),
     );

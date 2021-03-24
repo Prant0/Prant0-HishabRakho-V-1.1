@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -14,6 +15,7 @@ import 'package:anthishabrakho/screen/myTransection/storageEntries.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/drawer.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyTransection extends StatefulWidget {
   static const String id = 'storagehub';
@@ -77,7 +79,20 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
     await Provider.of<MyTransectionprovider>(context, listen: false)
         .getMyExpenditureEntries();
   }*/
+  String image;
+  SharedPreferences sharedPreferences ;
+  loadUserImage()async{
+    sharedPreferences = await SharedPreferences.getInstance();
+   image= sharedPreferences.getString("image");
+    print("image isssssssssssssssssssssssssssssssssssssssssssssssssssssssss $image");
+  }
 
+
+  @override
+  void didChangeDependencies() {
+    loadUserImage();
+    super.didChangeDependencies();
+  }
 
 
 
@@ -115,21 +130,31 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
           style: myStyle(18, Colors.white, FontWeight.w800),
         ),
         actions: [
-          Container(
-            height: 30,width: 30,
-            child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: user.length,
-              itemBuilder: (context, index) {
-                return CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                      'http://hishabrakho.com/admin/user/${user[index].photo}'),
-                );
-              },
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile())).then((value) => setState(() {
+                loadUserImage();
+              }));
+            },
+            child:Container(
+              padding: const EdgeInsets.all(3.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border:
+                Border.all(color:BrandColors.colorDimText, width: 0.5),
+              ),
+              child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/$image",)
+              ),
             ),
+
+
+            /*CircleAvatar(
+              foregroundColor: Colors.red,
+                backgroundColor: Colors.transparent,
+                //radius: 30,
+                backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/$image",)),*/
           ),
           SizedBox(width: 8,),
         ],

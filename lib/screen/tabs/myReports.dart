@@ -1,3 +1,5 @@
+import 'package:anthishabrakho/globals.dart';
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 
 
@@ -9,6 +11,14 @@ class MyReports extends StatefulWidget {
 class _MyReportsState extends State<MyReports> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+
+      backgroundColor: BrandColors.colorPrimaryDark,
+      body: Container(
+        child: Center(
+          child:  Text("This Feature is coming soon ...",style: myStyle(22,BrandColors.colorDimText,FontWeight.w600),),
+        ),
+      ),
+    );
   }
 }
