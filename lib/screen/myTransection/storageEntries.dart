@@ -86,10 +86,10 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   icon: Icon(Icons.arrow_drop_down,size: 25,color: Colors.white,),
                                   hint: Text(
                                     "Choose Storage Hub ",
-                                    style: myStyle(16, Colors.white70),
+                                    style: myStyle(14, Colors.white70),
                                   ),
                                   value: storageType,
-                                  style: myStyle(16, Colors.white),
+                                  style: myStyle(14, Colors.white),
                                   isDense: true,
                                   onChanged: (String newValue) {
                                     setState(() {
@@ -149,14 +149,14 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   decoration: InputDecoration.collapsed(hintText: ''),
                                   hint: Text(
                                     "Select Bank ",
-                                    style: myStyle(16, Colors.white),
+                                    style: myStyle(14, Colors.white),
                                   ),
                                   validator: (value) =>
                                   value == null ? 'field required' : null,
                                   value: _myBank,
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                   ),
                                   onChanged: (String newValue) {
                                     setState(() {
@@ -193,7 +193,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   isExpanded: true,
                                   icon: Icon(
                                     Icons.arrow_drop_down,
-                                    size: 30,color: Colors.white,
+                                    size: 25,color: Colors.white,
                                   ),
                                   decoration: InputDecoration.collapsed(hintText: ''),
                                   hint: Text(
@@ -205,7 +205,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   value: _myMfs,
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                   ),
                                   onChanged: (String newValue) {
                                     setState(() {
@@ -247,7 +247,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                               ? getMfsData(mfsId)
                               : getCashData(cashId);
                     },
-                    color: Colors.deepPurpleAccent,
+                    color: BrandColors.colorPurple,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(11.0)),
                     padding: EdgeInsets.symmetric(
@@ -255,7 +255,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                     ),
                     child: Text(
                       "Submit",
-                      style: myStyle(18, Colors.white),
+                      style: myStyle(16, Colors.white),
                     ),
                   ),
 
@@ -263,24 +263,27 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
 
                   Column(children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 15),
+                      margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            flex: 6,
-                            child: Text("Title", style: myStyle(14,
+                            flex: 7,
+                            child: Text("Title", style: myStyle(12,
                                 BrandColors.colorDimText),),
                           ),
                           Expanded(
-                            flex: 5,
-                            child: Text("Transaction", style: myStyle(14,
+                            flex: 6,
+                            child: Text("Transaction", style: myStyle(12,
                                 BrandColors.colorDimText),),
                           ),
                           Expanded(
                             flex: 3,
-                            child: Text("Balance", style: myStyle(14,
-                                BrandColors.colorDimText),),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Text("Balance", style: myStyle(12,
+                                  BrandColors.colorDimText),),
+                            ),
                           ),
                         ],
                       ),
@@ -296,7 +299,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                             actionPane: SlidableDrawerActionPane(),
                             actionExtentRatio: 0.25,
                             child: new Container(
-                                padding: EdgeInsets.symmetric(vertical: 10),
+                                padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                                 child: Row(
                                   children: [
                                     Expanded(
@@ -318,7 +321,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                         flex: 3,
                                         child: Text(
                                           NumberFormat.currency(
-                                              symbol: ' ৳ ',
+                                              symbol: '',
                                               decimalDigits: (dataa[index]
                                                   .amount) is int ? 0 :2,
                                               locale: "en-in").format(dataa[index].amount),
@@ -329,14 +332,18 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
 
                                     Expanded(
                                         flex: 3,
-                                        child:Text(
-                                          NumberFormat.currency(
-                                              symbol: ' ৳ ',
-                                              decimalDigits: (dataa[index]
-                                                  .balance) is int ? 0 :2,
-                                              locale: "en-in").format(dataa[index].balance),
-                                          style: myStyle(
-                                              14,Colors.white),
+                                        child:Container(
+                                          padding: EdgeInsets.only(left: 12),
+                                          alignment:Alignment.centerRight,
+                                          child: Text(
+                                            NumberFormat.currency(
+                                                symbol: '',
+                                                decimalDigits: (dataa[index]
+                                                    .balance) is int ? 0 :2,
+                                                locale: "en-in").format(dataa[index].balance),
+                                            style: myStyle(
+                                                14,Colors.white),
+                                          ),
                                         )
                                     ),
                                   ],

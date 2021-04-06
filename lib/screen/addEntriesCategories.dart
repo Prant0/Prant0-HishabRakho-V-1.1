@@ -6,6 +6,7 @@ import 'package:anthishabrakho/models/entries_Home_Model.dart';
 import 'package:anthishabrakho/screen/addEntriesSubCategories.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AddEntriesCategories extends StatefulWidget {
   int id;
@@ -54,11 +55,12 @@ class _AddEntriesCategoriesState extends State<AddEntriesCategories> {
     return Scaffold(
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         centerTitle: true,
       ),
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: SingleChildScrollView(
             child:Column(
               children: [
@@ -72,7 +74,7 @@ class _AddEntriesCategoriesState extends State<AddEntriesCategories> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text("What kind of ${widget.name}",style: myStyle(20,Colors.white,FontWeight.w500),),
-                      Text("would you like to add ?",style: myStyle(18,Colors.white,FontWeight.w500),),
+                      Text("would you like to add ?",style: myStyle(20,Colors.white,FontWeight.w500),),
                     ],
                   )
 
@@ -95,47 +97,52 @@ class _AddEntriesCategoriesState extends State<AddEntriesCategories> {
                                   namee: widget.name,
                                 )));
                       },
-                      child: Card(
-                        elevation: 15,
-                        color: BrandColors.colorPrimary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.0)),
-                        child: Container(
-
-                          height: 65,
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          child:Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                    "http://api.hishabrakho.com/admin/${list[index].classIcon}",
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) => Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Spin()
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: BrandColors.colorPrimary,
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        margin: EdgeInsets.symmetric(vertical: 5),
+                        child:Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8,),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                  "http://hishabrakho.com/admin/${list[index].classIcon}",
+                                  height: 27,width: 23,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Spin()
                                   ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                               ),
-                              
-                              Expanded(
-                                flex: 7,
-                                child: Text(list[index].eventClassName,style: myStyle(16,Colors.white),),
-                              ),
+                            ),
 
-                              Expanded(
-                                flex: 2,
-                                child:Icon(Icons.arrow_forward_ios_sharp,color: BrandColors.colorDimText, ),
-                              ),
+                            Expanded(
+                              flex: 7,
+                              child: Text(list[index].eventClassName,style: myStyle(14,Colors.white,FontWeight.w500),),
+                            ),
 
-                            ],
-                          )
-                        ),
+                            Expanded(
+                              flex: 2,
+                              child:Container(
+                                padding: const EdgeInsets.all(0.0),
+                                child: SvgPicture.asset("assets/arrow1.svg",
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        )
                       ),
 
                     );

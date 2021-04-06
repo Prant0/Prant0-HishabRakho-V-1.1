@@ -1,9 +1,6 @@
 import 'dart:convert';
-
-import 'package:anthishabrakho/models/bankModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
 class CustomHttpRequests {
   static const String uri =
       "http://api.hishabrakho.com/api"; // common part of our api
@@ -11,7 +8,6 @@ class CustomHttpRequests {
   static const Map<String, String> defaultHeader = {
     "Accept": "application/json",
   };
-
   static Future<Map<String, String>> getHeaderWithToken() async {
     sharedPreferences = await SharedPreferences.getInstance();
     var header = {

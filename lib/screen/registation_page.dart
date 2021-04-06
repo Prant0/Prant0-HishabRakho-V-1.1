@@ -9,6 +9,7 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/screen/login_page.dart';
 import 'package:anthishabrakho/screen/stapper/addBank.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -217,446 +218,420 @@ class _RegistationPageState extends State<RegistationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: BrandColors.colorPrimaryDark,
-        appBar: AppBar(
-          leading: Icon(Icons.map,color: Colors.transparent,),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomPadding: true,
+          key: _scaffoldKey,
           backgroundColor: BrandColors.colorPrimaryDark,
-        ),
-        body: ModalProgressHUD(
-          inAsyncCall: onProgress,
-          child: Column(
-            children: [
-              Expanded(flex: 9,
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Container(
+          body: ModalProgressHUD(
+            inAsyncCall: onProgress,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 10,
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Container(
 
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Container(
 
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            "Create an Account",
-                            style: myStyle(20, Colors.white, FontWeight.w500),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: Column(
-                            children: [
-                              Stack(children: [
-                                Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                    border: Border.all(
-                                        color: BrandColors.colorDimText, width: 2.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          color: BrandColors.colorPrimary,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(50),
-                                          ),
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                "Create Your Account",
+                                style: myStyle(22, Colors.white, FontWeight.w500),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Center(
+                              child: Column(
+                                children: [
+                                  Stack(children: [
+                                    Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                        border: Border.all(
+                                            color:Colors.grey, width: 1.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              color: BrandColors.colorPrimary,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(50),
+                                              ),
+                                            ),
+                                            child: _image == null
+                                                ? IconButton(
+                                              onPressed: () {
+                                                // selectImage(context);
+                                                selectImage(context);
+                                              },
+                                              icon: Icon(
+                                                Icons.camera_alt,
+                                                color: Colors.white,
+                                                size: 25,
+                                              ),
+                                            )
+                                                : CircleAvatar(
+                                              backgroundImage: FileImage(_image),
+                                            )
+                                          // : Image.file(
+                                          //     image,
+                                          //     fit: BoxFit.cover,
+                                          //   ),
                                         ),
-                                        child: _image == null
-                                            ? IconButton(
-                                          onPressed: () {
-                                            // selectImage(context);
-                                            selectImage(context);
-                                          },
-                                          icon: Icon(
-                                            Icons.camera_alt,
-                                            color: Colors.white,
-                                            size: 30,
-                                          ),
-                                        )
-                                            : CircleAvatar(
-                                          backgroundImage: FileImage(_image),
-                                        )
-                                      // : Image.file(
-                                      //     image,
-                                      //     fit: BoxFit.cover,
-                                      //   ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: -15,
-                                  top: -15,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _image = null;
-                                      });
-                                    },
-                                    icon: _image != null
-                                        ? Icon(Icons.clear,color: Colors.white,)
-                                        : Icon(
-                                      Icons.clear,
-                                      color: Colors.white,
+                                    Positioned(
+                                      right: -15,
+                                      top: -15,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _image = null;
+                                          });
+                                        },
+                                        icon: _image != null
+                                            ? Icon(Icons.clear,color: Colors.white,)
+                                            : Icon(
+                                          Icons.clear,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
+                                  ]),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Add your profile photo',
+                                    style: myStyle(14,BrandColors.colorText),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 15,),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: SenderTextEdit(
+                                keyy: "name",
+                                data: _data,
+                                name: _name,
+                                lebelText: "Your name",
+                                icon: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: SvgPicture.asset("assets/user1.svg",
+                                    alignment: Alignment.center,
+                                    height: 21,width: 21,
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
-                              ]),
-                              SizedBox(
-                                height: 10,
+                                function: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Name required";
+                                  }
+                                  if (value.length < 3) {
+                                    return "Name Too Short";
+                                  }
+                                  if (value.length > 30) {
+                                    return "Name Too long (Max 30 character)";
+                                  }
+                                },
                               ),
-                              Text(
-                                'Add your profile photo',
-                                style: TextStyle(color: Colors.white70),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 15,),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: SenderTextEdit(
-                            keyy: "name",
-                            data: _data,
-                            name: _name,
-                            lebelText: "Enter your Name",
-                            icon: Icons.person,
-                            function: (String value) {
-                              if (value.isEmpty) {
-                                return "Name required";
-                              }
-                              if (value.length < 3) {
-                                return "Name Too Short";
-                              }
-                              if (value.length > 30) {
-                                return "Name Too long (Max 30 character)";
-                              }
-                            },
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: SenderTextEdit(
-                            keyy: "email",
-                            data: _data,
-                            name: _emailController,
-                            lebelText: "Enter your email",
-                            icon: Icons.email_outlined,
-                            function: (String value) {
-                              if (value.isEmpty) {
-                                return "Email required";
-                              }
-                              if (!value.contains('@')) {
-                                return "Invalid Email";
-                              }
-                              if (!value.contains('.')) {
-                                return "Invalid Email";
-                              }
-                            },
-                          ),
-                        ),
-
-                        /*SenderTextEdit(
-                      keytype: TextInputType.number,
-                      formatter:  <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        CurrencyInputFormatter(),
-                      ],
-                      keyy: "balance",
-                      data: _data,
-                      name: _cashBalance,
-                      lebelText: "Enter your initial balance",
-                      hintText: "Initial Cash Balance",
-                      icon: Icons.monetization_on_outlined,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Cash Balance required";
-                        }
-                        if (value.length > 17) {
-                          return "Amount is Too Long.(Max 10 digits)";
-                        }
-                      },
-                    ),*/
-                        Container(
-                          padding: EdgeInsets.all(20.0),
-                          child: TextFormField(
-                            // onSaved: (val) => y = val,
-                            style: TextStyle(fontSize: 17.0, color:BrandColors.colorDimText),
-
-                            controller: _passwordController,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Password required.( 6 - 15 character/letter/digit/symbol ) ";
-                              }
-                              if (value.length < 6) {
-                                return "Password Too Short.( 6 - 15 character )";
-                              }
-                              if (value.length > 15) {
-                                return "Password Too long.( 6 - 15 character/letter/digit/symbol )";
-                              }
-                            },
-                            decoration: InputDecoration(
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                  child: Icon(
-                                    _obscureText
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color:BrandColors.colorDimText,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: SenderTextEdit(
+                                keyy: "email",
+                                data: _data,
+                                name: _emailController,
+                                lebelText: "Your email address",
+                                icon:Padding(
+                                  padding:EdgeInsets.all(15),
+                                  child: SvgPicture.asset("assets/email.svg",
+                                    alignment: Alignment.bottomCenter,
+                                    fit: BoxFit.contain,
+                                    color: BrandColors.colorText.withOpacity(0.4),
                                   ),
                                 ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  gapPadding: 5.0,
-                                ),
-
-                                contentPadding: EdgeInsets.symmetric(vertical: 20),
-                                filled: true,
-                                fillColor: BrandColors.colorPrimary,
-                                focusedBorder: InputBorder.none,
-                                prefixIcon: const Icon(
-                                  Icons.lock,
-                                  color: BrandColors.colorDimText,
-                                ),
-                                hintText: 'Write Password Here',
-                                hintStyle: myStyle(16,BrandColors.colorDimText)
-                            ),
-                            obscureText: _obscureText,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(20.0),
-                          child: TextFormField(
-                            style: TextStyle(fontSize: 17.0, color:BrandColors.colorDimText),
-
-                            // onSaved: (val) => y = val,
-                            controller: _confirmPassword,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Confirm Password required ";
-                              }
-                              if (value.length < 6) {
-                                return "Password Too Short";
-                              }
-                              if (value.length > 15) {
-                                return "Password Too long ( 6 - 15 character )";
-                              }
-                              if (_passwordController.text !=
-                                  _confirmPassword.text) {
-                                return "Password do not match";
-                              }
-                            },
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: BrandColors.colorPrimary,
-                                focusedBorder: InputBorder.none,
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                  child: Icon(
-                                    _obscureText
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: BrandColors.colorDimText,
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  gapPadding: 5.0,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.lock,
-                                  color: BrandColors.colorDimText,
-                                ),
-                                hintText: "Confirm Password",
-                                hintStyle: myStyle(16,BrandColors.colorDimText,)
-                            ),
-                            obscureText: _obscureText,
-
-                          ),
-                        ),
-                        /*SenderTextEdit(
-                      keyy: "password",
-                      data: _data,
-                      name: _passwordController,
-                      hintText: "Password",
-                      lebelText: "Enter your password",
-                      icon: Icons.adjust_outlined,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "required";
-                        }
-                        if (value.length < 6) {
-                          return "Name Too Short";
-                        }
-                      },
-                    ),*/
-                        /* SenderTextEdit(
-                      keyy: "confirmPassword",
-                      data: _data,
-                      name: _confirmPassword,
-                      lebelText: "Confirm Password",
-                      hintText: "Confirm Password",
-                      icon: Icons.adjust_outlined,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "required";
-                        }
-                        if (value.length < 6) {
-                          return "Name Too Short";
-                        }
-                        if (_passwordController.text != _confirmPassword.text) {
-                          return "Password Do not match";
-                        }
-                      },
-                    ),*/
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: MoneyTextFormField(
-                            settings: MoneyTextFormFieldSettings(
-                              controller: _cashBalance,
-                              moneyFormatSettings: MoneyFormatSettings(
-                                // amount: double.tryParse(widget.model.balance.toString()),
-                                  currencySymbol: ' ৳ ',
-                                  displayFormat: MoneyDisplayFormat.symbolOnLeft),
-                              appearanceSettings: AppearanceSettings(
-                                  padding: EdgeInsets.all(15.0),
-                                  labelText: 'Initial Balance* ',
-                                  labelStyle:
-                                  myStyle(20, BrandColors.colorDimText, FontWeight.w600),
-                                  inputStyle: _ts.copyWith(color:BrandColors.colorDimText),
-                                  formattedStyle:
-                                  _ts.copyWith(color:BrandColors.colorDimText)),
-                            ),
-                          ),
-                        ),
-                        /*Center(
-                          child: Card(
-                            margin: EdgeInsets.only(top: 15),
-                            borderOnForeground: true,
-                            elevation: 18,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            shadowColor: Colors.purple,
-                            child: IconButton(
-                              iconSize: 45,
-                              icon: Icon(
-                                Icons.camera,
+                                function: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Email required";
+                                  }
+                                  if (!value.contains('@')) {
+                                    return "Invalid Email";
+                                  }
+                                  if (!value.contains('.')) {
+                                    return "Invalid Email";
+                                  }
+                                },
                               ),
-                              onPressed: () {
-                                selectImage(context);
-                              },
                             ),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 15),
-                          child: _image == null
-                              ? Text("Choose Photo",
-                              style:
-                              myStyle(18, Colors.black54, FontWeight.w800))
-                              : Stack(
-                            children: [
-                              Container(
-                                child: Image.file(_image),
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                height: 160,
-                                width: 150,
-                              ),
-                              Positioned(
-                                top: -7,
-                                right: 5,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.close,
-                                    color: Colors.purple,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _image = null;
-                                    });
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),*/
 
-
-
-
-
-                        InkWell(
-                          onTap: () async {
-                            if (_image == null) {
-                              showInSnackBar("Image Required");
-                            } else {
-                              if (!_formKey.currentState.validate()) return;
-                              _formKey.currentState.save();
-                              getRegister(context);
-                              print("tap");
+                            /*SenderTextEdit(
+                          keytype: TextInputType.number,
+                          formatter:  <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                            CurrencyInputFormatter(),
+                          ],
+                          keyy: "balance",
+                          data: _data,
+                          name: _cashBalance,
+                          lebelText: "Enter your initial balance",
+                          hintText: "Initial Cash Balance",
+                          icon: Icons.monetization_on_outlined,
+                          function: (String value) {
+                            if (value.isEmpty) {
+                              return "Cash Balance required";
+                            }
+                            if (value.length > 17) {
+                              return "Amount is Too Long.(Max 10 digits)";
                             }
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: BrandColors.colorPurple
-                            ),
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 15.0),
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 20.0),
-                            child: Center(
-                              child: Text(
-                                'Register',
-                                style: myStyle(18, Colors.white, FontWeight.w600),
+                        ),*/
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                              child: TextFormField(
+                                // onSaved: (val) => y = val,
+                                style: TextStyle(fontSize: 14.0, color:BrandColors.colorDimText),
+
+                                controller: _passwordController,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Password required.( 6 - 15 character/letter/digit/symbol ) ";
+                                  }
+                                  if (value.length < 6) {
+                                    return "Password Too Short.( 6 - 15 character )";
+                                  }
+                                  if (value.length > 15) {
+                                    return "Password Too long.( 6 - 15 character/letter/digit/symbol )";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _obscureText = !_obscureText;
+                                        });
+                                      },
+                                      child: Icon(
+                                        _obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color:BrandColors.colorText,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      gapPadding: 5.0,
+                                    ),
+
+                                    contentPadding: EdgeInsets.symmetric(vertical: 20),
+                                    filled: true,
+                                    fillColor: BrandColors.colorPrimary,
+                                    focusedBorder: InputBorder.none,
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: SvgPicture.asset("assets/password.svg",
+                                        alignment: Alignment.bottomCenter,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    hintText: 'Your password',
+                                    hintStyle: myStyle(14,BrandColors.colorDimText)
+                                ),
+                                obscureText: _obscureText,
                               ),
                             ),
-                          ),
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                              child: TextFormField(
+                                style: TextStyle(fontSize: 14.0, color:BrandColors.colorDimText),
+
+                                // onSaved: (val) => y = val,
+                                controller: _confirmPassword,
+                                validator: (String value) {
+                                  if (value.isEmpty) {
+                                    return "Confirm Password required ";
+                                  }
+                                  if (value.length < 6) {
+                                    return "Password Too Short";
+                                  }
+                                  if (value.length > 15) {
+                                    return "Password Too long ( 6 - 15 character )";
+                                  }
+                                  if (_passwordController.text !=
+                                      _confirmPassword.text) {
+                                    return "Password do not match";
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: BrandColors.colorPrimary,
+                                    focusedBorder: InputBorder.none,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _obscureText = !_obscureText;
+                                        });
+                                      },
+                                      child: Icon(
+                                        _obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: BrandColors.colorText,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      gapPadding: 5.0,
+                                    ),
+                                    prefixIcon: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: SvgPicture.asset("assets/password.svg",
+                                        alignment: Alignment.bottomCenter,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    hintText: "Confirm your password",
+                                    hintStyle: myStyle(14,BrandColors.colorDimText,)
+                                ),
+                                obscureText: _obscureText,
+
+                              ),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: MoneyTextFormField(
+                                settings: MoneyTextFormFieldSettings(
+                                  controller: _cashBalance,
+                                  moneyFormatSettings: MoneyFormatSettings(
+                                    // amount: double.tryParse(widget.model.balance.toString()),
+                                      currencySymbol: ' ৳ ',
+                                      displayFormat: MoneyDisplayFormat.symbolOnLeft),
+                                  appearanceSettings: AppearanceSettings(
+                                      padding: EdgeInsets.all(15.0),
+                                      labelText: 'Your initial balance* ',
+                                      labelStyle:
+                                      myStyle(16, BrandColors.colorDimText, FontWeight.w600),
+                                      inputStyle: _ts.copyWith(color:BrandColors.colorDimText),
+                                      formattedStyle:
+                                      _ts.copyWith(color:BrandColors.colorDimText)),
+                                ),
+                              ),
+                            ),
+
+
+                            InkWell(
+                              onTap: () async {
+                                if (_image == null) {
+                                  showInSnackBar("Image Required");
+                                } else {
+                                  if (!_formKey.currentState.validate()) return;
+                                  _formKey.currentState.save();
+                                  getRegister(context);
+                                  print("tap");
+                                }
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    color: BrandColors.colorPurple,
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 30.0, vertical: 20.0),
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 5.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Register',
+                                        style: myStyle(16, Colors.white, FontWeight.w600),
+                                      ),
+                                      SvgPicture.asset("assets/arrow1.svg",
+                                        alignment: Alignment.center,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ],
+                                  )
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 150,
+                            ),
+                          ],
                         ),
-
-                        SizedBox(
-                          height: 25,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),),
+                  ),),
 
-              Expanded(
-                flex: 1,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Center(child: FittedBox(child: Text("Already have an account?",style: myStyle(16,Colors.white),))),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+
+                      // height: 65,
+                       padding: EdgeInsets.symmetric(horizontal: 3,vertical: 4),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FittedBox(child: Text("Already have  a account?",style: myStyle(14,Colors.white,FontWeight.w400),)),
+
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()));
+                            },
+                            child: FittedBox(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 60,vertical: 20),
+                                // margin: EdgeInsets.only(right: 12,bottom: 12),
+                                //height: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
+                                ),
+                                child: Center(child: Text("Login ",style: myStyle(14,Colors.white,FontWeight.w500),)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
 
-                    Expanded(
-                        flex: 5,
-                        child: InkWell(
+                    /*Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Center(child: FittedBox(child: Text("Already have an account?",style: myStyle(16,Colors.white),))),
+
+                        InkWell(
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -664,21 +639,23 @@ class _RegistationPageState extends State<RegistationPage> {
                                     builder: (context) => LoginScreen()));
                           },
                           child: Container(
-                            margin: EdgeInsets.only(right: 12,bottom: 12),
-                            height: double.infinity,
+                            padding: EdgeInsets.symmetric(horizontal: 35,vertical: 10),
+                            margin: EdgeInsets.only(right: 12,),
+                            //height: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
                             ),
                             child: Center(child: Text("Log in",style: myStyle(16,Colors.white,FontWeight.w500),)),
                           ),
                         )
-                    )
-                  ],
-                ),
-              )
-            ],
-          )
-        ));
+                      ],
+                    ),*/
+                  )
+                ],
+              ),
+            )
+          )),
+    );
   }
 }
 
@@ -697,12 +674,13 @@ class SenderTextEdit extends StatelessWidget {
     this.suffixIcon,
     this.formatter,
     this.onChangeFunction,
+    this.suffixText,
   });
 
   final TextEditingController name;
   final Function onChangeFunction;
   final dynamic data;
-  final IconData icon;
+  final dynamic icon;
   final dynamic suffixIcon;
   final String initialText;
   final Function function;
@@ -711,17 +689,17 @@ class SenderTextEdit extends StatelessWidget {
   final String lebelText;
   final dynamic formatter;
   final dynamic keytype;
+  final String suffixText;
 
   final String keyy;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric( vertical: 15),
+      padding: EdgeInsets.symmetric( vertical: 8),
       child: TextFormField(
-        //showCursor: true,
-        minLines: 1,
 
+        minLines: 1,
         maxLines: maxNumber ?? 1,
         initialValue: initialText,
         keyboardType: keytype,
@@ -731,33 +709,31 @@ class SenderTextEdit extends StatelessWidget {
         onSaved: (String value) => data[keyy] = value,
         onChanged: onChangeFunction,
         autofocus: false,
-        style: TextStyle(fontSize: 17.0, color: Colors.white),
+        style: myStyle( 14.0,  BrandColors.colorDimText),
         decoration: InputDecoration(hoverColor: Colors.black,
           filled: true,
-
-          focusedBorder: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 20),
+          suffixText: suffixText,
+          contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 40),
           fillColor: BrandColors.colorPrimary,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(13.0),
-              gapPadding: 5.0,
+          focusedBorder:OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(
-              color: Colors.red,
+              color: Colors.transparent,
+              width: 2.0,
             ),
           ),
 
           labelText: hintText,
-          hintStyle: TextStyle(color: BrandColors.colorDimText),
+          hintStyle: myStyle(14, BrandColors.colorDimText),
 
-          suffixIcon: Icon(
-            suffixIcon,
-            color: BrandColors.colorDimText,
-          ),
-          prefixIcon: Icon(
-            icon,
-            color: BrandColors.colorDimText,
-          ),
-          labelStyle: myStyle(16,BrandColors.colorDimText),
+          suffixIcon: suffixIcon,
+          prefixIcon: icon,
+          labelStyle: myStyle(14,BrandColors.colorDimText),
           hintText: lebelText,
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,33 +13,28 @@ import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class Drawerr extends StatefulWidget {
-  final GlobalKey<ScaffoldState> sKey;
-  Drawerr(this.sKey);
+ // final GlobalKey<ScaffoldState> sKey;
+//  Drawerr(this.sKey);
   @override
   _DrawerrState createState() => _DrawerrState();
 }
 
 class _DrawerrState extends State<Drawerr> {
   List<UserModel> user = [];
-
-
   @override
   void initState() {
     loadUserData();
     super.initState();
   }
-
-
-
-
-
   loadUserData() async {
     print("expenditure entries are");
     final data = await Provider.of<UserDetailsProvider>(context, listen: false)
         .getUserDetails();
     print("aaaaaaaaaaaaaaaa${data}");
   }
+
   @override
+
   Widget build(BuildContext context) {
     user = Provider.of<UserDetailsProvider>(context).userData;
     return SizedBox(
@@ -47,8 +43,8 @@ class _DrawerrState extends State<Drawerr> {
 
         child: Container(
           color: BrandColors.colorPrimaryDark,
-          child: ListView(
-            padding: EdgeInsets.all(0),
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
 
               Container(
@@ -65,26 +61,30 @@ class _DrawerrState extends State<Drawerr> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
+                        ClipRRect(
+                          
+                          child: GestureDetector(
 
-                          child: Image.network(
-                              "http://hishabrakho.com/admin/user/${user[index].photo}",height: 100,width: 85,fit: BoxFit.cover,
+                            child: Image.network(
+                                "http://hishabrakho.com/admin/user/${user[index].photo}",height: 90,width: 75,fit: BoxFit.cover,
+                            ),
+
+                            onTap: (){
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+                            },
                           ),
-
-                          onTap: (){
-                            Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
-                          },
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                         SizedBox(height: 10,),
                         Text(
                           "${user[index].username}",
-                          style: myStyle(20, Colors.white, FontWeight.w800),
+                          style: myStyle(20, Colors.white, FontWeight.w500),
                         ),
 
                         Text(
                           "${user[index].email}",
-                          style: myStyle(14, BrandColors.colorDimText, FontWeight.w600),
+                          style: myStyle(14, BrandColors.colorDimText, FontWeight.w500),
                         ),
 
 
@@ -102,96 +102,106 @@ class _DrawerrState extends State<Drawerr> {
                // color: Colors.black,
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
 
-                    SizedBox(height: 15,),
-                    InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
-                      },
-                      child: Container(
+                    Container(
 
-                          height: 50,
-                          child: Row(
-                            children: [
-                              Icon(Icons.home_outlined,size: 25,color: BrandColors.colorDimText,),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text("Home",style: myStyle(16,Colors.white70),),
+                      height: MediaQuery.of(context).size.height / 2,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 15,),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                              //Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+                            },
+                            child: Container(
 
-                            ],
-                          )
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset("assets/home.svg",
+                                      alignment: Alignment.center,
+                                      fit: BoxFit.contain,
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text("Home",style: myStyle(16,Colors.white70),),
+
+                                  ],
+                                )
+                            ),
+                          ),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
+                            },
+                            child: Container(
+
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset("assets/user1.svg",
+                                      alignment: Alignment.center,
+                                      fit: BoxFit.contain,
+                                      height: 21,width: 21,
+                                      color:BrandColors.colorText,
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Text("My Profile",style: myStyle(16, BrandColors.colorDimText,),),
+
+                                  ],
+                                )
+                            ),
+                          ),
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyFriends()));
+                            },
+                            child: Container(
+
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.people_alt_outlined,size: 25,color:  BrandColors.colorText,),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Text("My Friends",style: myStyle(16, BrandColors.colorDimText,),),
+
+                                  ],
+                                )
+                            ),
+                          ),
+                          InkWell(onTap: (){
+                            displayTextInputDialog(context);
+
+                          },
+                            child: Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.assignment_returned_outlined,size: 25,color: BrandColors.colorDimText,),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Text("Log Out",style: myStyle(16, BrandColors.colorDimText,),),
+                                  ],
+                                )
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile()));
-                      },
-                      child: Container(
-
-                          height: 50,
-                          child: Row(
-                            children: [
-                              Icon(Icons.person,size: 25,color: BrandColors.colorDimText,),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              Text("My Profile",style: myStyle(16, BrandColors.colorDimText,),),
-
-                            ],
-                          )
-                      ),
-                    ),
-
-                    InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyFriends()));
-                      },
-                      child: Container(
-
-                          height: 50,
-                          child: Row(
-                            children: [
-                              Icon(Icons.people_alt_outlined,size: 25,color:  BrandColors.colorDimText,),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              Text("My Friends",style: myStyle(16, BrandColors.colorDimText,),),
-
-                            ],
-                          )
-                      ),
-                    ),
-
-
-
-                    InkWell(onTap: (){
-                      displayTextInputDialog(context);
-
-                    },
-                      child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 50,
-                          child: Row(
-                            children: [
-                              Icon(Icons.assignment_returned_outlined,size: 25,color: BrandColors.colorDimText,),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              Text("Log Out",style: myStyle(16, BrandColors.colorDimText,),),
-                            ],
-                          )
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
                       child: Image(
                         image: AssetImage('assets/lgo.png'),
                         //height: 130.0,

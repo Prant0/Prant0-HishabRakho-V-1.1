@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
+import 'package:anthishabrakho/screen/profile/reset_password.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -50,11 +52,12 @@ class _MyProfileState extends State<MyProfile> {
   List<StartingPayableModel> payableData = [];
   StartingPayableModel model;
 
-  bool onProgress=false;
+  bool onProgress = false;
+
   Future<dynamic> fetchStartingPayableData() async {
     payableData.clear();
     setState(() {
-      onProgress=true;
+      onProgress = true;
     });
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/personal/starting/payable/balance/view",
@@ -64,7 +67,7 @@ class _MyProfileState extends State<MyProfile> {
     print("Starting payable details are   ::  ${response.body}");
     if (this.mounted) {
       setState(() {
-        totalPayable=jsonResponce["total"];
+        totalPayable = jsonResponce["total"];
         print("tttttttttttttttttttttt $totalPayable");
       });
     }
@@ -74,6 +77,7 @@ class _MyProfileState extends State<MyProfile> {
   StartingReceivableModel modell;
   dynamic totalReceivable;
   dynamic totalPayable;
+
   void fetchStartingReceivableData() async {
     receivableData.clear();
     var response = await http.get(
@@ -84,12 +88,11 @@ class _MyProfileState extends State<MyProfile> {
     print("Starting Receivable details are   ::  ${response.body}");
     if (this.mounted) {
       setState(() {
-        totalReceivable=jsonResponce["total"];
+        totalReceivable = jsonResponce["total"];
         print("tttttttttttttttttttttt $totalReceivable");
       });
     }
   }
-
 
   @override
   void initState() {
@@ -114,49 +117,123 @@ class _MyProfileState extends State<MyProfile> {
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "My Profile",
-          style: myStyle(18, Colors.white, FontWeight.w700),
+          style: myStyle(20, Colors.white, FontWeight.w500),
         ),
-        centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         child: ModalProgressHUD(
           inAsyncCall: isLoading,
           child: ListView.builder(
-
             itemCount: user.length,
-            itemBuilder: (context,index){
-              return  Column(
+            itemBuilder: (context, index) {
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  /*Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child:Align(
+                            alignment: Alignment.topLeft,
+                            child: ClipRRect(
+                              child: Image.network(
+                                "http://hishabrakho.com/admin/user/${user[index].photo}",
+                                height: 70,
+                                width: 80,
+                                //fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 6,
+                          child:Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${user[index].username}",
+                                style: myStyle(22, Colors.white, FontWeight.w500),
+                              ),
+                              Text(
+                                "${user[index].email}",
+                                style: myStyle(14, Colors.grey, FontWeight.w400),
+                              ),
+                            ],
+                          ) ,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child:SvgPicture.asset(
+                            "assets/barCode.svg",
+                            alignment: Alignment.center,
+                            height: 22,
+                            width: 22,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),*/
                   ListTile(
-                    leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          "http://hishabrakho.com/admin/user/${user[index].photo}",
-                        )),
+                    contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                    leading: ClipRRect(
+                      child: Image.network(
+                        "http://hishabrakho.com/admin/user/${user[index].photo}",
+                        height: 70,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+
+
+
+
+                    trailing: SvgPicture.asset(
+                      "assets/barCode.svg",
+                      alignment: Alignment.center,
+                      height: 22,
+                      width: 22,
+                    ),
                     title: Text(
                       "${user[index].username}",
-                      style: myStyle(18, Colors.white, FontWeight.w600),
+                      style: myStyle(22, Colors.white, FontWeight.w500),
                     ),
                     subtitle: Text(
                       "${user[index].email}",
-                      style: myStyle(18, Colors.white, FontWeight.w600),
+                      style: myStyle(14, Colors.grey, FontWeight.w400),
                     ),
                   ),
-                  Card(
-                      color: BrandColors.colorPrimary,
-                      //height: 60,
-                      elevation: 10,
-                      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(13.0)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
-                        child: Center(
+                  Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text("My Starting Balance",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyStartingBalance()));
+                    },
+                    child: Card(
+                        color: BrandColors.colorPrimary,
+                        //height: 60,
+
+                        margin:
+                            EdgeInsets.symmetric( horizontal: 8),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13.0)),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 25, horizontal: 25),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -166,17 +243,18 @@ class _MyProfileState extends State<MyProfile> {
                                 children: [
                                   Text(
                                     "My Payables",
-                                    style: myStyle(14, BrandColors.colorDimText),
+                                    style:
+                                        myStyle(14, BrandColors.colorDimText),
+                                  ),
+                                  SizedBox(
+                                    height: 4,
                                   ),
                                   Text(
-                                    NumberFormat
-                                        .compactCurrency(
+                                    NumberFormat.compactCurrency(
                                       symbol: ' ৳ ',
                                     ).format(totalPayable ?? 0),
                                     style: myStyle(14, BrandColors.colorWhite),
                                   ),
-
-
                                 ],
                               ),
                               Column(
@@ -184,29 +262,36 @@ class _MyProfileState extends State<MyProfile> {
                                 children: [
                                   Text(
                                     "My Receivables",
-                                    style: myStyle(14, BrandColors.colorDimText),
+                                    style:
+                                        myStyle(14, BrandColors.colorDimText),
                                   ),
                                   SizedBox(
                                     height: 4,
                                   ),
-                                  Text(NumberFormat
-                                      .compactCurrency(
-                                    symbol: ' ৳ ',
-                                  ).format(totalReceivable?? 0), style: myStyle(14, Colors.white),)
+                                  Text(
+                                    NumberFormat.compactCurrency(
+                                      symbol: ' ৳ ',
+                                    ).format(totalReceivable ?? 0),
+                                    style: myStyle(14, Colors.white),
+                                  )
                                 ],
                               ),
                               GestureDetector(
-                                onTap:(){
-                                  String type="payable";
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddStartingBalance(
-                                    title:type,
-                                  ))).then((value) => setState(() {
-                                    fetchStartingPayableData();
-                                    fetchStartingReceivableData();
-                                  }));
+                                onTap: () {
+                                  String type = "payable";
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddStartingBalance(
+                                                title: type,
+                                              ))).then((value) => setState(() {
+                                        fetchStartingPayableData();
+                                        fetchStartingReceivableData();
+                                      }));
                                 },
 
-              /* (){
+                                /* (){
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>MyStartingBalance()));
                                 },*/
                                 child: Container(
@@ -218,7 +303,7 @@ class _MyProfileState extends State<MyProfile> {
                                       border: Border.all(
                                           color: Colors.deepPurpleAccent)),
                                   child: Icon(
-                                    Icons.edit,
+                                    Icons.add,
                                     size: 20,
                                     color: Colors.white,
                                   ),
@@ -226,28 +311,35 @@ class _MyProfileState extends State<MyProfile> {
                               ),
                             ],
                           ),
-                        ),
-                      )),
+                        )),
+                  ),
+                  SizedBox(height: 8,),
                   ProfileButton(
                     title: "Edit Profile",
                     icon: Icons.person,
-                     onPress:(){
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=> EditInfo(
-                         model: user[index],
-                       )));
-                     },
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditInfo(
+                                    model: user[index],
+                                  )));
+                    },
                   ),
                   ProfileButton(
                     title: "Notification",
                     icon: Icons.notification_important,
-                    onPress: () {
-
-                    },
+                    onPress: () {},
                   ),
                   ProfileButton(
                     title: "Password Security",
                     icon: Icons.lock,
-                    onPress: () {},
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResetPassword()));
+                    },
                   ),
                   ProfileButton(
                     title: "Help Center",
@@ -268,9 +360,9 @@ class _MyProfileState extends State<MyProfile> {
                     onTap: () {
                       _displayTextInputDialog(context);
                     },
-
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 15),
                       child: Text(
                         "Reset All Data",
                         style: myStyle(16, BrandColors.colorPurple),
@@ -281,10 +373,17 @@ class _MyProfileState extends State<MyProfile> {
                     onTap: () {
                       displayTextInputDialog(context);
                     },
-                    child: Text(
-                      "Logout",
-                      style: myStyle(16, BrandColors.colorPurple),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 15),
+                      child: Text(
+                        "Logout",
+                        style: myStyle(16, BrandColors.colorPurple),
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 25,
                   )
 
                   /*Container(
@@ -385,9 +484,8 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-
-
   String y;
+
   Future<void> _displayTextInputDialog(BuildContext context) async {
     return showDialog(
         barrierDismissible: false,
@@ -494,6 +592,7 @@ class _MyProfileState extends State<MyProfile> {
           );
         });
   }
+
   resetPassword() async {
     try {
       setState(() {
@@ -564,8 +663,10 @@ class _MyProfileState extends State<MyProfile> {
                       await SharedPreferences.getInstance();
                   await preferences.remove('token');
                   await preferences.remove('userName');
-                  Provider.of<UserDetailsProvider>(context,listen: false).deletedetails();
-                  Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
+                  Provider.of<UserDetailsProvider>(context, listen: false)
+                      .deletedetails();
+                  Provider.of<MyTransectionprovider>(context, listen: false)
+                      .deleteTransaction();
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.of(context).pushReplacementNamed(LoginScreen.id);
@@ -578,8 +679,6 @@ class _MyProfileState extends State<MyProfile> {
         });
   }
 }
-
-
 
 class ProfileButton extends StatelessWidget {
   Function onPress;
@@ -605,12 +704,12 @@ class ProfileButton extends StatelessWidget {
               width: 10,
             ),
             Text(
-              title, style: myStyle(16, BrandColors.colorWhite),),
+              title,
+              style: myStyle(16, BrandColors.colorWhite),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

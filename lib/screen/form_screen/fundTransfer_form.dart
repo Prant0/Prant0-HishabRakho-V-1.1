@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,11 +120,12 @@ class _FundTransferFormState extends State<FundTransferForm> {
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(
       new SnackBar(
+        duration: Duration(seconds: 1),
         content: Text(
           value,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.indigo,
       ),
     );
   }
@@ -167,6 +169,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                 children: [
 
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 22),
@@ -198,88 +201,48 @@ class _FundTransferFormState extends State<FundTransferForm> {
                           });
                         },
                         child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+                            margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(width: 1, color: Colors.grey)),
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                border: Border.all(
+                                    width: 0.7, color: BrandColors.colorPurple.withOpacity(0.8))),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Date : ${formattedDate}",
-                                  style:
-                                  myStyle(16, Colors.white, FontWeight.w500),
+
+                                RichText(
+                                  text: TextSpan(children: [
+
+                                    WidgetSpan(
+                                      child:Text(
+                                        'Date:',
+                                        textScaleFactor: 1.0,
+                                        style: myStyle(14,BrandColors.colorText),
+                                      ),
+                                    ),
+
+                                    WidgetSpan(
+                                      child: Text(
+                                        "  ${formattedDate}",
+                                        style: myStyle(
+                                            14, BrandColors.colorWhite, FontWeight.w500),
+                                      ),
+                                    ),
+
+                                  ]),
                                 ),
-                                Icon(Icons.date_range_outlined,color: Colors.white,),
+
+                                SvgPicture.asset("assets/calender.svg",
+                                  alignment: Alignment.center,
+                                  height: 15,width: 15,
+                                ),
                               ],
                             )),
                       ),
-                      /*Visibility(
-                        visible: isBank == true,
-                        child: Column(
-                          children: [
-                            Container(
-                                padding: EdgeInsets.only(top: 8),
-                                margin: EdgeInsets.symmetric(vertical: 15),
-                                child: Text(
-                                  banktext ?? "",
-                                  style:
-                                  myStyle(16, Colors.white, FontWeight.w700),
-                                )),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 15),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey, width: 1),
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              height: 60,
-                              child: Center(
-                                child: DropdownButtonFormField<String>(
-                                  dropdownColor: BrandColors.colorPrimary,
-                                  isExpanded: true,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 30,
-                                    color: Colors.white,
-                                  ),
-                                  decoration:
-                                  InputDecoration.collapsed(hintText: ''),
-                                  hint: Text(
-                                    "Select Bank ",
-                                    style: myStyle(16, Colors.white),
-                                  ),
-                                  validator: (value) =>
-                                  value == null ? 'field required' : null,
-                                  value: _myBank,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _myBank = newValue;
-                                      print("my Bank is ${_myBank}");
-                                      // print();
-                                    });
-                                  },
-                                  items: bankList?.map((item) {
-                                    return new DropdownMenuItem(
-                                      child: new Text(
-                                        "${item['storage_hub_name']} ${item['user_storage_hub_account_number']}",style: myStyle(16,Colors.white),),
-                                      value: item['id'].toString(),
-                                    );
-                                  })?.toList() ??
-                                      [],
-                                ),
-                              ),
-                            ),
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                      ),*/
+
 
                       SizedBox(height: 20,),
                       Visibility(
@@ -288,7 +251,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              Text(banktext ??"",style: myStyle(16,BrandColors.colorDimText),),
+                              Text(banktext ??"",style: myStyle(16,BrandColors.colorText),),
                               GestureDetector(
                                 onTap:  () async {
                                   List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
@@ -313,8 +276,11 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(bankName??"Choose Bank",style: myStyle(16,Colors.white),),
-                                      Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                      Text(bankName??"Choose Bank",style: myStyle(14,BrandColors.colorText),),
+                                      SvgPicture.asset("assets/select bank.svg",
+                                        alignment: Alignment.bottomCenter,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -354,8 +320,11 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(mfsName??"Choose Mfs",style: myStyle(16,Colors.white),),
-                                      Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                      Text(mfsName??"Choose Mfs",style: myStyle(14,BrandColors.colorText),),
+                                      SvgPicture.asset("assets/select MFS.svg",
+                                        alignment: Alignment.bottomCenter,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -363,75 +332,37 @@ class _FundTransferFormState extends State<FundTransferForm> {
                             ],
                           )
                       ),
-                      /*Visibility(
-                        visible: isMfs == true,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(top: 20, ),
-                                child: Text(
-                                  mfstext ?? "",
-                                  style:
-                                  myStyle(16, Colors.white, FontWeight.w700),
-                                )),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              margin: EdgeInsets.symmetric( vertical: 22),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey, width: 1),
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              //margin: EdgeInsets.only(top: 20),
-                              height: 60,
-                              child: Center(
-                                child: DropdownButtonFormField<String>(
-                                  dropdownColor: BrandColors.colorPrimary,
-                                  isExpanded: true,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    size: 30,
-                                  ),
-                                  decoration:
-                                  InputDecoration.collapsed(hintText: ''),
-                                  hint: Text(
-                                    "Select MFS ",
-                                    style: myStyle(16, Colors.white),
-                                  ),
-                                  validator: (value) =>
-                                  value == null ? 'field required' : null,
-                                  value: _myMfs,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _myMfs = newValue;
-                                      print("my Mfs is ${_myMfs}");
-                                      // print();
-                                    });
-                                  },
-                                  items: mfsList?.map((item) {
-                                    return new DropdownMenuItem(
-                                      child: new Text(
-                                        "${item['storage_hub_name']} ${item['user_storage_hub_account_number']}",style: myStyle(16,Colors.white),),
-                                      value: item['id'].toString(),
-                                    );
-                                  })?.toList() ??
-                                      [],
-                                ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 15),
+                        child: Text("Add details (optional)",style: myStyle(16,BrandColors.colorText),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric( vertical: 15),
+                        child: TextFormField(
+                          maxLines: 4,
+                          controller: detailsController,
+                          style: TextStyle(fontSize: 16.0, color: BrandColors.colorDimText),
+                          decoration: InputDecoration(hoverColor: Colors.black,
+                            filled: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+                            fillColor: BrandColors.colorPrimary,
+                            focusedBorder:OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 2.0,
                               ),
                             ),
-                          ],
+                            hintStyle: myStyle(14, BrandColors.colorText),
+                            hintText: "Write here",
+                          ),
                         ),
-                      ),*/
-                      SenderTextEdit(
-                        keyy: "details",
-                        data: _data,
-                        name: detailsController,
-                        lebelText: "Details",
-                        hintText: "Add Details",
-                        icon: Icons.person,
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 0),
@@ -443,90 +374,19 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 displayFormat: MoneyDisplayFormat.symbolOnLeft),
                             appearanceSettings: AppearanceSettings(
                                 padding: EdgeInsets.all(15.0),
-                                labelText: ' Balance* ',
-
-                                labelStyle:
-                                myStyle(20, Colors.white, FontWeight.w600),
+                                labelText: 'Add Amount* ',
+                                labelStyle: myStyle(16, BrandColors.colorText, FontWeight.w600),
                                 inputStyle: _ts.copyWith(color: Colors.white),
                                 formattedStyle:
                                 _ts.copyWith(color: Colors.white)),
                           ),
                         ),
                       ),
-                      /*SenderTextEdit(
-                    keytype: TextInputType.number,
-                    */ /*formatter:  <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                      CurrencyInputFormatter(),
-                    ],*/ /*
-                    keyy: "amount",
-                    data: _data,
-                    name: amountController,
-                    lebelText: "Enter Amount",
-                    hintText: "Amount",
-                    icon: Icons.person,
-                    function: (String value) {
-                      if (value.isEmpty) {
-                        return "Amount is required";
-                      }
-                      if (value.length < 1) {
-                        return "Amount Too Short";
-                      }if (value.length > 12) {
-                        return "Amount Too long ( Max 12 digit )";
-                      }
-                    },
-                  ),*/
 
                       SizedBox(
                         height: 10,
                       ),
-                      /*RaisedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-                          print("widget name ${widget.name}");
-                          print("widget name ${widget.title}");
-                          widget.title == "Bank to Cash"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : bankToCash(context)
-                              : widget.title == "Bank to MFS"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : bankToMfs(context)
-                              : widget.title == "Cash to Bank"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : cashToBank(context)
-                              : widget.title == "Cash to MFS"
-                              ? amountController.text.toString().isEmpty
-                              ? showInSnackBar("Amount Required")
-                              : cashToMfs(context)
-                              : widget.title == "MFS to Bank"
-                              ? amountController.text
-                              .toString()
-                              .isEmpty
-                              ? showInSnackBar(
-                              "Amount Required")
-                              : mfsToBank(context)
-                              : amountController.text
-                              .toString()
-                              .isEmpty
-                              ? showInSnackBar(
-                              "Amount Required")
-                              : mfsTOCash(context);
-                        },
-                        color: Colors.purple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 100,
-                        ),
-                        child: Text(
-                          "Submit",
-                          style: myStyle(18, Colors.white),
-                        ),
-                      ),*/
+
                       SizedBox(
                         height: 80,
                       ),

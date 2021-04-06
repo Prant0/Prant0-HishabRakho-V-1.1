@@ -53,7 +53,7 @@ class _AddEntriesScreenState extends State<AddEntriesScreen> {
   Widget build(BuildContext context) {
     dataa = Provider.of<MyTransectionprovider>(context).data;
     return Scaffold(
-      drawer: Drawerr(_scaffoldKey),
+      drawer: Drawerr(),
       key: _scaffoldKey,
       backgroundColor: Colors.black,
       appBar: AppBar(

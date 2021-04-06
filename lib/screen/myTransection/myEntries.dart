@@ -1,4 +1,5 @@
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
@@ -35,7 +36,10 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
         onProgress = false;
       });
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Details()));
+          context, MaterialPageRoute(builder: (context) => Details(
+
+
+      )));
     }
   }
 
@@ -92,24 +96,27 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
+              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 6,
-                    child: Text("Title", style: myStyle(14,
+                    flex: 7,
+                    child: Text("Title", style: myStyle(12,
                         BrandColors.colorDimText),),
                   ),
                   Expanded(
                     flex: 5,
-                    child: Text("Transaction", style: myStyle(14,
+                    child: Text("Transaction", style: myStyle(12,
                         BrandColors.colorDimText),),
                   ),
                   Expanded(
-                    flex: 3,
-                    child: Text("Balance", style: myStyle(14,
-                        BrandColors.colorDimText),),
+                    flex: 4,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Balance", style: myStyle(12,
+                          BrandColors.colorDimText),),
+                    ),
                   ),
                 ],
               ),
@@ -121,134 +128,154 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                 shrinkWrap: true,
                 itemCount: list.length,
                 itemBuilder: (context, index) {
-                  return Slidable(
-                    actionPane: SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
-                    child: new Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${list[index].friendName??""}",style: myStyle(16,Colors.white,FontWeight.w600),
-                                ),
-                                SizedBox(height: 3,),
-                                Text(
-                                    "${list[index].formatedDate ?? ""}",style: myStyle(14,BrandColors.colorDimText,),
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              //"৳ ${list[index].amount.toString()}",
-                              NumberFormat.currency(
-                                  symbol: ' ৳ ',
-                                  decimalDigits: (list[index]
-                                      .amount) is int ? 0 :2,
-                                  locale: "en-in").format(list[index].amount),
-                              style: myStyle(
-                                  14,list[index].amount>1? Colors.greenAccent:Colors.redAccent),
-                            )
-                          ),
+                  return GestureDetector(
+                    onTap: () {
+                      print(
+                          "tap ${list[index].eventId}");
+                      if (mounted) {
+                        myEntriesView(
+                            list[index].eventId);
+                      }
+                    },
+                    child: Slidable(
 
-                          Expanded(
-                            flex: 3,
-                            child:  Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  NumberFormat.currency(
-                                      symbol: ' ৳ ',
-                                      decimalDigits: (list[index]
-                                          .balance) is int ? 0 :2,
-                                      locale: "en-in")
-                                      .format(list[index]
-                                      .balance),
-
-                                  style: myStyle(
-                                      14, Colors.white),
-                                ),
-
-                                Container(
-                                  //height: double.infinity,
-                                  height: 25,
-                                  width: 3,
-                                  color: Colors.white70,
-                                )
-                              ],
-                            )
-                          ),
-                        ],
-                      )
-                    ),
-
-                    secondaryActions: <Widget>[
-
-                      new IconSlideAction(
-                        caption: 'Delete',
-                        color: Colors.red,
-                        icon: Icons.delete,
-                        //onTap: () => _showSnackBar('Delete'),
-                           onTap: () {
-                          showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          13.0)),
-                                  title: Text(
-                                    "Are You Sure ?",
-                                    style: myStyle(
-                                        16,
-                                        Colors.black54,
-                                        FontWeight.w800),
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      child: new Container(
+                        margin: EdgeInsets.only(left: 6),
+                        padding: EdgeInsets.symmetric(vertical: 13),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w600),
                                   ),
-                                  content: Text(
-                                      "You want to delete !"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(false);
-                                        },
-                                        child: Text("No")),
-                                    FlatButton(
-                                        onPressed: () {
-                                          print("tap");
-                                          CustomHttpRequests
-                                              .deleteList(list[
-                                          index]
-                                              .eventId)
-                                              .then((value) =>
-                                          value);
-                                          setState(() {
-                                            list
-                                                .removeAt(
-                                                index);
-                                            Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
-                                          });
-                                          showInSnackBar(
-                                            "1 Item Delete",
-                                          );
-                                          Navigator.pop(
-                                              context);
-                                        },
-                                        child: Text("Yes"))
-                                  ],
-                                );
-                              });
-                        },
+                                  SizedBox(height: 3,),
+                                  Text(
+                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText,),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                //"৳ ${list[index].amount.toString()}",
+                                NumberFormat.currency(
+                                    symbol: '',
+                                    decimalDigits: (list[index]
+                                        .amount) is int ? 0 :2,
+                                    locale: "en-in").format(list[index].amount),
+                                style: myStyle(
+                                    12,list[index].amount>1? Colors.greenAccent:Colors.redAccent),
+                              )
+                            ),
+
+                            Expanded(
+                              flex: 3,
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Align(
+
+                                    child: Text(
+                                      NumberFormat.currency(
+                                          symbol: ' ',
+                                          decimalDigits: (list[index]
+                                              .balance) is int ? 0 :2,
+                                          locale: "en-in")
+                                          .format(list[index]
+                                          .balance),
+
+                                      style: myStyle(
+                                          12, Colors.white),
+                                    ),
+
+                                  ),
+
+                                  Container(
+                                    //height: double.infinity,
+                                    height: 30,
+                                    width: 3,
+                                    color: BrandColors.colorText.withOpacity(0.2),
+                                  )
+                                ],
+                              )
+                            ),
+                          ],
+                        )
                       ),
-                    ],);
+
+                      secondaryActions: <Widget>[
+
+                        new IconSlideAction(
+                          caption: 'Delete',
+                          color: BrandColors.colorPrimary,
+
+                          iconWidget: SvgPicture.asset("assets/delete.svg",
+                            alignment: Alignment.center,
+                            height: 20,width: 20,
+                          ),
+                          //onTap: () => _showSnackBar('Delete'),
+                             onTap: () {
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(
+                                            13.0)),
+                                    title: Text(
+                                      "Are You Sure ?",
+                                      style: myStyle(
+                                          16,
+                                          Colors.black54,
+                                          FontWeight.w800),
+                                    ),
+                                    content: Text(
+                                        "You want to delete !"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(false);
+                                          },
+                                          child: Text("No")),
+                                      FlatButton(
+                                          onPressed: () {
+                                            print("tap");
+                                            CustomHttpRequests
+                                                .deleteList(list[
+                                            index]
+                                                .eventId)
+                                                .then((value) =>
+                                            value);
+                                            setState(() {
+                                              list
+                                                  .removeAt(
+                                                  index);
+                                              Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
+                                            });
+                                            showInSnackBar(
+                                              "1 Item Delete",
+                                            );
+                                            Navigator.pop(
+                                                context);
+                                          },
+                                          child: Text("Yes"))
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                      ],),
+                  );
                 }
             )
 

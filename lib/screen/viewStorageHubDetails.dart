@@ -118,7 +118,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                               flex: 3,
                               child: Text(
                                 NumberFormat.currency(
-                                    symbol: ' ৳ ',
+                                    symbol: '',
                                     decimalDigits: (dataa[index]
                                         .amount) is int ? 0 :2,
                                     locale: "en-in").format(dataa[index].amount),

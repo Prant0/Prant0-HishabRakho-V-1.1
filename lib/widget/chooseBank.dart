@@ -19,7 +19,7 @@ class _ChooseBankState extends State<ChooseBank> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool onProgress =false;
-  List<BankModel> bankList = [];
+
   BankModel bankModel;
 
   Future<List<BankModel>> getUserBankData()async{
@@ -164,7 +164,7 @@ class _ChooseBankState extends State<ChooseBank> {
     );
   }
 
-
+  List<BankModel> bankList = [];
   _searchBar(){
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24,),

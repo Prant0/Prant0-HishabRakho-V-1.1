@@ -1,4 +1,5 @@
 import 'package:anthishabrakho/globals.dart';
+import 'package:anthishabrakho/screen/home_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
@@ -21,8 +22,14 @@ class _CashWidgetState extends State<CashWidget> {
         itemBuilder: (context,index){
           return ListTile(
             leading: Icon(Icons.money,color: Colors.white70,size: 22,),
-            title: Text("Cash",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
-            trailing:  Text(
+            title: Text("Cash",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
+            trailing: moneyField(
+              amount: widget.model[index].totalCashAmount,
+              ts: myStyle(16,Colors.white,FontWeight.w500),
+              offset: Offset(-1, -8),
+              tks: myStyle(14,Colors.white),
+            ),
+            /*Text(
                 NumberFormat
                     .compactCurrency(
                   symbol: ' ৳ ',
@@ -30,7 +37,7 @@ class _CashWidgetState extends State<CashWidget> {
                     widget.model[index]
                         .totalCashAmount),
                 style: myStyle(
-                    14, Colors.white))
+                    14, Colors.white))*/
           );
         },
 

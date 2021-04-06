@@ -4,6 +4,7 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/screen/stapper/add_Receivable.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
@@ -73,7 +74,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
               child:Column(
                 children: [
                   Expanded(
-                    flex: 9,
+                    flex: 11,
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,30 +97,67 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                               });
                             },
                             child: Container(
-
+                                margin: EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(width: 1, color: Colors.grey)),
-                                padding:
-                                EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                    border: Border.all(
+                                        width: 0.5, color: Colors.grey.withOpacity(0.4))),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "Date : ${formattedDate}",
-                                      style:
-                                      myStyle(16, Colors.white, FontWeight.w700),
+
+                                    RichText(
+                                      text: TextSpan(children: [
+
+                                        WidgetSpan(
+                                          child:Text(
+                                            'Date:',
+                                            textScaleFactor: 1.0,
+                                            style: myStyle(14,BrandColors.colorText),
+                                          ),
+                                        ),
+
+                                        WidgetSpan(
+                                          child: Text(
+                                            "  ${formattedDate}",
+                                            style: myStyle(
+                                                14, BrandColors.colorWhite, FontWeight.w500),
+                                          ),
+                                        ),
+
+                                      ]),
                                     ),
-                                    Icon(Icons.date_range_outlined,color: BrandColors.colorDimText,),
+
+                                    SvgPicture.asset("assets/calender.svg",
+                                      alignment: Alignment.center,
+                                      height: 15,width: 15,
+                                    ),
                                   ],
                                 )),
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text("Payable to ",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
                           ),
                           SenderTextEdit(
                             keyy: "pay",
                             data: _data,
                             name: nameController,
-                            lebelText: "Payable to",
-                            icon: Icons.person,
+                            lebelText: "Enter Name",
+                            icon: Padding(
+                              padding: const EdgeInsets.all(14.0),
+                              child: SvgPicture.asset("assets/user1.svg",
+                                alignment: Alignment.bottomCenter,
+                                fit: BoxFit.contain,
+                                color: BrandColors.colorText,
+                              ),
+                            ),
                             function: (String value) {
                               if (value.isEmpty) {
                                 return "Name required";
@@ -132,15 +170,20 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                               }
                             },
                           ),
+                          SizedBox(height: 10,),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8),
+                            child: Text("Add details ",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
+                          ),
                           SenderTextEdit(
                             keyy: "details",
                             data: _data,
                             name: details,
-                            lebelText: "Details",
-                            icon: Icons.details_sharp,
+                            lebelText: "Write here...",
+                           // icon: Icons.details_sharp,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            padding: EdgeInsets.symmetric(horizontal: 0),
                             child: MoneyTextFormField(
                               settings: MoneyTextFormFieldSettings(
                                 controller: amountController,
@@ -162,53 +205,19 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                           SizedBox(
                             height: 10,
                           ),
-                          /*Center(
-                            child: RaisedButton(
-                              onPressed: () {
-                                if (!_formKey.currentState.validate()) return;
-                                _formKey.currentState.save();
-                                amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadPayable(context);
-                              },
-                              color: Colors.purple,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 100,
-                              ),
-                              child: Text(
-                                "Submit",
-                                style: myStyle(18, Colors.white),
-                              ),
-                            ),
-                          ),
 
-                          Center(
-                            child: RaisedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddReceivableStepper()));},
-                              color: Colors.blueGrey,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 100,
-                              ),
-                              child: Text(
-                                "Skip",
-                                style: myStyle(18, Colors.white),
-                              ),
-                            ),
-                          ),*/
                         ],
                       ),
                     ),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: InkWell(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          InkWell(
                             onTap: () {
                               Navigator.pushReplacement(
                                   context,
@@ -216,8 +225,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                                       builder: (context) => AddReceivableStepper()));
                             },
                             child: Container(
-                                margin: EdgeInsets.only(
-                                    left: 12, bottom: 12, right: 12),
+                              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 70),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),
                                     border: Border.all(
@@ -228,31 +236,30 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                                       style: myStyle(16, Colors.white),
                                     ))),
                           ),
-                        ),
-                        Expanded(
-                            flex: 5,
-                            child: InkWell(
-                              onTap: () {
-                                if (!_formKey.currentState.validate()) return;
-                                _formKey.currentState.save();
-                                amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadPayable(context);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(right: 12, bottom: 12),
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: BrandColors.colorPurple,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(
-                                        color: BrandColors.colorPurple, width: 2)),
-                                child: Center(
-                                    child: Text(
-                                      "Proceed",
-                                      style: myStyle(16, Colors.white, FontWeight.w500),
-                                    )),
-                              ),
-                            ))
-                      ],
+
+                          InkWell(
+                            onTap: () {
+                              if (!_formKey.currentState.validate()) return;
+                              _formKey.currentState.save();
+                              amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadPayable(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 50),
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: BrandColors.colorPurple,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                      color: BrandColors.colorPurple, width: 2)),
+                              child: Center(
+                                  child: Text(
+                                    "Proceed",
+                                    style: myStyle(16, Colors.white, FontWeight.w500),
+                                  )),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

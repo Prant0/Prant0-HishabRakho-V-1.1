@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -122,45 +123,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
     return Scaffold(
       key: _scaffoldKey,
         backgroundColor: BrandColors.colorPrimaryDark,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text(
-          "My Entries",
-          style: myStyle(18, Colors.white, FontWeight.w800),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>MyProfile())).then((value) => setState(() {
-                loadUserImage();
-              }));
-            },
-            child:Container(
-              padding: const EdgeInsets.all(3.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border:
-                Border.all(color:BrandColors.colorDimText, width: 0.5),
-              ),
-              child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/$image",)
-              ),
-            ),
-
-
-            /*CircleAvatar(
-              foregroundColor: Colors.red,
-                backgroundColor: Colors.transparent,
-                //radius: 30,
-                backgroundImage: NetworkImage("http://hishabrakho.com/admin/user/$image",)),*/
-          ),
-          SizedBox(width: 8,),
-        ],
-        centerTitle: true,
-      ),
-        drawer: Drawerr(_scaffoldKey),
+        drawer: Drawerr(),
       body:Container(
         height: double.infinity,
         padding: EdgeInsets.only(left: 10,top: 15,bottom: 5),

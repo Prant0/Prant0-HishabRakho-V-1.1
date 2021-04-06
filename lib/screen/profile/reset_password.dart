@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -25,12 +26,15 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
         title: Text("Reset password"),
         centerTitle: true,
       ),
       body: Container(
+        height: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: ModalProgressHUD(
           inAsyncCall: onProgress,
           child: SingleChildScrollView(
@@ -42,7 +46,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 80.0,
+                      height: 20.0,
                     ),
                     SenderTextEdit(
                       keyy: "password",
@@ -115,20 +119,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.purpleAccent,
-                              Colors.purple,
-                              Colors.deepPurpleAccent,
-                            ],
-                          ),
+                          color: BrandColors.colorPurple,
+                         border: Border.all( color: BrandColors.colorPurple,width: 1),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.symmetric(
                             horizontal: 30.0, vertical: 15.0),
                         margin: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 20.0),
+                            horizontal: 30.0, vertical: 30.0),
                         child: Center(
                           child: Text(
                             'Submit',

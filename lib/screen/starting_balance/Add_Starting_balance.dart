@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -66,7 +67,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
         inAsyncCall: onProgress,
         child: Container(
           height: double.infinity,
-          padding: EdgeInsets.only(top: 30,left: 12,right: 12),
+          padding: EdgeInsets.only(top: 30,left: 14,right: 14),
           child: Form(
             key: _formKey,
             child: Stack(
@@ -87,7 +88,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                                   textAlign: TextAlign.start,
                                 )   :Text(
                                   "Add your Receivable ",
-                                  style: myStyle(18, Colors.white, FontWeight.w700),
+                                  style: myStyle(20, Colors.white, FontWeight.w700),
                                   textAlign: TextAlign.start,
                                 )
                             ),
@@ -115,51 +116,29 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(width: 1, color: Colors.grey)),
-                            padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                            padding:EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Date : ${formattedDate}",
                                   style:
-                                  myStyle(16, Colors.white, FontWeight.w700),
+                                  myStyle(16, BrandColors.colorText, FontWeight.w700),
                                 ),
-                                Icon(Icons.date_range_outlined,color: Colors.white,),
+                                Icon(Icons.date_range_outlined,color:BrandColors.colorText,),
                               ],
                             )),
                       ),
-                      /*SenderTextEdit(
-                      keytype: TextInputType.number,
-                      formatter:  <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                        CurrencyInputFormatter(),
-                      ],
-                      keyy: "amount",
-                      data: _data,
-                      name: amountController,
-                      lebelText: "Enter Amount",
-                      hintText: "Amount",
-                      icon: Icons.money,
-                      function: (String value) {
-                        if (value.isEmpty) {
-                          return "Amount required";
-                        }
-                        if (value.length > 17) {
-                          return "Amount is Too Long.(Max 10 digits)";
-                        }
-                      },
-                    ),*/
 
                       Padding(
                           padding:EdgeInsets.only(top: 20),
                           child: widget.title=="payable"? Text(
                             "Pay to ",
-                            style: myStyle(16, Colors.white,  ),
+                            style: myStyle(16, BrandColors.colorText,  ),
                             textAlign: TextAlign.start,
                           )   :Text(
                             "Receive from  ",
-                            style: myStyle(16, Colors.white, ),
+                            style: myStyle(16,  BrandColors.colorText, ),
                             textAlign: TextAlign.start,
                           )
                       ),
@@ -167,8 +146,15 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                         keyy: "pay",
                         data: _data,
                         name: nameController,
-                        lebelText: "Name",
-                        icon: Icons.person,
+                        lebelText: "Type name here",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: SvgPicture.asset("assets/user1.svg",
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
+                            height: 15,width: 15,
+                          ),
+                        ),
                         function: (String value) {
                           if (value.isEmpty) {
                             return "Name required";
@@ -182,15 +168,15 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                         },
                       ),
                       Padding(
-                        child: Text("Details (optional)",style: myStyle(16,Colors.white),),
+                        child: Text("Add Details (optional)",style: myStyle(16,BrandColors.colorText),),
                         padding: EdgeInsets.only(top: 15,),
                       ),
                       SenderTextEdit(
                         keyy: "details",
                         data: _data,
                         name: details,
-                        lebelText: "Details",
-                        icon: Icons.details_sharp,
+                        lebelText: "write details (optional)",
+
                       ),
                       MoneyTextFormField(
                         settings: MoneyTextFormFieldSettings(
@@ -202,10 +188,10 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                               padding: EdgeInsets.all(15.0),
                               labelText: 'Enter Amount* ',
                               hintText: 'Enter Amount',
-                              labelStyle: myStyle(20,Colors.white,FontWeight.w600),
-                              inputStyle: _ts.copyWith(color: Colors.white),
+                              labelStyle: myStyle(20, BrandColors.colorText,FontWeight.w600),
+                              inputStyle: _ts.copyWith(color:  BrandColors.colorText),
                               formattedStyle:
-                              _ts.copyWith(color: Colors.white)),
+                              _ts.copyWith(color:  BrandColors.colorText)),
 
                         ),
                       ),
@@ -243,11 +229,11 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.arrow_back_ios,
-                                    color: Colors.white70,
-                                    size: 15,
+                                  SvgPicture.asset("assets/arrow2.svg",
+                                    alignment: Alignment.center,
+                                    fit: BoxFit.contain,
                                   ),
+                                  SizedBox(width: 5,),
                                   Text(
                                     "Skip",
                                     style: myStyle(16, Colors.white),
@@ -275,7 +261,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                                 borderRadius: BorderRadius.circular(10.0),
                                 color: Colors.deepPurpleAccent,
                                 border: Border.all(
-                                    color: Colors.deepPurpleAccent,
+                                    color: BrandColors.colorPurple.withOpacity(0.8),
                                     width: 1.0),
                               ),
                               child: Row(
@@ -285,10 +271,9 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                                     "Proceed",
                                     style: myStyle(16, Colors.white),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: Colors.white70,
-                                    size: 15,
+                                  SvgPicture.asset("assets/arrow1.svg",
+                                    alignment: Alignment.center,
+                                    fit: BoxFit.contain,
                                   ),
                                 ],
                               ),

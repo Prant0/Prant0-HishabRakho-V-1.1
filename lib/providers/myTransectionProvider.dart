@@ -146,7 +146,8 @@ class MyTransectionprovider with ChangeNotifier {
         friendName: entries["friend_name"],
         balance: entries["balance"],
         transactionTypeId: entries["transaction_type_id"],
-        eventSubCategoryId: entries["event_sub_category_id"]
+        eventSubCategoryId: entries["event_sub_category_id"],
+
       );
       try {
         print(" my Recievable entries data are ${entries['id']}");

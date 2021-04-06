@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/services.dart';
 import 'package:anthishabrakho/screen/stapper/addMfs.dart';
@@ -10,7 +10,6 @@ import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
 
@@ -90,7 +89,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
               child: Column(
                 children: [
                   Expanded(
-                    flex: 9,
+                    flex: 10,
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -127,9 +126,9 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                       Text(
                                         "Date : ${formattedDate}",
                                         style:
-                                        myStyle(16, Colors.white, FontWeight.w700),
+                                        myStyle(16, BrandColors.colorText, FontWeight.w700),
                                       ),
-                                      Icon(Icons.date_range_outlined,color: BrandColors.colorDimText,),
+                                      Icon(Icons.date_range_outlined,color: BrandColors.colorText,),
                                     ],
                                   )),
                             ),
@@ -138,7 +137,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Choose your bank",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                                  child: Text("Choose your bank",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
                                 ),
                                 GestureDetector(
                                   onTap: () async {
@@ -162,8 +161,11 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(bankName??"Choose Bank",style: myStyle(16,BrandColors.colorDimText),overflow: TextOverflow.ellipsis,),
-                                        Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                        Text(bankName??"Select Your Bank ",style: myStyle(14,BrandColors.colorDimText),overflow: TextOverflow.ellipsis,),
+                                        SvgPicture.asset("assets/select bank.svg",
+                                          alignment: Alignment.center,
+                                          height: 20,width: 20,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -171,19 +173,17 @@ class _AddBankStapperState extends State<AddBankStapper> {
 
                                 Padding(
                                   padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Account Number",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                                  child: Text("Account Number",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
                                 ),
                                 SenderTextEdit(
                                   keyy: "number",
                                   keytype: TextInputType.number,
                                   data: _data,
                                   name: bankAccountNumberController,
-                                  lebelText: "Account Number",
-                                  hintText: "Account Number",
+                                  lebelText: "Enter your account no",
                                   formatter:  <TextInputFormatter>[
                                     FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                                   ],
-                                  icon: Icons.confirmation_number_outlined,
                                   function: (String value) {
                                     if (value.isEmpty) {
                                       return "Account Number required";
@@ -199,15 +199,15 @@ class _AddBankStapperState extends State<AddBankStapper> {
 
                                 Padding(
                                   padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Account Name",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                                  child: Text("Account Name",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
                                 ),
                                 SenderTextEdit(
                                   keyy: "name",
                                   data: _data,
                                   name: bankAccountNameController,
-                                  lebelText: "Your Name",
+                                  lebelText: "Enter your account name",
                                  // hintText: "Account Holder Name",
-                                  icon: Icons.drive_file_rename_outline,
+
                                   function: (String value) {
                                     if (value.isEmpty) {
                                       return "Name required";
@@ -221,7 +221,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                   },
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 22,right: 22,bottom: 20),
+                                  padding: EdgeInsets.only(right: 8,bottom: 20),
                                   child: MoneyTextFormField(
                                     settings: MoneyTextFormFieldSettings(
                                       controller: bankBalanceController,
@@ -231,10 +231,10 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                       appearanceSettings: AppearanceSettings(
                                           padding: EdgeInsets.all(15.0),
                                           labelText: 'Enter Amount* ',
-                                          labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                                          labelStyle: myStyle(16,BrandColors.colorText,FontWeight.w600),
                                           inputStyle: _ts.copyWith(color: BrandColors.colorDimText),
                                           formattedStyle:
-                                          _ts.copyWith(color:BrandColors.colorDimText)),
+                                          _ts.copyWith(color:BrandColors.colorText)),
 
                                     ),
                                   ),
@@ -260,7 +260,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                             )));
                             },
                             child: Container(
-                                margin: EdgeInsets.only(left: 12,bottom: 12,right: 12),
+                                margin: EdgeInsets.only(left: 2,bottom: 12,right: 12),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
                                 ),
@@ -281,7 +281,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                 showInSnackBar("Amount Required"): uploadBank(context) ;
                               },
                               child: Container(
-                                margin: EdgeInsets.only(right: 12,bottom: 12),
+                                margin: EdgeInsets.only(right: 5,bottom: 12),
                                 height: double.infinity,
                                 decoration: BoxDecoration(
                                   color: BrandColors.colorPurple,

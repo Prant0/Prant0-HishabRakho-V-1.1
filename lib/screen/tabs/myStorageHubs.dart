@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/screen/add_Storage_hub.dart';
+import 'package:anthishabrakho/screen/home_page.dart';
 import 'package:anthishabrakho/screen/stapper/addBank.dart';
 import 'package:anthishabrakho/screen/stapper/addMfs.dart';
 import 'package:anthishabrakho/screen/viewStorageHubDetails.dart';
@@ -172,13 +174,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  /*void _onRefresh() async {
-    myMfsDetails();
-    myCashDetails();
-    mybankDetails();
-    await Future.delayed(Duration(seconds: 1));
-    _refreshController.refreshCompleted();
-  }*/
+
 
   @override
   Widget build(BuildContext context) {
@@ -186,65 +182,6 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
       key: _scaffoldKey,
       resizeToAvoidBottomInset: true,
       backgroundColor: BrandColors.colorPrimaryDark,
-      drawer: Drawerr(_scaffoldKey),
-      appBar: AppBar(
-        backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text(
-          "My Storage Hub",
-          style: myStyle(18, BrandColors.colorWhite, FontWeight.w500),
-        ),
-        actions: [
-          Icon(
-            Icons.notifications_active_outlined,
-            color: BrandColors.colorWhite,
-            size: 25,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-
-      /*AppBar(
-        actions: [
-          InkWell(
-            onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddStorageHub()),
-              ).then((value) => setState(() {
-                    myMfsDetails();
-                    mybankDetails();
-                  }));
-            },
-            child: Icon(
-              Icons.add,
-              size: 35,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(
-            width: 8,
-          )
-        ],
-        leadingWidth: 70,
-        leading: InkWell(
-            onTap: () {
-              print("tap");
-              _scaffoldKey.currentState.openDrawer();
-            },
-            child: Icon(
-              Icons.menu,
-              size: 30,
-              color: Colors.purple,
-            )),
-        title: Text(
-          "My Storage Hubs",
-          style: myStyle(18, Colors.white70, FontWeight.w800),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),*/
       body:allData.isNotEmpty? Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: ListView.builder(
@@ -275,8 +212,14 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   "Cash",
                                   style: myStyle(14, BrandColors.colorDimText),
                                 ),
-                                SizedBox(height: 4,),
-                                Text(
+                                SizedBox(height: 6,),
+                                moneyField(
+                                  amount: allData[index].totalCashAmount ?? 0,
+                                  ts: myStyle(16, Colors.white, FontWeight.w500),
+                                  offset: Offset(-1, -8),
+                                  tks: myStyle(12,Colors.white),
+                                ),
+                                /*Text(
                                     NumberFormat
                                         .compactCurrency(
                                       symbol: ' ৳ ',
@@ -284,7 +227,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                     index]
                                         .totalCashAmount ?? 0),
                                     style: myStyle(
-                                        14, Colors.white))
+                                        14, Colors.white))*/
                               ],
                             ),
                           ),
@@ -297,16 +240,13 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   "Bank",
                                   style: myStyle(14, BrandColors.colorDimText),
                                 ),
-                                SizedBox(height: 4,),
-                                Text(
-                                    NumberFormat
-                                        .compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(allData[
-                                    index]
-                                        .totalBankAmount ?? 0),
-                                    style: myStyle(
-                                        14, Colors.white))
+                                SizedBox(height: 6,),
+                                moneyField(
+                                  amount: allData[index].totalBankAmount ?? 0,
+                                  ts: myStyle(16, Colors.white, FontWeight.w500),
+                                  offset: Offset(-1, -8),
+                                  tks: myStyle(12,Colors.white),
+                                ),
                               ],
                             ),
                           ),
@@ -319,16 +259,13 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   "MFS",
                                   style: myStyle(14, BrandColors.colorDimText),
                                 ),
-                                SizedBox(height: 4,),
-                                Text(
-                                    NumberFormat
-                                        .compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(allData[
-                                    index]
-                                        .totalMfsAmount ?? 0) ,
-                                    style: myStyle(
-                                        14, Colors.white))
+                                SizedBox(height: 6),
+                                moneyField(
+                                  amount: allData[index].totalMfsAmount ?? 0,
+                                  ts: myStyle(16, Colors.white, FontWeight.w500),
+                                  offset: Offset(-1, -8),
+                                  tks: myStyle(12,Colors.white),
+                                ),
                               ],
                             ),
                           ),
@@ -390,7 +327,14 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                       "Current Balance",
                                       style: myStyle(14, BrandColors.colorDimText),
                                     ),
-                                    Text(
+                                    SizedBox(height: 6,),
+                                    moneyField(
+                                      amount: cashList[index].totalBalance ?? 0,
+                                      ts: myStyle(16, Colors.white, FontWeight.w500),
+                                      offset: Offset(-1, -8),
+                                      tks: myStyle(12,Colors.white),
+                                    ),
+                                    /*Text(
                                         NumberFormat
                                             .compactCurrency(
                                           symbol: ' ৳ ',
@@ -398,7 +342,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                         index]
                                             .totalBalance ?? 0),
                                         style: myStyle(
-                                            14, Colors.white))
+                                            14, Colors.white))*/
                                   ],
                                 ),
                                 InkWell(
@@ -460,7 +404,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           child: Text(
                             "+ Add Bank",
                             style: myStyle(
-                                14, Colors.deepPurpleAccent, FontWeight.w600),
+                                14, BrandColors.colorPurple, FontWeight.w600),
                           ),
                         ),
                       ],
@@ -738,7 +682,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           child: Text(
                             "+ Add MFS",
                             style: myStyle(
-                                14, Colors.deepPurpleAccent, FontWeight.w600),
+                                14, BrandColors.colorPurple, FontWeight.w600),
                           ),
                         ),
                       ],
@@ -870,7 +814,7 @@ class StorageCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: BrandColors.colorPrimary,
-      elevation: 10,
+
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)),
       child: Container(
@@ -930,7 +874,14 @@ class StorageCart extends StatelessWidget {
                       myStyle(12, BrandColors.colorDimText),
                     ),
                     SizedBox(height: 4,),
-                    Text(
+                    SizedBox(height: 6,),
+                    moneyField(
+                      amount: balance ?? 0,
+                      ts: myStyle(16, Colors.white, FontWeight.w500),
+                      offset: Offset(-1, -8),
+                      tks: myStyle(12,Colors.white),
+                    ),
+                    /*Text(
                       NumberFormat.currency(
                           symbol: ' ৳ ',
                           decimalDigits: (balance) is int
@@ -940,7 +891,7 @@ class StorageCart extends StatelessWidget {
                           .format(
                           balance?? ""),
                       style: myStyle(16, Colors.white,FontWeight.w800),
-                    )
+                    )*/
                   ],
                 ),
                 Container(

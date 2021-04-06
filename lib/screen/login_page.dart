@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/user_model.dart';
-import 'package:anthishabrakho/providers/user_dertails_provider.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
 import 'package:anthishabrakho/screen/main_page.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -146,180 +145,237 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+     resizeToAvoidBottomInset: false,
        backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: ModalProgressHUD(
           progressIndicator: Spin(),
           inAsyncCall: onProgress,
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 9,
-                  child: Container(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Form(
+              key: _formKey,
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        Container(
-                          margin: EdgeInsets.only(top: 50.0),
-                          child: Center(
-                            child: Image(
-                              image: AssetImage('assets/lgo.png'),
-                              //height: 130.0,
-                              //width: 130.0,
-                            ),
-                          ),
-                        ),
-
-                        Container(
-                          margin: EdgeInsets.only(top: 50.0,bottom: 20,left: 20),
-                          child: Text("Welcome back !",style: myStyle(22,Colors.white,FontWeight.w600),),
-                        ),
-
-
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
-                          child: TextFormField(
-                            style: TextStyle(fontSize: 17.0, color:BrandColors.colorDimText),
-                            onSaved: (val) => x = val,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Email required";
-                              }
-                              if (!value.contains('@')) {
-                                return "Invalid Email";
-                              }
-                              if (!value.contains('.')) {
-                                return "Invalid Email";
-                              }
-                            },
-                            cursorColor: Colors.white70,
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(vertical: 20),
-                              border : OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,)
-                              ),
-                              filled: true,
-                              fillColor: BrandColors.colorPrimary,
-                              focusedBorder: InputBorder.none,
-                              //labelText: 'Email',
-                              prefixIcon: const Icon(
-                                Icons.email_sharp,
-                                color: BrandColors.colorDimText,
-                              ),
-                              labelStyle: myStyle(16, BrandColors.colorDimText),
-                              hintText: 'Write Email Here',
-                              hintStyle:  myStyle(14, BrandColors.colorDimText,FontWeight.w500),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        ),
-
-                        Container(
-                          padding: EdgeInsets.all(20.0),
-                          child: TextFormField(
-                            style: TextStyle(fontSize: 17.0, color:BrandColors.colorDimText),
-                            onSaved: (val) => y = val,
-                            controller: _passwordController,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Password required";
-                              }
-                              if (value.length < 6) {
-                                return "Password Too Short. ( 6 - 15 character )";
-                              }
-                              if (value.length > 15) {
-                                return "Password Too long. ( 6 - 15 character )";
-                              }
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _obscureText = !_obscureText;
-                                  });
-                                },
-                                child: Icon(
-                                  _obscureText
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: BrandColors.colorDimText,
-                                ),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(vertical: 20),
-                              border : OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,)
-                              ),
-                              filled: true,
-                              hintStyle:  myStyle(14, BrandColors.colorDimText,FontWeight.w500),
-                              fillColor: BrandColors.colorPrimary,
-                              focusedBorder: InputBorder.none,
-                              prefixIcon: const Icon(
-                                Icons.lock,
-                                color: BrandColors.colorDimText,
-                              ),
-                              hintText: 'Write Password Here',
-                            ),
-                            obscureText: _obscureText,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            final response = await _submit();
-                            if (response != null) {
-                              showInSnackBar(response);
-                            }
-                            print("Tap");
-                          },
+                        Expanded(
+                          flex: 2,
                           child: Container(
-                            decoration: BoxDecoration(
-                              color: BrandColors.colorPurple,
-                              borderRadius: BorderRadius.circular(10.0),
+                            margin: EdgeInsets.only(top: 20.0),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Center(
+                              child: Image(
+                                image: AssetImage('assets/lgo.png'),
+                                height: 60,
+                                width: MediaQuery.of(context).size.width /1,
+                                //width: 130.0,
+                              ),
                             ),
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 20.0),
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 30.0, vertical: 20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Login',
-                                  style: myStyle(18, Colors.white, FontWeight.w600),
-                                ),
-                                Icon(Icons.arrow_forward_ios_sharp,color: Colors.white,size: 15,)
-                              ],
-                            )
                           ),
                         ),
+
+                        Expanded(
+                          flex: 7,
+                          child: Container(
+                            //color: Colors.red,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 25,),
+                                    child: Text("Welcome back!",style: myStyle(22,Colors.white,FontWeight.w500),),
+                                  ),
+
+
+                                  Container(
+
+                                    child: TextFormField(
+                                      style: myStyle(14.0, BrandColors.colorDimText,FontWeight.w400),
+                                      onSaved: (val) => x = val,
+                                      validator: (String value) {
+                                        if (value.isEmpty) {
+                                          return "Email required";
+                                        }
+                                        if (!value.contains('@')) {
+                                          return "Invalid Email";
+                                        }
+                                        if (!value.contains('.')) {
+                                          return "Invalid Email";
+                                        }
+                                      },
+                                      cursorColor: Colors.white70,
+                                      controller: _emailController,
+                                      decoration: InputDecoration(
+                                        focusedBorder:OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2.0,
+                                          ),
+                                        ),
+
+                                        contentPadding: EdgeInsets.symmetric(vertical: 20),
+                                        filled: true,
+                                        fillColor: BrandColors.colorPrimary,
+                                        //focusedBorder: InputBorder.none,
+                                        prefixIcon: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: SvgPicture.asset("assets/email.svg",
+                                            alignment: Alignment.center,
+                                            height: 15,width: 15,
+                                            color: BrandColors.colorText.withOpacity(0.4),
+                                          ),
+                                        ),
+                                        labelStyle: myStyle(16, BrandColors.colorDimText),
+                                        hintText: 'Write email here',
+                                        hintStyle:  myStyle(14, BrandColors.colorDimText,),
+                                      ),
+                                      keyboardType: TextInputType.emailAddress,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 14,),
+
+                                  Container(
+
+                                    child: TextFormField(
+                                      style: myStyle(14.0, BrandColors.colorDimText,FontWeight.w400),
+                                      onSaved: (val) => y = val,
+                                      controller: _passwordController,
+                                      validator: (String value) {
+                                        if (value.isEmpty) {
+                                          return "Password required";
+                                        }
+                                        if (value.length < 6) {
+                                          return "Password Too Short. ( 6 - 15 character )";
+                                        }
+                                        if (value.length > 15) {
+                                          return "Password Too long. ( 6 - 15 character )";
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                        suffixIcon: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _obscureText = !_obscureText;
+                                            });
+                                          },
+                                          child: Icon(
+                                            _obscureText
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color: Color(0xFFD2DCF7).withOpacity(0.6),
+                                            size: 18,
+                                          ),
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(vertical: 20),
+                                        focusedBorder:OutlineInputBorder(
+                                          borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+                                          borderRadius: BorderRadius.circular(12.0),
+                                        ),
+
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12.0),
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                        filled: true,
+                                        hintStyle:  myStyle(14, BrandColors.colorDimText),
+                                        fillColor: BrandColors.colorPrimary,
+                                        prefixIcon:Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: SvgPicture.asset("assets/pass.svg",
+                                            alignment: Alignment.center,
+                                            height: 15,width: 15,
+                                          ),
+                                        ),
+                                        hintText: 'Write password here',
+                                      ),
+                                      obscureText: _obscureText,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      final response = await _submit();
+                                      if (response != null) {
+                                        showInSnackBar(response);
+                                      }
+                                      print("Tap");
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          color: BrandColors.colorPurple,
+                                          borderRadius: BorderRadius.circular(10.0),
+                                        ),
+                                        width: MediaQuery.of(context).size.width,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 30.0, vertical: 15.0),
+                                        margin: EdgeInsets.symmetric(
+                                             vertical: 24.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Login',
+                                              style: myStyle(14, Colors.white, FontWeight.w600),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.all(12.0),
+                                              child: SvgPicture.asset("assets/arrow1.svg",
+                                                alignment: Alignment.center,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Text("Forget your password?",style: myStyle(14,BrandColors.colorPurple),),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex:2 ,
+                          child: Container(),
+                        )
 
                       ],
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: Center(child: Text("Don't have an account?",style: myStyle(16,Colors.white),)),
-                      ),
+                  Positioned(
+                    bottom: 15,
+                    child: Container(
+                     // height: 65,
+                     padding: EdgeInsets.symmetric(horizontal: 10),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FittedBox(child: Text("Don't have an account?",style: myStyle(14,Colors.white,FontWeight.w400),)),
 
-                      Expanded(
-                          flex: 5,
-                          child: InkWell(
+                          InkWell(
                             onTap: () {
                               Navigator.push(
                                   context,
@@ -327,20 +383,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                       builder: (context) => RegistationPage()));
                             },
                             child: Container(
-                              margin: EdgeInsets.only(right: 12,bottom: 12),
-                              height: double.infinity,
+                              padding: EdgeInsets.symmetric(horizontal: 42,vertical: 20),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
                               ),
-                              child: Center(child: Text("Create Account",style: myStyle(16,Colors.white,FontWeight.w500),)),
+                              child: Center(child: Text("Create Account",style: myStyle(14,Colors.white,FontWeight.w500),)),
                             ),
                           )
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ),
           ),
         ));
   }

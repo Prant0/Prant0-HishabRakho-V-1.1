@@ -86,7 +86,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
               child: Column(
             children: [
               Expanded(
-                flex: 9,
+                flex: 10,
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -102,7 +102,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                             margin: EdgeInsets.only(bottom: 35,top: 35,),
                             child: Text(
                               "Add a Mfs Account ",
-                              style: myStyle(20, Colors.white, FontWeight.w600),
+                              style: myStyle(20, Colors.white, FontWeight.w500),
                               textAlign: TextAlign.start,
                             )),
                         InkWell(
@@ -124,9 +124,9 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                   Text(
                                     "Date : ${formattedDate}",
                                     style: myStyle(
-                                        16, Colors.white70, FontWeight.w700),
+                                        14,BrandColors.colorText, FontWeight.w700),
                                   ),
-                                  Icon(Icons.date_range_outlined,color: Colors.white70,),
+                                  Icon(Icons.date_range_outlined,color: BrandColors.colorText,),
                                 ],
                               )),
                         ),
@@ -135,7 +135,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorText,FontWeight.w600),),
                             ),
                             GestureDetector(
                               onTap: () async {
@@ -159,22 +159,21 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(mfsName??"Choose Mfs",style: myStyle(16,Colors.white),),
-                                    Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
+                                    Text(mfsName??"Choose Mfs",style: myStyle(16,BrandColors.colorDimText),),
+                                    Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
                             ),
                             SenderTextEdit(
                               keyy: "number",
                               data: _data,
                               name: mfsNumberController,
                               lebelText: "MFS Number",
-                              icon: Icons.drive_file_rename_outline,
                               keytype: TextInputType.number,
                               formatter: <TextInputFormatter>[
                                 FilteringTextInputFormatter.allow(
@@ -193,7 +192,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                               },
                             ),
                             Padding(
-                              padding: EdgeInsets.only(left: 12,right: 12,bottom: 35),
+                              padding: EdgeInsets.only(bottom: 35),
                               child: MoneyTextFormField(
                                 settings: MoneyTextFormFieldSettings(
                                   controller: mfsBalanceController,
@@ -207,11 +206,11 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                       labelText: 'Enter Amount* ',
                                       hintText: 'Enter Amount',
                                       labelStyle: myStyle(
-                                          20, Colors.white, FontWeight.w600),
+                                          16, BrandColors.colorText, FontWeight.w600),
                                       inputStyle:
-                                      _ts.copyWith(color: BrandColors.colorDimText),
+                                      _ts.copyWith(color: BrandColors.colorText),
                                       formattedStyle:
-                                      _ts.copyWith(color: BrandColors.colorDimText)),
+                                      _ts.copyWith(color: BrandColors.colorText)),
                                 ),
                               ),
                             ),

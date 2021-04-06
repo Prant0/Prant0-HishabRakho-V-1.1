@@ -171,7 +171,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Pay/Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
                             ),
                             SenderTextEdit(
                               keyy: "Payable",
@@ -201,7 +201,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Receivable drom",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Receive/Receivable from",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
                             ),
                             SenderTextEdit(
                               keyy: "Receivable",

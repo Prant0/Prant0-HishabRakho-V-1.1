@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -67,9 +68,11 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
+      backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
 
-        backgroundColor: Colors.black,
+        backgroundColor: BrandColors.colorPrimaryDark,
+        elevation: 0.0,
         title: Text(
           "Edit Entries",
           style: TextStyle(),
@@ -79,170 +82,196 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Form(
             key: _formKey,
-            child: Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 12),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: 30.0,
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: 30.0,
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      seleceDate(context);
+                    });
+                  },
+                  child: Container(
+
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(width: 1, color: Colors.grey)),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Date : ${formattedDate}",
+                            style: myStyle(16, Colors.white, FontWeight.w700),
+                          ),
+                          Icon(Icons.date_range_outlined,color: BrandColors.colorDimText,),
+                        ],
+                      )),
+                ),
+
+
+                SizedBox(height: 15,),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 0),
+                  child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
+                ),
+                SenderTextEdit(
+                  keyy: "Payable",
+                  data: _data,
+                  name: nameController,
+                  lebelText: "${widget.model.friendName} ?? ",
+                  //hintText: " Payable to",
+                  icon: Icons.person,
+                  function: (String value) {
+                    if (value.isEmpty) {
+                      return "Name required";
+                    }
+                    if (value.length < 3) {
+                      return "Name Too Short ( Min 3 character )";
+                    }if (value.length > 30) {
+                      return "Name Too long (Max 30 character)";
+                    }
+                  },
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 0),
+                  child: Text("Details ",style: myStyle(16,BrandColors.colorDimText),),
+                ),
+                SenderTextEdit(
+                  keyy: "Details",
+                  maxNumber: 4,
+                  data: _data,
+                  name:detailsController ,
+                 // lebelText: widget.model.details ?? "",
+                  hintText: " Details",
+                  icon: Icons.details,
+                  function: (String value) {
+
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: MoneyTextFormField(
+                    settings: MoneyTextFormFieldSettings(
+                      controller: amountController,
+                      moneyFormatSettings: MoneyFormatSettings(
+                          amount: double.tryParse(widget.model.amount.toString()),
+                          currencySymbol: ' ৳ ',
+                          displayFormat: MoneyDisplayFormat.symbolOnLeft),
+                      appearanceSettings: AppearanceSettings(
+                          padding: EdgeInsets.all(15.0),
+                          hintText: 'Amount required',
+                          labelText: 'Amount ',
+                          labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                          inputStyle: _ts.copyWith(color: Colors.white),
+                          formattedStyle:
+                          _ts.copyWith(color: Colors.white)),
+
+                    ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        seleceDate(context);
-                      });
-                    },
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(width: 1, color: Colors.grey)),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Date : ${formattedDate}",
-                              style: myStyle(16, Colors.purple, FontWeight.w700),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                // ignore: deprecated_member_use
+
+
+
+
+                Container(
+                  color: BrandColors.colorPrimaryDark,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 10,
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 12),
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              border: Border.all(
+                                  color: Colors.deepPurpleAccent, width: 1.0),
                             ),
-                            Icon(Icons.date_range_outlined),
-                          ],
-                        )),
-                  ),
-
-
-                  SenderTextEdit(
-                    keyy: "Payable",
-                    data: _data,
-                    name: nameController,
-                    lebelText: "${widget.model.friendName} ?? ",
-                    hintText: " Payable to",
-                    icon: Icons.person,
-                    function: (String value) {
-                      if (value.isEmpty) {
-                        return "Name required";
-                      }
-                      if (value.length < 3) {
-                        return "Name Too Short ( Min 3 character )";
-                      }if (value.length > 30) {
-                        return "Name Too long (Max 30 character)";
-                      }
-                    },
-                  ),
-
-                  SenderTextEdit(
-                    keyy: "Details",
-                    maxNumber: 4,
-                    data: _data,
-                    name:detailsController ,
-                   // lebelText: widget.model.details ?? "",
-                    hintText: " Details",
-                    icon: Icons.details,
-                    function: (String value) {
-
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: MoneyTextFormField(
-                      settings: MoneyTextFormFieldSettings(
-                        controller: amountController,
-                        moneyFormatSettings: MoneyFormatSettings(
-                            amount: double.tryParse(widget.model.amount.toString()),
-                            currencySymbol: ' ৳ ',
-                            displayFormat: MoneyDisplayFormat.symbolOnLeft),
-                        appearanceSettings: AppearanceSettings(
-                            padding: EdgeInsets.all(15.0),
-                            hintText: 'Amount required',
-                            labelText: 'Amount ',
-                            labelStyle: myStyle(20,Colors.purple,FontWeight.w600),
-                            inputStyle: _ts.copyWith(color: Colors.purple),
-                            formattedStyle:
-                            _ts.copyWith(color: Colors.black54)),
-
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white70,
+                                  size: 15,
+                                ),
+                                Text(
+                                  "Go Back",
+                                  style: myStyle(16, Colors.white),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // ignore: deprecated_member_use
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 30),
-                    child: RaisedButton(
-                      onPressed:() {
-                        if (!_formKey.currentState.validate()) return;
-                        _formKey.currentState.save();
-
-                        final note = PayableDetail(
-
-                          date: formattedDate.toString(),
-                          amount: double.parse(amountController.text.toString()),
-                          friendName: nameController.text.toString(),
-                          details:detailsController.text.toString(),
-                        );
-                        updatePayable(note);
-
-
-
-
-                        /*if (!_formKey.currentState.validate()) return;
-                        _formKey.currentState.save();
-                        print("tap");
-                        final note = MyTransectionModel(
-                          amount: double.parse(amountController.text.toString()),
-                          details:detailsController.text.toString(),
-                          date: _currentDate.toString(),
-                          eventId: widget.model.eventId.toInt(),
-                          transactionTypeId: widget.model.transactionTypeId.toInt(),
-                          eventType: widget.model.eventType.toString(),
-                        );
-                        final payableNote = MyTransectionModel(
-                          amount: double.parse(amountController.text.toString()),
-                          details:detailsController.text.toString(),
-                          date: _currentDate.toString(),
-                          eventId: widget.model.eventId,
-                          transactionTypeId: widget.model.transactionTypeId,
-                          eventType: widget.model.eventType.toString(),
-                          friendName: nameController.text.toString(),
-                        );
-                        widget.type == "Earning"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateEarning(note)
-                            : widget.type == "Expenditure"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateExpenditure(note)
-                            : widget.type == "Payable"
-                            ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updatePayable(payableNote)
-                            : widget.type == "Receivable"
-                            ? amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateReceivable(payableNote)
-                            : "";
-                        setState(() {
-                          amountController.clear();
-                          detailsController.clear();
-                        });
-                        print("event id is : ${widget.model.eventId.toString()}");*/
-                      },
-                      color: Colors.purple,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 100,
+                      Expanded(
+                        flex: 1,
+                        child: Container(),
                       ),
-                      child: Text(
-                        "Submit",
-                        style: myStyle(18, Colors.white),
-                      ),
-                    ),
+                      Expanded(
+                        flex: 10,
+                        child: InkWell(
+                          onTap: () {
+                            if (!_formKey.currentState.validate()) return;
+                            _formKey.currentState.save();
+
+                            final note = PayableDetail(
+
+                              date: formattedDate.toString(),
+                              amount: double.parse(amountController.text.toString()),
+                              friendName: nameController.text.toString(),
+                              details:detailsController.text.toString(),
+                            );
+                            updatePayable(note);
+
+
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 12),
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.deepPurpleAccent,
+                              border: Border.all(
+                                  color: Colors.deepPurpleAccent,
+                                  width: 1.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Proceed",
+                                  style: myStyle(16, Colors.white),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.white70,
+                                  size: 15,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

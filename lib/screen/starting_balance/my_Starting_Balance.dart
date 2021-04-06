@@ -31,6 +31,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
         backgroundColor: BrandColors.colorPrimaryDark,

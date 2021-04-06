@@ -53,7 +53,7 @@ class _MySituationPageState extends State<MySituationPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.black,
-      drawer: Drawerr(_scaffoldKey),
+      drawer: Drawerr(),
       body: Container(
         padding: EdgeInsets.only(top: 26, left: 15, right: 15),
         height: double.infinity,

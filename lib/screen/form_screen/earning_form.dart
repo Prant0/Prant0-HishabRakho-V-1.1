@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/providers/storageHubProvider.dart';
@@ -779,549 +781,583 @@ bool transactionType =false;
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat("d-MMMM-y").format(_currentDate);
     print("widget name is : ${widget.name}");
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
 
-      backgroundColor: BrandColors.colorPrimaryDark,
-      key: _scaffoldKey,
-      body: ModalProgressHUD(
-        inAsyncCall: onProgress,
-        child: SingleChildScrollView(
+        backgroundColor: BrandColors.colorPrimaryDark,
+        key: _scaffoldKey,
+        body: ModalProgressHUD(
+          inAsyncCall: onProgress,
           child: Container(
-            padding: EdgeInsets.only(top: 30, left: 20, right: 20),
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.only(top: 15, left: 20, right: 20,bottom: 8),
             child: Form(
                 key: _formKey,
-                child: Stack(
+                child: Column(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 22),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FittedBox(
-                                child: Text(
-                                  widget.title,
-                                  style:
-                                  myStyle(17, Colors.white, FontWeight.w700),overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              seleceDate(context);
-                            });
-                          },
-                          child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                      width: 0.5, color: Colors.grey)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 14),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Date : ${formattedDate}",
-                                    style: myStyle(
-                                        16, Colors.white, FontWeight.w500),
-                                  ),
-                                  Icon(
-                                    Icons.date_range_outlined,
-                                    color: Colors.white70,
-                                  ),
-                                ],
-                              )),
-                        ),
-                        Visibility(
-                          visible: x!=true,
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 15, top: 25),
-                            child: Text(
-                              "Transaction Type",
-                              style: myStyle(16, Colors.white),
-                            ),
-                          ),
-                        ),
-
-                        /*Container(
-                        child: Row(
+                    Expanded(
+                      flex: 9,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                            GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  updateColor(1);
-                                  moneyType =widget.name == "Expenditure" ? "Pay Now" : "Get Money Now";
-                                  x = true;
-                                  y = false;
-                                  isGetMoneyNow = true;
-                                  isGetMoneyLater = false;
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: getNowColor,
-                                    border: Border.all(color: isGetMoneyNow==true? Colors.white:Colors.transparent)
-                                ),
-                                child: Text( widget.name == "Expenditure" ? "Pay Now":"Get Money Now" ,style: myStyle(14,Colors.white),),
-                              ),
-                            ),
-
-                            GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  updateColor(2);
-                                  x = false;
-                                  y = false;
-                                  isGetMoneyNow = false;
-                                  isGetMoneyLater = true;
-                                  moneyType =widget.name == "Expenditure" ?  "Pay Later" :"Get Money Later";
-                                });
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(left: 15),
-                                padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: getlaterColor,
-                                    border: Border.all(color: isGetMoneyLater == true? Colors.white:Colors.transparent)
-                                ),
-                                child: Text(widget.name == "Expenditure" ? "Pay Later":"Get Money Later",style: myStyle(14,Colors.white),),
-                              ),
-                            ),
-
-
-
-
-                          ],
-                        ),
-                      ),*/
-
-                        Visibility(
-                          visible: x!=true,
-                          child: Container(
-                            child: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      updateColor(1);
-                                      moneyType = widget.name == "Expenditure"
-                                          ? "Pay Now"
-                                          : "Get Money Now";
-                                      x = true;
-                                      y = false;
-                                      transactionType =true;
-                                      isGetMoneyNow = true;
-                                      isGetMoneyLater = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 15),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: isGetMoneyNow == true
-                                            ? BrandColors.colorPrimary
-                                            : Colors.transparent,
-                                        border: Border.all(
-                                            color: isGetMoneyNow == true
-                                                ? Colors.white
-                                                : Colors.deepPurpleAccent,
-                                            width: 1)),
-                                    child: Text(
-                                      widget.name == "Expenditure"
-                                          ? "Pay Now"
-                                          : "Get Money Now",
-                                      style: myStyle(14, Colors.white),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      updateColor(2);
-                                      x = false;
-                                      y = false;
-                                      transactionType =true;
-                                      isGetMoneyNow = false;
-                                      isGetMoneyLater = true;
-                                      isStorage=true;
-                                      moneyType = widget.name == "Expenditure"
-                                          ? "Pay Later"
-                                          : "Get Money Later";
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 15),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        color: isGetMoneyLater == true
-                                            ? BrandColors.colorPrimary
-                                            : Colors.transparent,
-                                        border: Border.all(
-                                            color: isGetMoneyLater == true
-                                                ? Colors.white
-                                                : Colors.deepPurpleAccent,
-                                            width: 1)),
-                                    child: Text(
-                                      widget.name == "Expenditure"
-                                          ? "Pay Later"
-                                          : "Get Money Later",
-                                      style: myStyle(14, Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        Visibility(
-                          visible: isGetMoneyNow == true,
-                          child: Column(
-
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 10,top: 25),
-                                child: Text("Choose Storage Hub",style: myStyle(16,Colors.white),),
-                              ),
-
-
-                              Row(
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 22),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        id = 7;
-                                        isBank = false;
-                                        isMfs = false;
-                                        isCash = true;
-                                        isStorage=true;
-                                      });
-                                      getCashDetails();
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          color:isCash ==true? BrandColors.colorPrimary: BrandColors.colorPrimaryDark,
-                                          border: Border.all(color: isCash ==true?Colors.white:Colors.deepPurpleAccent)
-                                      ),
-                                      child: Text("Cash",style: myStyle(14,Colors.white,FontWeight.w700),),
+                                  Flexible(
+                                    child: Text(
+                                      widget.title,
+                                      style:
+                                      myStyle(20, Colors.white, FontWeight.w500),overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      setState(() {
-                                        id = 5;
-                                        isBank = true;
-                                        isMfs = false;
-                                        isCash = false;
-                                        isStorage=false;
-
-                                      });
+                                      Navigator.pop(context);
                                     },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          color:isBank ==true?BrandColors.colorPrimary: BrandColors.colorPrimaryDark,
-                                          border: Border.all(color:isBank ==true?Colors.white: Colors.deepPurpleAccent)
-                                      ),
-                                      child: Text("Bank",style: myStyle(14,Colors.white,FontWeight.w700),),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        id = 6;
-                                        isBank = false;
-                                        isMfs = true;
-                                        isCash = false;
-                                        isStorage=false;
-                                      });
-
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8.0),
-                                          color:isMfs==true?BrandColors.colorPrimary: BrandColors.colorPrimaryDark,
-                                          border: Border.all(color:isMfs ==true?Colors.white: Colors.deepPurpleAccent)
-                                      ),
-                                      child: Text("MFS",style: myStyle(14,Colors.white,FontWeight.w700),),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                      size: 25,
                                     ),
                                   )
                                 ],
                               ),
-
-
-
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        Visibility(
-                            visible:isGetMoneyNow && isBank==true,
-                            child: GestureDetector(
-                              onTap: () async {
-                                List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
-                                  types: "single",
-                                )));
-                                setState(() {
-                                  storageHubId=bal[0];
-                                  bankName=bal[1];
-                                  print("the bal is ${bal[0]}");
-                                  print("the bal is ${bal[1]}");
-                                  isStorage=true;
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                margin: EdgeInsets.symmetric(vertical: 15,),
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: BrandColors.colorPrimary,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(bankName??"Choose Bank",style: myStyle(16,Colors.white),),
-                                    Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
-                                  ],
-                                ),
-                              ),
-                            )
-                        ),
-                        Visibility(
-                            visible:isGetMoneyNow && isMfs==true,
-                            child:GestureDetector(
-                              onTap: () async {
-                                List bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs(
-                                  types: "single",
-                                )));
-                                setState(() {
-                                  storageHubId=bal[0];
-                                  mfsName=bal[1];
-                                  isStorage=true;
-                                  print("the Mfs is ${storageHubId}");
-                                });
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                margin: EdgeInsets.symmetric(vertical: 15,),
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: BrandColors.colorPrimary,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(mfsName??"Choose Mfs",style: myStyle(16,Colors.white),),
-                                    Icon(Icons.mobile_screen_share_rounded,color: Colors.white,),
-                                  ],
-                                ),
-                              ),
-                            )
-
-                        ),
-
-                        SenderTextEdit(
-                          keyy: "receive",
-                          data: _data,
-                          name: receiveFrom,
-                          lebelText: widget.name == "Earning"
-                              ? "Receive/Receivable from"
-                              : widget.name == "Expenditure"
-                              ? "Pay/Payable to"
-                              : widget.name == "Loan"
-                              ? loanType == "Take Loan"
-                              ? "Name "
-                              : loanType == "Give Loan"
-                              ? "Name"
-                              : "Name"
-                              : "Pay Back Loan To",
-                          hintText: widget.name == "Earning"
-                              ? "Receive from"
-                              : widget.name == "Expenditure"
-                              ? "Payable to"
-                              : widget.name == "Loan"
-                              ? loanType == "Take Loan"
-                              ? "Take Loan From "
-                              : loanType == "Give Loan"
-                              ? "Give Loan to":
-                               loanType=="Pay Back Loan"? "Pay Back Loan from"
-                              : "Get Back Loan From"
-                              : "Pay Back Loan To",
-                          icon: Icons.person,
-                          function: (String value) {
-                            if (value.isEmpty) {
-                              return "Name required";
-                            }
-                            if (value.length < 3) {
-                              return "Name Too Short. ( Min 3 character )";
-                            }
-                            if (value.length > 30) {
-                              return "Name Too Long. ( Max 30 character )";
-                            }
-                          },
-                        ),
-                        SenderTextEdit(
-                          keyy: "details",
-                          maxNumber: 3,
-                          data: _data,
-                          name: detailsController,
-                          lebelText: "Details",
-                          hintText: "Add Details",
-                          icon: Icons.details_sharp,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0),
-                          child: MoneyTextFormField(
-                            settings: MoneyTextFormFieldSettings(
-                              controller: amountController,
-                              moneyFormatSettings: MoneyFormatSettings(
-                                  currencySymbol: ' ৳ ',
-                                  displayFormat:
-                                  MoneyDisplayFormat.symbolOnLeft),
-                              appearanceSettings: AppearanceSettings(
-                                  padding: EdgeInsets.all(15.0),
-                                  labelText: ' Amount* ',
-                                  labelStyle: myStyle(
-                                      20, Colors.white, FontWeight.w600),
-                                  inputStyle: _ts.copyWith(color: Colors.white),
-                                  formattedStyle:
-                                  _ts.copyWith(color: Colors.white),
-                                  errorStyle: myStyle(16, Colors.white)),
                             ),
-                          ),
-                        ),
-
-
-                        SizedBox(
-                          height: 100,
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        color: BrandColors.colorPrimaryDark,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 10,
-                              child: GestureDetector(
-                                onTap: (){
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  height: 50,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  seleceDate(context);
+                                });
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 10),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    border: Border.all(
-                                        color: Colors.deepPurpleAccent, width: 1.0),
-                                  ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      border: Border.all(
+                                          width: 0.7, color: BrandColors.colorPurple.withOpacity(0.8))),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Icon(
-                                        Icons.arrow_back_ios,
-                                        color: Colors.white70,
-                                        size: 15,
+
+                                      RichText(
+                                        text: TextSpan(children: [
+
+                                          WidgetSpan(
+                                            child:Text(
+                                              'Date:',
+                                              textScaleFactor: 1.0,
+                                              style: myStyle(14,BrandColors.colorText),
+                                            ),
+                                          ),
+
+                                          WidgetSpan(
+                                            child: Text(
+                                              "  ${formattedDate}",
+                                              style: myStyle(
+                                                  14, BrandColors.colorWhite, FontWeight.w500),
+                                            ),
+                                          ),
+
+                                        ]),
                                       ),
-                                      Text(
-                                        "Go Back",
-                                        style: myStyle(16, Colors.white),
+
+                                      SvgPicture.asset("assets/calender.svg",
+                                        alignment: Alignment.center,
+                                        height: 15,width: 15,
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                            Visibility(
+                              visible: x!=true,
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 14, top: 25),
+                                child: Text(
+                                  "Transaction Type",
+                                  style: myStyle(14, BrandColors.colorText),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: x==false,
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          updateColor(1);
+                                          moneyType = widget.name == "Expenditure"
+                                              ? "Pay Now"
+                                              : "Get Money Now";
+                                         // x = true;
+                                          y = false;
+                                          transactionType =true;
+                                          isGetMoneyNow = true;
+                                          isGetMoneyLater = false;
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 22, vertical: 18),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: isGetMoneyNow == true
+                                                ?Colors.transparent
+                                                : BrandColors.colorPrimary,
+                                            border: Border.all(
+                                                color: isGetMoneyNow == true
+                                                    ? Colors.white
+                                                    : Colors.transparent,
+                                                    width: 1)),
+                                        child: Text(
+                                          widget.name == "Expenditure"
+                                              ? "Pay Now"
+                                              : "Get Money Now",
+                                          style: myStyle(12,isGetMoneyNow==true? Colors.white :Colors.grey,FontWeight.w500),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          updateColor(2);
+                                          x = false;
+                                          y = false;
+                                          transactionType =true;
+                                          isGetMoneyNow = false;
+                                          isGetMoneyLater = true;
+                                          isStorage=true;
+                                          moneyType = widget.name == "Expenditure"
+                                              ? "Pay Later"
+                                              : "Get Money Later";
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 22, vertical: 18),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            color: isGetMoneyLater == true
+                                                ?Colors.transparent
+                                                :  BrandColors.colorPrimary,
+                                            border: Border.all(
+                                                color: isGetMoneyLater == true
+                                                    ? Colors.white
+                                                    : Colors.transparent,
+                                                width: 1)),
+                                        child: Text(
+                                          widget.name == "Expenditure"
+                                              ? "Pay Later"
+                                              : "Get Money Later",
+                                          style: myStyle(12,isGetMoneyLater == true? Colors.white :Colors.grey,FontWeight.w500),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: isGetMoneyNow == true,
+                              child: Column(
+
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 14,top: 25),
+                                    child: Text("Choose Storage Hub",style: myStyle(14,BrandColors.colorText,),),
+                                  ),
+
+
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: (){
+                                          setState(() {
+                                            id = 7;
+                                            isBank = false;
+                                            isMfs = false;
+                                            isCash = true;
+                                            isStorage=true;
+                                          });
+                                          getCashDetails();
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color:isCash ==true?Colors.transparent: BrandColors.colorPrimary,
+                                              border: Border.all(color: isCash ==true?Colors.white:Colors.transparent)
+                                          ),
+                                          child: Row(
+                                            children: [
+
+
+                                              SvgPicture.asset("assets/cash.svg",
+                                                alignment: Alignment.bottomCenter,
+                                                fit: BoxFit.contain,
+                                              ),
+
+                                              SizedBox(width: 8,),
+                                              Text("Cash",style: myStyle(12,BrandColors.colorText,FontWeight.w500),),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: (){
+                                          setState(() {
+                                            id = 5;
+                                            isBank = true;
+                                            isMfs = false;
+                                            isCash = false;
+                                            isStorage=false;
+
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color:isBank ==true?Colors.transparent: BrandColors.colorPrimary,
+                                              border: Border.all(color:isBank ==true?Colors.white: Colors.transparent)
+                                          ),
+                                          child: Row(
+                                            children: [
+
+
+                                              SvgPicture.asset("assets/select bank.svg",
+                                                alignment: Alignment.bottomCenter,
+                                                fit: BoxFit.contain,
+                                              ),
+
+                                              SizedBox(width: 8,),
+                                              Text("Bank",style: myStyle(12,BrandColors.colorText,FontWeight.w500),),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: (){
+                                          setState(() {
+                                            id = 6;
+                                            isBank = false;
+                                            isMfs = true;
+                                            isCash = false;
+                                            isStorage=false;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color:isMfs ==true?Colors.transparent: BrandColors.colorPrimary,
+                                              border: Border.all(color:isMfs ==true?Colors.white: Colors.transparent)
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset("assets/select MFS.svg",
+                                                alignment: Alignment.bottomCenter,
+                                                fit: BoxFit.contain,
+                                              ),
+
+                                              SizedBox(width: 8,),
+                                              Text("Mfs",style: myStyle(12,BrandColors.colorText,FontWeight.w500),),
+                                            ],
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(),
-                            ),
-                            Expanded(
-                              flex: 10,
-                              child: InkWell(
-                                onTap: () {
 
-                                  print("storage hub type issssssssssssssssssss $storageType");
-                                  if (!_formKey.currentState.validate()) return;
-                                  _formKey.currentState.save();
-                                  print("widget name ${widget.name}");
-                                  transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
-                                      ?  uploadEarningData(context)
-                                      : widget.name == "Expenditure"
-                                      ?
-                                       uploadExpenditureData(context)
-                                      : widget.name == "Loan"
-                                      ?  uploadLoanData(context)
-                                      : uploadFundData(context);
-                                },
-                                child: Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.deepPurpleAccent,
-                                    border: Border.all(
-                                        color: Colors.deepPurpleAccent,
-                                        width: 1.0),
+
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 14,),
+                            Visibility(
+                                visible:isGetMoneyNow && isBank==true,
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    List bal= await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseBank(
+                                      types: "single",
+                                    )));
+                                    setState(() {
+                                      storageHubId=bal[0];
+                                      bankName=bal[1];
+                                      print("the bal is ${bal[0]}");
+                                      print("the bal is ${bal[1]}");
+                                      isStorage=true;
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(vertical: 15,),
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: BrandColors.colorPrimary,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(bankName??"Choose Bank",style: myStyle(14,BrandColors.colorText),),
+                                        Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
+                                      ],
+                                    ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Proceed",
-                                        style: myStyle(16, Colors.white),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: Colors.white70,
-                                        size: 15,
-                                      ),
-                                    ],
+                                )
+                            ),
+                            Visibility(
+                                visible:isGetMoneyNow && isMfs==true,
+                                child:GestureDetector(
+                                  onTap: () async {
+                                    List bal = await Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseMfs(
+                                      types: "single",
+                                    )));
+                                    setState(() {
+                                      storageHubId=bal[0];
+                                      mfsName=bal[1];
+                                      isStorage=true;
+                                      print("the Mfs is ${storageHubId}");
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 15),
+                                    margin: EdgeInsets.symmetric(vertical: 15,),
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: BrandColors.colorPrimary,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(mfsName??"Choose Mfs",style: myStyle(14,BrandColors.colorText),),
+                                        Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
+                                      ],
+                                    ),
                                   ),
+                                )
+
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.only(top: 15,bottom: 10),
+                              child: Text(
+                                widget.name == "Earning"
+                                    ? "Receive/Receivable from"
+                                    : widget.name == "Expenditure"
+                                    ? "Pay/Payable to"
+                                    : widget.name == "Loan"
+                                    ? loanType == "Take Loan"
+                                    ? "Name "
+                                    : loanType == "Give Loan"
+                                    ? "Name"
+                                    : "Name"
+                                    : "Pay Back Loan To",style: myStyle(14,Color(0xFFD2DCF7)),
+                              ),
+                            ),
+
+                            SenderTextEdit(
+                              keyy: "receive",
+                              data: _data,
+                              name: receiveFrom,
+                              lebelText: "Type name here....",
+                             // icon: Icon(Icons.airline_seat_flat,color: Colors.red,size: 1,),
+                              icon: Padding(
+                                padding: const EdgeInsets.all(14.0),
+                                child: SvgPicture.asset("assets/user1.svg",
+                                  alignment: Alignment.bottomCenter,
+                                  fit: BoxFit.contain,
+                                  color: BrandColors.colorText,
                                 ),
                               ),
-                            )
+                              function: (String value) {
+                                if (value.isEmpty) {
+                                  return "Name required";
+                                }
+                                if (value.length < 3) {
+                                  return "Name Too Short. ( Min 3 character )";
+                                }
+                                if (value.length > 30) {
+                                  return "Name Too Long. ( Max 30 character )";
+                                }
+                              },
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.only(top: 20,bottom: 4),
+                              child: Text("Add details (optionala)",style: myStyle(14,BrandColors.colorText),
+                              ),
+                            ),
+                           /* SenderTextEdit(
+                              keyy: "details",
+                              maxNumber: 3,
+                              data: _data,
+                              name: detailsController,
+                              lebelText: "     Write here",
+
+                            ),*/
+
+                            Container(
+                              padding: EdgeInsets.symmetric( vertical: 15),
+                              child: TextFormField(
+                                maxLines: 4,
+                                controller: detailsController,
+                                style: TextStyle(fontSize: 16.0, color: BrandColors.colorDimText),
+                                decoration: InputDecoration(hoverColor: Colors.black,
+                                  filled: true,
+                                  contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 15),
+                                  fillColor: BrandColors.colorPrimary,
+                                  focusedBorder:OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  hintStyle: myStyle(14, BrandColors.colorDimText),
+                                  hintText: " Write here",
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 0),
+                              child: MoneyTextFormField(
+                                settings: MoneyTextFormFieldSettings(
+                                  controller: amountController,
+                                  moneyFormatSettings: MoneyFormatSettings(
+                                      currencySymbol: ' ৳ ',
+                                      displayFormat: MoneyDisplayFormat.symbolOnLeft),
+                                  appearanceSettings: AppearanceSettings(
+                                      padding: EdgeInsets.all(15.0),
+                                      labelText: ' Balance* ',
+                                      labelStyle: myStyle(16, BrandColors.colorText, FontWeight.w600),
+                                      inputStyle: _ts.copyWith(color: Colors.white),
+                                      formattedStyle:
+                                      _ts.copyWith(fontSize: 18, color: Colors.white)),
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 50,
+                            ),
                           ],
                         ),
                       ),
+                    ),
+
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 12,
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 20,),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                      color: BrandColors.colorPurple, width: 1.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset("assets/arrow2.svg",
+                                      alignment: Alignment.center,
+                                      height: 15,width: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      "Go Back",
+                                      style: myStyle(16, Colors.white),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                          Expanded(
+                            flex: 12,
+                            child: InkWell(
+                              onTap: () {
+
+                                print("storage hub type issssssssssssssssssss $storageType");
+                                if (!_formKey.currentState.validate()) return;
+                                _formKey.currentState.save();
+                                print("widget name ${widget.name}");
+                                transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
+                                    ?  uploadEarningData(context)
+                                    : widget.name == "Expenditure"
+                                    ?
+                                uploadExpenditureData(context)
+                                    : widget.name == "Loan"
+                                    ?  uploadLoanData(context)
+                                    : uploadFundData(context);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 20,),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color:  BrandColors.colorPurple,
+                                  border: Border.all(
+                                      color: Colors.deepPurpleAccent,
+                                      width: 1.0),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Proceed",
+                                      style: myStyle(16, Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    SvgPicture.asset("assets/arrow1.svg",
+                                      alignment: Alignment.center,
+                                      height: 15,width: 15,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     )
+
+
                   ],
                 )),
           ),

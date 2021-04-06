@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
+import 'package:anthishabrakho/screen/home_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BankWidget extends StatefulWidget {
@@ -26,21 +27,19 @@ class _BankWidgetState extends State<BankWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Bank Balance",
-                  style: myStyle(14, BrandColors.colorDimText),
+                  style: myStyle(14, BrandColors.colorText,FontWeight.w400),
                 ),
-                 Text(
-                  NumberFormat.currency(
-                      symbol: ' ৳ ',
-                      decimalDigits: (widget.totalBankBalance) is int ? 0 : 2,
-                      locale: "en-in")
-                      .format(widget.totalBankBalance),
-                  style: myStyle(16, BrandColors.colorWhite, FontWeight.w800),
+                moneyField(
+                  amount: widget.totalBankBalance,
+                  ts: myStyle(16, Colors.white, FontWeight.w500),
+                  offset: Offset(-1, -8),
+                  tks: myStyle(12,Colors.white),
                 ),
               ],
             ),
@@ -67,10 +66,17 @@ class _BankWidgetState extends State<BankWidget> {
                       title: Text(
                         "${widget.model[index].storageHubName} ",
                         style: myStyle(
-                            14, BrandColors.colorWhite, FontWeight.w600),
+                            12, BrandColors.colorWhite, FontWeight.w600),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      trailing: Text(
+                      trailing: moneyField(
+                        amount: widget.model[index].currentBankBalance,
+                        ts: myStyle(12, Colors.white,FontWeight.w600),
+                        offset: Offset(0, -8),
+                        tks: myStyle(10,Colors.white),
+                      ),
+
+                      /*Text(
                         NumberFormat.currency(
                                 symbol: ' ৳ ',
                                 decimalDigits: (widget
@@ -80,24 +86,17 @@ class _BankWidgetState extends State<BankWidget> {
                                 locale: "en-in")
                             .format(widget.model[index].currentBankBalance),
                         style: myStyle(
-                            14, BrandColors.colorWhite, FontWeight.w800),
-                      ),
+                            12, BrandColors.colorWhite, FontWeight.w800),
+                      ),*/
                       subtitle: Text(
                         "A/C:${widget.model[index].userStorageHubAccountNumber} ",
                         style: myStyle(
-                            12, BrandColors.colorDimText, FontWeight.w800),
+                            12, BrandColors.colorDimText, FontWeight.w400),
                       ),
                     );
             },
           ),
-         /* widget.model.length > 2
-              ? Center(
-                  child: Text(
-                    "View All >",
-                    style: myStyle(14, Colors.deepPurpleAccent),
-                  ),
-                )
-              : Text("")*/
+
         ],
       ),
     ));

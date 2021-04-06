@@ -7,6 +7,7 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/providers/user_dertails_provider.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/widget/extra%20widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/models/user_model.dart';
@@ -165,7 +166,14 @@ class _EditInfoState extends State<EditInfo> {
                       name: nameController,
                       lebelText: "User Name",
                       //hintText: " ${widget.model.username}",
-                      icon: Icons.person_outline_sharp,
+                      icon: Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: SvgPicture.asset("assets/user1.svg",
+                          alignment: Alignment.bottomCenter,
+                          fit: BoxFit.contain,
+                          color: BrandColors.colorText,
+                        ),
+                      ),
                       function: (String value) {
                         if (value.isEmpty) {
                           return "Name required";
