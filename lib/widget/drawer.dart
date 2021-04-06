@@ -103,6 +103,7 @@ class _DrawerrState extends State<Drawerr> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
                     Container(
@@ -124,11 +125,12 @@ class _DrawerrState extends State<Drawerr> {
                                     SvgPicture.asset("assets/home.svg",
                                       alignment: Alignment.center,
                                       fit: BoxFit.contain,
+
                                     ),
                                     SizedBox(
                                       width: 15,
                                     ),
-                                    Text("Home",style: myStyle(16,Colors.white70),),
+                                    Text("Home",style: myStyle(16,BrandColors.colorText),),
 
                                   ],
                                 )
@@ -169,7 +171,7 @@ class _DrawerrState extends State<Drawerr> {
                                 height: 50,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.people_alt_outlined,size: 25,color:  BrandColors.colorText,),
+                                    Icon(Icons.people_alt_outlined,size: 25,color:  Colors.grey,),
                                     SizedBox(
                                       width: 16,
                                     ),
@@ -188,7 +190,7 @@ class _DrawerrState extends State<Drawerr> {
                                 height: 50,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.assignment_returned_outlined,size: 25,color: BrandColors.colorDimText,),
+                                    Icon(Icons.assignment_returned_outlined,size: 25,color: Colors.grey,),
                                     SizedBox(
                                       width: 16,
                                     ),
@@ -204,6 +206,7 @@ class _DrawerrState extends State<Drawerr> {
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Image(
                         image: AssetImage('assets/lgo.png'),
+                        width: 200,height: 45,
                         //height: 130.0,
                         //width: 130.0,
                       ),

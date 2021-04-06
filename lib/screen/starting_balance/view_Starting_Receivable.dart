@@ -73,14 +73,14 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                           flex: 6,
                           child: Text(
                             "Title",
-                            style: myStyle(14, BrandColors.colorDimText),
+                            style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                           ),
                         ),
                         Expanded(
                           flex: 4,
                           child: Text(
                             "Transaction",
-                            style: myStyle(14, BrandColors.colorDimText),
+                            style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                           ),
                         ),
 

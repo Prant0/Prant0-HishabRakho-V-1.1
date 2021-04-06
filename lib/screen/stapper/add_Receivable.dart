@@ -158,7 +158,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                           name: nameController,
                           lebelText: "Receivable from",
                           icon: Padding(
-                            padding: const EdgeInsets.all(14.0),
+                            padding: const EdgeInsets.all(15.0),
                             child: SvgPicture.asset("assets/user1.svg",
                               alignment: Alignment.bottomCenter,
                               fit: BoxFit.contain,

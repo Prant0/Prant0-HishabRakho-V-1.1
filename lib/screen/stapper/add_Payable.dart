@@ -151,7 +151,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                             name: nameController,
                             lebelText: "Enter Name",
                             icon: Padding(
-                              padding: const EdgeInsets.all(14.0),
+                              padding: const EdgeInsets.all(15.0),
                               child: SvgPicture.asset("assets/user1.svg",
                                 alignment: Alignment.bottomCenter,
                                 fit: BoxFit.contain,
@@ -194,7 +194,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                                     padding: EdgeInsets.all(15.0),
                                     labelText: 'Enter Amount* ',
                                     hintText: 'Enter Amount',
-                                    labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                                    labelStyle: myStyle(16,Colors.white,FontWeight.w600),
                                     inputStyle: _ts.copyWith(color: BrandColors.colorDimText),
                                     formattedStyle:
                                     _ts.copyWith(color: BrandColors.colorDimText)),

@@ -17,7 +17,7 @@ class _MyReportsState extends State<MyReports> {
       backgroundColor: BrandColors.colorPrimaryDark,
       body: Container(
         child: Center(
-          child:  Text("This Feature is coming soon ...",style: myStyle(22,BrandColors.colorDimText,FontWeight.w600),),
+          child:  Text("This Feature is coming soon ...",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
         ),
       ),
     );

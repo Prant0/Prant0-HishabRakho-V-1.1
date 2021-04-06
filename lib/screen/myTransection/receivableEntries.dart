@@ -110,26 +110,26 @@ class _TransactionReceivableEntriesState
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 7,
+                    flex: 6,
                     child: Text("Title", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: Text("Transaction", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
                     flex: 4,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Balance", style: myStyle(12,
-                          BrandColors.colorDimText),),
+                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                   ),
                 ],
@@ -164,11 +164,11 @@ class _TransactionReceivableEntriesState
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w600),
+                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
                                     ),
                                     SizedBox(height: 3,),
                                     Text(
-                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText,),
+                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w400),
                                     )
                                   ],
                                 ),
@@ -202,7 +202,7 @@ class _TransactionReceivableEntriesState
                                             .balance),
 
                                         style: myStyle(
-                                            12, Colors.white),
+                                            12, Colors.white,FontWeight.w500),
                                       ),
 
                                       Container(
@@ -305,201 +305,7 @@ class _TransactionReceivableEntriesState
                 }
             )
 
-            /*list.isEmpty
-                ? Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 150),
-                    child: Text(
-                      "Empty Entries",
-                      style: myStyle(18, Colors.white70, FontWeight.w700),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: list.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 8,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: boxColor,
-                                    border: Border.all(
-                                        color: Colors.red, width: 1),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print(
-                                        "tap ${list[index].eventId}");
-                                    if (mounted) {
-                                      myEntriesView(
-                                          list[index].eventId);
-                                    }
-                                  },
-                                  child: ListTile(
-                                      leading: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Date :",
-                                            style: myStyle(13, Colors.white),
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          list[index]
-                                                      .formatedDate !=
-                                                  null
-                                              ? Text(
-                                                  list[index]
-                                                      .formatedDate,
-                                                  style: myStyle(
-                                                      14, Colors.white),
-                                                )
-                                              : Text(""),
-                                        ],
-                                      ),
-                                      title: list[index]
-                                                  .eventSubCategoryName !=
-                                              null
-                                          ? Text(
-                                              list[index]
-                                                  .eventSubCategoryName,
-                                              style:
-                                                  myStyle(16, Colors.white),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            )
-                                          : Text(""),
-                                      subtitle: list[index]
-                                                  .friendName !=
-                                              null
-                                          ? Text(
-                                              list[index]
-                                                  .friendName,
-                                              style:
-                                                  myStyle(16, Colors.white),
-                                            )
-                                          : Text(""),
-                                      trailing: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Amount ",
-                                            style: myStyle(14, Colors.white),
-                                          ),
-                                          list[index].amount !=
-                                                  null
-                                              ? Text(
-                                                  //"৳ ${list[index].amount.toString()}",
-                                                  NumberFormat.currency(
-                                                          symbol: ' ৳ ',
-                                                      decimalDigits: (list[index]
-                                                          .amount) is int ? 0 :2,
-                                                          locale: "en-in")
-                                                      .format(list[index]
-                                                          .amount),
 
-                                                  style: myStyle(
-                                                      16, Colors.white),
-                                                )
-                                              : Text(""),
-                                        ],
-                                      )),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 1,
-                                child: Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        myEntriesView(list[index].eventId);
-                                      },
-                                      child: Icon(
-                                        Icons.remove_red_eye_outlined,
-                                        size: 25,
-                                        color: Color(0xffa7ffeb),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 12,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            13.0)),
-                                                title: Text(
-                                                  "Are You Sure ?",
-                                                  style: myStyle(
-                                                      16,
-                                                      Colors.black54,
-                                                      FontWeight.w800),
-                                                ),
-                                                content: Text(
-                                                    "You want to delete !"),
-                                                actions: <Widget>[
-                                                  FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop(false);
-                                                      },
-                                                      child: Text("No")),
-                                                  FlatButton(
-                                                      onPressed: () {
-                                                        print("tap");
-                                                        CustomHttpRequests
-                                                                .deleteList(list[
-                                                                        index]
-                                                                    .eventId)
-                                                            .then((value) =>
-                                                                value);
-                                                        setState(() {
-                                                          list
-                                                              .removeAt(
-                                                                  index);
-                                                          Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
-                                                        });
-                                                        showInSnackBar(
-                                                          "1 Item Delete",
-                                                        );
-                                                        Navigator.pop(
-                                                            context);
-                                                      },
-                                                      child: Text("Yes"))
-                                                ],
-                                              );
-                                            });
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.trashAlt,
-                                        size: 20,
-                                        color: Colors.redAccent,
-                                      ),
-                                    ),
-                                  ],
-                                ))
-                          ],
-                        ),
-                      );
-                    },
-                  ),*/
           ]
 
           ),

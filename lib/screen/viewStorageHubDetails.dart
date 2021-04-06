@@ -32,10 +32,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
     return Scaffold(
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
-
-        elevation: 5,
         backgroundColor: BrandColors.colorPrimaryDark,
-        centerTitle: true,
         title: Text(widget.name ?? "Cash"),
       ),
       body: ModalProgressHUD(
@@ -50,37 +47,43 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                     borderRadius: BorderRadius.circular(10.0),
                     color: BrandColors.colorPrimary
                   ),
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.symmetric(vertical: 23,horizontal: 12),
                   child: Card(
                     elevation: 15.0,
-                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 80,width: 80,fit: BoxFit.fill,)),
+                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 40,width: 60,fit: BoxFit.fill,)),
                 ),
                 SizedBox(height: 10,),
-                Text(" ${widget.name}",style: myStyle(16,Colors.white70,),),
+                Text(" ${widget.name}",style: myStyle(18,BrandColors.colorWhite,FontWeight.w500),),
                 SizedBox(height: 5,),
-                Text("A / C : ${widget.number}",style: myStyle(16,Colors.white70,),)
+                Text("${widget.number}",style: myStyle(14,BrandColors.colorText,FontWeight.w400),)
               ],
             ),
           ),
+          Padding(
+            padding:EdgeInsets.only(top: 26),
+            child: Divider(
+              color: BrandColors.colorText.withOpacity(0.2),
+              thickness:1,
+            ),
+          ),
           Container(
-            padding: EdgeInsets.only(left: 15),
-            margin: EdgeInsets.symmetric(vertical: 15,horizontal: 12),
+            padding: EdgeInsets.only(left: 0),
+            margin: EdgeInsets.symmetric(vertical: 12,horizontal: 12),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 6,
-                  child: Text("Title", style: myStyle(14, BrandColors.colorDimText),),
+                  flex: 5,
+                  child: Text("Title", style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
                 Expanded(
-                  flex: 5,
-                  child: Text("Transaction", style: myStyle(14,
-                      BrandColors.colorDimText),),
+                  flex: 4,
+                  child: Text("Transaction", style:  myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text("Balance", style: myStyle(14,
-                      BrandColors.colorDimText),),
+                  child: Text("Balance", style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
               ],
             ),
@@ -105,11 +108,11 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "${dataa[index].friendName??""}",style: myStyle(16,Colors.white,FontWeight.w600),
+                                  "${dataa[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
                                 ),
                                 SizedBox(height: 3,),
                                 Text(
-                                  "${dataa[index].date ?? ""}",style: myStyle(14,BrandColors.colorDimText,),
+                                  "${dataa[index].date ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w400),
                                 )
                               ],
                             ),
@@ -123,7 +126,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                                         .amount) is int ? 0 :2,
                                     locale: "en-in").format(dataa[index].amount),
                                 style: myStyle(
-                                    14,dataa[index].amount>1? Colors.greenAccent:Colors.redAccent),
+                                    12,dataa[index].amount>1? Colors.greenAccent:Colors.redAccent,FontWeight.w400),
                               )
                           ),
 
@@ -136,7 +139,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                                       .balance??"") is int ? 0 :2,
                                   locale: "en-in").format(dataa[index].balance??""),
                               style: myStyle(
-                                  14, Colors.white),
+                                  12, Colors.white,FontWeight.w400),
                             ),
                           ),
                         ],

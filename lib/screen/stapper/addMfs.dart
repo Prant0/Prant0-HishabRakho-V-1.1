@@ -8,6 +8,7 @@ import 'package:anthishabrakho/widget/chooseMfs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -112,21 +113,44 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                             });
                           },
                           child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12.0),
-                                  border:
-                                  Border.all(width: 1, color: Colors.grey)),
+                                  border: Border.all(
+                                      width: 0.5, color: BrandColors.colorPurple.withOpacity(0.8))),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                                  horizontal: 20, vertical: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    "Date : ${formattedDate}",
-                                    style: myStyle(
-                                        14,BrandColors.colorText, FontWeight.w700),
+
+                                  RichText(
+                                    text: TextSpan(children: [
+
+                                      WidgetSpan(
+                                        child:Text(
+                                          'Date:',
+                                          textScaleFactor: 1.0,
+                                          style: myStyle(14,BrandColors.colorText),
+                                        ),
+                                      ),
+
+                                      WidgetSpan(
+                                        child: Text(
+                                          "  ${formattedDate}",
+                                          style: myStyle(
+                                              14, BrandColors.colorWhite, FontWeight.w500),
+                                        ),
+                                      ),
+
+                                    ]),
                                   ),
-                                  Icon(Icons.date_range_outlined,color: BrandColors.colorText,),
+
+                                  SvgPicture.asset("assets/calender.svg",
+                                    alignment: Alignment.center,
+                                    height: 15,width: 15,
+                                  ),
                                 ],
                               )),
                         ),
@@ -135,7 +159,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorText,FontWeight.w600),),
+                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
                             ),
                             GestureDetector(
                               onTap: () async {
@@ -149,7 +173,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 });
                               },
                               child: Container(
-                                margin: EdgeInsets.only(top: 25,bottom: 10),
+                                margin: EdgeInsets.only(top: 14,bottom: 10),
                                 padding: EdgeInsets.symmetric(horizontal: 15),
                                 height: 60,
                                 decoration: BoxDecoration(
@@ -159,15 +183,18 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(mfsName??"Choose Mfs",style: myStyle(16,BrandColors.colorDimText),),
-                                    Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
+                                    Text(mfsName??"Select your Mfs",style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),),
+                                    SvgPicture.asset("assets/select MFS.svg",
+                                      alignment: Alignment.bottomCenter,
+                                      fit: BoxFit.contain,
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 25,),
-                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
+                              padding: EdgeInsets.only(top: 25,bottom: 6),
+                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
                             ),
                             SenderTextEdit(
                               keyy: "number",
@@ -233,7 +260,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                         },
                         child: Container(
                             margin: EdgeInsets.only(
-                                left: 12, bottom: 12, right: 12),
+                                left: 8, bottom: 12, right: 12),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
@@ -258,7 +285,8 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 : uploadMfs(context);
                           },
                           child: Container(
-                            margin: EdgeInsets.only(right: 12, bottom: 12),
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            margin: EdgeInsets.only(right: 8, bottom: 12),
                             height: double.infinity,
                             decoration: BoxDecoration(
                                 color: BrandColors.colorPurple,
@@ -378,14 +406,14 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
 
 
   void showInSnackBar(String value) {
-    //  delay(1500);
+
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
-      duration: Duration(milliseconds: 3000),
+      duration: Duration(milliseconds: 1000),
       content: Text(
         value,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 

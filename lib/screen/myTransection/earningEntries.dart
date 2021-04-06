@@ -36,6 +36,7 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
   }
 
+
   getTransectionData() async {
     print("get MyRecievable Entries");
     final data = await Provider.of<MyTransectionprovider>(context, listen: false)
@@ -50,43 +51,6 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
   }
 
   MyTransectionModel model;
-
-  /*Future<dynamic> getMyEarningEntries() async {
-    setState(() {
-      onProgress = true;
-    });
-    final data = await CustomHttpRequests.myEarningEntriesData();
-    print("my Earning data are the $data");
-    if(mounted){
-      setState(() {
-        onProgress = false;
-      });
-    }
-    for (var entries in data) {
-      model = MyTransectionModel(
-        id: entries["id"],
-        amount: entries["amount"],
-        formatedDate: entries["formated_date"],
-        date: entries["date"],
-        eventId: entries["event_id"],
-        eventSubCategoryName: entries["event_sub_category_name"],
-        friendName: entries["friend_name"],
-        balance: entries["balance"],
-        eventType: entries["event_type"],
-        eventSubCategoryId: entries["event_sub_category_id"],
-        transactionTypeId: entries["transaction_type_id"],
-        details: entries["details"],
-      );
-      try {
-        print(" my earning entries ${entries['friend_name']}");
-        list.firstWhere((element) => element.id == entries['id']);
-      } catch (e) {
-        setState(() {
-          list.add(model);
-        });
-      }
-    }
-  }*/
 
   bool onProgress = false;
   @override
@@ -104,26 +68,26 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 7,
+                    flex: 6,
                     child: Text("Title", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: Text("Transaction", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
                     flex: 4,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Balance", style: myStyle(12,
-                          BrandColors.colorDimText),),
+                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                   ),
                 ],
@@ -158,11 +122,11 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w600),
+                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
                                     ),
                                     SizedBox(height: 3,),
                                     Text(
-                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText,),
+                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),),
                                     )
                                   ],
                                 ),
@@ -196,7 +160,7 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                             .balance),
 
                                         style: myStyle(
-                                            12, Colors.white),
+                                            12, Colors.white,FontWeight.w500),
                                       ),
 
                                       Container(

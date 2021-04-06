@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -56,14 +57,14 @@ class _DetailsState extends State<Details> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   color: BrandColors.colorPrimary),
-                              padding: EdgeInsets.all(15),
+                              padding: EdgeInsets.symmetric(vertical: 14,horizontal: 24),
                               margin: EdgeInsets.only(bottom: 8),
                               child: Image(
                                 image: AssetImage(
                                   'assets/user.jpg',
                                 ),
-                                height: 80,
-                                width: 70,
+                                height: 42,
+                                width: 33,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -71,25 +72,25 @@ class _DetailsState extends State<Details> {
                               "${list[0].friendName??""}",
                               style: myStyle(
                                 18,
-                                Colors.white,
+                                Colors.white,FontWeight.w500
                               ),
                             ),
                             Text(
                               "${list[0].eventType??""}",
                               style: myStyle(
                                 14,
-                                BrandColors.colorDimText,
+                                BrandColors.colorDimText.withOpacity(0.7),FontWeight.w400
                               ),
                             )
                           ],
                         ),
                       ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 5),
+                  padding: EdgeInsets.only(top: 31, bottom: 5),
                   child: Text(
                     "Transaction type ",
                     style:
-                        myStyle(16, BrandColors.colorWhite, FontWeight.w600),
+                        myStyle(14, BrandColors.colorWhite, FontWeight.w400),
                   ),
                 ),
                 Card(
@@ -101,7 +102,7 @@ class _DetailsState extends State<Details> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
+                        horizontal: 25, vertical: 22),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,21 +110,20 @@ class _DetailsState extends State<Details> {
                         Text(
                           "${list[0].eventSubCategoryName??""}",
                           style: myStyle(
-                            16,
-                            Colors.white,
+                            14,
+                            Colors.white,FontWeight.w500
                           ),
                         ),
                         SizedBox(height: 2,),
                         Text(
                           "${list[0].formatedDate}",
                           style: myStyle(
-                            14,
-                            BrandColors.colorDimText,
+                            12,
+                            BrandColors.colorDimText.withOpacity(0.6),FontWeight.w400,
                           ),
                         ),
                         SizedBox(
-                          height: 16,
-                        ),
+                          height: 16,),
 
                         ListView.builder(
                           itemCount: list.length,
@@ -144,7 +144,7 @@ class _DetailsState extends State<Details> {
                                   Text(
                                     "${list[index].transactionTypeName}",
                                     style: myStyle(
-                                      14,
+                                      12,
                                       BrandColors.colorDimText,
                                     ),
                                   ),
@@ -157,42 +157,13 @@ class _DetailsState extends State<Details> {
                                         locale: "en-in")
                                         .format(
                                         list[index].amount?? ""),
-                                    style: myStyle(16, Colors.red,FontWeight.w800),
+                                    style: myStyle(12, Colors.red,FontWeight.w500),
                                   )
                                 ],
                               ),
                             );
                           },
                         ),
-
-
-                        /*list[1]==null?SizedBox(height: 1,): Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: BrandColors.colorPrimaryDark,
-                          ),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${list[1].transactionTypeName??""}",
-                                style: myStyle(
-                                  14,
-                                  Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "${list[1].amount}",
-                                style: myStyle(
-                                  14,
-                                  Colors.green,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),*/
                         SizedBox(
                           height: 20,
                         ),
@@ -203,7 +174,7 @@ class _DetailsState extends State<Details> {
                               children: [
                                 Text(
                                   "Storage : ",
-                                  style: myStyle(14, Colors.white),
+                                  style: myStyle(12, BrandColors.colorText,FontWeight.w500),
                                 ),Text(
                                   "",
                                 ),
@@ -216,7 +187,7 @@ class _DetailsState extends State<Details> {
                                 : Text(
                                     "${list[0].storageHubName ?? "No Storage Hub"} ${"\n"} ${list[0].userStorageHubAccountNumber ?? ""}",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.white),
+                                        fontSize: 12, color: BrandColors.colorText.withOpacity(0.5)),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
@@ -229,6 +200,8 @@ class _DetailsState extends State<Details> {
                             Expanded(
                               flex: 8,
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("Details   ",style: myStyle(14,Colors.white,FontWeight.w500),),
                                   Expanded(
@@ -246,66 +219,70 @@ class _DetailsState extends State<Details> {
                               flex: 3,
                               child: FittedBox(
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  //crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     InkWell(
-                                      child: Container(
+                                      child:Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 8),
+                                            horizontal: 10, vertical: 10),
                                         alignment: Alignment.center,
-                                        margin: EdgeInsets.symmetric(vertical: 2),
+                                        margin:
+                                        EdgeInsets.symmetric(vertical: 18),
                                         decoration: BoxDecoration(
+                                          //color: BrandColors.colorPrimaryDark,
                                             borderRadius:
                                             BorderRadius.circular(5),
                                             border: Border.all(
                                                 color:
                                                 Colors.deepPurpleAccent)),
-                                        child: Icon(
-                                          Icons.edit,
-                                          size: 20,
-                                          color: Colors.white,
+                                        child: SvgPicture.asset("assets/edit.svg",
+                                          alignment: Alignment.center,
+                                          height: 20,width: 12,
                                         ),
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        13.0)),
-                                                title: Text(
-                                                  "Are You Sure ?",
-                                                  style: myStyle(
-                                                      16,
-                                                      Colors.black54,
-                                                      FontWeight.w800),
-                                                ),
-                                                content: Text(
-                                                    "You want to delete !"),
-                                                actions: <Widget>[
-                                                  FlatButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop(false);
-                                                      },
-                                                      child: Text("No")),
-                                                  FlatButton(
+                                   Container(
+                                       alignment: Alignment.center,
+                                     child: IconButton(
+                                       onPressed: () {
+                                         showDialog(
+                                             context: context,
+                                             barrierDismissible: false,
+                                             builder: (BuildContext context) {
+                                               return AlertDialog(
+                                                 shape: RoundedRectangleBorder(
+                                                     borderRadius:
+                                                     BorderRadius.circular(
+                                                         13.0)),
+                                                 title: Text(
+                                                   "Are You Sure ?",
+                                                   style: myStyle(
+                                                       16,
+                                                       Colors.black54,
+                                                       FontWeight.w800),
+                                                 ),
+                                                 content: Text(
+                                                     "You want to delete !"),
+                                                 actions: <Widget>[
+                                                   FlatButton(
+                                                       onPressed: () {
+                                                         Navigator.of(context)
+                                                             .pop(false);
+                                                       },
+                                                       child: Text("No")),
+                                                   FlatButton(
 
-                                                      child: Text("Yes"))
-                                                ],
-                                              );
-                                            });
-                                      },
-                                      icon: Icon(
-                                        Icons.delete_forever_outlined,
-                                        color: Colors.redAccent,
-                                      ),
-                                    )
+                                                       child: Text("Yes"))
+                                                 ],
+                                               );
+                                             });
+                                       },
+                                       icon:SvgPicture.asset("assets/delete.svg",
+                                        // alignment: Alignment.center,
+                                         height: 20,width: 12,
+                                       ),
+                                     )
+                                   )
                                   ],
                                 ),
                               ),

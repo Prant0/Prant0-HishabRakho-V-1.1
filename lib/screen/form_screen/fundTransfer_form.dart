@@ -407,7 +407,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 Navigator.pop(context);
                               },
                               child: Container(
-                                height: 50,
+                                padding: EdgeInsets.symmetric(vertical: 20),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   border: Border.all(
@@ -416,11 +416,11 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.arrow_back_ios,
-                                      color: Colors.white70,
-                                      size: 15,
+                                    SvgPicture.asset("assets/arrow2.svg",
+                                      alignment: Alignment.center,
+                                      height: 15,width: 15,
                                     ),
+                                    SizedBox(width: 8,),
                                     Text(
                                       "Go Back",
                                       style: myStyle(16, Colors.white),
@@ -473,7 +473,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                     : mfsTOCash(context);
                               },
                               child: Container(
-                                height: 50,
+                                padding: EdgeInsets.symmetric(vertical: 20),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   color: Colors.deepPurpleAccent,
@@ -488,10 +488,10 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                       "Proceed",
                                       style: myStyle(16, Colors.white),
                                     ),
-                                    Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      color: Colors.white70,
-                                      size: 15,
+                                    SizedBox(width: 8,),
+                                    SvgPicture.asset("assets/arrow1.svg",
+                                      alignment: Alignment.center,
+                                      height: 15,width: 15,
                                     ),
                                   ],
                                 ),

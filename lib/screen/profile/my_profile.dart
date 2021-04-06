@@ -230,7 +230,7 @@ class _MyProfileState extends State<MyProfile> {
                         margin:
                             EdgeInsets.symmetric( horizontal: 8),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13.0)),
+                            borderRadius: BorderRadius.circular(10.0)),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 25, horizontal: 25),
@@ -242,9 +242,9 @@ class _MyProfileState extends State<MyProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "My Payables",
+                                    "Payables",
                                     style:
-                                        myStyle(14, BrandColors.colorDimText),
+                                        myStyle(12, Colors.redAccent,FontWeight.w400),
                                   ),
                                   SizedBox(
                                     height: 4,
@@ -253,7 +253,7 @@ class _MyProfileState extends State<MyProfile> {
                                     NumberFormat.compactCurrency(
                                       symbol: ' ৳ ',
                                     ).format(totalPayable ?? 0),
-                                    style: myStyle(14, BrandColors.colorWhite),
+                                    style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
                                   ),
                                 ],
                               ),
@@ -261,9 +261,9 @@ class _MyProfileState extends State<MyProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "My Receivables",
+                                    "Receivables",
                                     style:
-                                        myStyle(14, BrandColors.colorDimText),
+                                        myStyle(12, BrandColors.colorGreen,FontWeight.w400),
                                   ),
                                   SizedBox(
                                     height: 4,
@@ -272,7 +272,7 @@ class _MyProfileState extends State<MyProfile> {
                                     NumberFormat.compactCurrency(
                                       symbol: ' ৳ ',
                                     ).format(totalReceivable ?? 0),
-                                    style: myStyle(14, Colors.white),
+                                    style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
                                   )
                                 ],
                               ),
@@ -488,18 +488,23 @@ class _MyProfileState extends State<MyProfile> {
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
     return showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
+        barrierColor: BrandColors.colorPrimaryDark,
+
         builder: (context) {
           return AlertDialog(
+            backgroundColor: BrandColors.colorPrimary,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.0)),
+                borderRadius: BorderRadius.circular(10.0)),
             title: Text('Do you want to Reset all data?'),
+            titleTextStyle: myStyle(16,Colors.white,FontWeight.w600),
             content: Form(
               key: _formKey,
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(8.0),
                 child: TextFormField(
+                  style: myStyle( 14.0,  BrandColors.colorDimText),
                   // onSaved: (val) => y = val,
                   controller: _textFieldController,
                   validator: (String value) {
@@ -522,18 +527,23 @@ class _MyProfileState extends State<MyProfile> {
                       },
                       child: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: Theme.of(context).iconTheme.color,
+                        color:BrandColors.colorText,
+                        size: 18,
                       ),
                     ),
+
                     border: OutlineInputBorder(
+                      borderSide: BorderSide(color: BrandColors.colorText),
                       borderRadius: BorderRadius.circular(15.0),
                       gapPadding: 5.0,
+
                     ),
                     labelText: "Password",
-                    labelStyle: myStyle(16, Colors.purple),
+                    hintStyle:  myStyle(14, BrandColors.colorText),
+                    labelStyle: myStyle(12, BrandColors.colorText),
                     prefixIcon: const Icon(
                       Icons.lock,
-                      color: Colors.purple,
+                      color:  BrandColors.colorText,size: 18,
                     ),
                     hintText: "Password",
                   ),
@@ -541,26 +551,6 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
 
-              /*SenderTextEdit(
-
-                keyy: "name",
-                data: _data,
-                name: _textFieldController,
-                lebelText: "Enter Password",
-                hintText: "Enter Password",
-
-                icon: Icons.drive_file_rename_outline,
-                function: (String value) {
-                  if (value.isEmpty) {
-                    return "required";
-                  }
-                  if (value.length < 6) {
-                    return "Name is Too Short";
-                  }if (value.length > 20) {
-                    return "Name is Too Long";
-                  }
-                },
-              ),*/
             ),
             actions: <Widget>[
               FlatButton(
@@ -574,7 +564,8 @@ class _MyProfileState extends State<MyProfile> {
                 },
               ),
               FlatButton(
-                color: Colors.purple,
+
+                color: Colors.indigo,
                 textColor: Colors.white,
                 child: Text('OK'),
                 onPressed: () {

@@ -79,6 +79,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
         });
       }
     }
+    onProgress=false;
   }
 
   bool onProgress = false;
@@ -96,33 +97,33 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+              margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
                     flex: 7,
                     child: Text("Title", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
                     flex: 5,
                     child: Text("Transaction", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
                     flex: 4,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Balance", style: myStyle(12,
-                          BrandColors.colorDimText),),
+                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                   ),
                 ],
               ),
             ),
 
-            ListView.builder(
+          list.isNotEmpty ? ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -152,11 +153,11 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w600),
+                                    "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
                                   ),
                                   SizedBox(height: 3,),
                                   Text(
-                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText,),
+                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w400,),
                                   )
                                 ],
                               ),
@@ -192,7 +193,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                           .balance),
 
                                       style: myStyle(
-                                          12, Colors.white),
+                                          12, Colors.white,FontWeight.w500),
                                     ),
 
                                   ),
@@ -277,7 +278,11 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                       ],),
                   );
                 }
-            )
+            ) :Container(
+            height:MediaQuery.of(context).size.height-150,
+            alignment: Alignment.center,
+            child: Text("Empty entries",style: myStyle(16,BrandColors.colorText,),),
+          )
 
             /*list.isEmpty
                 ? Container(

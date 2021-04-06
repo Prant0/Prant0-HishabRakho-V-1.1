@@ -84,94 +84,10 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                           ),
                         ),
                       ),
-/*
-                  SenderTextEdit(
-                    keytype:  TextInputType.numberWithOptions(decimal: true),
-                    // ignore: deprecated_member_use
-                    onChangeFunction: (text){
-                      text=double.parse(valuee);
-                    },
-                    formatter:[
-                     // WhitelistingTextInputFormatter(RegExp(r"^\d?\.?\d{0,8}")),
-                      //BlacklistingTextInputFormatter(RegExp("[a-zA-Z,]")),
-
-                     // BlacklistingTextInputFormatter(RegExp("[/\\]"))
-                    ],
-                    keyy: "Balance",
-                    data: _data,
-                    name: amountController,
-                    lebelText: "Balance",
-                    hintText: "Current Balance",
-
-                    icon: Icons.money,
-                    function: (String value) {
-                      if(value is int || value is double){
-                        return "invalide amount";
-                      }
-                      if (value.isEmpty) {
-                        return "Balance required";
-                      }
-                      if (value.length > 12) {
-                        return "Amount is Too Long";
-                      }
-                      setState(() {
-                        valuee=double.parse(amountController.text.toString());
-                      });
-                    },
-                  ),*/
-
-
-                      /*TextField(
-                 // controller: amountController,
-                  onChanged:(value){
-                    setState(() {
-                      String amount=oCcy.format(value);
-
-                      amountController.text=amount;
-                      print("amount s xxxxxxxx  ${amountController.text}");
-                    });
-
-                  } ,
-
-                ),*/
-
-                      /* TextField(
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
-                    controller: amountController,
-                    onChanged: (text) {
-
-                      setState(() {
-
-                        textFormatter(text);
-
-                      }); // you need this
-                    },
-                  ),*/
-
-                      //  Text("$valuee"),
 
                       SizedBox(
                         height: 10,
                       ),
-                      /*RaisedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-
-                          // double.parse(amountController.text.toString())<1? showInSnackBar("Amount is required") :
-                          amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
-                        },
-                        color: Colors.purple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 100,
-                        ),
-                        child: Text(
-                          "Submit",
-                          style: myStyle(18, Colors.white),
-                        ),
-                      ),*/
 
                     ],
                   ),
@@ -224,8 +140,6 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                             onTap:  () {
                               if (!_formKey.currentState.validate()) return;
                               _formKey.currentState.save();
-
-                              // double.parse(amountController.text.toString())<1? showInSnackBar("Amount is required") :
                               amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
                             },
                             child: Container(

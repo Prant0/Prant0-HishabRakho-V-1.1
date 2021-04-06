@@ -713,7 +713,7 @@ class SenderTextEdit extends StatelessWidget {
         decoration: InputDecoration(hoverColor: Colors.black,
           filled: true,
           suffixText: suffixText,
-          contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 40),
+          contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
           fillColor: BrandColors.colorPrimary,
           focusedBorder:OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
@@ -729,11 +729,11 @@ class SenderTextEdit extends StatelessWidget {
           ),
 
           labelText: hintText,
-          hintStyle: myStyle(14, BrandColors.colorDimText),
+          hintStyle: myStyle(12, BrandColors.colorDimText),
 
           suffixIcon: suffixIcon,
           prefixIcon: icon,
-          labelStyle: myStyle(14,BrandColors.colorDimText),
+          labelStyle: myStyle(12,BrandColors.colorDimText),
           hintText: lebelText,
         ),
       ),

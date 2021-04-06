@@ -194,8 +194,8 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
               child: Column(
                 children: [
                   Container(
-                    height: 80,
-                    margin: EdgeInsets.only(bottom: 25, top: 8),
+                    height: 88,
+                    margin: EdgeInsets.only(bottom: 25, top: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
                       color: BrandColors.colorPrimary,
@@ -219,15 +219,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   offset: Offset(-1, -8),
                                   tks: myStyle(12,Colors.white),
                                 ),
-                                /*Text(
-                                    NumberFormat
-                                        .compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(allData[
-                                    index]
-                                        .totalCashAmount ?? 0),
-                                    style: myStyle(
-                                        14, Colors.white))*/
+
                               ],
                             ),
                           ),
@@ -275,7 +267,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(vertical: 17),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -283,11 +275,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           "Cash Details",
                           style: myStyle(16, BrandColors.colorDimText),
                         ),
-                        /*Text(
-                          "+ Add Cash",
-                          style: myStyle(
-                              14, Colors.deepPurpleAccent, FontWeight.w600),
-                        ),*/
+
                       ],
                     ),
                   ),
@@ -325,7 +313,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   children: [
                                     Text(
                                       "Current Balance",
-                                      style: myStyle(14, BrandColors.colorDimText),
+                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                                     ),
                                     SizedBox(height: 6,),
                                     moneyField(
@@ -361,16 +349,21 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                     }));
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
                                     alignment: Alignment.center,
-                                    margin: EdgeInsets.symmetric(vertical: 18),
+                                    margin:
+                                    EdgeInsets.symmetric(vertical: 18),
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(color: Colors.deepPurpleAccent)),
-                                    child: Icon(
-                                      Icons.edit,
-                                      size: 20,
-                                      color: Colors.white,
+                                      //color: BrandColors.colorPrimaryDark,
+                                        borderRadius:
+                                        BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color:
+                                            Colors.deepPurpleAccent)),
+                                    child: SvgPicture.asset("assets/edit.svg",
+                                      alignment: Alignment.center,
+                                      height: 20,width: 12,
                                     ),
                                   ),
                                 )
@@ -380,7 +373,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                     )
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(vertical: 17),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -410,186 +403,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                       ],
                     ),
                   ),
-                  /*Container(
-                    height: 160,
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: bankList.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          color: BrandColors.colorPrimary,
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            width: MediaQuery.of(context).size.width - 50,
-                            height: 160,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${bankList[index].storageHubName ?? ""}",
-                                          style:
-                                              myStyle(14, BrandColors.colorWhite),
-                                        ),
-                                        Text(
-                                          bankList[index]
-                                                  .userStorageHubAccountNumber ??
-                                              "",
-                                          style:
-                                              myStyle(14, BrandColors.colorWhite),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(right: 20, top: 10),
-                                      child: Image.network(
-                                        "http://hishabrakho.com/admin/storage/hub/${bankList[index].photo ?? ""}",
-                                        height: 50,
-                                        width: 60,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Current Balance ",
-                                          style:
-                                              myStyle(14, BrandColors.colorWhite),
-                                        ),
-                                        Text(
-                                          NumberFormat.currency(
-                                                  symbol: ' ৳ ',
-                                                  decimalDigits: (bankList[index]
-                                                          .balance) is int
-                                                      ? 0
-                                                      : 2,
-                                                  locale: "en-in")
-                                              .format(
-                                                  bankList[index].balance ?? ""),
-                                          style: myStyle(16, Colors.white),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                        child: Row(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 8),
-                                          alignment: Alignment.center,
-                                          margin:
-                                              EdgeInsets.symmetric(vertical: 18),
-                                          decoration: BoxDecoration(
-                                              //color: BrandColors.colorPrimaryDark,
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              border: Border.all(
-                                                  color:
-                                                      Colors.deepPurpleAccent)),
-                                          child: Icon(
-                                            Icons.edit,
-                                            size: 20,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            {
-                                              showDialog(
-                                                  context: context,
-                                                  barrierDismissible: false,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          13.0)),
-                                                      title: Text(
-                                                        "Are You Sure ?",
-                                                        style: myStyle(
-                                                            16,
-                                                            Colors.black54,
-                                                            FontWeight.w800),
-                                                      ),
-                                                      content: Text(
-                                                          "You want to delete !"),
-                                                      actions: <Widget>[
-                                                        FlatButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop(false);
-                                                            },
-                                                            child: Text("No")),
-                                                        FlatButton(
-                                                            onPressed: () {
-                                                              print("tap");
-                                                              CustomHttpRequests
-                                                                      .deleteStorageHub(
-                                                                          bankList[index]
-                                                                              .id)
-                                                                  .then((value) =>
-                                                                      value);
-                                                              setState(() {
-                                                                bankList.removeAt(
-                                                                    index);
-                                                              });
-                                                              showInSnackBar(
-                                                                "1 Item Delete",
-                                                              );
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Text("Yes"))
-                                                      ],
-                                                    );
-                                                  });
-                                            }
-                                          },
-                                          icon: Icon(
-                                            Icons.delete_forever_outlined,
-                                            color: Colors.redAccent,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                        //Image.network("https://media-exp1.licdn.com/dms/image/C510BAQFYQ12drExNfw/company-logo_200_200/0/1567518887113?e=2159024400&v=beta&t=NqOeHA9iax5LN_y6bQmgZx3a2020WUDr_x6JR1rFPIs",height: 60,width: 60,fit: BoxFit.cover,),
-                                        )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),*/
+
                   Container(
                     height: 160,
                     width: double.maxFinite,
@@ -659,7 +473,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 25),
+                    padding: EdgeInsets.symmetric(vertical: 17),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -812,159 +626,144 @@ class StorageCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: BrandColors.colorPrimary,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 18),
+      margin: EdgeInsets.only(left: 10),
+      decoration: BoxDecoration(
+          color: BrandColors.colorPrimary,
 
-      shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0)),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0)),
-        width: MediaQuery.of(context).size.width - 50,
-        height: 160,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${storageName ?? ""}",
-                      style:
-                      myStyle(14, BrandColors.colorWhite),overflow: TextOverflow.ellipsis,
-                    ),
-
-                    SizedBox(height: 4,),
-                    Text(
-                      accountNumber ??
-                          "",
-                      style:
-                      myStyle(16, BrandColors.colorDimText),
-                    )
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 20, top: 10),
-                  child: Image.network(
-                    "http://hishabrakho.com/admin/storage/hub/${photo?? ""}",
-                    height: 50,
-                    width: 60,
-                    fit: BoxFit.fill,
+      width: 335,
+      height: 160,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${storageName ?? ""}",
+                    style:
+                    myStyle(14, BrandColors.colorWhite),overflow: TextOverflow.ellipsis,
                   ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Current Balance ",
-                      style:
-                      myStyle(12, BrandColors.colorDimText),
-                    ),
-                    SizedBox(height: 4,),
-                    SizedBox(height: 6,),
-                    moneyField(
-                      amount: balance ?? 0,
-                      ts: myStyle(16, Colors.white, FontWeight.w500),
-                      offset: Offset(-1, -8),
-                      tks: myStyle(12,Colors.white),
-                    ),
-                    /*Text(
-                      NumberFormat.currency(
-                          symbol: ' ৳ ',
-                          decimalDigits: (balance) is int
-                              ? 0
-                              : 2,
-                          locale: "en-in")
-                          .format(
-                          balance?? ""),
-                      style: myStyle(16, Colors.white,FontWeight.w800),
-                    )*/
-                  ],
+
+                  SizedBox(height: 4,),
+                  Text(
+                    accountNumber ??
+                        "",
+                    style:
+                    myStyle(16, BrandColors.colorDimText.withOpacity(0.6)),
+                  )
+                ],
+              ),
+              Container(
+                //margin: EdgeInsets.only(right: 20, ),
+                child: Image.network(
+                  "http://hishabrakho.com/admin/storage/hub/${photo?? ""}",
+                  height: 45,
+                  width: 70,
+                  fit: BoxFit.fill,
                 ),
-                Container(
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: edit,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 8),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Current Balance ",
+                    style:
+                    myStyle(12, BrandColors.colorDimText.withOpacity(0.6)),
+                  ),
+                  SizedBox(height: 4,),
+
+                  moneyField(
+                    amount: balance ?? 0,
+                    ts: myStyle(16, Colors.white, FontWeight.w500),
+                    offset: Offset(-1, -8),
+                    tks: myStyle(12,Colors.white),
+                  ),
+
+                ],
+              ),
+              Container(
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: edit,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          alignment: Alignment.center,
+
+                          decoration: BoxDecoration(
+                            //color: BrandColors.colorPrimaryDark,
+                              borderRadius:
+                              BorderRadius.circular(5),
+                              border: Border.all(
+                                  color:
+                                  Colors.deepPurpleAccent)),
+                          child: SvgPicture.asset("assets/edit.svg",
                             alignment: Alignment.center,
-                            margin:
-                            EdgeInsets.symmetric(vertical: 18),
-                            decoration: BoxDecoration(
-                              //color: BrandColors.colorPrimaryDark,
-                                borderRadius:
-                                BorderRadius.circular(5),
-                                border: Border.all(
-                                    color:
-                                    Colors.deepPurpleAccent)),
-                            child: Icon(
-                              Icons.edit,
-                              size: 20,
-                              color: Colors.white,
-                            ),
+                            height: 20,width: 12,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(
-                                            13.0)),
-                                    title: Text(
-                                      "Are You Sure ?",
-                                      style: myStyle(
-                                          16,
-                                          Colors.black54,
-                                          FontWeight.w800),
-                                    ),
-                                    content: Text(
-                                        "You want to delete !"),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(false);
-                                          },
-                                          child: Text("No")),
-                                      FlatButton(
-                                          onPressed: delete,
-                                          child: Text("Yes"))
-                                    ],
-                                  );
-                                });
-                          },
-                          icon: Icon(
-                            Icons.delete_forever_outlined,
-                            color: Colors.redAccent,
-                          ),
-                        )
-                      ],
-                    )
-                )
-              ],
-            )
-          ],
-        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(
+                                          13.0)),
+                                  title: Text(
+                                    "Are You Sure ?",
+                                    style: myStyle(
+                                        16,
+                                        Colors.black54,
+                                        FontWeight.w800),
+                                  ),
+                                  content: Text(
+                                      "You want to delete !"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pop(false);
+                                        },
+                                        child: Text("No")),
+                                    FlatButton(
+                                        onPressed: delete,
+                                        child: Text("Yes"))
+                                  ],
+                                );
+                              });
+                        },
+                        icon: SvgPicture.asset("assets/delete.svg",
+                          alignment: Alignment.center,
+                          height: 20,width: 12,
+                        ),
+                      )
+                    ],
+                  )
+              )
+            ],
+          )
+        ],
       ),
     );
   }

@@ -184,139 +184,134 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         ),
         drawer: Drawerr(),
 
-        floatingActionButton: FloatingActionButton(
-          mini: true,
-          isExtended: true,
-          elevation: 8,
-          onPressed: () {
-            showModalBottomSheet(
-              useRootNavigator: true,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(13.0),
-                        topRight: Radius.circular(13.0))),
-                backgroundColor: BrandColors.colorPrimaryDark,
-                context: context,
-                isScrollControlled: true,
-                builder: (
-                    context,
-                    ) {
-                  return FractionallySizedBox(
-                      heightFactor: 0.4,
-                      child: Stack(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 20,left: 8,right: 8),
-                            child: GridView.builder(
 
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing:5,
-                                  mainAxisSpacing: 4),
-                              itemCount: dataa.length,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    print(
-                                        "event class name : ${dataa[index].eventClassName}");
-                                    dataa[index].eventClassName ==
-                                        "Fund Transfer"
-                                        ? Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AddEntriesSubCategories(
-                                                  id: 28,
-                                                  namee: dataa[index]
-                                                      .eventClassName,
-                                                )))
-                                        : Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                AddEntriesCategories(
-                                                  id: dataa[index].id,
-                                                  name: dataa[index]
-                                                      .eventClassName,
-                                                )));
-                                  },
-                                  child: Container(
-                                   // margin: EdgeInsets.only(top: 10),
-                                    padding: EdgeInsets.only(top: 15, left: 8,),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          //margin: EdgeInsets.all(5.0),
-                                          decoration: BoxDecoration(
-                                              color: Color(0xFFD2DCF7).withOpacity(0.15),
-                                              borderRadius: BorderRadius.circular(8.0)),
-                                          child: Image.network(
-                                            "http://hishabrakho.com/admin/${dataa[index].classIcon}",
-                                            width: 50,
-                                            height: 50,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 12),
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                          dataa[index]
-                                              .eventClassName
-                                              .toString(),
-                                          style: myStyle(15, Colors.white,FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            top: 11,right: 10,left: 10,
-                            child:Center(
-                              child: Container(
-                                padding: EdgeInsets.only(top: 8),
-                                height: 2,width: 30,
-                                color: Colors.grey,
-                              ),
-                            )
-                          ),
-                        ],
-                      ),
-                  );
-                });
-          },
-          splashColor: Colors.teal,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12)),
-          backgroundColor: BrandColors.colorPurple,
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
         body: WillPopScope(
           onWillPop: onBackPressed,
-          child: TabBarView(
-            controller: tabController,
-            physics: ScrollPhysics(),
-            children: [
-              HomePage(),
-              MyStorageHubs(),
-              MyBudget(),
-              MyReports(),
-              MyTransection(),
-            ],
+          child: Stack(
+             children: [
+               TabBarView(
+                 controller: tabController,
+                 physics: ScrollPhysics(),
+                 children: [
+                   HomePage(),
+                   MyStorageHubs(),
+                   MyBudget(),
+                   MyReports(),
+                   MyTransection(),
+                 ],
+               ),
+               Positioned(
+                 bottom: 20,right: 20,
+                 height: 50,width: 50,
+                 child: FloatingActionButton(
+                   // mini: true,
+                   isExtended: true,
+                   elevation: 8,
+                   onPressed: () {
+                     showModalBottomSheet(
+                         useRootNavigator: true,
+                         shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.only(
+                                 topLeft: Radius.circular(13.0),
+                                 topRight: Radius.circular(13.0))),
+                         backgroundColor: BrandColors.colorPrimaryDark,
+                         context: context,
+                         isScrollControlled: true,
+                         builder: (
+                             context,
+                             ) {
+                           return FractionallySizedBox(
+                             heightFactor: 0.4,
+                             child:  Padding(
+                               padding: EdgeInsets.only(top: 20,left: 8,right: 8),
+                               child: GridView.builder(
+
+                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                     crossAxisCount: 3,
+                                     crossAxisSpacing:5,
+                                     mainAxisSpacing: 4),
+                                 itemCount: dataa.length,
+                                 shrinkWrap: true,
+                                 scrollDirection: Axis.vertical,
+                                 itemBuilder: (context, index) {
+                                   return GestureDetector(
+                                     onTap: () {
+                                       print(
+                                           "event class name : ${dataa[index].eventClassName}");
+                                       dataa[index].eventClassName ==
+                                           "Fund Transfer"
+                                           ? Navigator.push(
+                                           context,
+                                           MaterialPageRoute(
+                                               builder: (context) =>
+                                                   AddEntriesSubCategories(
+                                                     id: 28,
+                                                     namee: dataa[index]
+                                                         .eventClassName,
+                                                   )))
+                                           : Navigator.push(
+                                           context,
+                                           MaterialPageRoute(
+                                               builder: (context) =>
+                                                   AddEntriesCategories(
+                                                     id: dataa[index].id,
+                                                     name: dataa[index]
+                                                         .eventClassName,
+                                                   )));
+                                     },
+                                     child: Container(
+                                       // margin: EdgeInsets.only(top: 10),
+                                       padding: EdgeInsets.only(top: 15, left: 8,),
+                                       child: Column(
+                                         crossAxisAlignment:
+                                         CrossAxisAlignment.center,
+                                         mainAxisAlignment:
+                                         MainAxisAlignment.center,
+                                         children: [
+                                           Container(
+                                             //margin: EdgeInsets.all(5.0),
+                                             decoration: BoxDecoration(
+                                                 color: Color(0xFFD2DCF7).withOpacity(0.15),
+                                                 borderRadius: BorderRadius.circular(8.0)),
+                                             child: Image.network(
+                                               "http://hishabrakho.com/admin/${dataa[index].classIcon}",
+                                               width: 50,
+                                               height: 50,
+                                               fit: BoxFit.fill,
+                                             ),
+                                             padding: EdgeInsets.symmetric(
+                                                 horizontal: 12, vertical: 12),
+                                           ),
+                                           SizedBox(
+                                             height: 8,
+                                           ),
+                                           Text(
+                                             dataa[index]
+                                                 .eventClassName
+                                                 .toString(),
+                                             style: myStyle(15, Colors.white,FontWeight.w500),
+                                           ),
+                                         ],
+                                       ),
+                                     ),
+                                   );
+                                 },
+                               ),
+                             ),
+                           );
+                         });
+                   },
+                   splashColor: Colors.teal,
+                   shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(12)),
+                   backgroundColor: BrandColors.colorPurple,
+                   child: Icon(
+                     Icons.add,
+                     color: Colors.white,
+                   ),
+                 ),
+               )
+             ],
           ),
         ),
         bottomNavigationBar: Container(

@@ -108,26 +108,26 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+              margin: EdgeInsets.symmetric(vertical: 15,horizontal: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 7,
+                    flex: 6,
                     child: Text("Title", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 4,
                     child: Text("Transaction", style: myStyle(12,
-                        BrandColors.colorDimText),),
+                        BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                   ),
                   Expanded(
                     flex: 4,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text("Balance", style: myStyle(12,
-                          BrandColors.colorDimText),),
+                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                   ),
                 ],
@@ -162,11 +162,11 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w600),
+                                      "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
                                     ),
                                     SizedBox(height: 3,),
                                     Text(
-                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText,),
+                                      "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),),
                                     )
                                   ],
                                 ),
@@ -200,7 +200,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                                             .balance),
 
                                         style: myStyle(
-                                            12, Colors.white),
+                                            12, Colors.white,FontWeight.w500),
                                       ),
 
                                       Container(

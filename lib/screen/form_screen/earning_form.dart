@@ -783,7 +783,7 @@ bool transactionType =false;
     print("widget name is : ${widget.name}");
     return SafeArea(
       child: Scaffold(
-
+        resizeToAvoidBottomInset: false,
         backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: ModalProgressHUD(
@@ -993,7 +993,7 @@ bool transactionType =false;
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          padding: EdgeInsets.symmetric(horizontal: 14,vertical: 14),
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(8.0),
                                               color:isCash ==true?Colors.transparent: BrandColors.colorPrimary,
@@ -1027,7 +1027,7 @@ bool transactionType =false;
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          padding: EdgeInsets.symmetric(horizontal: 14,vertical: 14),
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(8.0),
                                               color:isBank ==true?Colors.transparent: BrandColors.colorPrimary,
@@ -1060,7 +1060,7 @@ bool transactionType =false;
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(right: 10),
-                                          padding: EdgeInsets.symmetric(horizontal: 18,vertical: 18),
+                                          padding: EdgeInsets.symmetric(horizontal: 14,vertical: 14),
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(8.0),
                                               color:isMfs ==true?Colors.transparent: BrandColors.colorPrimary,
@@ -1204,14 +1204,7 @@ bool transactionType =false;
                               child: Text("Add details (optionala)",style: myStyle(14,BrandColors.colorText),
                               ),
                             ),
-                           /* SenderTextEdit(
-                              keyy: "details",
-                              maxNumber: 3,
-                              data: _data,
-                              name: detailsController,
-                              lebelText: "     Write here",
 
-                            ),*/
 
                             Container(
                               padding: EdgeInsets.symmetric( vertical: 15),
@@ -1260,7 +1253,7 @@ bool transactionType =false;
                             ),
 
                             SizedBox(
-                              height: 50,
+                              height: 180,
                             ),
                           ],
                         ),

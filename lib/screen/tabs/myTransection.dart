@@ -150,8 +150,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                             "Storage",
                             style: myStyle(
                                 14,
-                                BrandColors
-                                    .colorDimText),
+                                BrandColors.colorDimText),
                           ),
                         ),
                         Tab(

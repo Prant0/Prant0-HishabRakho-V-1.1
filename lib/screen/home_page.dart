@@ -124,11 +124,7 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
-/*  List<UserModel> user = [];
-  loadUserDetails() async {
-    await Provider.of<UserDetailsProvider>(context, listen: false)
-        .getUserDetails();
-  }*/
+
 
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override

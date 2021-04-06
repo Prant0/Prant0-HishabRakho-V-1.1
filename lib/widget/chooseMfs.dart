@@ -79,6 +79,7 @@ class _ChooseMfsState extends State<ChooseMfs> {
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text("Your MFS",style: myStyle(20,Colors.white,FontWeight.w600),),
       ),
@@ -142,8 +143,8 @@ class _ChooseMfsState extends State<ChooseMfs> {
                                       child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}",fit: BoxFit.fill,height: 80,width: 80,),
                                     ),
                                     SizedBox(height:12 ,),
-                                    Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(16,Colors.white),overflow: TextOverflow.ellipsis,),
-                                    widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(16,BrandColors.colorDimText),) :SizedBox()
+                                    Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(14,BrandColors.colorText,FontWeight.w600),overflow: TextOverflow.ellipsis,),
+                                    widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),) :SizedBox()
 
                                   ],
                                 ),

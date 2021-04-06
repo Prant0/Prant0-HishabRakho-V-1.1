@@ -45,11 +45,19 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
 
   @override
   void initState() {
-    fetchStartingPayableData();
+
     super.initState();
   }
 
-bool onProgress=false;
+
+  @override
+  void didChangeDependencies() {
+
+    fetchStartingPayableData();
+    super.didChangeDependencies();
+  }
+
+  bool onProgress=false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +86,14 @@ bool onProgress=false;
                               flex: 6,
                               child: Text(
                                 "Title",
-                                style: myStyle(14, BrandColors.colorDimText),
+                                style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                               ),
                             ),
                             Expanded(
                               flex: 4,
                               child: Text(
                                 "Transaction",
-                                style: myStyle(14, BrandColors.colorDimText),
+                                style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                               ),
                             ),
 
@@ -93,7 +101,8 @@ bool onProgress=false;
                         ),
                       ),
 
-                      ListView.builder(
+
+                  ListView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
@@ -235,100 +244,7 @@ bool onProgress=false;
                               ],
                             );
                           })
-                      /*ListView.builder(
 
-                        shrinkWrap: true,
-                        itemCount: payableData.length,
-                        itemBuilder: (c,i){
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFF021A2C),
-                                border: Border.all(
-                                    color: Colors.purple, width: 1),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: ListTile(
-
-                              selectedTileColor:  Colors.red,
-                              title: Text("Total Payable is :",style: myStyle(18,Colors.white),),
-                              trailing: Text(
-                                NumberFormat.currency(
-                                    symbol: ' ৳ ',
-                                    decimalDigits: (payableData[i].total)is int
-                                        ? 0
-                                        : 2,
-                                    locale: "en-in")
-                                    .format(payableData[i].total),
-                                style: myStyle(
-                                    18,
-                                    Color(0xffa7ffeb),
-                                    FontWeight.w800),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-
-                      SizedBox(height: 50,),
-
-                      Container(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          itemCount: payableData.length,
-                          itemBuilder: (context,index){
-                            return Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 10),
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF021A2C),
-                                        border: Border.all(
-                                            color: Colors.purple, width: 1),
-                                        borderRadius: BorderRadius.circular(12)),
-                                    child: ListTile(
-                                      leading: Icon(Icons.person_outline,color: Colors.purple,),
-                                      title: Text("${model.payableDetails[index].friendName}",style: myStyle(16,Colors.white),),
-                                      trailing: Text(
-                                        NumberFormat.currency(
-                                            symbol: ' ৳ ',
-                                            decimalDigits: (model.payableDetails[index].amount)is int
-                                                ? 0
-                                                : 2,
-                                            locale: "en-in")
-                                            .format(model.payableDetails[index].amount),
-                                        style: myStyle(
-                                            18,
-                                            Color(0xffa7ffeb),
-                                            FontWeight.w800),
-                                      ),
-
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child:InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditStartingPayable(
-                                                      model: model.payableDetails[index],
-                                                    ))).then((value) => setState(() {
-                                          fetchStartingPayableData();
-                                        }));
-                                      },
-                                      child: Icon(Icons.edit_outlined,color: Colors.red,)) ,
-                                )
-
-                              ],
-                            );
-                          },
-                        ),
-                      )*/
                     ],
                   ),
                 ),

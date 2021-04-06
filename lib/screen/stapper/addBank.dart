@@ -115,20 +115,44 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                 });
                               },
                               child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12.0),
-                                      border: Border.all(width: 1, color: Colors.grey)),
-                                  padding:
-                                  EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                      border: Border.all(
+                                          width: 0.5, color: BrandColors.colorPurple.withOpacity(0.8))),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 20),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Date : ${formattedDate}",
-                                        style:
-                                        myStyle(16, BrandColors.colorText, FontWeight.w700),
+
+                                      RichText(
+                                        text: TextSpan(children: [
+
+                                          WidgetSpan(
+                                            child:Text(
+                                              'Date:',
+                                              textScaleFactor: 1.0,
+                                              style: myStyle(14,BrandColors.colorText),
+                                            ),
+                                          ),
+
+                                          WidgetSpan(
+                                            child: Text(
+                                              "  ${formattedDate}",
+                                              style: myStyle(
+                                                  14, BrandColors.colorWhite, FontWeight.w500),
+                                            ),
+                                          ),
+
+                                        ]),
                                       ),
-                                      Icon(Icons.date_range_outlined,color: BrandColors.colorText,),
+
+                                      SvgPicture.asset("assets/calender.svg",
+                                        alignment: Alignment.center,
+                                        height: 15,width: 15,
+                                      ),
                                     ],
                                   )),
                             ),
@@ -137,7 +161,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Choose your bank",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
+                                  child: Text("Choose your bank",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
                                 ),
                                 GestureDetector(
                                   onTap: () async {
@@ -151,9 +175,9 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     });
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 25,bottom: 10),
-                                    padding: EdgeInsets.symmetric(horizontal: 15),
-                                    height: 60,
+                                    margin: EdgeInsets.only(top: 14,bottom: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
                                       color: BrandColors.colorPrimary,
@@ -161,7 +185,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(bankName??"Select Your Bank ",style: myStyle(14,BrandColors.colorDimText),overflow: TextOverflow.ellipsis,),
+                                        Text(bankName??"Select Your Bank ",style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),overflow: TextOverflow.ellipsis,),
                                         SvgPicture.asset("assets/select bank.svg",
                                           alignment: Alignment.center,
                                           height: 20,width: 20,
@@ -172,8 +196,8 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                 ),
 
                                 Padding(
-                                  padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Account Number",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
+                                  padding: EdgeInsets.only(top: 25,bottom: 6),
+                                  child: Text("Account Number",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
                                 ),
                                 SenderTextEdit(
                                   keyy: "number",
@@ -198,8 +222,8 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                 ),
 
                                 Padding(
-                                  padding: EdgeInsets.only(top: 25,),
-                                  child: Text("Account Name",style: myStyle(14,BrandColors.colorText,FontWeight.w600),),
+                                  padding: EdgeInsets.only(top: 25,bottom: 6),
+                                  child: Text("Account Name",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
                                 ),
                                 SenderTextEdit(
                                   keyy: "name",
@@ -221,7 +245,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                   },
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(right: 8,bottom: 20),
+                                  padding: EdgeInsets.only(bottom: 20),
                                   child: MoneyTextFormField(
                                     settings: MoneyTextFormFieldSettings(
                                       controller: bankBalanceController,
