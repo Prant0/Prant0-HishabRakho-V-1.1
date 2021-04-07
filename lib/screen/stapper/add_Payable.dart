@@ -69,6 +69,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
           child: Container(
 
             margin: EdgeInsets.symmetric( horizontal: 20),
+
             child: Form(
               key: _formKey,
               child:Column(

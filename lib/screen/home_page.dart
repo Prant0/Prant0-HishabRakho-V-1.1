@@ -567,7 +567,7 @@ class MiniCart extends StatelessWidget {
     return Expanded(
       flex: 5,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 25,vertical: 21),
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 21),
         margin: EdgeInsets.only(
             top: 5, right: right ?? 0, bottom: 2, left: left ?? 0),
         decoration: BoxDecoration(
@@ -642,12 +642,16 @@ class MiniCart extends StatelessWidget {
                 )
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 00),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: icon,
-              ),
+            Column(
+              children: [
+                FittedBox(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: icon,
+                  ),
+                ),
+                Spacer()
+              ],
             ),
           ],
         ),

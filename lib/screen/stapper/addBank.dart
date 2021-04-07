@@ -75,7 +75,9 @@ class _AddBankStapperState extends State<AddBankStapper> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return SafeArea(
+
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: WillPopScope(
@@ -263,6 +265,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 150,)
                               ],
                             ),
                           ],

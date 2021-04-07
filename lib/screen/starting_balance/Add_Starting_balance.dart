@@ -67,7 +67,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
         inAsyncCall: onProgress,
         child: Container(
           height: double.infinity,
-          padding: EdgeInsets.only(top: 30,left: 14,right: 14),
+          padding: EdgeInsets.only(top: 30,left: 20,right: 20),
           child: Form(
             key: _formKey,
             child: Stack(
@@ -113,25 +113,50 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                           });
                         },
                         child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(width: 1, color: Colors.grey)),
-                            padding:EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                border: Border.all(
+                                    width: 0.5, color: Colors.grey.withOpacity(0.4))),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Date : ${formattedDate}",
-                                  style:
-                                  myStyle(16, BrandColors.colorText, FontWeight.w700),
+
+                                RichText(
+                                  text: TextSpan(children: [
+
+                                    WidgetSpan(
+                                      child:Text(
+                                        'Date:',
+                                        textScaleFactor: 1.0,
+                                        style: myStyle(14,BrandColors.colorText),
+                                      ),
+                                    ),
+
+                                    WidgetSpan(
+                                      child: Text(
+                                        "  ${formattedDate}",
+                                        style: myStyle(
+                                            14, BrandColors.colorWhite, FontWeight.w500),
+                                      ),
+                                    ),
+
+                                  ]),
                                 ),
-                                Icon(Icons.date_range_outlined,color:BrandColors.colorText,),
+
+                                SvgPicture.asset("assets/calender.svg",
+                                  alignment: Alignment.center,
+                                  height: 15,width: 15,
+                                ),
                               ],
                             )),
                       ),
 
                       Padding(
-                          padding:EdgeInsets.only(top: 20),
+                          padding:EdgeInsets.only(top: 20,bottom: 8),
                           child: widget.title=="payable"? Text(
                             "Pay to ",
                             style: myStyle(16, BrandColors.colorText,  ),
@@ -169,7 +194,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                       ),
                       Padding(
                         child: Text("Add Details (optional)",style: myStyle(16,BrandColors.colorText),),
-                        padding: EdgeInsets.only(top: 15,),
+                        padding: EdgeInsets.only(top: 15,bottom: 8),
                       ),
                       SenderTextEdit(
                         keyy: "details",
@@ -220,7 +245,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                               Navigator.pop(context);
                             },
                             child: Container(
-                              height: 50,
+                              padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 border: Border.all(
@@ -233,7 +258,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                                     alignment: Alignment.center,
                                     fit: BoxFit.contain,
                                   ),
-                                  SizedBox(width: 5,),
+                                  SizedBox(width: 8,),
                                   Text(
                                     "Skip",
                                     style: myStyle(16, Colors.white),
@@ -256,10 +281,10 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                               amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): widget.title=="payable"? uploadPayable(context) : uploadReceivable(context);
                             },
                             child: Container(
-                              height: 50,
+                              padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.deepPurpleAccent,
+                                color:BrandColors.colorPurple,
                                 border: Border.all(
                                     color: BrandColors.colorPurple.withOpacity(0.8),
                                     width: 1.0),
@@ -271,6 +296,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                                     "Proceed",
                                     style: myStyle(16, Colors.white),
                                   ),
+                                  SizedBox(width: 8,),
                                   SvgPicture.asset("assets/arrow1.svg",
                                     alignment: Alignment.center,
                                     fit: BoxFit.contain,

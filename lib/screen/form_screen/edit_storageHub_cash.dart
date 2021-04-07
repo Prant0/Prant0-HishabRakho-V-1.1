@@ -39,6 +39,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Storage Hub",
@@ -63,7 +64,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                     children: [
 
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12,vertical: 30),
+                        padding: EdgeInsets.symmetric(horizontal: 0,vertical: 30),
                         child: MoneyTextFormField(
                           settings: MoneyTextFormFieldSettings(
                             controller: amountController,
@@ -107,7 +108,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                               Navigator.pop(context);
                             },
                             child: Container(
-                              height: 50,
+                              padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 border: Border.all(
@@ -143,12 +144,12 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                               amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateCash(context);
                             },
                             child: Container(
-                              height: 50,
+                             padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.deepPurpleAccent,
+                                color: BrandColors.colorPurple,
                                 border: Border.all(
-                                    color: Colors.deepPurpleAccent,
+                                    color: BrandColors.colorPurple,
                                     width: 1.0),
                               ),
                               child: Row(

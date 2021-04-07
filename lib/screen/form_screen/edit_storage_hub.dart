@@ -86,9 +86,11 @@ class _EditStorageHubState extends State<EditStorageHub> {
 
     print("Update type isssss :${widget.type} ");
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Storage Hub",
@@ -112,32 +114,10 @@ class _EditStorageHubState extends State<EditStorageHub> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 50.0,
+                        height: 10.0,
                       ),
 
-                      /*SenderTextEdit(
-                    formatter: <TextInputFormatter>[
 
-                    ],
-                    keytype: TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: false,
-                    ),
-                    keyy: "Balance",
-                    data: _data,
-                    name: amountController,
-                    hintText: "৳ ${widget.model.totalBalance}",
-                    lebelText: " Initial balance ",
-                    icon: Icons.money,
-                    function: (String value) {
-                      if (value.isEmpty) {
-                        return "Amount required";
-                      }
-                      if (value.length > 17) {
-                        return "Amount is Too Long.(Max 10 digits)";
-                      }
-                    },
-                  ),*/
                       Visibility(
                         visible: isBank == true,
                         child: Column(
@@ -145,7 +125,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 6),
-                              child: Text("Account Name",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
+                              child: Text("Account Name",style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
                             ),
                             SenderTextEdit(
                               keyy: "name",
@@ -154,7 +134,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                               //initialText: widget.model.userStorageHubAccountName,
 
                               lebelText:  "Account Name" ,
-                              icon: Icons.drive_file_rename_outline,
+                             // icon: Icons.drive_file_rename_outline,
                               function: (String value) {
                                 if (value.isEmpty) {
                                   return "Account Name required";
@@ -175,7 +155,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Text("Account Number",style: myStyle(16,BrandColors.colorDimText,FontWeight.w600),),
+                        child: Text("Account Number",style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
                       ),
                       Visibility(
                         visible: isBank == true || isMfs == true,
@@ -188,7 +168,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                           data: _data,
                           name:  accountnumber,
                           lebelText: "Account Number",
-                          icon: Icons.confirmation_number_outlined,
+                          //icon: Icons.confirmation_number_outlined,
                           function: (String value) {
                             if (value.isEmpty) {
                               return "Account Number required";
@@ -202,53 +182,29 @@ class _EditStorageHubState extends State<EditStorageHub> {
                           },
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        child: MoneyTextFormField(
-                          settings: MoneyTextFormFieldSettings(
+                      MoneyTextFormField(
+                        settings: MoneyTextFormFieldSettings(
 
-                            controller: amountController,
-                            moneyFormatSettings: MoneyFormatSettings(
-                                amount: double.tryParse(widget.model.totalBalance.toString()),
-                                currencySymbol: ' ৳ ',
-                                displayFormat: MoneyDisplayFormat.symbolOnRight),
-                            appearanceSettings: AppearanceSettings(
-                                padding: EdgeInsets.all(15.0),
-                                labelText: 'Initial balance ',
-                                
-                                labelStyle: myStyle(20,Colors.white,FontWeight.w600),
-                                inputStyle: _ts.copyWith(color: Colors.white),
-                                formattedStyle:
-                                _ts.copyWith(color: Colors.white)),
+                          controller: amountController,
+                          moneyFormatSettings: MoneyFormatSettings(
+                              amount: double.tryParse(widget.model.totalBalance.toString()),
+                              currencySymbol: ' ৳ ',
+                              displayFormat: MoneyDisplayFormat.symbolOnRight),
+                          appearanceSettings: AppearanceSettings(
+                              padding: EdgeInsets.all(15.0),
+                              labelText: 'Initial balance ',
 
-                          ),
+                              labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                              inputStyle: _ts.copyWith(color: Colors.white),
+                              formattedStyle:
+                              _ts.copyWith(color: Colors.white)),
+
                         ),
                       ),
+
+
                       SizedBox(
-                        height: 10,
-                      ),
-                      /*RaisedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState.validate()) return;
-                          _formKey.currentState.save();
-                          widget.type == "bank"
-                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateBankData(context)
-                              : widget.type == "mfs"
-                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
-                        },
-                        color: Colors.purple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0)),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 100,
-                        ),
-                        child: Text(
-                          "Submit",
-                          style: myStyle(18, Colors.white),
-                        ),
-                      ),*/
-                      SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                     ],
                   ),
@@ -268,7 +224,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                               Navigator.pop(context);
                             },
                             child: Container(
-                              height: 50,
+                              padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                                 border: Border.all(
@@ -307,12 +263,12 @@ class _EditStorageHubState extends State<EditStorageHub> {
                                   ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
                             },
                             child: Container(
-                              height: 50,
+                              padding: EdgeInsets.symmetric(vertical: 20),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.deepPurpleAccent,
+                                color: BrandColors.colorPurple,
                                 border: Border.all(
-                                    color: Colors.deepPurpleAccent,
+                                    color: BrandColors.colorPurple,
                                     width: 1.0),
                               ),
                               child: Row(

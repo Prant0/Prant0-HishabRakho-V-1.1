@@ -75,11 +75,12 @@ class _MfsWidgetState extends State<MfsWidget> {
                         amount: widget.model[index].currentMfsBalance,
                         ts: myStyle(12,Colors.white,FontWeight.w500),
                         offset: Offset(-1, -8),
+                        tks: myStyle(10,Colors.white,FontWeight.w500) ,
                       ),
                       subtitle: Text(
                         "A/C:${widget.model[index].userStorageHubAccountNumber} ",
                         style: myStyle(
-                            12, BrandColors.colorDimText, FontWeight.w400),
+                            12, BrandColors.colorDimText.withOpacity(0.5), FontWeight.w400),
                       ),
                     );
             },

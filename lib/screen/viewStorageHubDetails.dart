@@ -32,6 +32,7 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
     return Scaffold(
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(widget.name ?? "Cash"),
       ),

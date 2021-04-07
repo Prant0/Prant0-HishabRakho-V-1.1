@@ -3,6 +3,7 @@ import 'package:anthishabrakho/providers/myTransectionProvider.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
@@ -98,6 +99,7 @@ class _EditTransactionState extends State<EditTransaction> {
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
           "Edit Entries",
@@ -116,7 +118,7 @@ class _EditTransactionState extends State<EditTransaction> {
                   color:  BrandColors.colorPrimaryDark,
                   elevation: 3,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                  margin: EdgeInsets.symmetric(vertical: 10,horizontal: 12),
+                  margin: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                   child: ListView(
                     children: [
                       SizedBox(
@@ -129,40 +131,48 @@ class _EditTransactionState extends State<EditTransaction> {
                           });
                         },
                         child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 0,vertical: 10),
+                            margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(width: 1, color: Colors.grey)),
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                                border: Border.all(
+                                    width: 0.5, color: Colors.grey.withOpacity(0.4))),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Date : ${formattedDate}",
-                                  style: myStyle(16, Colors.white, FontWeight.w700),
+
+                                RichText(
+                                  text: TextSpan(children: [
+
+                                    WidgetSpan(
+                                      child:Text(
+                                        'Date:',
+                                        textScaleFactor: 1.0,
+                                        style: myStyle(14,BrandColors.colorText),
+                                      ),
+                                    ),
+
+                                    WidgetSpan(
+                                      child: Text(
+                                        "  ${formattedDate}",
+                                        style: myStyle(
+                                            14, BrandColors.colorWhite, FontWeight.w500),
+                                      ),
+                                    ),
+
+                                  ]),
                                 ),
-                                Icon(Icons.date_range_outlined,color: Colors.white,),
+
+                                SvgPicture.asset("assets/calender.svg",
+                                  alignment: Alignment.center,
+                                  height: 15,width: 15,
+                                ),
                               ],
                             )),
                       ),
-                      /*SenderTextEdit(
-                    keytype: TextInputType.number,
-                    formatter:  <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                     // CurrencyInputFormatter(),
-                    ],
-                    keyy: "Balance",
-                    data: _data,
-                    name: amountController,
-                    lebelText: "Balance",
-                    hintText: " Initial balance ",
-                    icon: Icons.money,
-                    function: (String value) {
-                      if (value.isEmpty) {
-                        return "Amount required";
-                      }
-                    },
-                  ),*/
+
 
                       Visibility(
                         visible: isPayable == true,
@@ -171,7 +181,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Pay/Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Pay/Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
                             ),
                             SenderTextEdit(
                               keyy: "Payable",
@@ -179,7 +189,14 @@ class _EditTransactionState extends State<EditTransaction> {
                               name: nameController,
                               lebelText: "${widget.model.friendName} ?? ",
                               //hintText: " Payable to",
-                              icon: Icons.person,
+                              icon: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: SvgPicture.asset("assets/user1.svg",
+                                  alignment: Alignment.bottomCenter,
+                                  fit: BoxFit.contain,
+                                  color: BrandColors.colorText,
+                                ),
+                              ),
                               function: (String value) {
                                 if (value.isEmpty) {
                                   return "Name required";
@@ -201,7 +218,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Receive/Receivable from",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                              child: Text("Receive/Receivable from",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
                             ),
                             SenderTextEdit(
                               keyy: "Receivable",
@@ -209,7 +226,14 @@ class _EditTransactionState extends State<EditTransaction> {
                               name: nameController,
                               lebelText: "${widget.model.friendName} ?? "" ",
                               // hintText: " Receivable from",
-                              icon: Icons.person,
+                              icon: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: SvgPicture.asset("assets/user1.svg",
+                                  alignment: Alignment.bottomCenter,
+                                  fit: BoxFit.contain,
+                                  color: BrandColors.colorText,
+                                ),
+                              ),
                               function: (String value) {
                                 if (value.isEmpty) {
                                   return "Name required";
@@ -235,7 +259,7 @@ class _EditTransactionState extends State<EditTransaction> {
                         name:detailsController ,
                         lebelText: widget.model.details ?? "",
                         hintText: " Details",
-                        icon: Icons.details,
+                        //icon: Icons.details,
                         function: (String value) {
 
                         },
@@ -287,7 +311,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(left: 12),
+                          margin: EdgeInsets.only(left: 20),
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
@@ -355,7 +379,7 @@ class _EditTransactionState extends State<EditTransaction> {
                           print("event id is : ${widget.model.eventId.toString()}");
                         },
                         child: Container(
-                          margin: EdgeInsets.only(left: 12),
+                          margin: EdgeInsets.only(left: 12,right: 20),
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),

@@ -76,6 +76,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: WillPopScope(
@@ -219,7 +220,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                               },
                             ),
                             Padding(
-                              padding: EdgeInsets.only(bottom: 35),
+                              padding: EdgeInsets.only(bottom: 50),
                               child: MoneyTextFormField(
                                 settings: MoneyTextFormFieldSettings(
                                   controller: mfsBalanceController,

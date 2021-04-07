@@ -223,80 +223,92 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                            return FractionallySizedBox(
                              heightFactor: 0.4,
                              child:  Padding(
-                               padding: EdgeInsets.only(top: 20,left: 8,right: 8),
-                               child: GridView.builder(
-
-                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                     crossAxisCount: 3,
-                                     crossAxisSpacing:5,
-                                     mainAxisSpacing: 4),
-                                 itemCount: dataa.length,
-                                 shrinkWrap: true,
-                                 scrollDirection: Axis.vertical,
-                                 itemBuilder: (context, index) {
-                                   return GestureDetector(
-                                     onTap: () {
-                                       print(
-                                           "event class name : ${dataa[index].eventClassName}");
-                                       dataa[index].eventClassName ==
-                                           "Fund Transfer"
-                                           ? Navigator.push(
-                                           context,
-                                           MaterialPageRoute(
-                                               builder: (context) =>
-                                                   AddEntriesSubCategories(
-                                                     id: 28,
-                                                     namee: dataa[index]
-                                                         .eventClassName,
-                                                   )))
-                                           : Navigator.push(
-                                           context,
-                                           MaterialPageRoute(
-                                               builder: (context) =>
-                                                   AddEntriesCategories(
-                                                     id: dataa[index].id,
-                                                     name: dataa[index]
-                                                         .eventClassName,
-                                                   )));
-                                     },
+                               padding: EdgeInsets.only(top: 10,left: 8,right: 8),
+                               child: Column(
+                                 children: [
+                                   Center(
                                      child: Container(
-                                       // margin: EdgeInsets.only(top: 10),
-                                       padding: EdgeInsets.only(top: 15, left: 8,),
-                                       child: Column(
-                                         crossAxisAlignment:
-                                         CrossAxisAlignment.center,
-                                         mainAxisAlignment:
-                                         MainAxisAlignment.center,
-                                         children: [
-                                           Container(
-                                             //margin: EdgeInsets.all(5.0),
-                                             decoration: BoxDecoration(
-                                                 color: Color(0xFFD2DCF7).withOpacity(0.15),
-                                                 borderRadius: BorderRadius.circular(8.0)),
-                                             child: Image.network(
-                                               "http://hishabrakho.com/admin/${dataa[index].classIcon}",
-                                               width: 50,
-                                               height: 50,
-                                               fit: BoxFit.fill,
-                                             ),
-                                             padding: EdgeInsets.symmetric(
-                                                 horizontal: 12, vertical: 12),
-                                           ),
-                                           SizedBox(
-                                             height: 8,
-                                           ),
-                                           Text(
-                                             dataa[index]
-                                                 .eventClassName
-                                                 .toString(),
-                                             style: myStyle(15, Colors.white,FontWeight.w500),
-                                           ),
-                                         ],
-                                       ),
+                                     height: 2,width: 50,
+                                     color:  BrandColors.colorText.withOpacity(0.6),
                                      ),
-                                   );
-                                 },
-                               ),
+                                   ),
+                                   GridView.builder(
+
+                                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                         crossAxisCount: 3,
+                                         crossAxisSpacing:5,
+                                         mainAxisSpacing: 4),
+                                     itemCount: dataa.length,
+                                     shrinkWrap: true,
+                                     scrollDirection: Axis.vertical,
+                                     itemBuilder: (context, index) {
+                                       return GestureDetector(
+                                         onTap: () {
+                                           print(
+                                               "event class name : ${dataa[index].eventClassName}");
+                                           dataa[index].eventClassName ==
+                                               "Fund Transfer"
+                                               ? Navigator.push(
+                                               context,
+                                               MaterialPageRoute(
+                                                   builder: (context) =>
+                                                       AddEntriesSubCategories(
+                                                         id: 28,
+                                                         namee: dataa[index]
+                                                             .eventClassName,
+                                                       )))
+                                               : Navigator.push(
+                                               context,
+                                               MaterialPageRoute(
+                                                   builder: (context) =>
+                                                       AddEntriesCategories(
+                                                         id: dataa[index].id,
+                                                         name: dataa[index]
+                                                             .eventClassName,
+                                                       )));
+                                         },
+                                         child: Container(
+                                           // margin: EdgeInsets.only(top: 10),
+                                           padding: EdgeInsets.only(top: 10,),
+                                           child: Column(
+                                             crossAxisAlignment:
+                                             CrossAxisAlignment.center,
+                                             mainAxisAlignment:
+                                             MainAxisAlignment.center,
+                                             children: [
+                                               Container(
+                                                 //margin: EdgeInsets.all(5.0),
+                                                 decoration: BoxDecoration(
+                                                     color: Color(0xFFD2DCF7).withOpacity(0.15),
+                                                     borderRadius: BorderRadius.circular(8.0)),
+                                                 child: Image.network(
+                                                   "http://hishabrakho.com/admin/${dataa[index].classIcon}",
+                                                   width: 50,
+                                                   height: 50,
+                                                   fit: BoxFit.fill,
+                                                 ),
+                                                 padding: EdgeInsets.symmetric(
+                                                     horizontal: 12, vertical: 12),
+                                               ),
+                                               SizedBox(
+                                                 height: 8,
+                                               ),
+                                               FittedBox(
+                                                 child: Text(
+                                                   dataa[index]
+                                                       .eventClassName
+                                                       .toString(),
+                                                   style: myStyle(15, Colors.white,FontWeight.w500),
+                                                 ),
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       );
+                                     },
+                                   ),
+                                 ],
+                               )
                              ),
                            );
                          });

@@ -184,400 +184,403 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
       backgroundColor: BrandColors.colorPrimaryDark,
       body:allData.isNotEmpty? Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: allData.length,
-          itemBuilder: (context,index){
-            return SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  Container(
-                    height: 88,
-                    margin: EdgeInsets.only(bottom: 25, top: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: BrandColors.colorPrimary,
-                    ),
-                    child: Center(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Cash",
-                                  style: myStyle(14, BrandColors.colorDimText),
-                                ),
-                                SizedBox(height: 6,),
-                                moneyField(
-                                  amount: allData[index].totalCashAmount ?? 0,
-                                  ts: myStyle(16, Colors.white, FontWeight.w500),
-                                  offset: Offset(-1, -8),
-                                  tks: myStyle(12,Colors.white),
-                                ),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: allData.length,
+            itemBuilder: (context,index){
+              return SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 88,
+                      margin: EdgeInsets.only(bottom: 25, top: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.0),
+                        color: BrandColors.colorPrimary,
+                      ),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Cash",
+                                    style: myStyle(14, BrandColors.colorDimText),
+                                  ),
+                                  SizedBox(height: 6,),
+                                  moneyField(
+                                    amount: allData[index].totalCashAmount ?? 0,
+                                    ts: myStyle(16, Colors.white, FontWeight.w500),
+                                    offset: Offset(-1, -8),
+                                    tks: myStyle(12,Colors.white),
+                                  ),
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Bank",
-                                  style: myStyle(14, BrandColors.colorDimText),
-                                ),
-                                SizedBox(height: 6,),
-                                moneyField(
-                                  amount: allData[index].totalBankAmount ?? 0,
-                                  ts: myStyle(16, Colors.white, FontWeight.w500),
-                                  offset: Offset(-1, -8),
-                                  tks: myStyle(12,Colors.white),
-                                ),
-                              ],
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Bank",
+                                    style: myStyle(14, BrandColors.colorDimText),
+                                  ),
+                                  SizedBox(height: 6,),
+                                  moneyField(
+                                    amount: allData[index].totalBankAmount ?? 0,
+                                    ts: myStyle(16, Colors.white, FontWeight.w500),
+                                    offset: Offset(-1, -8),
+                                    tks: myStyle(12,Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "MFS",
-                                  style: myStyle(14, BrandColors.colorDimText),
-                                ),
-                                SizedBox(height: 6),
-                                moneyField(
-                                  amount: allData[index].totalMfsAmount ?? 0,
-                                  ts: myStyle(16, Colors.white, FontWeight.w500),
-                                  offset: Offset(-1, -8),
-                                  tks: myStyle(12,Colors.white),
-                                ),
-                              ],
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "MFS",
+                                    style: myStyle(14, BrandColors.colorDimText),
+                                  ),
+                                  SizedBox(height: 6),
+                                  moneyField(
+                                    amount: allData[index].totalMfsAmount ?? 0,
+                                    ts: myStyle(16, Colors.white, FontWeight.w500),
+                                    offset: Offset(-1, -8),
+                                    tks: myStyle(12,Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 17),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Cash Details",
+                            style: myStyle(16, BrandColors.colorDimText),
                           ),
 
                         ],
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 17),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Cash Details",
-                          style: myStyle(16, BrandColors.colorDimText),
-                        ),
+                    GestureDetector(
+                      onTap:  () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewStorageHubDetails(
+                                      id: cashList[index].id,
+                                      name: cashList[index]
+                                          .storageHubName,
 
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap:  () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ViewStorageHubDetails(
-                                    id: cashList[index].id,
-                                    name: cashList[index]
-                                        .storageHubName,
-
-                                  )));
-                    },
-                    child: ListView.builder(
-                      itemCount: cashList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context,index){
-                        return Container(
-                            height: 80,
-                            margin: EdgeInsets.only(bottom: 25),
-                            padding: EdgeInsets.symmetric(horizontal: 25),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              color: BrandColors.colorPrimary,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Current Balance",
-                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
-                                    ),
-                                    SizedBox(height: 6,),
-                                    moneyField(
-                                      amount: cashList[index].totalBalance ?? 0,
-                                      ts: myStyle(16, Colors.white, FontWeight.w500),
-                                      offset: Offset(-1, -8),
-                                      tks: myStyle(12,Colors.white),
-                                    ),
-                                    /*Text(
-                                        NumberFormat
-                                            .compactCurrency(
-                                          symbol: ' ৳ ',
-                                        ).format(cashList[
-                                        index]
-                                            .totalBalance ?? 0),
-                                        style: myStyle(
-                                            14, Colors.white))*/
-                                  ],
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    String type = "cash";
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => UpdateStorageHubCash(
-                                            model: cashList[index],
-                                            type: type,
-                                          )),
-                                    ).then((value) => setState(() {
-                                      myCashDetails();
-                                      loadDashBoardData();
-                                    }));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    alignment: Alignment.center,
-                                    margin:
-                                    EdgeInsets.symmetric(vertical: 18),
-                                    decoration: BoxDecoration(
-                                      //color: BrandColors.colorPrimaryDark,
-                                        borderRadius:
-                                        BorderRadius.circular(5),
-                                        border: Border.all(
-                                            color:
-                                            Colors.deepPurpleAccent)),
-                                    child: SvgPicture.asset("assets/edit.svg",
-                                      alignment: Alignment.center,
-                                      height: 20,width: 12,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ));
+                                    )));
                       },
-                    )
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 17),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Bank Details",
-                          style: myStyle(16, BrandColors.colorDimText),
-                        ),
-
-                        GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AddBankStapper(
-                                types: "addStorageHub",
-                              )),
-                            ).then((value) => setState(() {
-                              mybankDetails();
-                              loadDashBoardData();
-                            }));
-                          },
-                          child: Text(
-                            "+ Add Bank",
-                            style: myStyle(
-                                14, BrandColors.colorPurple, FontWeight.w600),
-                          ),
-                        ),
-                      ],
+                      child: ListView.builder(
+                        itemCount: cashList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context,index){
+                          return Container(
+                              height: 80,
+                              margin: EdgeInsets.only(bottom: 25),
+                              padding: EdgeInsets.symmetric(horizontal: 25),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                color: BrandColors.colorPrimary,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Current Balance",
+                                        style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
+                                      ),
+                                      SizedBox(height: 6,),
+                                      moneyField(
+                                        amount: cashList[index].totalBalance ?? 0,
+                                        ts: myStyle(16, Colors.white, FontWeight.w500),
+                                        offset: Offset(-1, -8),
+                                        tks: myStyle(12,Colors.white),
+                                      ),
+                                      /*Text(
+                                          NumberFormat
+                                              .compactCurrency(
+                                            symbol: ' ৳ ',
+                                          ).format(cashList[
+                                          index]
+                                              .totalBalance ?? 0),
+                                          style: myStyle(
+                                              14, Colors.white))*/
+                                    ],
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      String type = "cash";
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => UpdateStorageHubCash(
+                                              model: cashList[index],
+                                              type: type,
+                                            )),
+                                      ).then((value) => setState(() {
+                                        myCashDetails();
+                                        loadDashBoardData();
+                                      }));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      alignment: Alignment.center,
+                                      margin:
+                                      EdgeInsets.symmetric(vertical: 18),
+                                      decoration: BoxDecoration(
+                                        //color: BrandColors.colorPrimaryDark,
+                                          borderRadius:
+                                          BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color:
+                                              Colors.deepPurpleAccent)),
+                                      child: SvgPicture.asset("assets/edit.svg",
+                                        alignment: Alignment.center,
+                                        height: 20,width: 12,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ));
+                        },
+                      )
                     ),
-                  ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 17),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Bank Details",
+                            style: myStyle(16, BrandColors.colorDimText),
+                          ),
 
-                  Container(
-                    height: 160,
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: bankList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap:  () {
-                            Navigator.push(
+                          GestureDetector(
+                            onTap: () async {
+                              await Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewStorageHubDetails(
-                                          id: bankList[index].id,
-                                          name: bankList[index]
-                                              .storageHubName,
-                                          image: bankList[index].photo,
-                                          number: bankList[index].userStorageHubAccountNumber,
-
-                                        )));
-                          },
-                          child: StorageCart(
-                            balance: bankList[index].balance,
-                            id: bankList[index].id,
-                            photo: bankList[index].photo,
-                            storageName: bankList[index].storageHubName,
-                            accountNumber: bankList[index].userStorageHubAccountNumber,
-                            delete:() {
-                              print("tap");
-                              CustomHttpRequests
-                                  .deleteStorageHub(
-                                  bankList[index]
-                                      .id)
-                                  .then((value) =>
-                              value);
-                              setState(() {
-                                bankList.removeAt(
-                                    index);
-                              });
-                              showInSnackBar(
-                                "1 Item Delete",
-                              );
-                              Navigator.of(context).pop();
-                            },
-
-                            edit:() {
-                              String type = "bank";
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EditStorageHub(
-                                      model: bankList[index],
-                                      type: type,
-                                    )),
+                                MaterialPageRoute(builder: (context) => AddBankStapper(
+                                  types: "addStorageHub",
+                                )),
                               ).then((value) => setState(() {
                                 mybankDetails();
                                 loadDashBoardData();
                               }));
                             },
-
+                            child: Text(
+                              "+ Add Bank",
+                              style: myStyle(
+                                  14, BrandColors.colorPurple, FontWeight.w600),
+                            ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 17),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "MFS Details",
-                          style: myStyle(16, BrandColors.colorDimText),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AddMfsStapper(
-                                types: "addStorageHub",
-                              )),
-                            ).then((value) => setState(() {
-                              myMfsDetails();
-                              loadDashBoardData();
-                            }));
-                          },
-                          child: Text(
-                            "+ Add MFS",
-                            style: myStyle(
-                                14, BrandColors.colorPurple, FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
 
-                  Container(
-                    height: 160,
-                    width: double.maxFinite,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: mfsList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap:  () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ViewStorageHubDetails(
-                                          id: mfsList[index].id,
-                                          name: mfsList[index]
-                                              .storageHubName,
-                                          image: mfsList[index].photo,
-                                          number: mfsList[index].userStorageHubAccountNumber,
-                                        )));
-                          },
-                          child: StorageCart(
-                            balance: mfsList[index].balance,
-                            id: mfsList[index].id,
-                            photo: mfsList[index].photo,
-                            storageName: mfsList[index].storageHubName,
-                            accountNumber: mfsList[index].userStorageHubAccountNumber,
-                            delete:() {
-                              print("tap");
-                              CustomHttpRequests
-                                  .deleteStorageHub(
-                                  mfsList[index]
-                                      .id)
-                                  .then(
-                                      (value) => value);
-                              setState(() {
-                                mfsList.removeAt(index);
-                              });
-                              showInSnackBar(
-                                "1 Item deleted",
-                              );
-                              Navigator.pop(context);
-                            },
-                            edit: () {
-                              String type = "mfs";
+                    Container(
+                      height: 160,
+                      width: double.maxFinite,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: bankList.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap:  () {
                               Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewStorageHubDetails(
+                                            id: bankList[index].id,
+                                            name: bankList[index]
+                                                .storageHubName,
+                                            image: bankList[index].photo,
+                                            number: bankList[index].userStorageHubAccountNumber,
+
+                                          )));
+                            },
+                            child: StorageCart(
+                              balance: bankList[index].balance,
+                              id: bankList[index].id,
+                              photo: bankList[index].photo,
+                              storageName: bankList[index].storageHubName,
+                              accountNumber: bankList[index].userStorageHubAccountNumber,
+                              delete:() {
+                                print("tap");
+                                CustomHttpRequests
+                                    .deleteStorageHub(
+                                    bankList[index]
+                                        .id)
+                                    .then((value) =>
+                                value);
+                                setState(() {
+                                  bankList.removeAt(
+                                      index);
+                                });
+                                showInSnackBar(
+                                  "1 Item Delete",
+                                );
+                                Navigator.of(context).pop();
+                              },
+
+                              edit:() {
+                                String type = "bank";
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditStorageHub(
+                                        model: bankList[index],
+                                        type: type,
+                                      )),
+                                ).then((value) => setState(() {
+                                  mybankDetails();
+                                  loadDashBoardData();
+                                }));
+                              },
+
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 17),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "MFS Details",
+                            style: myStyle(16, BrandColors.colorDimText),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              await Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditStorageHub(
-                                          model: mfsList[index],
-                                          type: type,
-                                        )),
+                                MaterialPageRoute(builder: (context) => AddMfsStapper(
+                                  types: "addStorageHub",
+                                )),
                               ).then((value) => setState(() {
                                 myMfsDetails();
                                 loadDashBoardData();
                               }));
                             },
-
+                            child: Text(
+                              "+ Add MFS",
+                              style: myStyle(
+                                  14, BrandColors.colorPurple, FontWeight.w600),
+                            ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
 
-                  Container(
-                    height: 70,
-                  )
-                ],
-              ),
-            );
+                    Container(
+                      height: 160,
+                      width: double.maxFinite,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: mfsList.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap:  () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ViewStorageHubDetails(
+                                            id: mfsList[index].id,
+                                            name: mfsList[index]
+                                                .storageHubName,
+                                            image: mfsList[index].photo,
+                                            number: mfsList[index].userStorageHubAccountNumber,
+                                          )));
+                            },
+                            child: StorageCart(
+                              balance: mfsList[index].balance,
+                              id: mfsList[index].id,
+                              photo: mfsList[index].photo,
+                              storageName: mfsList[index].storageHubName,
+                              accountNumber: mfsList[index].userStorageHubAccountNumber,
+                              delete:() {
+                                print("tap");
+                                CustomHttpRequests
+                                    .deleteStorageHub(
+                                    mfsList[index]
+                                        .id)
+                                    .then(
+                                        (value) => value);
+                                setState(() {
+                                  mfsList.removeAt(index);
+                                });
+                                showInSnackBar(
+                                  "1 Item deleted",
+                                );
+                                Navigator.pop(context);
+                              },
+                              edit: () {
+                                String type = "mfs";
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditStorageHub(
+                                            model: mfsList[index],
+                                            type: type,
+                                          )),
+                                ).then((value) => setState(() {
+                                  myMfsDetails();
+                                  loadDashBoardData();
+                                }));
+                              },
 
-          },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                    Container(
+                      height: 70,
+                    )
+                  ],
+                ),
+              );
+
+            },
+          ),
         ),
       ) : Center(child: Spin(),),
     );
@@ -592,7 +595,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
         value,
         style: myStyle(15, Colors.white),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 
@@ -628,7 +631,7 @@ class StorageCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 18),
-      margin: EdgeInsets.only(left: 10),
+      margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
           color: BrandColors.colorPrimary,
 

@@ -147,7 +147,10 @@ class _ChooseBankState extends State<ChooseBank> {
                                   ),
                                   SizedBox(height:12 ,),
                                   Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(14,BrandColors.colorText,FontWeight.w600),overflow: TextOverflow.ellipsis,),
-                                  widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),overflow: TextOverflow.ellipsis,) :SizedBox(height: 2,)
+
+
+
+                                  widget.types=="single" ? Text("A / C : ${snapshot.data[index].userStorageHubAccountNumber.toString() ?? ''}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w400),overflow: TextOverflow.ellipsis,) :SizedBox(height: 2,)
 
                                 ],
                               ),

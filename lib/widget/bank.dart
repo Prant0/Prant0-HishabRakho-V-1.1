@@ -91,7 +91,7 @@ class _BankWidgetState extends State<BankWidget> {
                       subtitle: Text(
                         "A/C:${widget.model[index].userStorageHubAccountNumber} ",
                         style: myStyle(
-                            12, BrandColors.colorDimText, FontWeight.w400),
+                            12, BrandColors.colorDimText.withOpacity(0.5), FontWeight.w400),
                       ),
                     );
             },
