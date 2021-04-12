@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -81,6 +82,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
+        progressIndicator: Spin(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Form(

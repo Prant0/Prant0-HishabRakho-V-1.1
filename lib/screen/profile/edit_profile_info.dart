@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -133,6 +134,7 @@ class _EditInfoState extends State<EditInfo> {
       body: Form(
         key: _formKey,
         child: ModalProgressHUD(
+          progressIndicator: Spin(),
           inAsyncCall: onProgress,
           child: SingleChildScrollView(
             child: Container(

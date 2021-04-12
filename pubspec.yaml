@@ -49,6 +49,7 @@ dependencies:
   flutter_slidable: ^0.5.7
   flutter_image_stack: ^0.0.3
   flutter_svg: ^0.18.1
+  flare_flutter: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

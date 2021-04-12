@@ -1,8 +1,11 @@
 
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
+import 'package:anthishabrakho/models/my_transection_model.dart';
+import 'package:anthishabrakho/screen/form_screen/edit_storageHub_cash.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/screen/stapper/add_Payable.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/chooseMfs.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,12 +56,17 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
   }
 
 
-
+@override
+  void initState() {
+  myCashDetails();
+    super.initState();
+  }
   @override
   void didChangeDependencies() {
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         mfsBalanceController.clear();
+
       });
     });
     super.didChangeDependencies();
@@ -83,6 +91,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
         onWillPop: onBackPressed,
         child: ModalProgressHUD(
           inAsyncCall: onProgress,
+          progressIndicator: Spin(),
           child: Container(
               margin: EdgeInsets.symmetric( horizontal: 20),
               child: Column(
@@ -256,12 +265,22 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                     Expanded(
                       flex: 5,
                       child: InkWell(
-                        onTap: () {
-                          widget.types=="addStorageHub"? Navigator.pop(context):  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPayableStepper()));
+                        onTap:widget.types=="addStorageHub"?  () {
+                          print("add storage hub");
+                          Navigator.pop(context) ;
+                        } :(){
+                          print("Add stappper");
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UpdateStorageHubCash(
+                                    type: "stapper",
+                                    model: cashList[0],
+                                  )));
                         },
                         child: Container(
                             margin: EdgeInsets.only(
-                                left: 8, bottom: 12, right: 12),
+                                left: 2, bottom: 12, right: 12),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
@@ -286,7 +305,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 : uploadMfs(context);
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 20),
+
                             margin: EdgeInsets.only(right: 8, bottom: 12),
                             height: double.infinity,
                             decoration: BoxDecoration(
@@ -358,35 +377,48 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
         context: context,
         builder: (context) {
           return AlertDialog(
+
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            elevation: 5,
+            elevation: 1,
             title: Text(
               'Mfs Storage created successful.',
-              style: myStyle(22, Colors.black54),
+              style: myStyle(22, Colors.white),
             ),
             content: Text(" Do you want to add more Mfs account ?"),
             actions: <Widget>[
               FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
-                color: Colors.black,
                 textColor: Colors.white,
-                child: Text('Skip'),
+                child: Text('Skip',style: myStyle(14,BrandColors.colorText),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AddPayableStepper()));
+                            builder: (context) => UpdateStorageHubCash(
+                              type: "stapper",
+                              model: cashList[0],
+                            )));
                   });
                 },
               ),
-              FlatButton(
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text('OK'),
+
+
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('Ok',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;
@@ -399,6 +431,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                   });
                 },
               ),
+
             ],
           );
         });
@@ -424,6 +457,14 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
+
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.0)),
             title: Text(
@@ -436,15 +477,49 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text("No")),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text("Yes"))
+                  child: Text("No",style: myStyle(14,BrandColors.colorText),)),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+
             ],
           );
         });
   }
   String mfsName;
+
+
+
+  Future<dynamic> myCashDetails() async {
+
+    final data = await CustomHttpRequests.userCashDetails();
+    print("Cash Details are $data");
+    for (var entries in data) {
+      MyTransectionModel model = MyTransectionModel(
+        id: entries["id"],
+        storageHubCategoryId: entries["storage_hub_category_id"],
+        storageHubId: entries["storage_hub_id"],
+        balance: entries["balance"],
+        totalBalance: entries["total_balance"],
+        hubCategoryName: entries["storage_hub_category_name"],
+        date: entries["date"],
+      );
+      try {
+        cashList.firstWhere((element) => element.id == entries['id']);
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            cashList.add(model);
+          });
+        }
+      }
+    }
+  }
+  List<MyTransectionModel> cashList = [];
 }

@@ -1,6 +1,7 @@
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -77,6 +78,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
       ),
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
+        progressIndicator: Spin(),
         child: Container(
           child: Form(
             key: _formKey,

@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +63,10 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       body:ModalProgressHUD(
+        progressIndicator: Spin(),
         inAsyncCall: onProgress,
         child: Container(
           height: double.infinity,
@@ -213,7 +216,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                               padding: EdgeInsets.all(15.0),
                               labelText: 'Enter Amount* ',
                               hintText: 'Enter Amount',
-                              labelStyle: myStyle(20, BrandColors.colorText,FontWeight.w600),
+                              labelStyle: myStyle(16, BrandColors.colorText,FontWeight.w600),
                               inputStyle: _ts.copyWith(color:  BrandColors.colorText),
                               formattedStyle:
                               _ts.copyWith(color:  BrandColors.colorText)),
@@ -323,10 +326,10 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
       content: Text(
         value,
         style: TextStyle(
-          color: BrandColors.snackBarColor,
+          color: BrandColors.colorWhite,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
 
 

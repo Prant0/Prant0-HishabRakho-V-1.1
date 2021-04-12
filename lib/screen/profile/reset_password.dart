@@ -1,9 +1,11 @@
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -37,6 +39,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: ModalProgressHUD(
           inAsyncCall: onProgress,
+          progressIndicator: Spin(),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -54,7 +57,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       name: oldPasswordController,
                       hintText: "Old Password",
                       lebelText: "Enter your old Password",
-                      icon: Icons.adjust_outlined,
+                      icon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset("assets/pass.svg",
+                          alignment: Alignment.center,
+                          height: 15,width: 15,
+                        ),
+                      ),
                       function: (String value) {
                         if (value.isEmpty) {
                           return "Old Password required";
@@ -73,7 +82,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       name: passwordController,
                       hintText: "New Password",
                       lebelText: "Enter your new password",
-                      icon: Icons.adjust_outlined,
+                     // icon: Icons.adjust_outlined,
                       function: (String value) {
                         if (value.isEmpty) {
                           return "New Password required.( 6 - 15 character/letter/digit/symbols )";
@@ -92,7 +101,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       name: confirmPasswordController,
                       lebelText: "Confirm Password",
                       hintText: "Confirm Password",
-                      icon: Icons.adjust_outlined,
+                      icon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset("assets/pass.svg",
+                          alignment: Alignment.center,
+                          height: 15,width: 15,
+                        ),
+                      ),
                       function: (String value) {
                         if (value.isEmpty) {
                           return "Confirm Password required.( 6 - 15 character/letter/digit/symbols )";

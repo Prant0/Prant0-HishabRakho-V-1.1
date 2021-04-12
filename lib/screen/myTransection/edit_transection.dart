@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -107,6 +108,7 @@ class _EditTransactionState extends State<EditTransaction> {
         centerTitle: true,
       ),
       body: ModalProgressHUD(
+          progressIndicator: Spin(),
         inAsyncCall: onProgress,
         child: Stack(
           children: [

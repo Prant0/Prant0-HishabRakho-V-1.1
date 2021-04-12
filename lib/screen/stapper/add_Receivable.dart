@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -32,13 +33,13 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
   bool onProgress = false;
   DateTime _currentDate = DateTime.now();
 
+
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -66,10 +67,12 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: ModalProgressHUD(
         inAsyncCall: onProgress,
+        progressIndicator: Spin(),
         child: Container(
           margin: EdgeInsets.symmetric( horizontal: 20),
           child: Form(
@@ -220,52 +223,49 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex:5,
+                        child: InkWell(
                           onTap: () {
                             Provider.of<StorageHubProvider>(context, listen: false)
                                 .clearAllStorage();
                             Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>MainPage()));
                           },
                           child:  Container(
-                              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 70),
+                              margin: EdgeInsets.only(left: 2,bottom: 12,right: 12),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                      color: BrandColors.colorPurple, width: 2)),
+                                  borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
+                              ),
                               child: Center(
                                   child: Text(
                                     "Skip",
                                     style: myStyle(16, Colors.white),
                                   ))),
                         ),
-                        InkWell(
+                      ),
+                      Expanded(
+                        flex:5,
+                        child: InkWell(
                           onTap:  () {
                             if (!_formKey.currentState.validate()) return;
                             _formKey.currentState.save();
                             amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadReceivable(context);
                           },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 20,horizontal: 50),
+                          child:  Container(
+                            margin: EdgeInsets.only(right: 5,bottom: 12),
                             height: double.infinity,
                             decoration: BoxDecoration(
                                 color: BrandColors.colorPurple,
-                                borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(
-                                    color: BrandColors.colorPurple, width: 2)),
-                            child: Center(
-                                child: Text(
-                                  "Proceed",
-                                  style: myStyle(16, Colors.white, FontWeight.w500),
-                                )),
+                                borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
+                            ),
+                            child: Center(child: Text("Proceed",style: myStyle(16,Colors.white,FontWeight.w500),)),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],
@@ -284,13 +284,20 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),elevation: 5,
-            title: Text('Receivable entry added successful.',style: myStyle(22,Colors.black54),),
+            elevation: 1,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+
+            title: Text('Receivable entry added successful.',style: myStyle(22,Colors.white),),
             content: Text(" Do you want to add more Receivable entry ?"),
             actions: <Widget>[
               FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: Colors.black,
                 textColor: Colors.white,
                 child: Text('Skip'),
                 onPressed: () {
@@ -303,10 +310,11 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                   });
                 },
               ),
-              FlatButton(
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text('OK'),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('Ok',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -315,24 +323,24 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                   });
                 },
               ),
+
             ],
           );
         });
   }
   Future uploadReceivable(BuildContext context) async {
     try {
+      print("Waliur bhai");
       setState(() {
         onProgress = true;
       });
       final uri = Uri.parse(
-          "http://api.hishabrakho.com/api/user/personal/entry/loan/create");
+          "http://api.hishabrakho.com/api/user/personal/starting/receivable/balance/create");
       var request = http.MultipartRequest("POST", uri);
       request.headers.addAll(await CustomHttpRequests.getHeaderWithToken());
       request.fields['date'] = _currentDate.toString();
       request.fields['amount'] = amountController.text.toString();
-      request.fields['event_type'] = "Give Loan";
       request.fields['friend_name'] = nameController.text.toString();
-      request.fields['event_sub_category_id'] = 87.toString();
       request.fields['details'] = details.text.toString();
       print("processing for loan uploading");
       var response = await request.send();
@@ -376,7 +384,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
           value,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.indigo,
       ),
     );
   }

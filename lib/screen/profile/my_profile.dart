@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
 import 'package:anthishabrakho/screen/profile/reset_password.dart';
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/globals.dart';
@@ -113,21 +114,22 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<UserDetailsProvider>(context).userData;
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: BrandColors.colorPrimaryDark,
-      appBar: AppBar(
-        elevation: 0,
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      progressIndicator: Spin(),
+      child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text(
-          "My Profile",
-          style: myStyle(20, Colors.white, FontWeight.w500),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: BrandColors.colorPrimaryDark,
+          title: Text(
+            "My Profile",
+            style: myStyle(20, Colors.white, FontWeight.w500),
+          ),
         ),
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-        child: ModalProgressHUD(
-          inAsyncCall: isLoading,
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
           child: ListView.builder(
             itemCount: user.length,
             itemBuilder: (context, index) {
@@ -291,9 +293,7 @@ class _MyProfileState extends State<MyProfile> {
                                       }));
                                 },
 
-                                /* (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MyStartingBalance()));
-                                },*/
+
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 10),
@@ -386,95 +386,6 @@ class _MyProfileState extends State<MyProfile> {
                     height: 25,
                   )
 
-                  /*Container(
-                  padding: EdgeInsets.only(
-                    top: 15,
-                  ),
-                  child: Column(
-                    children: [
-                      Divider(
-                          color: Colors.purpleAccent.withOpacity(0.5),
-                          height: 0.5,
-                          thickness: 1.0),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ResetPassword()));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Reset Password",
-                                style: myStyle(16, Colors.white70, FontWeight.w700),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 15),
-                                child: Icon(
-                                  Icons.arrow_forward_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Divider(
-                          color: Colors.purpleAccent.withOpacity(0.5),
-                          height: 0.5,
-                          thickness: 1.0),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          _displayTextInputDialog(context);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Reset All Data",
-                                style: myStyle(16, Colors.white70, FontWeight.w700),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 15),
-                                child: Icon(
-                                  Icons.arrow_forward_outlined,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Divider(
-                        color: Colors.purpleAccent.withOpacity(0.5),
-                        height: 0.5,
-                        thickness: 1.5,
-                      ),
-                    ],
-                  ),
-                )*/
                 ],
               );
             },
@@ -488,86 +399,111 @@ class _MyProfileState extends State<MyProfile> {
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
     return showDialog(
-        barrierDismissible: true,
+      
         context: context,
-        barrierColor: BrandColors.colorPrimaryDark,
-
         builder: (context) {
           return AlertDialog(
-            backgroundColor: BrandColors.colorPrimary,
+            elevation: 1,
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+            titlePadding: EdgeInsets.only(top: 30,bottom: 8,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor: BrandColors.colorPrimaryDark,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            title: Text('Do you want to Reset all data?'),
-            titleTextStyle: myStyle(16,Colors.white,FontWeight.w600),
+            title: Text('Reset all data?'),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+
+
             content: Form(
               key: _formKey,
               child: Container(
-                padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                  style: myStyle( 14.0,  BrandColors.colorDimText),
-                  // onSaved: (val) => y = val,
-                  controller: _textFieldController,
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return "Password required";
-                    }
-                    if (value.length < 6) {
-                      return "Password Too Short ( 6 - 15 character )";
-                    }
-                    if (value.length > 15) {
-                      return "Password Too Long ( 6 - 15 character )";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        print("Tap");
-                        _obscureText = !_obscureText;
-                        setState(() {});
+                height: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                     Text("Please enter your password",style: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
+
+                    TextFormField(
+                      style: myStyle(14.0, BrandColors.colorDimText,FontWeight.w400),
+                      // onSaved: (val) => y = val,
+                      controller: _textFieldController,
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return "Password required";
+                        }
+                        if (value.length < 6) {
+                          return "Password Too Short ( 6 - 15 character )";
+                        }
+                        if (value.length > 15) {
+                          return "Password Too Long ( 6 - 15 character )";
+                        }
                       },
-                      child: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color:BrandColors.colorText,
-                        size: 18,
+                      decoration: InputDecoration(
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          child: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Color(0xFFD2DCF7).withOpacity(0.6),
+                            size: 18,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 20),
+                        focusedBorder:OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.transparent, width: 1.0),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 2.0,
+                          ),
+                        ),
+                        filled: true,
+                        hintStyle:  myStyle(14, BrandColors.colorDimText),
+                        fillColor: BrandColors.colorPrimary,
+                        prefixIcon:Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SvgPicture.asset("assets/pass.svg",
+                            alignment: Alignment.center,
+                            height: 15,width: 15,
+                          ),
+                        ),
+                        hintText: 'Enter your password',
                       ),
+                      obscureText: _obscureText,
+                      cursorColor: Colors.white70,
                     ),
-
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: BrandColors.colorText),
-                      borderRadius: BorderRadius.circular(15.0),
-                      gapPadding: 5.0,
-
-                    ),
-                    labelText: "Password",
-                    hintStyle:  myStyle(14, BrandColors.colorText),
-                    labelStyle: myStyle(12, BrandColors.colorText),
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color:  BrandColors.colorText,size: 18,
-                    ),
-                    hintText: "Password",
-                  ),
-                  obscureText: _obscureText,
+                  ],
                 ),
               ),
 
             ),
             actions: <Widget>[
               FlatButton(
-                color: Colors.black,
+                color: Colors.transparent,
                 textColor: Colors.white,
-                child: Text('CANCEL'),
+                child: Text('Cancel',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
-                  setState(() {
-                    Navigator.pop(context);
-                  });
+                  Navigator.pop(context);
+
                 },
               ),
-              FlatButton(
 
-                color: Colors.indigo,
-                textColor: Colors.white,
-                child: Text('OK'),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+
+                child: Text('Reset All Data',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   if (!_formKey.currentState.validate()) return;
                   _formKey.currentState.save();
@@ -579,6 +515,8 @@ class _MyProfileState extends State<MyProfile> {
                   });
                 },
               ),
+
+
             ],
           );
         });
@@ -634,24 +572,39 @@ class _MyProfileState extends State<MyProfile> {
     return showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text('Are you sure want to LogOut ?'),
+
+
+
+          return  AlertDialog(
+            elevation: 1,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            title: Text('Log out from the app?'),
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+            content: Text("Make sure you have checked everything \n you wanted to.",),
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
             actions: <Widget>[
+
               FlatButton(
-                color: Colors.black,
+                color: Colors.transparent,
                 textColor: Colors.white,
-                child: Text('CANCEL'),
+                child: Text('Cancel',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   Navigator.pop(context);
+
                 },
               ),
-              FlatButton(
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text('OK'),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('Logout',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () async {
                   SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
                   await preferences.remove('token');
                   await preferences.remove('userName');
                   Provider.of<UserDetailsProvider>(context, listen: false)
@@ -661,12 +614,12 @@ class _MyProfileState extends State<MyProfile> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.of(context).pushReplacementNamed(LoginScreen.id);
-                  /*Navigator.pop(context);
-                  Navigator.pop(context, MaterialPageRoute(builder: (context)=>LoginScreen()));*/
+
                 },
               ),
             ],
           );
+
         });
   }
 }

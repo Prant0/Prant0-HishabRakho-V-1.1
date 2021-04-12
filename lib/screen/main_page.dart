@@ -92,20 +92,34 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                 borderRadius: BorderRadius.circular(13.0)),
             title: Text(
               "Are You Sure ?",
-              style: myStyle(16, Colors.black54, FontWeight.w800),
+              style: myStyle(16, Colors.white, FontWeight.w500),
             ),
             content: Text("You are going to exit the app !"),
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text("No")),
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text("Yes"))
+                  child: Text("No",style: myStyle(14,BrandColors.colorText),)),
+
+
+
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
             ],
           );
         });
@@ -327,9 +341,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
           ),
         ),
         bottomNavigationBar: Container(
-          margin: EdgeInsets.only(left: 12, right: 12, bottom: 12),
+          margin: EdgeInsets.only(left: 17, right: 17, bottom: 12),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(10.0),
             color: BrandColors.colorPrimary,
           ),
           child: TabBar(

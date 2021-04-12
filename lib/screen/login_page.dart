@@ -93,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<bool> getLogin() async {
     try {
+      onProgress=true;
       sharedPreferences = await SharedPreferences.getInstance();
       final result = await CustomHttpRequests.login(
           _emailController.text.toString(),
@@ -149,6 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
        backgroundColor: BrandColors.colorPrimaryDark,
         key: _scaffoldKey,
         body: ModalProgressHUD(
+          opacity: 0.5,
           progressIndicator: Spin(),
           inAsyncCall: onProgress,
           child: Container(
@@ -241,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         labelStyle: myStyle(16, BrandColors.colorDimText),
-                                        hintText: 'Write email here',
+                                        hintText: 'Enter your email address',
                                         hintStyle:  myStyle(14, BrandColors.colorDimText,),
                                       ),
                                       keyboardType: TextInputType.emailAddress,
@@ -305,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             height: 15,width: 15,
                                           ),
                                         ),
-                                        hintText: 'Write password here',
+                                        hintText: 'Enter your password',
                                       ),
                                       obscureText: _obscureText,
                                     ),
@@ -319,31 +321,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                       print("Tap");
                                     },
                                     child: Container(
+                                      alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           color: BrandColors.colorPurple,
                                           borderRadius: BorderRadius.circular(10.0),
                                         ),
                                         width: MediaQuery.of(context).size.width,
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 15.0),
+                                            horizontal: 30.0, vertical: 20.0),
                                         margin: EdgeInsets.symmetric(
                                              vertical: 24.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Login',
-                                              style: myStyle(14, Colors.white, FontWeight.w600),
-                                            ),
-                                            Container(
-                                              padding: const EdgeInsets.all(12.0),
-                                              child: SvgPicture.asset("assets/arrow1.svg",
-                                                alignment: Alignment.center,
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                          ],
-                                        )
+                                        child:Text(
+                                          'Login',
+                                          style: myStyle(14, Colors.white, FontWeight.w600),
+                                        ),
                                     ),
                                   ),
                                   Container(
@@ -358,13 +349,45 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                           flex:2 ,
-                          child: Container(),
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 8),
+                            alignment: Alignment.bottomCenter,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "@Copyright 2020 - 2021.",style: myStyle(12,BrandColors.colorText.withOpacity(0.6),FontWeight.w400),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'All rights Reserved by : ',
+                                    style: myStyle(
+                                        12,
+                                       BrandColors.colorText.withOpacity(0.6),
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: 'Sheehan Rahman',
+                                        style: myStyle(
+                                          14,
+                                          BrandColors.colorText
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                              ],
+                            ),
+                          ),
                         )
 
                       ],
                     ),
                   ),
-                  Positioned(
+                 /* Positioned(
                     bottom: 15,
                     child: Container(
                      // height: 65,
@@ -393,7 +416,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-                  )
+                  )*/
                 ],
               )
             ),

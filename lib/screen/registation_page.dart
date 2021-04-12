@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -226,6 +227,7 @@ class _RegistationPageState extends State<RegistationPage> {
           backgroundColor: BrandColors.colorPrimaryDark,
           body: ModalProgressHUD(
             inAsyncCall: onProgress,
+              progressIndicator: Spin(),
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Column(
@@ -713,6 +715,7 @@ class SenderTextEdit extends StatelessWidget {
         decoration: InputDecoration(hoverColor: Colors.black,
           filled: true,
           suffixText: suffixText,
+          errorStyle: myStyle(12,Colors.redAccent.withOpacity(0.9),FontWeight.w500),
           contentPadding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
           fillColor: BrandColors.colorPrimary,
           focusedBorder:OutlineInputBorder(

@@ -374,7 +374,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 displayFormat: MoneyDisplayFormat.symbolOnLeft),
                             appearanceSettings: AppearanceSettings(
                                 padding: EdgeInsets.all(15.0),
-                                labelText: 'Add Amount* ',
+                                labelText: 'Amount* ',
                                 labelStyle: myStyle(16, BrandColors.colorText, FontWeight.w600),
                                 inputStyle: _ts.copyWith(color: Colors.white),
                                 formattedStyle:

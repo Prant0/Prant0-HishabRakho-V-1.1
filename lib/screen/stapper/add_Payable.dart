@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -28,13 +29,13 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
   bool onProgress = false;
   DateTime _currentDate = DateTime.now();
 
+
   Future<Null> seleceDate(BuildContext context) async {
     final DateTime _seldate = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year),
+        initialDate: DateTime.now(),
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime.now().subtract(Duration(days: 0)),
-        initialDatePickerMode: DatePickerMode.day,
         builder: (context, child) {
           return SingleChildScrollView(
             child: child,
@@ -60,14 +61,16 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: true,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: WillPopScope(
         onWillPop: onBackPressed,
         child: ModalProgressHUD(
           inAsyncCall: onProgress,
+          progressIndicator: Spin(),
           child: Container(
-
             margin: EdgeInsets.symmetric( horizontal: 20),
 
             child: Form(
@@ -75,7 +78,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
               child:Column(
                 children: [
                   Expanded(
-                    flex: 11,
+                    flex: 10,
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,7 +207,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 100,
                           ),
 
                         ],
@@ -213,12 +216,12 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          InkWell(
+                    child: Row(
+                     // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          flex:5,
+                          child: InkWell(
                             onTap: () {
                               Navigator.pushReplacement(
                                   context,
@@ -226,41 +229,37 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                                       builder: (context) => AddReceivableStepper()));
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 70),
+                                margin: EdgeInsets.only(left: 2,bottom: 12,right: 12),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    border: Border.all(
-                                        color: BrandColors.colorPurple, width: 2)),
-                                child: Center(
+                                    borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
+                                ),  child: Center(
                                     child: Text(
                                       "Skip",
                                       style: myStyle(16, Colors.white),
                                     ))),
                           ),
+                        ),
 
-                          InkWell(
+                        Expanded(
+                          flex:5,
+                          child: InkWell(
                             onTap: () {
                               if (!_formKey.currentState.validate()) return;
                               _formKey.currentState.save();
                               amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadPayable(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 20,horizontal: 50),
+                              margin: EdgeInsets.only(right: 5,bottom: 12),
                               height: double.infinity,
                               decoration: BoxDecoration(
                                   color: BrandColors.colorPurple,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                      color: BrandColors.colorPurple, width: 2)),
-                              child: Center(
-                                  child: Text(
-                                    "Proceed",
-                                    style: myStyle(16, Colors.white, FontWeight.w500),
-                                  )),
+                                  borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
+                              ),
+                              child: Center(child: Text("Proceed",style: myStyle(16,Colors.white,FontWeight.w500),)),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   )
                 ],
@@ -277,8 +276,9 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
       setState(() {
         onProgress = true;
       });
+      print("ballllllllllll");
       final uri = Uri.parse(
-          "http://api.hishabrakho.com/api/user/personal/entry/loan/create");
+          "http://api.hishabrakho.com/api/user/personal/starting/payable/balance/create");
       var request = http.MultipartRequest("POST", uri);
       request.headers.addAll(await CustomHttpRequests.getHeaderWithToken());
       request.fields['date'] = _currentDate.toString();
@@ -328,13 +328,19 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
         barrierColor: Colors.transparent.withOpacity(0.6),
         builder: (context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),elevation: 5,
-            title: Text('Payable entry added successful.',style: myStyle(22,Colors.black54),),
+            elevation: 1,
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            backgroundColor:  BrandColors.colorPrimaryDark,
+            actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+            contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
+            titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            title: Text('Payable entry added successful.',style: myStyle(22,Colors.white),),
             content: Text(" Do you want to add more Payable entry ?"),
             actions: <Widget>[
               FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                color: Colors.black,
+                color: Colors.transparent,
                 textColor: Colors.white,
                 child: Text('Skip'),
                 onPressed: () {
@@ -347,10 +353,11 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                 },
               ),
 
-              FlatButton(
-                color: Colors.purple,
-                textColor: Colors.white,
-                child: Text('OK'),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                color: BrandColors.colorPurple,
+                child: Text('ok',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;
@@ -360,6 +367,8 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                   });
                 },
               ),
+
+
             ],
           );
         });
@@ -403,7 +412,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
           value,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.indigo,
       ),
     );
   }

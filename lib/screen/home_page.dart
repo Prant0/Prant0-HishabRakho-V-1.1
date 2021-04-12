@@ -29,13 +29,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
 
-  bool isCash =false;
-  bool isBank =true;
-  bool isMfs=false;
-  Color textColor = Color(0xFFce93d8);
+
+
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -81,8 +78,7 @@ class _HomePageState extends State<HomePage>
     print("dashboard details are   ::  ${response.body}");
     dashBoardModel = DashBoardModel.fromJson(jsonResponce);
     try {
-      allData.firstWhere(
-          (element) => element.totalAmount == dashBoardModel.totalAmount);
+      allData.firstWhere((element) => element.totalAmount == dashBoardModel.totalAmount);
     } catch (e) {
       if (this.mounted) {
         setState(() {
@@ -94,7 +90,7 @@ class _HomePageState extends State<HomePage>
   }
 
   RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     loadDashBoardData();
@@ -127,356 +123,333 @@ class _HomePageState extends State<HomePage>
 
 
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       key: _drawerKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       drawer: Drawerr(),
-      body: allData.isNotEmpty
-          ? ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: allData.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 11),
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    children: [
-                      Expanded(
-                          flex: 3,
+
+      body:allData.isNotEmpty
+          ?  Container(
+        // height: 500,
+        padding: EdgeInsets.only(left:17.0,right: 17,bottom: 40),
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${userName ?? ""} ",
+                          style: myStyle(
+                              19,
+                              Colors.white,FontWeight.w500
+                          ),
+                        ),
+                        Text(
+                          "Welcome back !",
+                          style: myStyle(
+                              19,
+                              Colors.white,FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        moneyField(
+                          amount: 430000,
+                          ts: myStyle(18,Colors.white,FontWeight.w700),
+                          offset: Offset(-2, -7),
+                          tks: myStyle(14,Colors.white),
+                        ),
+                        Text(
+                          "Your financial position ",
+                          style: myStyle(
+                              14,
+                              BrandColors.colorText,FontWeight.w400
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 9,
+              child: Container(
+                child: Card(
+                  color: BrandColors.colorPrimary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Container(
+                    // width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 5,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "${userName ?? ""} ",
-                                      style: myStyle(
-                                        20,
-                                        Colors.white,FontWeight.w500
-                                      ),
+                                    Text(" Money at hand",
+                                      style: myStyle(16,
+                                          BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
+                                    SizedBox(
+                                      height: 8,
                                     ),
-                                    Text(
-                                      "Welcome back !",
-                                      style: myStyle(
-                                        20,
-                                        Colors.white,FontWeight.w500
-                                      ),
+                                    moneyField(
+                                      amount: allData[0].totalAmount,
+                                      ts: myStyle(22,Colors.white,FontWeight.w500),
+                                      offset: Offset(-1, -12),
+                                      tks: myStyle(14,Colors.white,),
                                     ),
                                   ],
                                 ),
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    moneyField(
-                                      amount: 430000,
-                                      ts: myStyle(18,Colors.white,FontWeight.w700),
-                                      offset: Offset(-2, -7),
-                                      tks: myStyle(14,Colors.white),
-                                    ),
-                                    Text(
-                                      "Your financial position ",
-                                      style: myStyle(
-                                        14,
-                                        BrandColors.colorText,FontWeight.w400
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )),
-                      Expanded(
-                        flex: 13,
-                        child: Card(
-                          color: BrandColors.colorPrimary,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Container(
-                            padding: EdgeInsets.only(top: 8),
-                            width: double.infinity,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Container(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(" Money at hand",
-                                                style: myStyle(16,
-                                                    BrandColors.colorText,FontWeight.w400),),
-                                            SizedBox(
-                                              height: 8,
-                                            ),
-                                            moneyField(
-                                              amount: allData[index].totalAmount,
-                                              ts: myStyle(22,Colors.white,FontWeight.w700),
-                                              offset: Offset(-1, -12),
-                                              tks: myStyle(14,Colors.white,),
-                                            ),
-                                          ],
+                                    TabBar(
+                                      physics: BouncingScrollPhysics(),
+                                      //automaticIndicatorColorAdjustment: true,
+                                      labelColor: Colors.green,
+                                      indicatorColor: BrandColors.colorText,
+                                      unselectedLabelColor:
+                                      Colors.transparent,
+                                      controller: controller,
+
+                                      tabs: <Widget>[
+                                        Tab(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Cash",
+                                                style: myStyle(
+                                                    14, BrandColors.colorText.withOpacity(0.6) ),
+                                              ),
+                                              SizedBox(height: 8,),
+
+                                              RichText(
+                                                text: TextSpan(children: [
+
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                      offset:  Offset(-1, -8),
+                                                      child: Text(
+                                                        '৳',
+                                                        textScaleFactor: 1.0,
+                                                        style: myStyle(14,Colors.white),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                        offset: const Offset(1, -4),
+                                                        child: Text(
+                                                            NumberFormat
+                                                                .compactCurrency(
+                                                              symbol: '',
+                                                            ).format(allData[0].totalCashAmount),
+                                                            style: myStyle(
+                                                                16, Colors.white,FontWeight.w700))
+                                                    ),
+                                                  ),
+
+                                                ]),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                        Column(
-                                          children: [
-                                            TabBar(
-                                              physics: BouncingScrollPhysics(),
-                                              //automaticIndicatorColorAdjustment: true,
-                                              labelColor: Colors.green,
-                                              indicatorColor: BrandColors.colorText,
-                                              unselectedLabelColor:
-                                                  Colors.transparent,
-                                              controller: controller,
+                                        Tab(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Bank",
+                                                style: myStyle(
+                                                    14,
+                                                    BrandColors
+                                                        .colorText ),
+                                              ),
+                                              SizedBox(height: 8,),
+                                              RichText(
+                                                text: TextSpan(children: [
 
-                                              tabs: <Widget>[
-                                                Tab(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        "Cash",
-                                                        style: myStyle(
-                                                            14,
-                                                           isCash==true? BrandColors
-                                                                .colorText :Colors.grey,FontWeight.w400),
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                      offset:  Offset(-1, -8),
+                                                      child: Text(
+                                                        '৳',
+                                                        textScaleFactor: 1.0,
+                                                        style: myStyle(14,Colors.white),
                                                       ),
-                                                      SizedBox(height: 8,),
-
-                                                      RichText(
-                                                        text: TextSpan(children: [
-
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                              offset:  Offset(-1, -8),
-                                                              child: Text(
-                                                                  '৳',
-                                                                  textScaleFactor: 1.0,
-                                                                  style: myStyle(14,Colors.white),
-                                                              ),
-                                                            ),
-                                                          ),
-
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                              offset: const Offset(1, -4),
-                                                              child: Text(
-                                                                  NumberFormat
-                                                                      .compactCurrency(
-                                                                    symbol: '',
-                                                                  ).format(allData[
-                                                                  index]
-                                                                      .totalCashAmount),
-                                                                  style: myStyle(
-                                                                      16, Colors.white,FontWeight.w700))
-                                                            ),
-                                                          ),
-
-                                                        ]),
-                                                      )
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        "Bank",
-                                                        style: myStyle(
-                                                            14,
-                                                           isBank==true? BrandColors
-                                                                .colorText :Colors.grey,FontWeight.w400),
+
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                        offset: const Offset(1, -4),
+                                                        child: Text(
+                                                            NumberFormat
+                                                                .compactCurrency(
+                                                              symbol: '',
+                                                            ).format(allData[
+                                                            0]
+                                                                .totalBankAmount),
+                                                            style: myStyle(
+                                                                16, Colors.white,FontWeight.w700))
+                                                    ),
+                                                  ),
+                                                ]),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Tab(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "MFS",
+                                                style: myStyle(
+                                                    14,
+                                                    BrandColors.colorText.withOpacity(0.6) ),
+                                              ),
+                                              SizedBox(height: 8,),
+                                              RichText(
+                                                text: TextSpan(children: [
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                      offset:  Offset(-1, -8),
+                                                      child: Text(
+                                                        '৳',
+                                                        textScaleFactor: 1.0,
+                                                        style: myStyle(14,Colors.white),
                                                       ),
-                                                      SizedBox(height: 8,),
-                                                      RichText(
-                                                        text: TextSpan(children: [
-
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                              offset:  Offset(-1, -8),
-                                                              child: Text(
-                                                                '৳',
-                                                                textScaleFactor: 1.0,
-                                                                style: myStyle(14,Colors.white),
-                                                              ),
-                                                            ),
-                                                          ),
-
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                                offset: const Offset(1, -4),
-                                                                child: Text(
-                                                                    NumberFormat
-                                                                        .compactCurrency(
-                                                                      symbol: '',
-                                                                    ).format(allData[
-                                                                    index]
-                                                                        .totalBankAmount),
-                                                                    style: myStyle(
-                                                                        16, Colors.white,FontWeight.w700))
-                                                            ),
-                                                          ),
-                                                        ]),
-                                                      )
-                                                     ],
+                                                    ),
                                                   ),
-                                                ),
-                                                Tab(
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        "MFS",
-                                                        style: myStyle(
-                                                            14,
-                                                           isMfs==true? BrandColors
-                                                                .colorText :Colors.grey,FontWeight.w400),
-                                                      ),
-                                                      SizedBox(height: 8,),
-                                                      RichText(
-                                                        text: TextSpan(children: [
 
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                              offset:  Offset(-1, -8),
-                                                              child: Text(
-                                                                '৳',
-                                                                textScaleFactor: 1.0,
-                                                                style: myStyle(14,Colors.white),
-                                                              ),
-                                                            ),
-                                                          ),
-
-                                                          WidgetSpan(
-                                                            child: Transform.translate(
-                                                                offset: const Offset(1, -4),
-                                                                child: Text(
-                                                                    NumberFormat
-                                                                        .compactCurrency(
-                                                                      symbol: '',
-                                                                    ).format(allData[
-                                                                    index]
-                                                                        .totalMfsAmount),
-                                                                    style: myStyle(
-                                                                        16, Colors.white,FontWeight.w700))
-                                                            ),
-                                                          ),
-
-                                                        ]),
-                                                      )
-                                                    ],
+                                                  WidgetSpan(
+                                                    child: Transform.translate(
+                                                        offset: const Offset(1, -4),
+                                                        child: Text(
+                                                            NumberFormat
+                                                                .compactCurrency(
+                                                              symbol: '',
+                                                            ).format(allData[
+                                                            0]
+                                                                .totalMfsAmount),
+                                                            style: myStyle(
+                                                                16, Colors.white,FontWeight.w700))
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Divider(
-                                              color: BrandColors.colorText,
-                                              height: 0,thickness: 0.5,
-                                            )
-                                          ],
+
+                                                ]),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                    Divider(
+                                      color: BrandColors.colorText,
+                                      height: 0,thickness: 0.5,
+                                    )
+                                  ],
                                 ),
-                                Expanded(
-                                    flex: 7,
-                                    child: Container(
-                                      padding:
-                                          EdgeInsets.only(left: 6, right: 6),
-                                      child: TabBarView(
-                                        controller: controller,
-                                        physics: BouncingScrollPhysics(),
-                                        children: <Widget>[
-                                          CashWidget(
-                                            model: allData,
-                                          ),
-                                          BankWidget(
-                                            model: dashBoardModel.bankDetails,
-                                            totalBankBalance: allData[index]
-                                                .totalBankAmount,
-                                          ),
-                                          MfsWidget(
-                                            model: dashBoardModel.mfsDetails,
-                                            totalMfsDetails:
-                                                allData[index].totalMfsAmount,
-                                          ),
-                                        ],
-                                      ),
-                                    )),
                               ],
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 3),
-                          color: Colors.transparent,
-                          child: Row(
-                            children: [
-                              MiniCart(
-                                color: Colors.redAccent,
-                                amount: allData[index].totalReceivable,
-                                cartName: "My Receivables",
-                                right: 4,
-                                icon: SvgPicture.asset(
-                                  "assets/myPay.svg",
-                                  fit: BoxFit.contain,
-                                  height: 30,
-                                  width: 30,
-                                ),
+                        Expanded(
+                            flex: 7,
+                            child: Container(
+                              padding: EdgeInsets.only(left: 6, right: 6),
+                              child: TabBarView(
+                                controller: controller,
+                                physics: BouncingScrollPhysics(),
+                                children: <Widget>[
+                                  CashWidget(
+                                    model: allData,
+                                  ),
+                                  BankWidget(
+                                    model: dashBoardModel.bankDetails,
+                                    totalBankBalance: allData[0]
+                                        .totalBankAmount,
+                                  ),
+                                  MfsWidget(
+                                    model: dashBoardModel.mfsDetails,
+                                    totalMfsDetails:
+                                    allData[0].totalMfsAmount,
+                                  ),
+                                ],
                               ),
-                              MiniCart(
-                                color: Colors.greenAccent,
-                                amount: allData[index].totalPayable,
-                                cartName: "My Payables",
-                                left: 4,
-                                icon: SvgPicture.asset(
-                                  "assets/myRec.svg",
-                                  fit: BoxFit.contain,
-                                  height: 30,
-                                  width: 30,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Column(
-                          children: [
-                            Container(
-                                //color: Colors.greenAccent,
-                                ),
-                          ],
-                        ),
-                      ),
-                    ],
+                            )),
+                      ],
+                    ),
                   ),
-                );
-              })
-          : Center(
-              child: Spin(),
+                ),
+              ),
             ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 3),
+                color: Colors.transparent,
+                child: Row(
+
+                  children: [
+                    MiniCart(
+                      color: Colors.redAccent,
+                      amount: allData[0].totalReceivable,
+                      cartName: "My Receivables",
+                      right: 4,
+                      icon: SvgPicture.asset(
+                        "assets/myPay.svg",
+                        fit: BoxFit.contain,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                    MiniCart(
+                      color: Colors.greenAccent,
+                      amount: allData[0].totalPayable,
+                      cartName: "My Payables",
+                      left: 4,
+                      icon: SvgPicture.asset(
+                        "assets/myRec.svg",
+                        fit: BoxFit.contain,
+                        height: 30,
+                        width: 30,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ) : Spin(),
     );
   }
+
 
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
@@ -484,13 +457,11 @@ class _HomePageState extends State<HomePage>
         value,
         style: myStyle(15, BrandColors.colorWhite),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
-
-  bool x = false;
-  bool y = false;
 }
+
 
 class moneyField extends StatelessWidget {
   final Offset offset;
@@ -507,9 +478,9 @@ class moneyField extends StatelessWidget {
           child: Transform.translate(
             offset: offset,
             child: Text(
-              '৳',
-              textScaleFactor: 1.0,
-              style: tks
+                '৳',
+                textScaleFactor: 1.0,
+                style: tks
             ),
           ),
         ),
@@ -518,15 +489,15 @@ class moneyField extends StatelessWidget {
           child: Transform.translate(
             offset: const Offset(1, -4),
             child: Text(
-              NumberFormat.currency(
-                  decimalDigits: (amount)
-                  is int
-                      ? 0
-                      : 2,
-                  symbol: '',
-                  locale: "en-in")
-                  .format(amount??0),
-              style: ts
+                NumberFormat.currency(
+                    decimalDigits: (amount)
+                    is int
+                        ? 0
+                        : 2,
+                    symbol: '',
+                    locale: "en-in")
+                    .format(amount??0),
+                style: ts
             ),
           ),
         ),
@@ -547,11 +518,11 @@ class MiniCart extends StatelessWidget {
 
   MiniCart(
       {this.amount,
-      this.color,
-      this.cartName,
-      this.left,
-      this.right,
-      this.icon});
+        this.color,
+        this.cartName,
+        this.left,
+        this.right,
+        this.icon});
 
   List<ImageProvider> _images = [
     NetworkImage(
@@ -567,92 +538,66 @@ class MiniCart extends StatelessWidget {
     return Expanded(
       flex: 5,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 21),
-        margin: EdgeInsets.only(
-            top: 5, right: right ?? 0, bottom: 2, left: left ?? 0),
+        alignment: Alignment.center,
+      //  padding: EdgeInsets.only(top: 20,left: 20),
+        margin: EdgeInsets.only(top: 5, right: right ?? 0, bottom: 2, left: left ?? 0),
         decoration: BoxDecoration(
             color: BrandColors.colorPrimary,
             borderRadius: BorderRadius.circular(8.0)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cartName,
-                      style: myStyle(12, BrandColors.colorDimText),
-                      //overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(height: 10,),
-                    RichText(
-                      text: TextSpan(children: [
-
-                        WidgetSpan(
-                          child: Transform.translate(
-                            offset: Offset(-1, -8),
-                            child: Text(
-                                '৳',
-                                textScaleFactor: 1.0,
-                                style: myStyle(14,Colors.white)
-                            ),
-                          ),
-                        ),
-
-                        WidgetSpan(
-                          child: Transform.translate(
-                            offset: const Offset(1, -4),
-                            child: Text(
-                              NumberFormat.compactCurrency(
-                                decimalDigits: 0,
-                                symbol: '',
-                              ).format(amount),
-                              style: myStyle(16, Colors.white,FontWeight.w500),
-                            ),
-                          ),
-                        ),
-
-                      ]),
-                    ),
-
-                  ],
+                Text(
+                  cartName,
+                  style: myStyle(12, BrandColors.colorDimText.withOpacity(0.6)),
+                  //overflow: TextOverflow.ellipsis,
                 ),
-                Container(
-                  padding: EdgeInsets.only(left: 35),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FlutterImageStack.providers(
-                      providers: _images,
-                      showTotalCount: true,
-                      backgroundColor: BrandColors.colorText,
+                SizedBox(height: 10,),
+                RichText(
+                  text: TextSpan(children: [
 
-                      totalCount: 4,
-                      imageRadius: 26,
-                      imageCount: 3,
-                      imageBorderWidth: 1,
-                      imageBorderColor: BrandColors.colorPrimary,
-
-                      extraCountTextStyle: myStyle(12, Colors.black54),
+                    WidgetSpan(
+                      child: Transform.translate(
+                        offset: Offset(-1, -8),
+                        child: Text(
+                            '৳',
+                            textScaleFactor: 1.0,
+                            style: myStyle(14,Colors.white)
+                        ),
+                      ),
                     ),
-                  ),
-                )
+
+                    WidgetSpan(
+                      child: Transform.translate(
+                        offset: const Offset(1, -4),
+                        child: Text(
+                          NumberFormat.compactCurrency(
+                            decimalDigits: 0,
+                            symbol: '',
+                          ).format(amount),
+                          style: myStyle(16, Colors.white,FontWeight.w500),
+                        ),
+                      ),
+                    ),
+
+                  ]),
+                ),
+
               ],
             ),
-            Column(
-              children: [
-                FittedBox(
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: icon,
-                  ),
+            Container(
+              child: FittedBox(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: icon,
                 ),
-                Spacer()
-              ],
-            ),
+              ),
+            )
           ],
         ),
       ),
@@ -660,3 +605,4 @@ class MiniCart extends StatelessWidget {
   }
 
 }
+

@@ -1,5 +1,6 @@
 
 
+import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -14,8 +15,9 @@ class ViewStorageHubDetails extends StatefulWidget {
   final String name;
   final String image;
   final dynamic number;
+  final dynamic balance;
 
-  ViewStorageHubDetails({this.id, this.name,this.image,this.number});
+  ViewStorageHubDetails({this.balance,this.id, this.name,this.image,this.number});
 
   @override
   _ViewStorageHubDetailsState createState() => _ViewStorageHubDetailsState();
@@ -37,8 +39,9 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
         title: Text(widget.name ?? "Cash"),
       ),
       body: ModalProgressHUD(
+        progressIndicator: Spin(),
         inAsyncCall: onProgress,
-        child: Column(children: [
+        child: ListView(children: [
           Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -54,9 +57,9 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                       child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 40,width: 60,fit: BoxFit.fill,)),
                 ),
                 SizedBox(height: 10,),
-                Text(" ${widget.name}",style: myStyle(18,BrandColors.colorWhite,FontWeight.w500),),
+                Text(" ${widget.name ??""}",style: myStyle(18,BrandColors.colorWhite,FontWeight.w500),),
                 SizedBox(height: 5,),
-                Text("${widget.number}",style: myStyle(14,BrandColors.colorText,FontWeight.w400),)
+                Text("${widget.number ?? ""}",style: myStyle(14,BrandColors.colorText,FontWeight.w400),)
               ],
             ),
           ),
@@ -67,8 +70,9 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
               thickness:1,
             ),
           ),
+
+
           Container(
-            padding: EdgeInsets.only(left: 0),
             margin: EdgeInsets.symmetric(vertical: 12,horizontal: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +93,34 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
               ],
             ),
           ),
-          dataa.isEmpty?Center(child: Text("Empty List",style: myStyle(18,Colors.white,FontWeight.w600),),)  :ListView.builder(
+
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 12,horizontal: 12),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 9,
+                  child: Text("Starting Balance",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
+                ),
+                Expanded(
+                  flex: 3,
+                  child:  Text(
+                    NumberFormat.currency(
+                        symbol: ' ৳ ',
+                        decimalDigits: (widget
+                            .balance??"") is int ? 0 :2,
+                        locale: "en-in").format(widget.balance??""),
+                    style: myStyle(
+                        14, Colors.white,FontWeight.w400),
+                  ),
+                )
+              ],
+            ),
+          ),
+          dataa.isEmpty?Container(
+            height: MediaQuery.of(context).size.height,
+            alignment: Alignment.bottomCenter,
+            child: Text("Empty List",style: myStyle(18,Colors.white,FontWeight.w600),),)  :ListView.builder(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,

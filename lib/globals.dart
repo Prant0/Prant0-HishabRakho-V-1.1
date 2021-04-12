@@ -7,7 +7,6 @@ myStyle (double size,[Color color,FontWeight fw]){
     fontSize: size,
     color: color,
     fontWeight: fw,
-
   );
 }
 
