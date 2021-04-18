@@ -116,7 +116,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                               style: myStyle(20, Colors.white, FontWeight.w500),
                               textAlign: TextAlign.start,
                             )),
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             setState(() {
                               seleceDate(context);
@@ -264,7 +264,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                   children: [
                     Expanded(
                       flex: 5,
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap:widget.types=="addStorageHub"?  () {
                           print("add storage hub");
                           Navigator.pop(context) ;
@@ -498,6 +498,9 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
 
   Future<dynamic> myCashDetails() async {
 
+    setState(() {
+      onProgress=true;
+    });
     final data = await CustomHttpRequests.userCashDetails();
     print("Cash Details are $data");
     for (var entries in data) {
@@ -515,11 +518,13 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
       } catch (e) {
         if (mounted) {
           setState(() {
+            onProgress=false;
             cashList.add(model);
           });
         }
       }
     }
+    onProgress=false;
   }
   List<MyTransectionModel> cashList = [];
 }

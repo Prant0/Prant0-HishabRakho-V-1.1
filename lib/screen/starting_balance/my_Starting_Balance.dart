@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'package:anthishabrakho/models/starting_payable_Model.dart';
+import 'package:http/http.dart' as http;
+import 'package:anthishabrakho/http/http_requests.dart';
+import 'package:anthishabrakho/models/Starting_receivable_model.dart';
 import 'package:anthishabrakho/screen/starting_balance/view_Starting_Payable.dart';
 import 'package:anthishabrakho/screen/starting_balance/view_Starting_Receivable.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
@@ -8,6 +13,7 @@ import 'package:anthishabrakho/globals.dart';
 
 
 class MyStartingBalance extends StatefulWidget {
+
   @override
   _MyStartingBalanceState createState() => _MyStartingBalanceState();
 }
@@ -15,10 +21,54 @@ class MyStartingBalance extends StatefulWidget {
 class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerProviderStateMixin {
   TabController controller;
 
+  List<StartingReceivableModel> receivableData = [];
+  StartingReceivableModel model;
 
+  List<StartingPayableModel> payableData = [];
+  StartingPayableModel model2;
+  void fetchStartingReceivableData() async {
+
+    var response = await http.get(
+      "http://api.hishabrakho.com/api/user/personal/starting/receivable/balance/view",
+      headers: await CustomHttpRequests.getHeaderWithToken(),
+    );
+    final jsonResponce = json.decode(response.body);
+    print("Starting Receivable details are   ::  ${response.body}");
+    model = StartingReceivableModel.fromJson(jsonResponce);
+    if (this.mounted) {
+      setState(() {
+        receivableData.add(model);
+      });
+    }
+    print("starting receivable total balance is :${model.total}");
+  }
+
+
+
+  Future<dynamic> fetchStartingPayableData() async {
+
+    var response = await http.get(
+      "http://api.hishabrakho.com/api/user/personal/starting/payable/balance/view",
+      headers: await CustomHttpRequests.getHeaderWithToken(),
+    );
+    final jsonResponce = json.decode(response.body);
+    print("Starting payable details are   ::  ${response.body}");
+    model2 = StartingPayableModel.fromJson(jsonResponce);
+    if (this.mounted) {
+      setState(() {
+        payableData.add(model2);
+      });
+    }
+    print("total starting payable amount  is :${model.total}");
+  }
+
+
+  bool onProgress = false;
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this, initialIndex: 1);
+    fetchStartingReceivableData();
+    fetchStartingPayableData();
     super.initState();
   }
   @override
@@ -98,10 +148,10 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
                       ViewStartingReceivable(
-
+                        model: model,
                       ),
                       ViewStartingPayable(
-
+                        model: model2,
                       ),
 
                     ],

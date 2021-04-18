@@ -300,7 +300,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                                               list
                                                   .removeAt(
                                                   index);
-                                              Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
+                                              //Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
                                             });
                                             showInSnackBar(
                                               "1 Item Delete",

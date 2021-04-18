@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:http/http.dart' as http;
 
 class AddPayableStepper extends StatefulWidget {
@@ -94,7 +93,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                                 style: myStyle(20, Colors.white, FontWeight.w600),
                                 textAlign: TextAlign.start,
                               )),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               setState(() {
                                 seleceDate(context);
@@ -221,7 +220,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                       children: [
                         Expanded(
                           flex:5,
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
                                   context,

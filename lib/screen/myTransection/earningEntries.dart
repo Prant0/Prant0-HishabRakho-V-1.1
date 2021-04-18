@@ -1,5 +1,3 @@
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
@@ -9,7 +7,8 @@ import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/details.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
@@ -25,23 +24,24 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
   Color boxColor = Color(0xFF021A2C);
   double iconSize = 40;
   List<MyTransectionModel> list = [];
+
   myEarningView(int eventId) async {
     setState(() {
-      onProgress=true;
+      onProgress = true;
     });
     await Provider.of<MyTransectionprovider>(context, listen: false)
         .viewEarningEntries(eventId);
     setState(() {
-      onProgress=false;
+      onProgress = false;
     });
     Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
   }
 
-
   getTransectionData() async {
     print("get MyRecievable Entries");
-    final data = await Provider.of<MyTransectionprovider>(context, listen: false)
-        .getMyEarningEntries();
+    final data =
+        await Provider.of<MyTransectionprovider>(context, listen: false)
+            .getMyEarningEntries();
     print("getMyRecievableEntries  ${data}");
   }
 
@@ -56,13 +56,14 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
   bool onProgress = false;
 
   RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     getTransectionData();
     await Future.delayed(Duration(milliseconds: 1000));
     _refreshController.refreshCompleted();
   }
+
   @override
   Widget build(BuildContext context) {
     list = Provider.of<MyTransectionprovider>(context).myEarningEntriesList;
@@ -71,7 +72,6 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
       key: _scaffoldKey,
       backgroundColor: Colors.transparent,
       body: ModalProgressHUD(
-
         opacity: 0.0,
         progressIndicator: Spin(),
         inAsyncCall: onProgress,
@@ -83,32 +83,46 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
           child: SingleChildScrollView(
             child: Column(children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: 15,horizontal: 0),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       flex: 6,
-                      child: Text("Title", style: myStyle(12,
-                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                      child: Text(
+                        "Title",
+                        style: myStyle(
+                            12,
+                            BrandColors.colorDimText.withOpacity(0.5),
+                            FontWeight.w400),
+                      ),
                     ),
                     Expanded(
                       flex: 4,
-                      child: Text("Transaction", style: myStyle(12,
-                          BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                      child: Text(
+                        "Transaction",
+                        style: myStyle(
+                            12,
+                            BrandColors.colorDimText.withOpacity(0.5),
+                            FontWeight.w400),
+                      ),
                     ),
                     Expanded(
                       flex: 4,
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text("Balance", style: myStyle(12,
-                            BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                        child: Text(
+                          "Balance",
+                          style: myStyle(
+                              12,
+                              BrandColors.colorDimText.withOpacity(0.5),
+                              FontWeight.w400),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-
               ListView.builder(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -119,12 +133,10 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                       actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       child: GestureDetector(
-                        onTap:  () {
-                          print(
-                              "tap ${list[index].eventId}");
+                        onTap: () {
+                          print("tap ${list[index].eventId}");
                           if (mounted) {
-                            myEarningView(
-                                list[index].eventId);
+                            myEarningView(list[index].eventId);
                           }
                         },
                         child: new Container(
@@ -134,14 +146,24 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                 Expanded(
                                   flex: 5,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "${list[index].friendName??""}",style: myStyle(14,Colors.white,FontWeight.w500),
+                                        "${list[index].friendName ?? ""}",
+                                        style: myStyle(
+                                            14, Colors.white, FontWeight.w500),
                                       ),
-                                      SizedBox(height: 3,),
+                                      SizedBox(
+                                        height: 3,
+                                      ),
                                       Text(
-                                        "${list[index].formatedDate ?? ""}",style: myStyle(12,BrandColors.colorDimText.withOpacity(0.6),),
+                                        "${list[index].formatedDate ?? ""}",
+                                        style: myStyle(
+                                          12,
+                                          BrandColors.colorDimText
+                                              .withOpacity(0.6),
+                                        ),
                                       )
                                     ],
                                   ),
@@ -151,75 +173,76 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                     child: Text(
                                       //"৳ ${list[index].amount.toString()}",
                                       NumberFormat.currency(
-                                          symbol: '',
-                                          decimalDigits: (list[index]
-                                              .amount) is int ? 0 :2,
-                                          locale: "en-in").format(list[index].amount),
+                                              symbol: '',
+                                              decimalDigits:
+                                                  (list[index].amount) is int
+                                                      ? 0
+                                                      : 2,
+                                              locale: "en-in")
+                                          .format(list[index].amount),
                                       style: myStyle(
-                                          12,list[index].amount>1? Colors.greenAccent:Colors.redAccent),
-                                    )
-                                ),
-
+                                          12,
+                                          list[index].amount > 1
+                                              ? Colors.greenAccent
+                                              : Colors.redAccent),
+                                    )),
                                 Expanded(
                                     flex: 3,
-                                    child:  Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           NumberFormat.currency(
-                                              symbol: '',
-                                              decimalDigits: (list[index]
-                                                  .balance) is int ? 0 :2,
-                                              locale: "en-in")
-                                              .format(list[index]
-                                              .balance),
-
-                                          style: myStyle(
-                                              12, Colors.white,FontWeight.w500),
+                                                  symbol: '',
+                                                  decimalDigits: (list[index]
+                                                          .balance) is int
+                                                      ? 0
+                                                      : 2,
+                                                  locale: "en-in")
+                                              .format(list[index].balance),
+                                          style: myStyle(12, Colors.white,
+                                              FontWeight.w500),
                                         ),
-
                                         Container(
                                           //height: double.infinity,
                                           height: 30,
                                           width: 3,
-                                          color: BrandColors.colorText.withOpacity(0.2),
+                                          color: BrandColors.colorText
+                                              .withOpacity(0.2),
                                         )
                                       ],
-                                    )
-                                ),
+                                    )),
                               ],
-                            )
-                        ),
+                            )),
                       ),
-
                       secondaryActions: <Widget>[
                         new IconSlideAction(
                           caption: 'Edit',
                           color: BrandColors.colorPrimary,
                           icon: Icons.more_horiz,
-                          onTap:  () {
+                          onTap: () {
                             print(
                                 "transection type id :${list[index].transactionTypeId}");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditTransaction(
-                                          model: list[
-                                          index],
+                                    builder: (context) => EditTransaction(
+                                          model: list[index],
                                           type: type,
-                                        ))) .then((value) => setState(() {
-                              getTransectionData();
-                            }));
+                                        ))).then((value) => setState(() {
+                                  getTransectionData();
+                                }));
                           },
-
                         ),
                         new IconSlideAction(
                           caption: 'Delete',
                           color: BrandColors.colorPrimary,
-                          iconWidget: SvgPicture.asset("assets/delete.svg",
+                          iconWidget: SvgPicture.asset(
+                            "assets/delete.svg",
                             alignment: Alignment.center,
-                            height: 20,width: 20,
+                            height: 20,
+                            width: 20,
                           ),
                           //onTap: () => _showSnackBar('Delete'),
                           onTap: () {
@@ -230,44 +253,33 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                   return AlertDialog(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(
-                                            13.0)),
+                                            BorderRadius.circular(13.0)),
                                     title: Text(
                                       "Are You Sure ?",
                                       style: myStyle(
-                                          16,
-                                          Colors.black54,
-                                          FontWeight.w800),
+                                          16, Colors.black54, FontWeight.w800),
                                     ),
-                                    content: Text(
-                                        "You want to delete !"),
+                                    content: Text("You want to delete !"),
                                     actions: <Widget>[
                                       FlatButton(
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(false);
+                                            Navigator.of(context).pop(false);
                                           },
                                           child: Text("No")),
                                       FlatButton(
                                           onPressed: () {
                                             print("tap");
-                                            CustomHttpRequests
-                                                .deleteList(list[
-                                            index]
-                                                .eventId)
-                                                .then((value) =>
-                                            value);
+                                            CustomHttpRequests.deleteList(
+                                                    list[index].eventId)
+                                                .then((value) => value);
                                             setState(() {
-                                              list
-                                                  .removeAt(
-                                                  index);
-                                              Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
+                                              list.removeAt(index);
+                                              //  Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
                                             });
                                             showInSnackBar(
                                               "1 Item Delete",
                                             );
-                                            Navigator.pop(
-                                                context);
+                                            Navigator.pop(context);
                                           },
                                           child: Text("Yes"))
                                     ],
@@ -275,9 +287,9 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                 });
                           },
                         ),
-                      ],);
-                  }
-              )
+                      ],
+                    );
+                  })
 
               /*list.isEmpty
                   ? Container(
@@ -474,16 +486,12 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                         );
                       },
                     ),*/
-            ]
-
-            ),
+            ]),
           ),
         ),
       ),
     );
-
   }
-
 
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
@@ -495,6 +503,7 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
       backgroundColor: Colors.purple,
     ));
   }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final type = "Earning";
 }

@@ -111,7 +111,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                         20, Colors.white, FontWeight.w600),
                                     textAlign: TextAlign.start,
                                   )),
-                              InkWell(
+                              GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     seleceDate(context);
@@ -352,7 +352,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                           ),
                           Expanded(
                               flex: 5,
-                              child: InkWell(
+                              child: GestureDetector(
                                 onTap: bankName == null
                                     ? () {
                                         showInSnackBar("Choose a Bank");

@@ -47,8 +47,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return false;
   }
 
-  List<DashBoardModel> allData = [];
-  DashBoardModel dashBoardModel;
+
   String userName;
 
 
@@ -68,7 +67,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     loadUserImage();
     super.didChangeDependencies();
   }
-
+  List<DashBoardModel> allData = [];
+  DashBoardModel dashBoardModel;
   void loadDashBoardData() async {
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/summary",
@@ -211,6 +211,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               children: [
                                 Column(
                                   children: [
+
                                     Text(" Money at hand",
                                       style: myStyle(16,
                                           BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),

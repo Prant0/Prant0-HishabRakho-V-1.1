@@ -51,10 +51,8 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                     borderRadius: BorderRadius.circular(10.0),
                     color: BrandColors.colorPrimary
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 23,horizontal: 12),
-                  child: Card(
-                    elevation: 15.0,
-                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 40,width: 60,fit: BoxFit.fill,)),
+                  padding: EdgeInsets.symmetric(vertical: 22,horizontal: 12),
+                  child: Image.network("http://hishabrakho.com/admin/storage/hub/${widget.image}",height: 40,width: 60,fit: BoxFit.cover,),
                 ),
                 SizedBox(height: 10,),
                 Text(" ${widget.name ??""}",style: myStyle(18,BrandColors.colorWhite,FontWeight.w500),),

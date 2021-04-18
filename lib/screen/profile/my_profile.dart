@@ -69,6 +69,7 @@ class _MyProfileState extends State<MyProfile> {
     if (this.mounted) {
       setState(() {
         totalPayable = jsonResponce["total"];
+
         print("tttttttttttttttttttttt $totalPayable");
       });
     }
@@ -223,7 +224,10 @@ class _MyProfileState extends State<MyProfile> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyStartingBalance()));
+                              builder: (context) => MyStartingBalance(
+
+
+                              )));
                     },
                     child: Card(
                         color: BrandColors.colorPrimary,

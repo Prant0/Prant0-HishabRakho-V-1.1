@@ -14,7 +14,6 @@ import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:provider/provider.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:shimmer/shimmer.dart';
 
 class AddReceivableStepper extends StatefulWidget {
   @override
@@ -98,7 +97,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                             )),
 
 
-                        InkWell(
+                        GestureDetector(
                           onTap: () {
                             setState(() {
                               seleceDate(context);
@@ -228,7 +227,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                     children: [
                       Expanded(
                         flex:5,
-                        child: InkWell(
+                        child: GestureDetector(
                           onTap: () {
                             Provider.of<StorageHubProvider>(context, listen: false)
                                 .clearAllStorage();

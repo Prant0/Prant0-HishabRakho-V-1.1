@@ -137,10 +137,10 @@ class _ChooseMfsState extends State<ChooseMfs> {
                                           borderRadius: BorderRadius.circular(10.0),
                                           color: BrandColors.colorPrimary
                                       ),
-                                      // padding: EdgeInsets.all(18),
+                                       padding: EdgeInsets.all(10),
 
                                       // width: 100,height: 100,
-                                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}",fit: BoxFit.fill,height: 80,width: 80,),
+                                      child: Image.network("http://hishabrakho.com/admin/storage/hub/${snapshot.data[index].storageHubLogo}",fit: BoxFit.cover,height: 80,width: 80,),
                                     ),
                                     SizedBox(height:12 ,),
                                     Text(snapshot.data[index].storageHubName.toString() ?? '',style: myStyle(14,BrandColors.colorText,FontWeight.w600),overflow: TextOverflow.ellipsis,),

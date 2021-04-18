@@ -110,8 +110,6 @@ class _LoginScreenState extends State<LoginScreen> {
           token = sharedPreferences.getString("token");
           print('token is $token');
           print('email is ${sharedPreferences.getString("email")}');
-          print('image is ${sharedPreferences.getString("image")}');
-          userNames = sharedPreferences.getString("userName");
           print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee isssssssssssss is $userNames');
         });
 
@@ -121,9 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
         return false;
       }
     } catch (e) {
-      setState(() {
-        onProgress = false;
-      });
+      if(mounted){
+        setState(() {
+          onProgress = false;
+        });
+      }
       showInSnackBar("Email or Password  didn't match");
       print("something wrong pranto $e");
     }
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
         value,
         style: TextStyle(color: Colors.white),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
   List<UserModel> user = [];

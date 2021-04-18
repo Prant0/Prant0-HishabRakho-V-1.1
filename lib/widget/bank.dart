@@ -61,7 +61,7 @@ class _BankWidgetState extends State<BankWidget> {
                         "http://hishabrakho.com/admin/storage/hub/${widget.model[index].storageHubLogo}",
                         width: 60,
                         height: 50,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                       title: Text(
                         "${widget.model[index].storageHubName} ",

@@ -1,17 +1,13 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
-
 class DashBoardProviders with ChangeNotifier{
-
   List<DashBoardModel> _dashBoardList = [];
   List<DashBoardModel>get dashBoardList{
     return _dashBoardList.toList();
   }
-
   DashBoardModel dashBoardModel;
 
   /*Future<dynamic> loadDashBoardData() async {
@@ -35,10 +31,9 @@ class DashBoardProviders with ChangeNotifier{
     final jsonResponce = json.decode(response.body);
     print("data are ${response.body}");
     dashBoardModel=DashBoardModel.fromJson(jsonResponce);
-    print("skljfbgjbfgj");
     try{
-      _dashBoardList.firstWhere((element) => element.mfsDetails==dashBoardModel.mfsDetails);
-      print("skljfbgjbfgj");
+      _dashBoardList.firstWhere((element) => element.totalAmount==dashBoardModel.totalAmount);
+      print("done parsing");
     }catch(e){
       dashBoardList.add(dashBoardModel);
     }notifyListeners();
