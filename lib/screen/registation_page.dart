@@ -222,7 +222,7 @@ class _RegistationPageState extends State<RegistationPage> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-          resizeToAvoidBottomPadding: true,
+         // resizeToAvoidBottomPadding: true,
           key: _scaffoldKey,
           backgroundColor: BrandColors.colorPrimaryDark,
           body: ModalProgressHUD(

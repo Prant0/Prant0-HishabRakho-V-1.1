@@ -61,7 +61,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: true,
+     // resizeToAvoidBottomPadding: true,
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: WillPopScope(
