@@ -34,7 +34,11 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
     setState(() {
       onProgress = false;
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
+    String bal = await Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
+    setState(() {
+      print("bal isssssssssssssssssssssssssssssss $bal");
+      bal=="yes"? list.removeWhere((element) => element.eventId==eventId) : " ";
+    });
   }
 
   getTransectionData() async {
@@ -269,9 +273,7 @@ class _TransactionEarningEntriesState extends State<TransactionEarningEntries> {
                                       FlatButton(
                                           onPressed: () {
                                             print("tap");
-                                            CustomHttpRequests.deleteList(
-                                                    list[index].eventId)
-                                                .then((value) => value);
+                                            CustomHttpRequests.deleteList(list[index].eventId).then((value) => value);
                                             setState(() {
                                               list.removeAt(index);
                                               //  Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();

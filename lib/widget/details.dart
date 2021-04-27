@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _DetailsState extends State<Details> {
   Widget build(BuildContext context) {
     list = Provider.of<MyTransectionprovider>(context).details;
     return Scaffold(
+      key: _scaffoldKey,
         backgroundColor: BrandColors.colorPrimaryDark,
         appBar: AppBar(
           centerTitle: true,
@@ -216,75 +218,56 @@ class _DetailsState extends State<Details> {
                               ),
                             ),
                             Expanded(
-                              flex: 3,
-                              child: FittedBox(
-                                child: Row(
-                                  //crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                      child:Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 10),
-                                        alignment: Alignment.center,
-                                        margin:
-                                        EdgeInsets.symmetric(vertical: 18),
-                                        decoration: BoxDecoration(
-                                          //color: BrandColors.colorPrimaryDark,
-                                            borderRadius:
-                                            BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color:
-                                                Colors.deepPurpleAccent)),
-                                        child: SvgPicture.asset("assets/edit.svg",
-                                          alignment: Alignment.center,
-                                          height: 20,width: 12,
-                                        ),
-                                      ),
-                                    ),
-                                   Container(
-                                       alignment: Alignment.center,
-                                     child: IconButton(
-                                       onPressed: () {
-                                         showDialog(
-                                             context: context,
-                                             barrierDismissible: false,
-                                             builder: (BuildContext context) {
-                                               return AlertDialog(
-                                                 shape: RoundedRectangleBorder(
-                                                     borderRadius:
-                                                     BorderRadius.circular(
-                                                         13.0)),
-                                                 title: Text(
-                                                   "Are You Sure ?",
-                                                   style: myStyle(
-                                                       16,
-                                                       Colors.black54,
-                                                       FontWeight.w800),
-                                                 ),
-                                                 content: Text(
-                                                     "You want to delete !"),
-                                                 actions: <Widget>[
-                                                   FlatButton(
-                                                       onPressed: () {
-                                                         Navigator.of(context)
-                                                             .pop(false);
-                                                       },
-                                                       child: Text("No")),
-                                                   FlatButton(
+                              flex: 1,
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      13.0)),
+                                              title: Text(
+                                                "Are You Sure ?",
+                                                style: myStyle(
+                                                    16,
+                                                    Colors.black54,
+                                                    FontWeight.w800),
+                                              ),
+                                              content: Text(
+                                                  "You want to delete !"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop(false);
+                                                    },
+                                                    child: Text("No")),
+                                                FlatButton(
+                                                    child: Text("Yes"),
+                                                  onPressed: ()async {
+                                                    showInSnackBar("Deleted Successful");
+                                                      String val = "yes";
+                                                     await CustomHttpRequests.deleteList(list[0].eventId);
 
-                                                       child: Text("Yes"))
-                                                 ],
-                                               );
-                                             });
-                                       },
-                                       icon:SvgPicture.asset("assets/delete.svg",
-                                        // alignment: Alignment.center,
-                                         height: 20,width: 12,
-                                       ),
-                                     )
-                                   )
-                                  ],
-                                ),
+                                                      Navigator.of(context).pop(false);
+                                                    Navigator.of(context).pop(val);
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    icon:SvgPicture.asset("assets/delete.svg",
+                                      // alignment: Alignment.center,
+                                      height: 20,width: 12,
+                                    ),
+                                  )
                               ),
                             )
                           ],
@@ -417,4 +400,17 @@ class _DetailsState extends State<Details> {
           )),*/
         );
   }
+
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: Text(
+        value,
+        style: myStyle(15, Colors.white),
+      ),
+      backgroundColor: Colors.indigo,
+    ));
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 }

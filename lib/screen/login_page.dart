@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           onProgress = false;
           sharedPreferences.setString("token", data['token']);
-          sharedPreferences.setString("userName", data['user_details']["name"]);
+          sharedPreferences.setString("userName", data['user_details']["first_name"]);
           sharedPreferences.setString("email", data['user_details']["email"]);
           sharedPreferences.setString("image", data['user_details']["image"]);
           token = sharedPreferences.getString("token");

@@ -268,7 +268,8 @@ class MyTransectionprovider with ChangeNotifier {
           date: entries["date"],
           storageHubCategoryId: entries["storage_hub_category_id"],
           formatedDate: entries["formated_date"],
-          userStorageHubAccountNumber: entries["user_storage_hub_account_number"]
+          userStorageHubAccountNumber: entries["user_storage_hub_account_number"],
+        eventId: entries["event_id"]
       );
       try {
         _details.firstWhere((element) => element.id == entries['id']);
@@ -298,6 +299,7 @@ class MyTransectionprovider with ChangeNotifier {
           userStorageHubAccountNumber: entries["user_storage_hub_account_number"],
           date: entries["date"],
         formatedDate: entries["formated_date"],
+          eventId: entries["event_id"]
       );
       try {
         _details.firstWhere((element) => element.id == entries['id']);
@@ -324,7 +326,8 @@ class MyTransectionprovider with ChangeNotifier {
           eventType: entries["event_type"],
           details: entries["details"],
           userStorageHubAccountNumber: entries["user_storage_hub_account_number"],
-          date: entries["date"]
+          date: entries["date"],
+          eventId: entries["event_id"]
       );
       try {
         _details.firstWhere((element) => element.id == entries['id']);
@@ -351,6 +354,7 @@ class MyTransectionprovider with ChangeNotifier {
           details: entries["details"],
           userStorageHubAccountNumber: entries["user_storage_hub_account_number"],
           date: entries["date"],formatedDate: entries["formated_date"],
+          eventId: entries["event_id"]
       );
       try {
 
@@ -377,7 +381,7 @@ class MyTransectionprovider with ChangeNotifier {
           eventType: entries["event_type"],
           details: entries["details"],
           userStorageHubAccountNumber: entries["user_storage_hub_account_number"],
-          date: entries["date"],formatedDate: entries["formated_date"],
+          date: entries["date"],formatedDate: entries["formated_date"], eventId: entries["event_id"]
       );
       try {
 

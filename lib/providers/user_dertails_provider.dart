@@ -13,6 +13,7 @@ class UserDetailsProvider with ChangeNotifier{
   List<UserModel> get userData {
     return _userData;
   }
+
   UserModel userModel;
   Future<dynamic> getUserDetails() async {
     final data = await CustomHttpRequests.userDetails();

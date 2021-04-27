@@ -59,7 +59,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                 ),
 
 
-                ListView.builder(
+              widget.model.total =='0'? Text("Empty List",style: myStyle(16,Colors.white),): ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -215,7 +215,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
         value,
         style: myStyle(15, Colors.white),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 

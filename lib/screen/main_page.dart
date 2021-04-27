@@ -405,12 +405,12 @@ class _MainPageState extends State<MainPage>
                       gap: gap,
                       text: "Home",
                       leading:_currentSelected == 0 ? SvgPicture.asset(
-                        "assets/home.svg" ,
+                        "assets/home2.svg" ,
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
                       ): SvgPicture.asset(
-                        "assets/home2.svg" ,
+                        "assets/home.svg" ,
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
@@ -425,12 +425,12 @@ class _MainPageState extends State<MainPage>
                       gap: gap,
                       text: "Storage",
                       leading:_currentSelected == 1 ? SvgPicture.asset(
-                        "assets/storage.svg",
+                        "assets/storage2.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
                       ) :SvgPicture.asset(
-                        "assets/storage2.svg",
+                        "assets/storage.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
@@ -445,12 +445,12 @@ class _MainPageState extends State<MainPage>
                       gap: gap,
                       text: "Budget",
                       leading: _currentSelected == 2 ? SvgPicture.asset(
-                        "assets/budget.svg",
+                        "assets/budget2.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
                       ):SvgPicture.asset(
-                        "assets/budget2.svg",
+                        "assets/budget.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
@@ -465,12 +465,12 @@ class _MainPageState extends State<MainPage>
                       gap: gap,
                       text: "Reports",
                       leading:_currentSelected == 3? SvgPicture.asset(
-                        "assets/report.svg",
+                        "assets/report2.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
                       ):SvgPicture.asset(
-                        "assets/report2.svg",
+                        "assets/report.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
@@ -485,12 +485,12 @@ class _MainPageState extends State<MainPage>
                       gap: gap,
                       text: "Entries",
                       leading: _currentSelected == 4 ? SvgPicture.asset(
-                        "assets/entries.svg",
+                        "assets/entries2.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
                       ):SvgPicture.asset(
-                        "assets/entries2.svg",
+                        "assets/entries.svg",
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,

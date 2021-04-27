@@ -1,6 +1,7 @@
-import 'dart:convert';
+import 'dart:convert';import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
-import 'package:http/http.dart' as http;
+import 'package:anthishabrakho/widget/Circular_progress.dart';
+
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
 import 'package:anthishabrakho/screen/starting_balance/view_Starting_Payable.dart';
@@ -26,7 +27,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
 
   List<StartingPayableModel> payableData = [];
   StartingPayableModel model2;
-  void fetchStartingReceivableData() async {
+   fetchStartingReceivableData() async {
 
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/personal/starting/receivable/balance/view",
@@ -45,30 +46,35 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
 
 
 
-  Future<dynamic> fetchStartingPayableData() async {
+  fetchStartingPayableData() async {
 
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/personal/starting/payable/balance/view",
       headers: await CustomHttpRequests.getHeaderWithToken(),
     );
     final jsonResponce = json.decode(response.body);
-    print("Starting payable details are   ::  ${response.body}");
-    model2 = StartingPayableModel.fromJson(jsonResponce);
-    if (this.mounted) {
-      setState(() {
-        payableData.add(model2);
-      });
-    }
-    print("total starting payable amount  is :${model.total}");
+   if(response.statusCode==200){
+     print("Starting payable details are   ::  ${response.body}");
+     model2 = StartingPayableModel.fromJson(jsonResponce);
+     if (this.mounted) {
+       setState(() {
+         payableData.add(model2);
+       });
+     }
+   }else{
+     return "Error";
+   }
+   // print("total starting payable amount  is :${model.total}");
   }
 
-
-  bool onProgress = false;
+  Future _getPayable , getReceivable;
+//  bool onProgress = false;
   @override
   void initState() {
     controller = TabController(length: 2, vsync: this, initialIndex: 1);
-    fetchStartingReceivableData();
-    fetchStartingPayableData();
+    _getPayable= fetchStartingPayableData();
+    getReceivable= fetchStartingReceivableData();
+
     super.initState();
   }
   @override
@@ -143,16 +149,42 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
                 child: Container(
                   padding: EdgeInsets.only(
                       bottom: 6, left: 6, right: 6),
+
+
+
+
+
                   child: TabBarView(
                     controller: controller,
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
-                      ViewStartingReceivable(
-                        model: model,
-                      ),
-                      ViewStartingPayable(
-                        model: model2,
-                      ),
+
+                      FutureBuilder(
+                          future: getReceivable,
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done)
+                              return ViewStartingReceivable(
+                                model: model,
+                              );
+                            else
+                              return Center(child: Text("Loading",style: myStyle(16,Colors.white),));
+                          }),
+
+
+
+                      FutureBuilder(
+                          future: _getPayable,
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done)
+                              return  ViewStartingPayable(
+                                model: model2,
+                              );
+                            else
+                              return Center(child: Text("Loading",style: myStyle(16,Colors.white),));
+                          }),
+
 
                     ],
                   ),

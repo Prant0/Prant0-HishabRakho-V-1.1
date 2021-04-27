@@ -208,7 +208,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           color: Colors.white,fontWeight: FontWeight.w700,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
 }

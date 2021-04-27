@@ -53,6 +53,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   SharedPreferences sharedPreferences;
   String image;
+
+
   loadUserImage() async {
     sharedPreferences = await SharedPreferences.getInstance();
     userName = sharedPreferences.getString("userName");
@@ -62,13 +64,18 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     print("image is $image");
   }
 
+
+
   @override
   void didChangeDependencies() {
     loadUserImage();
     super.didChangeDependencies();
   }
+
+
   List<DashBoardModel> allData = [];
   DashBoardModel dashBoardModel;
+
   void loadDashBoardData() async {
     var response = await http.get(
       "http://api.hishabrakho.com/api/user/summary",

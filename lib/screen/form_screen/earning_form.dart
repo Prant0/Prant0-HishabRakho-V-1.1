@@ -22,15 +22,7 @@ import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
 
-const activeColor = Colors.transparent;
-const inactiveColor = BrandColors.colorPrimary;
-const activeColorr = Colors.transparent;
-const inactiveColorr = BrandColors.colorPrimary;
 
-const activeBorderColor = Colors.white;
-const inactiveBorderColor = Colors.transparent;
-const activeBorderColorr = Colors.white;
-const inactiveBorderColorr = Colors.transparent;
 
 class EarningForm extends StatefulWidget {
   int id;
@@ -729,54 +721,9 @@ class _EarningFormState extends State<EarningForm> {
     );
   }
 
-  Color getNowColor = activeColor;
-  Color getNowBorderColor = activeBorderColor;
-  Color getlaterColor = inactiveColor;
-  Color getlaterBorderColor = inactiveBorderColor;
 
-  Color cashColor = activeColor;
-  Color bankColor = inactiveColor;
-  Color mfsColor = inactiveColor;
 
-  void updateColor(int types) {
-    if (types == 2) {
-      if (getlaterColor == inactiveColor) {
-        getlaterColor = activeColor;
-        getlaterBorderColor = activeBorderColor;
-        getNowBorderColor = inactiveBorderColor;
-        getNowColor = inactiveColor;
-      } else {
-        getlaterColor = inactiveColor;
-      }
-    }
-    if (types == 1) {
-      if (getNowColor == inactiveColor) {
-        getNowColor = activeColor;
-        getNowBorderColor = activeBorderColor;
-        getlaterBorderColor = inactiveBorderColor;
-        getlaterColor = inactiveColor;
-      } else {
-        getNowColor = inactiveColor;
-      }
-    }
-  }
 
-  Widget _showChoiceChip(String name, int id, Function function, Color clr) {
-    return ChoiceChip(
-        selectedColor: clr,
-        //selectedShadowColor: Colors.green,
-        backgroundColor: BrandColors.colorPrimary,
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        label: Text(
-          name,
-          style: TextStyle(color: Colors.white),
-        ),
-        selected: _value == id,
-        onSelected: function);
-  }
-
-  int _value;
 
   @override
   Widget build(BuildContext context) {
@@ -891,7 +838,7 @@ class _EarningFormState extends State<EarningForm> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        updateColor(1);
+                                        //updateColor(1);
                                         moneyType = widget.name == "Expenditure"
                                             ? "Pay Now"
                                             : "Get Money Now";
@@ -926,7 +873,7 @@ class _EarningFormState extends State<EarningForm> {
                                   GestureDetector(
                                     onTap: () {
                                       setState(() {
-                                        updateColor(2);
+                                       // updateColor(2);
                                         x = false;
                                         y = false;
                                         transactionType =true;

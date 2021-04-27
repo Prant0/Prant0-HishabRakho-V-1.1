@@ -122,8 +122,7 @@ class _AddEntriesSubCategoriesState extends State<AddEntriesSubCategories> {
                           SizedBox(height: 8,),
                           Center(
                             child: Text(
-                              list[index].eventClassName.toString(),
-                              style: myStyle(14, Colors.white,FontWeight.w500),
+                              list[index].eventClassName.toString(), style: myStyle(14, Colors.white,FontWeight.w500),
                             ),
                           ),
                         ],

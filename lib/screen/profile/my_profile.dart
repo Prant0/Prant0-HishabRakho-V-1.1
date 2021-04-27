@@ -137,54 +137,7 @@ class _MyProfileState extends State<MyProfile> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /*Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child:Align(
-                            alignment: Alignment.topLeft,
-                            child: ClipRRect(
-                              child: Image.network(
-                                "http://hishabrakho.com/admin/user/${user[index].photo}",
-                                height: 70,
-                                width: 80,
-                                //fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child:Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${user[index].username}",
-                                style: myStyle(22, Colors.white, FontWeight.w500),
-                              ),
-                              Text(
-                                "${user[index].email}",
-                                style: myStyle(14, Colors.grey, FontWeight.w400),
-                              ),
-                            ],
-                          ) ,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child:SvgPicture.asset(
-                            "assets/barCode.svg",
-                            alignment: Alignment.center,
-                            height: 22,
-                            width: 22,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),*/
+
                   ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                     leading: ClipRRect(

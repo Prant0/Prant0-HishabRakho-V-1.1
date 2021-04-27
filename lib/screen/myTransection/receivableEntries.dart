@@ -37,7 +37,11 @@ class _TransactionReceivableEntriesState
     setState(() {
       onProgress=false;
     });
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
+    String bal = await Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
+    setState(() {
+      print("bal isssssssssssssssssssssssssssssss $bal");
+      bal=="yes"? list.removeWhere((element) => element.eventId==eventId) : " ";
+    });
   }
 
 
