@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         moneyField(
-                          amount: 430000,
+                          amount: allData[0].totalFinancialPosition ?? 0,
                           ts: myStyle(18,Colors.white,FontWeight.w700),
                           offset: Offset(-2, -7),
                           tks: myStyle(14,Colors.white),

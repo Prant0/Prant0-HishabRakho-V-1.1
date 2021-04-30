@@ -82,7 +82,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       name: passwordController,
                       hintText: "New Password",
                       lebelText: "Enter your new password",
-                     // icon: Icons.adjust_outlined,
+                      icon: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset("assets/pass.svg",
+                          alignment: Alignment.center,
+                          height: 15,width: 15,
+                        ),
+                      ),
                       function: (String value) {
                         if (value.isEmpty) {
                           return "New Password required.( 6 - 15 character/letter/digit/symbols )";

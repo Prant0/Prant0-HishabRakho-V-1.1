@@ -298,7 +298,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
               FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 textColor: Colors.white,
-                child: Text('Skip'),
+                child: Text('No'),
                 onPressed: () {
                   setState(() {
                     Provider.of<StorageHubProvider>(context, listen: false)

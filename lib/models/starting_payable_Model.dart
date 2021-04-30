@@ -41,8 +41,10 @@ class PayableDetail {
     this.eventSubCategoryName,
     this.subcategoryIcon,
     this.details,
+    this.date2,
   });
 
+  String date2;
   int id;
   int eventId;
   int transactionTypeId;
@@ -67,6 +69,7 @@ class PayableDetail {
     eventSubCategoryName: json["event_sub_category_name"] == null ? null : json["event_sub_category_name"],
     subcategoryIcon: json["subcategory_icon"] == null ? null : json["subcategory_icon"],
     details: json["details"],
+    date2: json["formated_date"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -41,6 +41,7 @@ class ReceivableDetail {
     this.eventSubCategoryName,
     this.subcategoryIcon,
     this.details,
+    this.date2,
   });
 
   int id;
@@ -54,6 +55,7 @@ class ReceivableDetail {
   String eventSubCategoryName;
   String subcategoryIcon;
   String details;
+  String date2;
 
   factory ReceivableDetail.fromJson(Map<String, dynamic> json) => ReceivableDetail(
     id: json["id"] == null ? null : json["id"],
@@ -67,6 +69,7 @@ class ReceivableDetail {
     eventSubCategoryName: json["event_sub_category_name"] == null ? null : json["event_sub_category_name"],
     subcategoryIcon: json["subcategory_icon"] == null ? null : json["subcategory_icon"],
     details: json["details"] == null ? null : json["details"],
+    date2: json["formated_date"]
   );
 
   Map<String, dynamic> toJson() => {

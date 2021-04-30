@@ -49,126 +49,122 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
             style: TextStyle(fontSize: 18),
           ),
         ),
-        body: ModalProgressHUD(
-          progressIndicator: Spin(),
-          inAsyncCall: isLoading,
-          child: Container(
-            height: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Form(
-                key: _formKey,
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0, vertical: 30),
-                            child: MoneyTextFormField(
-                              settings: MoneyTextFormFieldSettings(
-                                controller: amountController,
-                                moneyFormatSettings: MoneyFormatSettings(
-                                    /*amount: widget.type == "cash"
+        body: Container(
+          height: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+              key: _formKey,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0, vertical: 30),
+                          child: MoneyTextFormField(
+                            settings: MoneyTextFormFieldSettings(
+                              controller: amountController,
+                              moneyFormatSettings: MoneyFormatSettings(
+                                /*amount: widget.type == "cash"
                                         ? double.tryParse(
                                             widget.model.balance.toString())
                                         : 0,*/
-                                    // amount: null,
-                                    currencySymbol: ' ৳ ',
-                                    displayFormat:
-                                        MoneyDisplayFormat.symbolOnLeft),
-                                appearanceSettings: AppearanceSettings(
-                                  padding: EdgeInsets.all(15.0),
-                                  labelText: 'Initial Balance* ',
-                                  hintText: ' Balance',
-                                  labelStyle: myStyle(
-                                      20, Colors.white, FontWeight.w600),
-                                  inputStyle: _ts.copyWith(color: Colors.white),
-                                  formattedStyle:
-                                      _ts.copyWith(color: Colors.white),
-                                ),
+                                // amount: null,
+                                  currencySymbol: ' ৳ ',
+                                  displayFormat:
+                                  MoneyDisplayFormat.symbolOnLeft),
+                              appearanceSettings: AppearanceSettings(
+                                padding: EdgeInsets.all(15.0),
+                                labelText: 'Initial Balance* ',
+                                hintText: ' Balance',
+                                labelStyle: myStyle(
+                                    20, Colors.white, FontWeight.w600),
+                                inputStyle: _ts.copyWith(color: Colors.white),
+                                formattedStyle:
+                                _ts.copyWith(color: Colors.white),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
-                    Positioned(
-                      bottom: 8,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        color: BrandColors.colorPrimaryDark,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 10,
-                              child: GestureDetector(
-                                onTap: () {
-                                  widget.type == "cash"?  Navigator.pop(context) : Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AddPayableStepper(
-                                          )));
-                                },
-                                child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.symmetric(vertical: 20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      border: Border.all(
-                                          color: Colors.deepPurpleAccent,
-                                          width: 1.0),
-                                    ),
-                                    child: Text(
-                                      widget.type == "cash"
-                                          ? "Go Back"
-                                          : "Skip",
-                                      style: myStyle(16, Colors.white),
-                                    )),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(),
-                            ),
-                            Expanded(
-                              flex: 10,
-                              child: InkWell(
-                                onTap: () {
-                                  if (!_formKey.currentState.validate()) return;
-                                  _formKey.currentState.save();
-                                  amountController.text.toString().isEmpty
-                                      ? showInSnackBar("Amount Required")
-                                      : updateCash(context);
-                                },
-                                child: Container(
+                  ),
+                  Positioned(
+                    bottom: 8,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      color: BrandColors.colorPrimaryDark,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 10,
+                            child: GestureDetector(
+                              onTap: () {
+                                widget.type == "cash"?  Navigator.pop(context) : Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddPayableStepper(
+                                        )));
+                              },
+                              child: Container(
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.symmetric(vertical: 20),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    color: BrandColors.colorPurple,
                                     border: Border.all(
-                                        color: BrandColors.colorPurple,
+                                        color: Colors.deepPurpleAccent,
                                         width: 1.0),
                                   ),
                                   child: Text(
-                                    "Proceed",
+                                    widget.type == "cash"
+                                        ? "Go Back"
+                                        : "Skip",
                                     style: myStyle(16, Colors.white),
-                                  ),
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(),
+                          ),
+                          Expanded(
+                            flex: 10,
+                            child: InkWell(
+                              onTap: () {
+                                if (!_formKey.currentState.validate()) return;
+                                _formKey.currentState.save();
+                                amountController.text.toString().isEmpty
+                                    ? showInSnackBar("Amount Required")
+                                    : updateCash(context);
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: BrandColors.colorPurple,
+                                  border: Border.all(
+                                      color: BrandColors.colorPurple,
+                                      width: 1.0),
+                                ),
+                                child: Text(
+                                  "Proceed",
+                                  style: myStyle(16, Colors.white),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
-                )),
-          ),
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
     );
@@ -227,8 +223,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
           "http://api.hishabrakho.com/api/user/personal/storage/hub/update/${widget.model.id}");
       var request = http.MultipartRequest("POST", uri);
       request.headers.addAll(await CustomHttpRequests.getHeaderWithToken());
-      request.fields['storage_hub_category_id'] =
-          widget.model.storageHubCategoryId.toString() ?? 7;
+      request.fields['storage_hub_category_id'] = widget.model.storageHubCategoryId.toString() ?? 7;
       request.fields['balance'] = amountController.text.toString();
       request.fields['date'] = _currentDate.toString();
       print("processing");
@@ -237,7 +232,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
       var responseString = String.fromCharCodes(responseData);
       if (response.statusCode == 201) {
         print("responseBody1 " + responseString);
-        print("doneeeeeeee");
+
         showInSnackBar("updated Storage successful");
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {

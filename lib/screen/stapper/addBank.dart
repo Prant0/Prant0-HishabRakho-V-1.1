@@ -468,7 +468,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                     borderRadius: BorderRadius.circular(8)),
                 
                 textColor: Colors.white,
-                child: Text('Skip'),
+                child: Text('No'),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);

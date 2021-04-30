@@ -1,5 +1,6 @@
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -86,7 +87,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                         height: 3,
                                       ),
                                       Text(
-                                        "${widget.model.payableDetails[index].date ?? ""}",
+                                        "${widget.model.payableDetails[index].date2 ?? ""}",
                                         style: myStyle(
                                           14,
                                           BrandColors.colorDimText,
@@ -97,23 +98,35 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                 ),
                                 Expanded(
                                     flex: 4,
-                                    child: Text(
-                                      //"৳ ${list[index].amount.toString()}",
-                                      NumberFormat.currency(
-                                          symbol: ' ৳ ',
-                                          decimalDigits: (widget.model
-                                              .payableDetails[index]
-                                              .amount) is int
-                                              ? 0
-                                              : 2,
-                                          locale: "en-in")
-                                          .format(widget.model
-                                          .payableDetails[index].amount),
-                                      style: myStyle(
-                                          14,
-                                          widget.model.payableDetails[index].amount > 1
-                                              ? Colors.greenAccent
-                                              : Colors.redAccent),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          //"৳ ${list[index].amount.toString()}",
+                                          NumberFormat.currency(
+                                              symbol: ' ৳ ',
+                                              decimalDigits: (widget.model
+                                                  .payableDetails[index]
+                                                  .amount) is int
+                                                  ? 0
+                                                  : 2,
+                                              locale: "en-in")
+                                              .format(widget.model
+                                              .payableDetails[index].amount),
+                                          style: myStyle(
+                                              14,
+                                              widget.model.payableDetails[index].amount > 1
+                                                  ? Colors.greenAccent
+                                                  : Colors.redAccent),
+                                        ),
+
+                                        Container(
+                                          //height: double.infinity,
+                                          height: 30,
+                                          width: 3,
+                                          color: BrandColors.colorText.withOpacity(0.2),
+                                        )
+                                      ],
                                     )),
                               ],
                             )),
@@ -134,21 +147,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                 Navigator.pop(context);
                               }));
                             },
-                            /*() {
-                            print(
-                                "transection type id :${list[index].transactionTypeId}");
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditTransaction(
-                                          model: list[
-                                          index],
-                                          type: type,
-                                        ))) .then((value) => setState(() {
-                              getTransectionData();
-                            }));
-                          },*/
+
 
                           ),
                           new IconSlideAction(
@@ -162,21 +161,22 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
+                                      backgroundColor: BrandColors.colorPrimary,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                           BorderRadius.circular(13.0)),
                                       title: Text(
                                         "Are You Sure ?",
                                         style: myStyle(
-                                            16, Colors.black54, FontWeight.w800),
+                                            16, Colors.white, FontWeight.w800),
                                       ),
-                                      content: Text("You want to delete !"),
+                                      content: Text("You want to delete !",style: myStyle(14,BrandColors.colorText),),
                                       actions: <Widget>[
                                         FlatButton(
                                             onPressed: () {
                                               Navigator.of(context).pop(false);
                                             },
-                                            child: Text("No")),
+                                            child: Text("No",style: myStyle(14,Colors.white),)),
                                         FlatButton(
                                             onPressed: () {
                                               print("tap");
@@ -193,7 +193,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                               );
                                               Navigator.pop(context);
                                             },
-                                            child: Text("Yes"))
+                                            child: Text("Yes",style: myStyle(14,Colors.white)))
                                       ],
                                     );
                                   });

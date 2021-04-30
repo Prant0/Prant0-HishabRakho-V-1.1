@@ -146,12 +146,7 @@ class _DrawerrState extends State<Drawerr> {
                                 height: 50,
                                 child: Row(
                                   children: [
-                                    SvgPicture.asset("assets/user1.svg",
-                                      alignment: Alignment.center,
-                                      fit: BoxFit.contain,
-                                      height: 21,width: 21,
-                                      color:BrandColors.colorText,
-                                    ),
+                                    Icon(Icons.person,size: 25,color:  BrandColors.colorText,),
                                     SizedBox(
                                       width: 16,
                                     ),
@@ -171,7 +166,7 @@ class _DrawerrState extends State<Drawerr> {
                                 height: 50,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.people_alt_outlined,size: 25,color:  Colors.grey,),
+                                    Icon(Icons.people_outline,size: 25,color:  BrandColors.colorText,),
                                     SizedBox(
                                       width: 16,
                                     ),
@@ -190,7 +185,7 @@ class _DrawerrState extends State<Drawerr> {
                                 height: 50,
                                 child: Row(
                                   children: [
-                                    Icon(Icons.assignment_returned_outlined,size: 25,color: Colors.grey,),
+                                    Icon(Icons.assignment_returned_outlined,size: 25,color:   BrandColors.colorText,),
                                     SizedBox(
                                       width: 16,
                                     ),

@@ -398,7 +398,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 textColor: Colors.white,
-                child: Text('Skip',style: myStyle(14,BrandColors.colorText),),
+                child: Text('No',style: myStyle(14,BrandColors.colorText),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);

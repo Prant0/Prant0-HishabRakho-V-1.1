@@ -192,14 +192,10 @@ class _EditInfoState extends State<EditInfo> {
                   SizedBox(height: 30.0,),
                   RaisedButton(
                     onPressed: (){
-                      if (_image == null) {
-                        showInSnackBar("Image Required");
-                      } else {
-                        if (!_formKey.currentState.validate()) return;
-                        _formKey.currentState.save();
-                        updateProfile(context);
-                        print("tap");
-                      }
+                      if (!_formKey.currentState.validate()) return;
+                      _formKey.currentState.save();
+                      updateProfile(context);
+                      print("tap");
                     },
                     child: Text("Update Info"),
                   )
@@ -237,11 +233,16 @@ class _EditInfoState extends State<EditInfo> {
             final uri = Uri.parse("http://api.hishabrakho.com/api/user/profile/update");
             var request = http.MultipartRequest("POST", uri);
             request.headers.addAll(await CustomHttpRequests.getHeaderWithToken());
-        request.fields['name'] = nameController.text.toString();
-        request.fields['email'] = widget.model.email.toString();
-        var photo = await http.MultipartFile.fromPath("image", _image.path);
-        print("processing");
-        request.files.add(photo);
+        if(_image==null){
+          request.fields['name'] = nameController.text.toString();
+          request.fields['email'] = widget.model.email.toString();
+        }else{
+          request.fields['name'] = nameController.text.toString();
+          request.fields['email'] = widget.model.email.toString();
+          var photo = await http.MultipartFile.fromPath("image", _image.path);
+          request.files.add(photo);
+
+        }
         var response = await request.send();
         var responseData = await response.stream.toBytes();
         var responseString = String.fromCharCodes(responseData);
@@ -259,15 +260,12 @@ class _EditInfoState extends State<EditInfo> {
           print("save image");
           img = sharedPreferences.getString("image");
           print('img is $img');
-          print('name is${sharedPreferences.getString("userName")}');
+          print('name is${sharedPreferences.getString("userName")
+          }');
         showInSnackBar("update successful");
-        Future.delayed(const Duration(seconds: 2), () {
-        if(mounted){
-        setState(() {
-        onProgress = false;
-        });
-        }
-        });
+          setState(() {
+            onProgress = false;
+          });
         Provider.of<UserDetailsProvider>(context,listen: false).deletedetails();
         Navigator.pop(context);
         Navigator.pop(context);
@@ -296,7 +294,7 @@ class _EditInfoState extends State<EditInfo> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
 
 

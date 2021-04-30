@@ -21,7 +21,7 @@ class Spin extends StatelessWidget {
 }
 
 
-class Spinn extends StatelessWidget {
+/*class Spinn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlareActor(
@@ -30,5 +30,5 @@ class Spinn extends StatelessWidget {
 
     );
   }
-}
+}*/
 

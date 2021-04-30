@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -67,7 +68,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
@@ -87,190 +88,225 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
           padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
           child: Form(
             key: _formKey,
-            child: ListView(
+            child: Column(
               children: [
-                SizedBox(
-                  height: 30.0,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      seleceDate(context);
-                    });
-                  },
-                  child: Container(
+                Expanded(
+                  flex: 9,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(width: 1, color: Colors.grey)),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Date : ${formattedDate}",
-                            style: myStyle(16, Colors.white, FontWeight.w700),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            seleceDate(context);
+                          });
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                    width: 0.7, color: BrandColors.colorPurple.withOpacity(0.8))),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+
+                                RichText(
+                                  text: TextSpan(children: [
+
+                                    WidgetSpan(
+                                      child:Text(
+                                        'Date:',
+                                        textScaleFactor: 1.0,
+                                        style: myStyle(14,BrandColors.colorText),
+                                      ),
+                                    ),
+
+                                    WidgetSpan(
+                                      child: Text(
+                                        "  ${formattedDate}",
+                                        style: myStyle(
+                                            14, BrandColors.colorWhite, FontWeight.w500),
+                                      ),
+                                    ),
+
+                                  ]),
+                                ),
+
+                                SvgPicture.asset("assets/calender.svg",
+                                  alignment: Alignment.center,
+                                  height: 15,width: 15,
+                                ),
+                              ],
+                            )),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
+                      ),
+                      SenderTextEdit(
+                        keyy: "Payable",
+                        data: _data,
+                        name: nameController,
+                        lebelText: "${widget.model.friendName} ?? ",
+                        icon: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: SvgPicture.asset("assets/user1.svg",
+                            alignment: Alignment.bottomCenter,
+                            fit: BoxFit.contain,
+                            color: BrandColors.colorText,
                           ),
-                          Icon(Icons.date_range_outlined,color: BrandColors.colorDimText,),
-                        ],
-                      )),
-                ),
+                        ),
+                        function: (String value) {
+                          if (value.isEmpty) {
+                            return "Name required";
+                          }
+                          if (value.length < 3) {
+                            return "Name Too Short ( Min 3 character )";
+                          }if (value.length > 30) {
+                            return "Name Too long (Max 30 character)";
+                          }
+                        },
+                      ),
 
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Text("Details ",style: myStyle(16,BrandColors.colorDimText),),
+                      ),
+                      SenderTextEdit(
+                        keyy: "Details",
+                        maxNumber: 4,
+                        data: _data,
+                        name:detailsController ,
+                        // lebelText: widget.model.details ?? "",
+                        hintText: " Details",
+                        //icon: Icons.details,
+                        function: (String value) {
 
-                SizedBox(height: 15,),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 0),
-                  child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
-                ),
-                SenderTextEdit(
-                  keyy: "Payable",
-                  data: _data,
-                  name: nameController,
-                  lebelText: "${widget.model.friendName} ?? ",
-                  //hintText: " Payable to",
-                  icon: Icons.person,
-                  function: (String value) {
-                    if (value.isEmpty) {
-                      return "Name required";
-                    }
-                    if (value.length < 3) {
-                      return "Name Too Short ( Min 3 character )";
-                    }if (value.length > 30) {
-                      return "Name Too long (Max 30 character)";
-                    }
-                  },
-                ),
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: MoneyTextFormField(
+                          settings: MoneyTextFormFieldSettings(
+                            controller: amountController,
+                            moneyFormatSettings: MoneyFormatSettings(
+                                amount: double.tryParse(widget.model.amount.toString()),
+                                currencySymbol: ' ৳ ',
+                                displayFormat: MoneyDisplayFormat.symbolOnLeft),
+                            appearanceSettings: AppearanceSettings(
+                                padding: EdgeInsets.all(15.0),
+                                hintText: 'Amount required',
+                                labelText: 'Amount ',
+                                labelStyle: myStyle(20,Colors.white,FontWeight.w600),
+                                inputStyle: _ts.copyWith(color: Colors.white),
+                                formattedStyle:
+                                _ts.copyWith(color: Colors.white)),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 0),
-                  child: Text("Details ",style: myStyle(16,BrandColors.colorDimText),),
-                ),
-                SenderTextEdit(
-                  keyy: "Details",
-                  maxNumber: 4,
-                  data: _data,
-                  name:detailsController ,
-                 // lebelText: widget.model.details ?? "",
-                  hintText: " Details",
-                  icon: Icons.details,
-                  function: (String value) {
-
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: MoneyTextFormField(
-                    settings: MoneyTextFormFieldSettings(
-                      controller: amountController,
-                      moneyFormatSettings: MoneyFormatSettings(
-                          amount: double.tryParse(widget.model.amount.toString()),
-                          currencySymbol: ' ৳ ',
-                          displayFormat: MoneyDisplayFormat.symbolOnLeft),
-                      appearanceSettings: AppearanceSettings(
-                          padding: EdgeInsets.all(15.0),
-                          hintText: 'Amount required',
-                          labelText: 'Amount ',
-                          labelStyle: myStyle(20,Colors.white,FontWeight.w600),
-                          inputStyle: _ts.copyWith(color: Colors.white),
-                          formattedStyle:
-                          _ts.copyWith(color: Colors.white)),
-
-                    ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 150,)
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 50,
-                ),
+
                 // ignore: deprecated_member_use
 
 
 
 
-                Container(
-                  color: BrandColors.colorPrimaryDark,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 10,
-                        child: GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left: 12),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              border: Border.all(
-                                  color: Colors.deepPurpleAccent, width: 1.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.white70,
-                                  size: 15,
-                                ),
-                                Text(
-                                  "Go Back",
-                                  style: myStyle(16, Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(),
-                      ),
-                      Expanded(
-                        flex: 10,
-                        child: InkWell(
-                          onTap: () {
-                            if (!_formKey.currentState.validate()) return;
-                            _formKey.currentState.save();
-
-                            final note = PayableDetail(
-
-                              date: formattedDate.toString(),
-                              amount: double.parse(amountController.text.toString()),
-                              friendName: nameController.text.toString(),
-                              details:detailsController.text.toString(),
-                            );
-                            updatePayable(note);
-
-
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(left: 12),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.deepPurpleAccent,
-                              border: Border.all(
-                                  color: Colors.deepPurpleAccent,
-                                  width: 1.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Proceed",
-                                  style: myStyle(16, Colors.white),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  color: Colors.white70,
-                                  size: 15,
-                                ),
-                              ],
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    color: BrandColors.colorPrimaryDark,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                    color:BrandColors.colorPurple, width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                  Text(
+                                    "Go Back",
+                                    style: myStyle(16, Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      )
-                    ],
+                        Expanded(
+                          flex: 1,
+                          child: Container(),
+                        ),
+                        Expanded(
+                          flex: 10,
+                          child: InkWell(
+                            onTap: () {
+                              if (!_formKey.currentState.validate()) return;
+                              _formKey.currentState.save();
+
+                              final note = PayableDetail(
+
+                                date: formattedDate.toString(),
+                                amount: double.parse(amountController.text.toString()),
+                                friendName: nameController.text.toString(),
+                                details:detailsController.text.toString(),
+                              );
+                              updatePayable(note);
+
+
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color:BrandColors.colorPurple,
+                                border: Border.all(
+                                    color: BrandColors.colorPurple,
+                                    width: 1.0),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Proceed",
+                                    style: myStyle(16, Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    color: Colors.white70,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -327,7 +363,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ),);
   }
 

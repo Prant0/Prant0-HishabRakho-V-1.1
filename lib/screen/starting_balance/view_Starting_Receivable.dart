@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
@@ -7,11 +6,10 @@ import 'package:anthishabrakho/screen/starting_balance/Add_Starting_balance.dart
 import 'package:anthishabrakho/screen/starting_balance/edit_starting_receivable.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ViewStartingReceivable extends StatefulWidget {
   StartingReceivableModel model;
@@ -33,7 +31,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
+              margin: EdgeInsets.symmetric(vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -83,7 +81,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                                     height: 3,
                                   ),
                                   Text(
-                                    "${widget.model.receivableDetails[index].date ?? ""}",
+                                    "${widget.model.receivableDetails[index].date2 ?? ""}",
                                     style: myStyle(
                                       14,
                                       BrandColors.colorDimText,
@@ -94,23 +92,33 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                             ),
                             Expanded(
                                 flex: 4,
-                                child: Text(
-                                  //"৳ ${list[index].amount.toString()}",
-                                  NumberFormat.currency(
-                                      symbol: ' ৳ ',
-                                      decimalDigits: (widget.model
-                                          .receivableDetails[index]
-                                          .amount) is int
-                                          ? 0
-                                          : 2,
-                                      locale: "en-in")
-                                      .format(widget.model
-                                      .receivableDetails[index].amount),
-                                  style: myStyle(
-                                      14,
-                                      widget.model.receivableDetails[index].amount > 1
-                                          ? Colors.greenAccent
-                                          : Colors.redAccent),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      NumberFormat.currency(
+                                          symbol: ' ৳ ',
+                                          decimalDigits: (widget.model
+                                              .receivableDetails[index]
+                                              .amount) is int
+                                              ? 0
+                                              : 2,
+                                          locale: "en-in")
+                                          .format(widget.model
+                                          .receivableDetails[index].amount),
+                                      style: myStyle(
+                                          14,
+                                          widget.model.receivableDetails[index].amount > 1
+                                              ? Colors.greenAccent
+                                              : Colors.redAccent),
+                                    ),
+                                    Container(
+                                      //height: double.infinity,
+                                      height: 30,
+                                      width: 3,
+                                      color: BrandColors.colorText.withOpacity(0.2),
+                                    )
+                                  ],
                                 )),
 
                           ],
@@ -131,21 +139,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                            // fetchStartingReceivableData();
                           }));
                         },
-                        /*() {
-                            print(
-                                "transection type id :${list[index].transactionTypeId}");
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditTransaction(
-                                          model: list[
-                                          index],
-                                          type: type,
-                                        ))) .then((value) => setState(() {
-                              getTransectionData();
-                            }));
-                          },*/
+
 
                       ),
                       new IconSlideAction(
@@ -159,21 +153,22 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                               barrierDismissible: false,
                               builder: (BuildContext context) {
                                 return AlertDialog(
+                                  backgroundColor: BrandColors.colorPrimary,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                       BorderRadius.circular(13.0)),
                                   title: Text(
                                     "Are You Sure ?",
                                     style: myStyle(
-                                        16, Colors.black54, FontWeight.w800),
+                                        16, Colors.white, FontWeight.w800),
                                   ),
-                                  content: Text("You want to delete !"),
+                                  content: Text("You want to delete !",style: myStyle(14,BrandColors.colorText),),
                                   actions: <Widget>[
                                     FlatButton(
                                         onPressed: () {
                                           Navigator.of(context).pop(false);
                                         },
-                                        child: Text("No")),
+                                        child: Text("No",style: myStyle(14,Colors.white))),
                                     FlatButton(
                                         onPressed: () {
                                           print("tap");
@@ -190,7 +185,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                                           );
                                           Navigator.pop(context);
                                         },
-                                        child: Text("Yes"))
+                                        child: Text("Yes",style: myStyle(14,Colors.white)))
                                   ],
                                 );
                               });

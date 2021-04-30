@@ -65,7 +65,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
     String formattedDate = new DateFormat.yMMMd().format(_currentDate);
     return Scaffold(
       backgroundColor: BrandColors.colorPrimaryDark,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       appBar: AppBar(
 
@@ -86,14 +86,14 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
             key: _formKey,
             child: Card(
               color:  BrandColors.colorPrimaryDark,
-              elevation: 3,
+              elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               margin: EdgeInsets.symmetric(vertical: 10,),
               child: Column(
                 children: [
 
                   Expanded(
-                    flex: 10,
+                    flex: 9,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -146,7 +146,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                               )),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 15),
                           child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
                         ),
                         SenderTextEdit(
@@ -154,8 +154,14 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                           data: _data,
                           name: nameController,
                           lebelText: "${widget.model.friendName} ?? ",
-                          //hintText: " Payable to",
-                          // icon: Icons.person,
+                          icon: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: SvgPicture.asset("assets/user1.svg",
+                              alignment: Alignment.bottomCenter,
+                              fit: BoxFit.contain,
+                              color: BrandColors.colorText,
+                            ),
+                          ),
                           function: (String value) {
                             if (value.isEmpty) {
                               return "Name required";
@@ -168,7 +174,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                           },
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
+                          padding: EdgeInsets.symmetric(vertical: 15),
                           child: Text("Details ",style: myStyle(16,BrandColors.colorDimText),),
                         ),
                         SenderTextEdit(
@@ -354,7 +360,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
           color: Colors.white,
         ),
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ),);
   }
 }

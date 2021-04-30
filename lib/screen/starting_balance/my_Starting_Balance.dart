@@ -90,6 +90,8 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
       resizeToAvoidBottomInset: false,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
+
+        elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text("My Starting Balance",style: myStyle(18,Colors.white),),
         centerTitle: true,
@@ -98,7 +100,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
 
       body: Container(
         height: double.infinity,
-        padding: EdgeInsets.only(left: 10,top: 15,bottom: 5),
+        padding: EdgeInsets.only(left: 10,top: 8,bottom: 5),
         child: Column(
           children: [
             Expanded(
@@ -145,7 +147,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
               ),
             ),
             Expanded(
-                flex: 7,
+                flex: 8,
                 child: Container(
                   padding: EdgeInsets.only(
                       bottom: 6, left: 6, right: 6),

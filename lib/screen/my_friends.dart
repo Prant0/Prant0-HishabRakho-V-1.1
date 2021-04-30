@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -47,11 +48,12 @@ class _MyFriendsState extends State<MyFriends> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.black,
+      backgroundColor:BrandColors.colorPrimaryDark,
       appBar: AppBar(
-        backgroundColor: Colors.black54,
+        backgroundColor:BrandColors.colorPrimaryDark,
         title: Text("My Friends"),
         centerTitle: true,
+        elevation: 0,
       ),
 
       body: SingleChildScrollView(
@@ -92,32 +94,40 @@ class _MyFriendsState extends State<MyFriends> {
                               barrierDismissible: false,
                               builder: (BuildContext context){
                                 return AlertDialog(
+                                  titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
+                                  contentPadding: EdgeInsets.only(left: 30,right: 30,),
+                                  backgroundColor: BrandColors.colorPrimary,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(13.0)
                                   ),
-                                  title: Text("Are You Sure ?",style: myStyle(16,Colors.black54,FontWeight.w800),),
-                                  content: Text("You want to delete !"),
+                                  title: Text("Are You Sure ?",style: myStyle(16,Colors.white,FontWeight.w800),),
+                                  content: Text("You want to delete !",style: myStyle(14,Colors.white70,) ,),
                                   actions:<Widget> [
                                     FlatButton(
                                         onPressed: (){
                                           Navigator.of(context).pop(false);
                                         },
-                                        child: Text("No")
+                                        child: Text("No",style: myStyle(14,Colors.white),)
                                     ),
 
-                                    FlatButton(
-                                        onPressed: (){
-                                          print("tap");
-                                          CustomHttpRequests.deleteFriends(friends[index].id)
-                                              .then((value) => value);
-                                          setState(() {
-                                            friends.removeAt(index);
-                                          });
-                                          showInSnackBar("1 Item Delete",);
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text("Yes")
-                                    )
+                                    RaisedButton(
+                                      padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                                      color: BrandColors.colorPurple,
+                                      child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                                      onPressed: (){
+                                        print("tap");
+                                        CustomHttpRequests.deleteFriends(friends[index].id)
+                                            .then((value) => value);
+                                        setState(() {
+                                          friends.removeAt(index);
+                                        });
+                                        showInSnackBar("1 Item Delete",);
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+
+
                                   ],
                                 );
                               }

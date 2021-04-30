@@ -730,13 +730,12 @@ class _EarningFormState extends State<EarningForm> {
     String formattedDate = new DateFormat("d-MMMM-y").format(_currentDate);
     print("widget name is : ${widget.name}");
     return Scaffold(
-
       backgroundColor: BrandColors.colorPrimaryDark,
       key: _scaffoldKey,
       body: SafeArea(
         child: ModalProgressHUD(
           inAsyncCall: onProgress,
-          progressIndicator: Spinn(),
+          progressIndicator: Spin(),
           child: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.only(top: 10, left: 20, right: 20),

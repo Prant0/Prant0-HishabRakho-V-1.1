@@ -341,7 +341,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
               FlatButton(
                 color: Colors.transparent,
                 textColor: Colors.white,
-                child: Text('Skip'),
+                child: Text('No'),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);

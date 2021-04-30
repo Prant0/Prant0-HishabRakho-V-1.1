@@ -9,9 +9,12 @@ class DashBoardModel {
    List<MfsDetails> mfsDetails;
   dynamic totalPayable;
   dynamic totalReceivable;
+  dynamic totalFinancialPosition;
+
 
   DashBoardModel(
       {this.entry,
+        this.totalFinancialPosition,
       this.totalAmount,
       this.totalBankAmount,
       this.totalMfsAmount,
@@ -30,6 +33,7 @@ class DashBoardModel {
       totalCashAmount: json["total_cash_amount"],
       totalPayable: json["total_payable"],
       totalReceivable: json["total_receivable"],
+      totalFinancialPosition: json["financial_position"],
       bankDetails: parseBankDetails(json),
       mfsDetails: mfsDetailss(json),
     );
