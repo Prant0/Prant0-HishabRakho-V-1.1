@@ -31,7 +31,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
         child: SingleChildScrollView(
           child: Column(children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.only(left: 20,bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -63,7 +63,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                     actionPane: SlidableDrawerActionPane(),
                     actionExtentRatio: 0.25,
                     child: new Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.only(left: 20,bottom: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -84,7 +84,7 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                                     "${widget.model.receivableDetails[index].date2 ?? ""}",
                                     style: myStyle(
                                       14,
-                                      BrandColors.colorDimText,
+                                      BrandColors.colorDimText.withOpacity(0.6),
                                     ),
                                   )
                                 ],

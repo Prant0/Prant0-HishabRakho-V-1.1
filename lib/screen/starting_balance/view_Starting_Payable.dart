@@ -31,12 +31,12 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
      backgroundColor: BrandColors.colorPrimaryDark,
         body:Container(
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 15,vertical: 20),
+
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.only(left: 20,bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -70,7 +70,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                         actionPane: SlidableDrawerActionPane(),
                         actionExtentRatio: 0.25,
                         child: new Container(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: EdgeInsets.only(left: 20,bottom: 20),
                             child: Row(
                               children: [
                                 Expanded(
@@ -90,7 +90,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                                         "${widget.model.payableDetails[index].date2 ?? ""}",
                                         style: myStyle(
                                           14,
-                                          BrandColors.colorDimText,
+                                          BrandColors.colorDimText.withOpacity(0.6),
                                         ),
                                       )
                                     ],

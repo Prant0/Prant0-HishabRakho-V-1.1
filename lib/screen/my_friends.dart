@@ -67,7 +67,7 @@ class _MyFriendsState extends State<MyFriends> {
                   child: Text("Total Friends : ${friends.length}" ?? "0",style: myStyle(18,Colors.white70),)),
 
               SizedBox(height: 20,),
-              friends.isEmpty ? Center(child: Text('Empty',style: TextStyle(fontSize: 18,color: Colors.white),)) : ListView.builder(
+              friends.isEmpty ? Center(child: Text('',style: TextStyle(fontSize: 18,color: Colors.white),)) : ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -78,7 +78,7 @@ class _MyFriendsState extends State<MyFriends> {
                     elevation: 8,
                     shadowColor: boxColor,
                     margin: EdgeInsets.symmetric(horizontal:25,vertical: 5),
-                    color: boxColor.withOpacity(0.8),
+                    color: BrandColors.colorPrimary,
                     child: ListTile(
                       leading:  FaIcon(FontAwesomeIcons.user,size: 20,color: Colors.white70.withOpacity(0.7),),
                       title: Text(
@@ -149,7 +149,7 @@ class _MyFriendsState extends State<MyFriends> {
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(duration: Duration(seconds: 1),
       content: Text(value,style: myStyle(15,Colors.white,),),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.indigo,
     ));
   }
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();

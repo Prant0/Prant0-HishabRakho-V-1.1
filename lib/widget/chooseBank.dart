@@ -42,6 +42,7 @@ class _ChooseBankState extends State<ChooseBank> {
        catch(e){
          bankList.add(bankModel);
        }
+       
       }
       print("${bankList.length}");
       return bankList;
@@ -113,7 +114,7 @@ class _ChooseBankState extends State<ChooseBank> {
                        );
                      }else
                       {
-                        return GridView.builder(
+                        return  bankList.isEmpty? Center(child: Text("Bank list is empty",style: myStyle(16,BrandColors.colorText),),):GridView.builder(
                           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 2,
@@ -197,27 +198,7 @@ class _ChooseBankState extends State<ChooseBank> {
 
     );
   }
-  /* _searchBar(){
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      child: TextField(
-        style:myStyle(16,Colors.white,FontWeight.w600),
-        decoration: InputDecoration(
-          hintStyle: myStyle(16,Colors.white,FontWeight.w600),
-          hintText: "Search"
-        ),
-        onChanged: (text){
-          text=text.toLowerCase();
-          setState(() {
-            bankList=bankList.where((post) {
-              var postTitle = post.storageHubName.toLowerCase();
-              return postTitle.contains(text);
-            }).toList();
-          });
-        },
-      ),
-    );
-  }*/
+
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(
       new SnackBar(

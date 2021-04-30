@@ -1,9 +1,4 @@
 
-
-
-
-
-
 import 'dart:convert';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
@@ -21,7 +16,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
-
 
 
 class EarningForm extends StatefulWidget {

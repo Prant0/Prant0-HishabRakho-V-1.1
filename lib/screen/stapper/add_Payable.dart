@@ -356,7 +356,7 @@ class _AddPayableStepperState extends State<AddPayableStepper> {
                 padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('ok',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;

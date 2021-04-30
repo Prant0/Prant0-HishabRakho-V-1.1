@@ -313,7 +313,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                 padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Ok',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);

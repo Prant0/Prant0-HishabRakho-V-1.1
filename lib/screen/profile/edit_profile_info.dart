@@ -246,30 +246,30 @@ class _EditInfoState extends State<EditInfo> {
         var response = await request.send();
         var responseData = await response.stream.toBytes();
         var responseString = String.fromCharCodes(responseData);
-        print("responseBody " + responseString);
         if (response.statusCode == 201) {
-          await sharedPreferences.remove('image');
-          await sharedPreferences.remove('userName');
         print("responseBody1 " + responseString);
         var data = jsonDecode(responseString);
-          setState(() {
+        await sharedPreferences.remove('userName');
+        if(_image !=null){
+          await sharedPreferences.remove('image');
+          setState(()  {
             sharedPreferences.setString("image", data['image']);
             sharedPreferences.setString("userName", data['name']);
-
-          });
-          print("save image");
-          img = sharedPreferences.getString("image");
-          print('img is $img');
-          print('name is${sharedPreferences.getString("userName")
-          }');
-        showInSnackBar("update successful");
-          setState(() {
             onProgress = false;
           });
+        }else{
+          setState(()  {
+            sharedPreferences.setString("userName", data['name']);
+            onProgress = false;
+          });
+        }
+
+        showInSnackBar("update successful");
         Provider.of<UserDetailsProvider>(context,listen: false).deletedetails();
         Navigator.pop(context);
         Navigator.pop(context);
-        } else {
+        }
+        else {
         showInSnackBar("update Failed, Try again please");
         print("update failed " + responseString);
         setState(() {
@@ -286,6 +286,7 @@ class _EditInfoState extends State<EditInfo> {
   }
 
 
+
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: Text(
@@ -296,7 +297,7 @@ class _EditInfoState extends State<EditInfo> {
       ),
       backgroundColor: Colors.indigo,
     ));
-
-
   }
+
+
 }

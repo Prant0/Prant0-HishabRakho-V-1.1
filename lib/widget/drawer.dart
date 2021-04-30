@@ -220,15 +220,13 @@ class _DrawerrState extends State<Drawerr> {
 
   Future<void> displayTextInputDialog(BuildContext context) async {
     return showDialog(
-      //barrierColor: Colors.transparent,
-
         context: context,
         builder: (context) {
           return AlertDialog(
             elevation: 1,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 30,left: 30),
-            contentPadding: EdgeInsets.only(left: 30,right: 30,),
+            titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 20,left: 30),
+            contentPadding: EdgeInsets.only(left: 30,right: 15,),
             backgroundColor:  BrandColors.colorPrimaryDark,
             title: Text('Log out from the app?'),
             actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),

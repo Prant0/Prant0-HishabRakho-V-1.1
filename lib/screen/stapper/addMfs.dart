@@ -418,7 +418,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                 padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Ok',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;

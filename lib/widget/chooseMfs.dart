@@ -108,7 +108,7 @@ class _ChooseMfsState extends State<ChooseMfs> {
                         );
                       }else
                       {
-                        return Container(
+                        return mfsList.isEmpty? Center(child: Text("Mfs list is empty",style: myStyle(16,BrandColors.colorText),),): Container(
                           margin: EdgeInsets.only(top: 10),
                           child: GridView.builder(
                             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
