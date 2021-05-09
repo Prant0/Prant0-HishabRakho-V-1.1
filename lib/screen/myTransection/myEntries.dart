@@ -36,7 +36,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
       });
       String bal = await Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
     setState(() {
-      print("bal isssssssssssssssssssssssssssssss $bal");
+
       bal=="yes"? list.removeWhere((element) => element.eventId==eventId) : " ";
       Provider.of<MyTransectionprovider>(
           context,
@@ -62,7 +62,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
       onProgress = true;
     });
     final data = await CustomHttpRequests.myEntriesData();
-    print("my Entries data areeee $data");
+
     for (var entries in data) {
       setState(() {
         onProgress = false;
@@ -78,7 +78,6 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
         eventId: entries["event_id"],
       );
       try {
-        print(" my entries data are *-*-*-*${entries['amount']}");
         list.firstWhere((element) => element.id == entries['id']);
       } catch (e) {
         setState(() {
@@ -167,7 +166,6 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            print("tap ${list[index].eventId}");
                             if (mounted) {
                               myEntriesView(list[index].eventId);
                             }
@@ -293,7 +291,6 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                                 child: Text("No")),
                                             FlatButton(
                                                 onPressed: () {
-                                                  print("tap");
                                                   CustomHttpRequests.deleteList(list[index].eventId).then((value) => value);
                                                   setState(() {
                                                     list.removeAt(index);

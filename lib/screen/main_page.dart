@@ -5,9 +5,8 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/entries_Home_Model.dart';
 import 'package:anthishabrakho/screen/addEntriesCategories.dart';
 import 'package:anthishabrakho/screen/addEntriesSubCategories.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
-import 'package:anthishabrakho/screen/reports/report_category.dart';
 import 'package:anthishabrakho/screen/tabs/myBudget.dart';
 import 'package:anthishabrakho/screen/tabs/myReports.dart';
 import 'package:anthishabrakho/screen/tabs/myStorageHubs.dart';
@@ -45,7 +44,6 @@ class _MainPageState extends State<MainPage>
       } else
         showInSnackBar("No Internet Connection");
     });
-
     super.initState();
   }
 
@@ -147,7 +145,7 @@ class _MainPageState extends State<MainPage>
     sharedPreferences = await SharedPreferences.getInstance();
     userName = sharedPreferences.getString("userName");
     print(
-        "user anme issssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss ${userName}");
+        "user anme isssssssssssssssssssssssssssssssssssssssssss ${userName}");
     image = sharedPreferences.getString("image");
     print("image is $image");
   }
@@ -183,8 +181,8 @@ class _MainPageState extends State<MainPage>
             icon: SvgPicture.asset(
               "assets/drawer.svg",
               fit: BoxFit.contain,
-              height: 21,
-              width: 21,
+              height: 20,
+              width: 20,
             ),
             onPressed: () {
               _scaffoldKey.currentState.openDrawer();
@@ -203,10 +201,10 @@ class _MainPageState extends State<MainPage>
               },
               child: Container(
                 margin: EdgeInsets.only(top: 12, right: 8, left: 8, bottom: 5),
-                padding: const EdgeInsets.all(3.0),
+
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 1.0),
+                  border: Border.all(color: BrandColors.colorText, width: 1.5),
                 ),
                 child: CircleAvatar(
                     backgroundColor: Colors.transparent,
@@ -240,7 +238,7 @@ class _MainPageState extends State<MainPage>
               Visibility(
                 visible: _currentSelected==0 || _currentSelected==1 || _currentSelected==2 || _currentSelected==4,
                 child: Positioned(
-                  bottom: 20,
+                  bottom: 16,
                   right: 20,
                   height: 50,
                   width: 50,
@@ -398,10 +396,12 @@ class _MainPageState extends State<MainPage>
                   ]),
               child: FittedBox(
                 child: GNav(
+
                   curve: Curves.fastOutSlowIn,
-                  duration: Duration(milliseconds: 900),
+                  duration: Duration(milliseconds: 300),
                   tabs: [
                     GButton(
+                      
                       gap: gap,
                       text: "Home",
                       leading:_currentSelected == 0 ? SvgPicture.asset(
@@ -414,14 +414,15 @@ class _MainPageState extends State<MainPage>
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
+                        color: BrandColors.colorText.withOpacity(0.6),
                       ),
                       textColor: BrandColors.colorPrimary,
                       padding: padding,
                       textStyle: myStyle(14, BrandColors.colorText, FontWeight.w500),
-                      backgroundColor: BrandColors.colorPrimaryDark,
+                      backgroundColor: BrandColors.colorPrimaryDark.withOpacity(0.8),
                     ),
                     GButton(
-                      backgroundColor: BrandColors.colorPrimaryDark,
+                      backgroundColor: BrandColors.colorPrimaryDark.withOpacity(0.8),
                       gap: gap,
                       text: "Storage",
                       leading:_currentSelected == 1 ? SvgPicture.asset(
@@ -434,6 +435,7 @@ class _MainPageState extends State<MainPage>
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
+                        color: BrandColors.colorText.withOpacity(0.6),
                       ),
                       textColor: BrandColors.colorPrimary,
                       padding: padding,
@@ -454,12 +456,13 @@ class _MainPageState extends State<MainPage>
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
+                        color: BrandColors.colorText.withOpacity(0.6),
                       ),
                       textColor: BrandColors.colorPrimary,
                       padding: padding,
                       textStyle:
                           myStyle(14, BrandColors.colorText, FontWeight.w500),
-                      backgroundColor: BrandColors.colorPrimaryDark,
+                      backgroundColor:  BrandColors.colorPrimaryDark.withOpacity(0.8),
                     ),
                     GButton(
                       gap: gap,
@@ -474,10 +477,11 @@ class _MainPageState extends State<MainPage>
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
+                        color: BrandColors.colorText.withOpacity(0.6),
                       ),
                       textColor: BrandColors.colorPrimary,
                       padding: padding,
-                      backgroundColor: BrandColors.colorPrimaryDark,
+                      backgroundColor:  BrandColors.colorPrimaryDark.withOpacity(0.8),
                       textStyle:
                           myStyle(14, BrandColors.colorText, FontWeight.w500),
                     ),
@@ -494,9 +498,10 @@ class _MainPageState extends State<MainPage>
                         fit: BoxFit.contain,
                         height: 21,
                         width: 21,
+                        color: BrandColors.colorText.withOpacity(0.6),
                       ),
                       padding: padding,
-                      backgroundColor: BrandColors.colorPrimaryDark,
+                      backgroundColor:  BrandColors.colorPrimaryDark.withOpacity(0.8),
                       textStyle:
                           myStyle(14, BrandColors.colorText, FontWeight.w500),
                     ),
@@ -512,62 +517,6 @@ class _MainPageState extends State<MainPage>
               )),
         ));
 
-    /*Container(
-          margin: EdgeInsets.only(left: 17, right: 17, bottom: 12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: BrandColors.colorPrimary,
-          ),
-          child: TabBar(
-            labelPadding: EdgeInsets.only(top:2),
-            indicatorColor: Colors.transparent,
-            physics: BouncingScrollPhysics(),
-            //indicatorPadding: EdgeInsets.symmetric(horizontal: 2),
-            labelColor: BrandColors.colorText,
-            unselectedLabelColor: BrandColors.colorDimText,
-            labelStyle: myStyle(14),
-            onTap: _onItemTapped,
-            tabs: <Widget>[
-              Tab(
-                text: "Home",
-                icon:SvgPicture.asset("assets/home.svg",
-                  fit: BoxFit.contain,
-                  height: 21,width: 21,
-                ),
-              ),
-              Tab(
-                text: "Storage",
-                icon:SvgPicture.asset("assets/storage.svg",
-                  fit: BoxFit.contain,
-                  height: 21,width: 21,
-
-                ),
-              ),
-              Tab(
-                text: "Budget",
-                icon: SvgPicture.asset("assets/budget.svg",
-                  fit: BoxFit.contain,
-                  height: 21,width: 21,
-                ),
-              ),
-              Tab(
-                text: "Reports",
-                icon:SvgPicture.asset("assets/report.svg",
-                  fit: BoxFit.contain,
-                  height: 21,width: 21,
-                ),
-              ),
-              Tab(
-                text: "Entries",
-                icon:SvgPicture.asset("assets/entries.svg",
-                  fit: BoxFit.contain,
-                  height: 21,width: 21,
-                ),
-              ),
-            ],
-            controller: tabController,
-          ),
-        ));*/
   }
 
   void showInSnackBar(String value) {
@@ -582,12 +531,7 @@ class _MainPageState extends State<MainPage>
 
   int _currentSelected = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentSelected = index;
-      print("index is $_currentSelected");
-    });
-  }
+
 
   var padding = EdgeInsets.symmetric(horizontal: 20, vertical: 18);
   double gap = 20;

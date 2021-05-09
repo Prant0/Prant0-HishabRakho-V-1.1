@@ -2,6 +2,7 @@
 
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -36,13 +37,13 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text(widget.name ?? "Cash"),
+      //  title: Text(widget.name ?? "Cash"),
       ),
       body: ModalProgressHUD(
         progressIndicator: Spin(),
         inAsyncCall: onProgress,
         child: ListView(children: [
-          Container(
+          widget.number==null? Center(child: Text("Cash",style: myStyle(16,BrandColors.colorText,FontWeight.w500),)):   Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -57,7 +58,12 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
                 SizedBox(height: 10,),
                 Text(" ${widget.name ??""}",style: myStyle(18,BrandColors.colorWhite,FontWeight.w500),),
                 SizedBox(height: 5,),
-                Text("${widget.number ?? ""}",style: myStyle(14,BrandColors.colorText,FontWeight.w400),)
+
+              Text(
+                  "A/C: ${widget.number} " ??"",
+                  style:
+                  myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
+                ),
               ],
             ),
           ),

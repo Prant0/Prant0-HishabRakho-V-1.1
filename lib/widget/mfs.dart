@@ -1,6 +1,6 @@
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
 import 'package:flutter/material.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:intl/intl.dart';
 
 import '../globals.dart';
@@ -25,22 +25,20 @@ class _MfsWidgetState extends State<MfsWidget> {
         children: [
 
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,vertical: 8
-            ),
+            padding: EdgeInsets.only(top: 8,right: 12,left: 12,bottom: 2),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "MFS Balance",
-                  style: myStyle(14, BrandColors.colorDimText,FontWeight.w400),
+                  style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7),FontWeight.w400),
                 ),
 
                 moneyField(
                   amount: widget.totalMfsDetails,
                   ts: myStyle(16,Colors.white,FontWeight.w500),
-                  offset: Offset(-1, -8),
+                  offset: Offset(0, -8),
                   tks: myStyle(12,Colors.white),
                 ),
               ],
@@ -62,8 +60,8 @@ class _MfsWidgetState extends State<MfsWidget> {
                   : ListTile(
                       leading: Image.network(
                         "http://hishabrakho.com/admin/storage/hub/${widget.model[index].storageHubLogo}",
-                        width: 60,
-                        height: 50,
+                        width: 44,
+                        height: 44,
                         fit: BoxFit.fill,
                       ),
                       title: Text(
@@ -75,17 +73,17 @@ class _MfsWidgetState extends State<MfsWidget> {
                         amount: widget.model[index].currentMfsBalance,
                         ts: myStyle(12,Colors.white,FontWeight.w500),
                         offset: Offset(-1, -8),
-                        tks: myStyle(10,Colors.white,FontWeight.w500) ,
+                        tks: myStyle(12,Colors.white,FontWeight.w500) ,
                       ),
-                      subtitle: Text(
-                        "A/C:${widget.model[index].userStorageHubAccountNumber} ",
+                      subtitle:  Text(
+                        "A/C: ${widget.model[index].userStorageHubAccountNumber} ",
                         style: myStyle(
                             12, BrandColors.colorDimText.withOpacity(0.5), FontWeight.w400),
                       ),
                     );
             },
           ),
-          Text(  widget.model.length > 2 ? "View All  >" :"",style: myStyle(12,BrandColors.colorPurple),),
+         // Text(  widget.model.length > 2 ? "View All  >" :"",style: myStyle(12,BrandColors.colorPurple),),
           SizedBox(height: 8,),
         ],
       ),

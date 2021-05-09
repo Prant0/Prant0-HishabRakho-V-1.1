@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:anthishabrakho/providers/dashBoardProviders.dart';
-import 'package:anthishabrakho/providers/mySitationProvider.dart';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
 import 'package:anthishabrakho/providers/storageHubProvider.dart';
 import 'package:anthishabrakho/providers/user_dertails_provider.dart';
-import 'package:anthishabrakho/screen/add_Storage_hub.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/login_page.dart';
 import 'package:anthishabrakho/screen/main_page.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
@@ -25,10 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: DashBoardProviders()),
         ChangeNotifierProvider.value(value: UserDetailsProvider()),
         ChangeNotifierProvider.value(value: MyTransectionprovider()),
-        ChangeNotifierProvider.value(value: MySituationProvider()),
         ChangeNotifierProvider.value(value: StorageHubProvider()),
       ],
       child: MaterialApp(

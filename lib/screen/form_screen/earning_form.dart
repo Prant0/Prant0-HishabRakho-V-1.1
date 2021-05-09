@@ -16,7 +16,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 
 class EarningForm extends StatefulWidget {
   int id;
@@ -748,8 +748,7 @@ class _EarningFormState extends State<EarningForm> {
                                 FittedBox(
                                   child: Text(
                                     widget.title,
-                                    style:
-                                    myStyle(17, Colors.white, FontWeight.w700),overflow: TextOverflow.ellipsis,
+                                    style: myStyle(15, Colors.white, FontWeight.w700),overflow: TextOverflow.ellipsis,maxLines: 2,
                                   ),
                                 ),
                                 GestureDetector(

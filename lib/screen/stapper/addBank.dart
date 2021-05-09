@@ -12,7 +12,7 @@ import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
-
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 class AddBankStapper extends StatefulWidget {
   static const String id = 'addBank';
   final String types;

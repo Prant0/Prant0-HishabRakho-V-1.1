@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:intl/intl.dart';
 
@@ -21,25 +21,29 @@ class _BankWidgetState extends State<BankWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
+
         child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.only(top: 8,right: 12,left: 12,bottom: 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Bank Balance",
-                  style: myStyle(14, BrandColors.colorText,FontWeight.w400),
+                  style: myStyle(14, BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
                 ),
                 moneyField(
                   amount: widget.totalBankBalance,
                   ts: myStyle(16, Colors.white, FontWeight.w500),
-                  offset: Offset(-1, -8),
+                  offset: Offset(0, -8),
                   tks: myStyle(12,Colors.white),
+
                 ),
               ],
             ),
@@ -59,8 +63,8 @@ class _BankWidgetState extends State<BankWidget> {
                   : ListTile(
                       leading: Image.network(
                         "http://hishabrakho.com/admin/storage/hub/${widget.model[index].storageHubLogo}",
-                        width: 60,
-                        height: 50,
+                        width: 44,
+                        height: 44,
                         fit: BoxFit.cover,
                       ),
                       title: Text(
@@ -76,20 +80,8 @@ class _BankWidgetState extends State<BankWidget> {
                         tks: myStyle(10,Colors.white),
                       ),
 
-                      /*Text(
-                        NumberFormat.currency(
-                                symbol: ' ৳ ',
-                                decimalDigits: (widget
-                                        .model[index].currentBankBalance) is int
-                                    ? 0
-                                    : 2,
-                                locale: "en-in")
-                            .format(widget.model[index].currentBankBalance),
-                        style: myStyle(
-                            12, BrandColors.colorWhite, FontWeight.w800),
-                      ),*/
                       subtitle: Text(
-                        "A/C:${widget.model[index].userStorageHubAccountNumber} ",
+                        "A/C: ${widget.model[index].userStorageHubAccountNumber.substring(0, 4) + " " + widget.model[index].userStorageHubAccountNumber.substring(4, 8) + " " + widget.model[index].userStorageHubAccountNumber.substring(8, 12) + " " + widget.model[index].userStorageHubAccountNumber.substring(12, widget.model[index].userStorageHubAccountNumber.length)} ",
                         style: myStyle(
                             12, BrandColors.colorDimText.withOpacity(0.5), FontWeight.w400),
                       ),
@@ -100,5 +92,39 @@ class _BankWidgetState extends State<BankWidget> {
         ],
       ),
     ));
+  }
+
+ //
+
+
+  textFormatter(String x) {
+
+    if (x.length == 4) {
+      x = x.substring(0, 1) + "," + x.substring(1, x.length);
+    }
+    if (x.length == 5) {
+      x = x.substring(0, 2) + "," + x.substring(2, x.length);
+    }
+
+    if (x.length == 6) {
+      x = x.substring(0, 3) + "," + x.substring(3, x.length);
+    }
+    if (x.length == 7) {
+      x = x.substring(0, 2) + "," + x.substring(2, x.length);
+      x = x.substring(0, 5) + "," + x.substring(5, x.length);
+    }
+    if (x.length == 8) {
+      x = x.substring(0, 1) + "," + x.substring(1, x.length);
+      x = x.substring(0, 4) + "," + x.substring(4, x.length);
+      x = x.substring(0, 7) + "," + x.substring(7, x.length);
+    }
+    if (x.length == 9) {
+      x = x.substring(0, 3) + "," + x.substring(3, x.length);
+
+      x = x.substring(0, 7) + "," + x.substring(7, x.length);
+    }
+    widget.model[0].userStorageHubAccountNumber = x;
+
+    print(x);
   }
 }

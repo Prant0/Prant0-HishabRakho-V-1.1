@@ -15,7 +15,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 class EditTransaction extends StatefulWidget {
   final MyTransectionModel model;
   String type;
@@ -347,7 +347,7 @@ class _EditTransactionState extends State<EditTransaction> {
                         onTap: () {
                           if (!_formKey.currentState.validate()) return;
                           _formKey.currentState.save();
-                          print("tap");
+
                           final note = MyTransectionModel(
                             amount: double.parse(amountController.text.toString()),
                             details:detailsController.text.toString(),
@@ -378,7 +378,7 @@ class _EditTransactionState extends State<EditTransaction> {
                             amountController.clear();
                             detailsController.clear();
                           });
-                          print("event id is : ${widget.model.eventId.toString()}");
+
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 12,right: 20),
@@ -434,7 +434,8 @@ class _EditTransactionState extends State<EditTransaction> {
         .then((data) {
       try{
         if (data.statusCode == 201) {
-          return {print("Earaning Data updated succesfully"),
+          return {
+
             showInSnackBar("Updated successfully"),
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
             Future.delayed(const Duration(seconds: 1), () {
@@ -474,7 +475,7 @@ class _EditTransactionState extends State<EditTransaction> {
         .then((data) {
       if (data.statusCode == 201) {
         return {
-          print("Expenditure Data updated succesfully"),
+
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
           showInSnackBar("Updated successfully"),
           Future.delayed(const Duration(seconds: 1), () {
@@ -505,7 +506,6 @@ class _EditTransactionState extends State<EditTransaction> {
         .then((data) {
       if (data.statusCode == 201) {
         return {
-          print("payable Data updated succesfully"),
           showInSnackBar("Updated successfully"),
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
           Future.delayed(const Duration(seconds: 1), () {
@@ -535,8 +535,6 @@ class _EditTransactionState extends State<EditTransaction> {
             body: json.encode(item.toReceivable()))
         .then((data) {
       if (data.statusCode == 201) {
-        print("updated value ${data.body}");
-          print("Receivable Data updated successfully");
         Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
           showInSnackBar("Updated successfully");
 

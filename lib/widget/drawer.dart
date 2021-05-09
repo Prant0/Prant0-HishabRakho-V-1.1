@@ -226,11 +226,11 @@ class _DrawerrState extends State<Drawerr> {
             elevation: 1,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
             titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 20,left: 30),
-            contentPadding: EdgeInsets.only(left: 30,right: 15,),
+            contentPadding: EdgeInsets.only(left: 30,right: 20,),
             backgroundColor:  BrandColors.colorPrimaryDark,
             title: Text('Log out from the app?'),
             actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
-            content: Text("Make sure you have checked everything \n you wanted to.",),
+            content: Text("Make sure you have checked everything you wanted to.",),
             contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
             titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
             actions: <Widget>[

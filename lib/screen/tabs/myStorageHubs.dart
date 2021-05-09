@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:anthishabrakho/screen/add_Storage_hub.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/stapper/addBank.dart';
 import 'package:anthishabrakho/screen/stapper/addMfs.dart';
 import 'package:anthishabrakho/screen/viewStorageHubDetails.dart';
@@ -216,6 +215,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                     children: [
                       Container(
                         height: 88,
+                        //padding:EdgeInsets.symmetric(vertical: 20),
                         margin: EdgeInsets.only(bottom: 25, top: 15,right: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
@@ -231,15 +231,38 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   children: [
                                     Text(
                                       "Cash",
-                                      style: myStyle(14, BrandColors.colorDimText),
+                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
                                     ),
                                     SizedBox(height: 6,),
-                                    moneyField(
-                                      amount: allData[index].totalCashAmount ?? 0,
-                                      ts: myStyle(16, Colors.white, FontWeight.w500),
-                                      offset: Offset(-1, -8),
-                                      tks: myStyle(12,Colors.white),
-                                    ),
+
+                                    RichText(
+                                      text: TextSpan(children: [
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                            offset:  Offset(-1, -8),
+                                            child: Text(
+                                              '৳',
+                                              textScaleFactor: 1.0,
+                                              style: myStyle(12,BrandColors.colorText),
+                                            ),
+                                          ),
+                                        ),
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                              offset: const Offset(1, -4),
+                                              child: Text(
+                                                  NumberFormat
+                                                      .compactCurrency(
+                                                    symbol: '',
+                                                  ).format(allData[index].totalCashAmount ?? 0),
+                                                  style:  myStyle(16, Colors.white, FontWeight.w700),)
+                                          ),
+                                        ),
+                                      ]),
+                                    )
+
 
                                   ],
                                 ),
@@ -251,15 +274,37 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   children: [
                                     Text(
                                       "Bank",
-                                      style: myStyle(14, BrandColors.colorDimText),
+                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
                                     ),
                                     SizedBox(height: 6,),
-                                    moneyField(
-                                      amount: allData[index].totalBankAmount ?? 0,
-                                      ts: myStyle(16, Colors.white, FontWeight.w500),
-                                      offset: Offset(-1, -8),
-                                      tks: myStyle(12,Colors.white),
-                                    ),
+                                    RichText(
+                                      text: TextSpan(children: [
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                            offset:  Offset(-1, -8),
+                                            child: Text(
+                                              '৳',
+                                              textScaleFactor: 1.0,
+                                              style: myStyle(12,BrandColors.colorText),
+                                            ),
+                                          ),
+                                        ),
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                              offset: const Offset(1, -4),
+                                              child: Text(
+                                                NumberFormat
+                                                    .compactCurrency(
+                                                  symbol: '',
+                                                ).format(allData[index].totalBankAmount ?? 0,),
+                                                style:  myStyle(16, Colors.white, FontWeight.w700),)
+                                          ),
+                                        ),
+                                      ]),
+                                    )
+
                                   ],
                                 ),
                               ),
@@ -270,15 +315,37 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   children: [
                                     Text(
                                       "MFS",
-                                      style: myStyle(14, BrandColors.colorDimText),
+                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
                                     ),
                                     SizedBox(height: 6),
-                                    moneyField(
-                                      amount: allData[index].totalMfsAmount ?? 0,
-                                      ts: myStyle(16, Colors.white, FontWeight.w500),
-                                      offset: Offset(-1, -8),
-                                      tks: myStyle(12,Colors.white),
-                                    ),
+                                    RichText(
+                                      text: TextSpan(children: [
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                            offset:  Offset(-1, -8),
+                                            child: Text(
+                                              '৳',
+                                              textScaleFactor: 1.0,
+                                              style: myStyle(12,BrandColors.colorText),
+                                            ),
+                                          ),
+                                        ),
+
+                                        WidgetSpan(
+                                          child: Transform.translate(
+                                              offset: const Offset(1, -4),
+                                              child: Text(
+                                                NumberFormat
+                                                    .compactCurrency(
+                                                  symbol: '',
+                                                ).format(allData[index].totalMfsAmount ?? 0,),
+                                                style:  myStyle(16, Colors.white, FontWeight.w700),)
+                                          ),
+                                        ),
+                                      ]),
+                                    )
+
                                   ],
                                 ),
                               ),
@@ -374,20 +441,16 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 10),
+                                              horizontal: 10, vertical: 8),
                                           alignment: Alignment.center,
-                                          margin:
-                                          EdgeInsets.symmetric(vertical: 18),
+                                          margin: EdgeInsets.symmetric(vertical: 18),
                                           decoration: BoxDecoration(
-                                            //color: BrandColors.colorPrimaryDark,
-                                              borderRadius:
-                                              BorderRadius.circular(5),
+                                              borderRadius: BorderRadius.circular(5),
                                               border: Border.all(
-                                                  color:
-                                                  Colors.deepPurpleAccent)),
+                                                  color: Colors.deepPurpleAccent)),
                                           child: SvgPicture.asset("assets/edit.svg",
                                             alignment: Alignment.center,
-                                            height: 20,width: 12,
+                                            height: 18,width: 9,
                                           ),
                                         ),
                                       )
@@ -657,7 +720,7 @@ class StorageCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 18),
+      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 0),
       margin: EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
           color: BrandColors.colorPrimary,
@@ -666,7 +729,7 @@ class StorageCart extends StatelessWidget {
       width: 335,
       height: 160,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Row(
             mainAxisAlignment:
@@ -683,26 +746,29 @@ class StorageCart extends StatelessWidget {
                   ),
 
                   SizedBox(height: 4,),
-                  Text(
-                    accountNumber ??
-                        "",
+                 accountNumber.length >11? Text(
+                    "A/C: ${accountNumber.substring(0, 4) + " " + accountNumber.substring(4, 8) + " " + accountNumber.substring(8, 12) + " " +accountNumber.substring(12, accountNumber.length)} " ??"",
                     style:
-                    myStyle(16, BrandColors.colorDimText.withOpacity(0.6)),
-                  )
+                    myStyle(12, BrandColors.colorDimText.withOpacity(0.6)),
+                  ):Text(
+                   "A/C: ${accountNumber} " ??"",
+                   style:
+                   myStyle(16, BrandColors.colorDimText.withOpacity(0.6)),
+                 )
                 ],
               ),
               Container(
 
                 child: Image.network(
                   "http://hishabrakho.com/admin/storage/hub/${photo?? ""}",
-                  height: 45,
-                  width: 70,
-                  fit: BoxFit.fill,
+
+                  fit: BoxFit.cover,
                 ),
               )
             ],
           ),
           Row(
+
             mainAxisAlignment:
             MainAxisAlignment.spaceBetween,
             children: [
@@ -715,7 +781,7 @@ class StorageCart extends StatelessWidget {
                     style:
                     myStyle(12, BrandColors.colorDimText.withOpacity(0.6)),
                   ),
-                  SizedBox(height: 4,),
+                  SizedBox(height: 8,),
 
                   moneyField(
                     amount: balance ?? 0,
@@ -728,10 +794,25 @@ class StorageCart extends StatelessWidget {
               ),
               Container(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
                         onTap: edit,
                         child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 8),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(vertical: 18),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  color: Colors.deepPurpleAccent)),
+                          child: SvgPicture.asset("assets/edit.svg",
+                            alignment: Alignment.center,
+                            height: 18,width: 9,
+                          ),
+                        ),
+                        /*Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
                           alignment: Alignment.center,
@@ -747,7 +828,7 @@ class StorageCart extends StatelessWidget {
                             alignment: Alignment.center,
                             height: 20,width: 12,
                           ),
-                        ),
+                        ),*/
                       ),
                       IconButton(
                         onPressed: () {
@@ -772,8 +853,7 @@ class StorageCart extends StatelessWidget {
                                   actions: <Widget>[
                                     FlatButton(
                                         onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(false);
+                                          Navigator.of(context).pop(false);
                                         },
                                         child: Text("No")),
                                     FlatButton(
@@ -785,7 +865,7 @@ class StorageCart extends StatelessWidget {
                         },
                         icon: SvgPicture.asset("assets/delete.svg",
                           alignment: Alignment.center,
-                          height: 20,width: 12,
+                          height: 20,width: 13,
                         ),
                       )
                     ],

@@ -1,7 +1,7 @@
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
-import 'package:anthishabrakho/screen/home_page.dart';
+import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/stapper/add_Payable.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
@@ -170,36 +170,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
     );
   }
 
-  void textFormatter(String x) {
-    amountController.clear();
-    if (x.length == 4) {
-      x = x.substring(0, 1) + "," + x.substring(1, x.length);
-    }
-    if (x.length == 5) {
-      x = x.substring(0, 2) + "," + x.substring(2, x.length);
-    }
 
-    if (x.length == 6) {
-      x = x.substring(0, 3) + "," + x.substring(3, x.length);
-    }
-    if (x.length == 7) {
-      x = x.substring(0, 2) + "," + x.substring(2, x.length);
-      x = x.substring(0, 5) + "," + x.substring(5, x.length);
-    }
-    if (x.length == 8) {
-      x = x.substring(0, 1) + "," + x.substring(1, x.length);
-      x = x.substring(0, 4) + "," + x.substring(4, x.length);
-      x = x.substring(0, 7) + "," + x.substring(7, x.length);
-    }
-    if (x.length == 9) {
-      x = x.substring(0, 3) + "," + x.substring(3, x.length);
-
-      x = x.substring(0, 7) + "," + x.substring(7, x.length);
-    }
-    amountController.text = x;
-
-    print(x);
-  }
 
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(

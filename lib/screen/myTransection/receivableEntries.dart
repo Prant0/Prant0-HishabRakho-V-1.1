@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
-import 'package:anthishabrakho/providers/mySitationProvider.dart';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
 import 'package:anthishabrakho/screen/myTransection/edit_transection.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
@@ -39,7 +38,6 @@ class _TransactionReceivableEntriesState
     });
     String bal = await Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
     setState(() {
-      print("bal isssssssssssssssssssssssssssssss $bal");
       bal=="yes"? list.removeWhere((element) => element.eventId==eventId) : " ";
     });
   }
@@ -49,48 +47,13 @@ class _TransactionReceivableEntriesState
   Color boxColor = Color(0xFF021A2C);
   double iconSize = 40;
 
-  /*Future<dynamic> getMyRecievableEntries() async {
-    print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-    setState(() {
-      onProgress = true;
-    });
-    final data = await CustomHttpRequests.myReceiveableEntriesData();
-    print("my Recievable Entries data areeee $data");
-    if(mounted){
-      setState(() {
-        onProgress = false;
-      });
-    }
-    for (var entries in data) {
-      model = MyTransectionModel(
-        id: entries["id"],
-        amount: entries["amount"],
-        eventId: entries["event_id"],
-        formatedDate: entries["formated_date"],
-        eventType: entries["event_type"],
-        eventSubCategoryName: entries["event_sub_category_name"],
-        friendName: entries["friend_name"],
-        balance: entries["balance"],
-        transactionTypeId: entries["transaction_type_id"],
-        eventSubCategoryId: entries["event_sub_category_id"],
-        details: entries["details"],
-      );
-      try {
-        print(" my Recievable entries data are ${entries['id']}");
-        list.firstWhere((element) => element.id == entries['id']);
-      } catch (e) {
-        setState(() {
-          list.add(model);
-        });
-      }
-    }
-  }*/
+
 
 
   getTransectionData() async {
-    print("get MyRecievable Entries");
+
     final data = await Provider.of<MyTransectionprovider>(context, listen: false).getMyRecievableEntries();
-    print("getMyRecievableEntries  ${data}");
+
   }
 
   @override
@@ -167,8 +130,6 @@ class _TransactionReceivableEntriesState
                       actionExtentRatio: 0.25,
                       child: GestureDetector(
                         onTap:  () {
-                          print(
-                              "tap ${list[index].eventId}");
                           if (mounted) {
                             myReceivableView(
                                 list[index].eventId);
@@ -245,8 +206,7 @@ class _TransactionReceivableEntriesState
                           color: BrandColors.colorPrimary,
                           icon: Icons.more_horiz,
                           onTap:  () {
-                            print(
-                                "transection type id :${list[index].transactionTypeId}");
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -297,7 +257,7 @@ class _TransactionReceivableEntriesState
                                           child: Text("No")),
                                       FlatButton(
                                           onPressed: () {
-                                            print("tap");
+
                                             CustomHttpRequests
                                                 .deleteList(list[
                                             index]
@@ -333,248 +293,7 @@ class _TransactionReceivableEntriesState
         ),
       ),
     );
-    /*Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text(
-          "My Receivable Entries",
-          style: myStyle(
-            18,
-            Colors.white,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),
-      body: ModalProgressHUD(
-        inAsyncCall: onProgress,
-        child: Container(
-            padding: EdgeInsets.only(top: 40, left: 15, right: 15),
-            child: SingleChildScrollView(
-              child: Column(children: <Widget>[
-                transection.isEmpty
-                    ? Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150),
-                        child: Text(
-                          "Empty Receivable Entries",
-                          style: myStyle(18, Colors.white70, FontWeight.w700),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    : ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: transection.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(vertical: 12),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: boxColor,
-                                        border: Border.all(
-                                            color: Colors.red, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    child: ListTile(
-                                        onTap: () {
-                                          print("tab");
-                                          myReceivableView(
-                                              transection[index].eventId);
-                                        },
-                                        leading: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Date :",
-                                              style: myStyle(13, Colors.white),
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            transection[index].formatedDate !=
-                                                    null
-                                                ? Text(
-                                                    transection[index]
-                                                        .formatedDate,
-                                                    style: myStyle(
-                                                        14, Colors.white),
-                                                  )
-                                                : Text(""),
-                                          ],
-                                        ),
-                                        title: transection[index]
-                                                    .eventSubCategoryName !=
-                                                null
-                                            ? Text(
-                                                transection[index]
-                                                    .eventSubCategoryName,
-                                                style:
-                                                    myStyle(16, Colors.white),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              )
-                                            : Text(""),
-                                        subtitle: transection[index]
-                                                    .friendName !=
-                                                null
-                                            ? Text(
-                                                transection[index].friendName,
-                                                style:
-                                                    myStyle(16, Colors.white),
-                                              )
-                                            : Text(""),
-                                        trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Amount ",
-                                              style: myStyle(14, Colors.white),
-                                            ),
-                                            transection[index].amount != null
-                                                ? Text(
-                                                    NumberFormat.currency(
-                                                            symbol: ' ৳ ',
-                                                            decimalDigits:
-                                                                (transection[index]
-                                                                            .amount)
-                                                                        is int
-                                                                    ? 0
-                                                                    : 2,
-                                                            locale: "en-in")
-                                                        .format(
-                                                            transection[index]
-                                                                .amount),
-                                                    style: myStyle(
-                                                        16, Colors.white),
-                                                  )
-                                                : Text(""),
-                                          ],
-                                        )),
-                                  ),
-                                ),
-                                Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      children: [
-                                        InkWell(
-                                          child: Icon(
-                                            Icons.remove_red_eye_outlined,
-                                            size: 30,
-                                            color: Color(0xffa7ffeb),
-                                          ),
-                                          onTap: () {
-                                            myReceivableView(
-                                                transection[index].eventId);
-                                          },
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EditTransaction(
-                                                          model: transection[
-                                                              index],
-                                                          type: type,
-                                                        )));
-                                          },
-                                          child: Icon(
-                                            Icons.edit_outlined,
-                                            color: Colors.purple,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 12,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                barrierDismissible: false,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        13.0)),
-                                                    title: Text(
-                                                      "Are You Sure ?",
-                                                      style: myStyle(
-                                                          16,
-                                                          Colors.black54,
-                                                          FontWeight.w800),
-                                                    ),
-                                                    content: Text(
-                                                        "You want to delete !"),
-                                                    actions: <Widget>[
-                                                      FlatButton(
-                                                          onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop(false);
-                                                          },
-                                                          child: Text("No")),
-                                                      FlatButton(
-                                                          onPressed: () {
-                                                            print("tap");
-                                                            Provider.of<MyTransectionprovider>(
-                                                                    context,
-                                                                    listen:
-                                                                        false)
-                                                                .deleteTransaction();
-                                                            CustomHttpRequests.deleteList(
-                                                                    transection[
-                                                                            index]
-                                                                        .eventId)
-                                                                .then((value) =>
-                                                                    value);
-                                                            setState(() {
-                                                              // Provider.of<MyTransectionprovider>(context,listen: false).deleteReceivable();
-                                                              transection
-                                                                  .removeAt(
-                                                                      index);
-                                                            });
-                                                            showInSnackBar(
-                                                              "1 Item deleted",
-                                                            );
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text("Yes"))
-                                                    ],
-                                                  );
-                                                });
-                                          },
-                                          child: FaIcon(
-                                            FontAwesomeIcons.trashAlt,
-                                            size: 20,
-                                            color: Colors.redAccent,
-                                          ),
-                                        ),
-                                      ],
-                                    ))
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-              ]),
-            )),
-      ),
-    );*/
+
   }
 
   void showInSnackBar(String value) {
@@ -588,4 +307,5 @@ class _TransactionReceivableEntriesState
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 }

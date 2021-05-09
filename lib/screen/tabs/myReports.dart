@@ -16,13 +16,14 @@ class MyReports extends StatefulWidget {
   _MyReportsState createState() => _MyReportsState();
 }
 
-class _MyReportsState extends State<MyReports>
-    with SingleTickerProviderStateMixin {
+class _MyReportsState extends State<MyReports> with SingleTickerProviderStateMixin {
   DateTime _currentDate = DateTime.now();
+
 
   @override
   Widget build(BuildContext context) {
     String formattedDate = new DateFormat.yMMM().format(_currentDate);
+
 
     return Scaffold(
       backgroundColor: BrandColors.colorPrimaryDark,
@@ -40,55 +41,58 @@ class _MyReportsState extends State<MyReports>
                     "$formattedDate",
                     style: myStyle(16, BrandColors.colorText, FontWeight.w400),
                   ),
+
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        showCupertinoModalPopup(
-                          context: context,
-                          builder: (_) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10.0),
-                                  topLeft: Radius.circular(10.0)),
-                              color: Colors.white,
-                            ),
-                            height: 200,
-                            child: CupertinoDatePicker(
-                                initialDateTime: DateTime.now(),
-                                maximumYear: 2021,
-                                minimumYear: 2019,
-                                mode: CupertinoDatePickerMode.date,
-                                use24hFormat: false,
-                                onDateTimeChanged: (val) {
-                                  setState(() {
-                                    _currentDate = val;
-                                  });
-                                }),
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (_) => Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0)),
+                            color: Colors.white,
                           ),
-                        );
-                      });
+                          height: 200,
+                          child: CupertinoDatePicker(
+                              initialDateTime: DateTime.now(),
+                              maximumYear: 2022,
+                              minimumYear: 2019,
+                              mode: CupertinoDatePickerMode.date,
+                              use24hFormat: false,
+                              onDateTimeChanged: (val) {
+                                setState(() {
+                                  _currentDate = val;
+
+                                });
+                              }),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
                           color: BrandColors.colorPrimary,
                           borderRadius: BorderRadius.circular(10.0)),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 13),
                       child: Row(
                         children: [
+
+
+                          Text(
+                            "Select Month",
+                            style: myStyle(
+                                14, BrandColors.colorText.withOpacity(0.6)),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+
                           Icon(
                             Icons.filter_list_sharp,
                             size: 20,
                             color: BrandColors.colorText,
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "Select Month",
-                            style: myStyle(
-                                14, BrandColors.colorText.withOpacity(0.6)),
-                          )
                         ],
                       ),
                     ),
@@ -97,7 +101,7 @@ class _MyReportsState extends State<MyReports>
               ),
             ),
             Container(
-              padding: EdgeInsets.only(right: 5),
+              padding: EdgeInsets.only(right:10),
               height: 200,
               child: FutureBuilder(
                   future: loadReportData(formattedDate),
@@ -112,41 +116,36 @@ class _MyReportsState extends State<MyReports>
                               name: "",
                               dataSource: allReportData,
                               xValueMapper: (ReportModel sales, _) =>
-                                  allReportData.isNotEmpty
-                                      ? sales.name
-                                      : "Expence",
+                              allReportData.isNotEmpty
+                                  ? sales.name
+                                  : "Expense",
                               yValueMapper: (ReportModel sales, _) =>
-                                  allReportData.isNotEmpty ? sales.amount : 00,
+                              allReportData.isNotEmpty ? sales.amount : 00,
                               enableTooltip: true,
-                              width: 0.3,
+                              width: 0.4,
                               spacing: 0.3,
+                              opacity: 0.8 ,
                               dataLabelSettings: DataLabelSettings(
                                   isVisible: true,
-                                  textStyle: myStyle(
-                                      12, BrandColors.colorPrimaryDark)),
-                              gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
 
-                                    Color(0xFFFF8E54),
-                                    Color(0xFF1FB9FC),
-                                    Color(0xFF34BCA3),
-                                    Color(0xFF8F73F8),
-                                    //Colors.greenAccent,
-                                  ]),
-                              // isTrackVisible: true,trackColor: BrandColors.colorPrimary,isVisibleInLegend: true
+                                  opacity: 0.6,
+                                  textStyle: myStyle(
+                                      12, BrandColors.colorWhite)),
+                              color: BrandColors.colorPurple,
                             ),
                           ]);
                     else
                       return Center(
                           child: Text(
-                        "Loading...",
-                        style:
+                            "Loading...",
+                            style:
                             myStyle(16, BrandColors.colorText, FontWeight.w500),
-                      ));
+                          ));
                   }),
             ),
+
+
+
             Padding(
               padding: EdgeInsets.symmetric(vertical: 40),
               child: Text(
@@ -469,7 +468,11 @@ class _MyReportsState extends State<MyReports>
         amount: category["amount"],
         name: category["name"],
       );
-      allReportData.add(rModel);
+      try{
+        allReportData.firstWhere((element) => element.amount == category["amount"]);
+      }catch(e){
+        allReportData.add(rModel);
+      }
     }
     print("${allReportData[0].name}");
   }

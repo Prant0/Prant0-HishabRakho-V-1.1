@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
-
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

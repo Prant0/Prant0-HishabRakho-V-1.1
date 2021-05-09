@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
-import 'package:anthishabrakho/providers/mySitationProvider.dart';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
 import 'package:anthishabrakho/screen/myTransection/edit_transection.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
@@ -35,7 +34,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
     });
     String bal = await Navigator.push(context, MaterialPageRoute(builder: (context) => Details()));
     setState(() {
-      print("bal isssssssssssssssssssssssssssssss $bal");
+
       bal=="yes"? list.removeWhere((element) => element.eventId==eventId) : " ";
     });
   }
@@ -52,48 +51,11 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
 
 
   getTransectionData() async {
-    print("get getMyPayableEntries");
     final data = await Provider.of<MyTransectionprovider>(context, listen: false)
         .getMyPayableEntries();
-    print("getMyPayableEntries  ${data.toString()}");
   }
 
- /* Future<dynamic> getMyPayableEntries() async {
-    setState(() {
-      onProgress=true;
-    });
-    final data = await CustomHttpRequests.myPayableEntriesData();
-    print("my Payable Entries data areeee $data");
-    if(mounted){
-      setState(() {
-        onProgress=false;
-      });
-    }
-    for (var entries in data) {
-      model = MyTransectionModel(
-        id: entries["id"],
-        amount: entries["amount"],
-        formatedDate: entries["formated_date"],
-        eventSubCategoryName: entries["event_sub_category_name"],
-        friendName: entries["friend_name"],
-        eventId: entries["event_id"],
-        balance: entries["balance"],
-        eventType: entries["event_type"],
-        transactionTypeId: entries["transaction_type_id"],
-        details: entries["details"],
-      );
-      try {
-        print(" Payable entries ${entries['id']}");
-        list.firstWhere((element) => element.id == entries['id']);
-      } catch (e) {
-       if(mounted){
-         setState(() {
-           list.add(model);
-         });
-       }
-      }
-    }
-  }*/
+
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 

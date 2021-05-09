@@ -7,7 +7,7 @@ import 'package:anthishabrakho/screen/main_page.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';

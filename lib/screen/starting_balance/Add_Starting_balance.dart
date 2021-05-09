@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:moneytextformfield/moneytextformfield.dart';
 import 'package:http/http.dart' as http;
-///api/user/personal/starting/receivable/balance/create
+import 'package:anthishabrakho/widget/custom_TextField.dart';
 class AddStartingBalance extends StatefulWidget {
   final String title;
   AddStartingBalance({this.title});
@@ -203,7 +203,7 @@ class _AddStartingBalanceState extends State<AddStartingBalance> {
                         keyy: "details",
                         data: _data,
                         name: details,
-                        lebelText: "write details (optional)",
+                        lebelText: "",
 
                       ),
                       MoneyTextFormField(
