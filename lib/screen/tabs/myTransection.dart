@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -147,7 +148,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
 
                         Tab(
                           child:Text(
-                            "Storage",
+                  getTranslated(context,'t44'),  // "Storage",
                             style: myStyle(
                                 14,
                                 BrandColors.colorDimText),
@@ -155,7 +156,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                         ),
                         Tab(
                           child: Text(
-                            "All Entries",
+                            getTranslated(context,'t45'),  // "All Entries",
                             style: myStyle(
                                 14,
                                 BrandColors
@@ -164,7 +165,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                         ),
                         Tab(
                           child: Text(
-                            "Receivable",
+                            getTranslated(context,'t46'),  // "Receivable",
                             style: myStyle(
                                 14,
                                 BrandColors
@@ -173,7 +174,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                         ),
                         Tab(
                           child: Text(
-                            "Payable",
+                            getTranslated(context,'t47'),  // "Payable",
                             style: myStyle(
                                 14,
                                 BrandColors
@@ -182,7 +183,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                         ),
                         Tab(
                           child: Text(
-                            "Earning",
+                            getTranslated(context,'t48'),  // "Earning",
                             style: myStyle(
                                 14,
                                 BrandColors
@@ -191,7 +192,7 @@ class _MyTransectionState extends State<MyTransection> with SingleTickerProvider
                         ),
                         Tab(
                           child: Text(
-                            "Expenditure",
+                            getTranslated(context,'t49'),  // "Expenditure",
                             style: myStyle(
                                 14,
                                 BrandColors

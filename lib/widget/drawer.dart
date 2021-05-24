@@ -1,3 +1,5 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/widget/select_language.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -130,7 +132,8 @@ class _DrawerrState extends State<Drawerr> {
                                     SizedBox(
                                       width: 15,
                                     ),
-                                    Text("Home",style: myStyle(16,BrandColors.colorText),),
+                                    Text( getTranslated(context,'t12'),  // home
+                                      style: myStyle(16,BrandColors.colorText),),
 
                                   ],
                                 )
@@ -148,9 +151,10 @@ class _DrawerrState extends State<Drawerr> {
                                   children: [
                                     Icon(Icons.person,size: 25,color:  BrandColors.colorText,),
                                     SizedBox(
-                                      width: 16,
+                                      width: 15,
                                     ),
-                                    Text("My Profile",style: myStyle(16, BrandColors.colorDimText,),),
+                                    Text( getTranslated(context,'t27'),  //my profile
+                                      style: myStyle(16, BrandColors.colorDimText,),),
 
                                   ],
                                 )
@@ -168,28 +172,54 @@ class _DrawerrState extends State<Drawerr> {
                                   children: [
                                     Icon(Icons.people_outline,size: 25,color:  BrandColors.colorText,),
                                     SizedBox(
-                                      width: 16,
+                                      width: 15,
                                     ),
-                                    Text("My Friends",style: myStyle(16, BrandColors.colorDimText,),),
+                                    Text( getTranslated(context,'t28'), //my friends
+                                       style: myStyle(16, BrandColors.colorDimText,),),
 
                                   ],
                                 )
                             ),
                           ),
-                          InkWell(onTap: (){
-                            displayTextInputDialog(context);
+                          InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectLanguage()));
 
                           },
                             child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
+                              //  margin: EdgeInsets.symmetric(vertical: 10),
+                                height: 50,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.translate,size: 25,color:   BrandColors.colorText,),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text( getTranslated(context,'t29'),  //choose language
+                                      style: myStyle(16, BrandColors.colorDimText,),),
+                                  ],
+                                )
+                            ),
+                          ),
+
+                          InkWell(
+                            onTap: (){
+                              displayTextInputDialog(context);
+
+                            },
+                            child: Container(
+                              //  margin: EdgeInsets.symmetric(vertical: 10),
                                 height: 50,
                                 child: Row(
                                   children: [
                                     Icon(Icons.assignment_returned_outlined,size: 25,color:   BrandColors.colorText,),
                                     SizedBox(
-                                      width: 16,
+                                      width: 15,
                                     ),
-                                    Text("Log Out",style: myStyle(16, BrandColors.colorDimText,),),
+                                    Text( getTranslated(context,'t30'), //logout
+
+                                      style: myStyle(16, BrandColors.colorDimText,),),
                                   ],
                                 )
                             ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/widget/demo_Localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/stapper/addBank.dart';
@@ -184,7 +186,9 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
     _refreshController.refreshCompleted();
   }
 
-
+ /* String getTranslated(BuildContext context, String key) {
+    return DemoLocalization.of(context).translate(key);
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -213,9 +217,9 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     children: [
-                      Container(
+                       Container(
                         height: 88,
-                        //padding:EdgeInsets.symmetric(vertical: 20),
+                        padding:EdgeInsets.symmetric(vertical: 20),
                         margin: EdgeInsets.only(bottom: 25, top: 15,right: 20),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
@@ -230,9 +234,8 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Cash",
-                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
-                                    ),
+                                      getTranslated(context,'t4'),  // "Cash",
+                                      style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),),
                                     SizedBox(height: 6,),
 
                                     RichText(
@@ -273,7 +276,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Bank",
+                                      getTranslated(context,'t5'), // "Bank",
                                       style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
                                     ),
                                     SizedBox(height: 6,),
@@ -314,7 +317,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "MFS",
+                                      getTranslated(context,'t6'),  // "MFS",
                                       style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7)),
                                     ),
                                     SizedBox(height: 6),
@@ -360,7 +363,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Cash Details",
+                              getTranslated(context,'t17'),  //"Cash Details",
                               style: myStyle(16, BrandColors.colorDimText),
                             ),
 
@@ -402,7 +405,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Current Balance",
+                                            getTranslated(context,'t22'), // "Current Balance",
                                             style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                                           ),
                                           SizedBox(height: 6,),
@@ -466,7 +469,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Bank Details",
+                              getTranslated(context,'t18'), // "Bank Details",
                               style: myStyle(16, BrandColors.colorDimText),
                             ),
 
@@ -483,7 +486,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                 }));
                               },
                               child: Text(
-                                "+ Add Bank",
+                                getTranslated(context,'t20'), //"+ Add Bank",
                                 style: myStyle(
                                     14, BrandColors.colorPurple, FontWeight.w600),
                               ),
@@ -568,7 +571,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "MFS Details",
+                              getTranslated(context,'t19'), //"MFS Details",
                               style: myStyle(16, BrandColors.colorDimText),
                             ),
                             GestureDetector(
@@ -584,7 +587,7 @@ class _MyStorageHubsState extends State<MyStorageHubs> {
                                 }));
                               },
                               child: Text(
-                                "+ Add MFS",
+                                getTranslated(context,'t21'), // "+ Add MFS",
                                 style: myStyle(
                                     14, BrandColors.colorPurple, FontWeight.w600),
                               ),
@@ -777,7 +780,7 @@ class StorageCart extends StatelessWidget {
                 CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Current Balance ",
+                    getTranslated(context,'t22'), // "Current Balance ",
                     style:
                     myStyle(12, BrandColors.colorDimText.withOpacity(0.6)),
                   ),
@@ -842,23 +845,28 @@ class StorageCart extends StatelessWidget {
                                       BorderRadius.circular(
                                           13.0)),
                                   title: Text(
-                                    "Are You Sure ?",
+                                    getTranslated(context,'t61'),  // "Are You Sure ?",
                                     style: myStyle(
                                         16,
                                         Colors.black54,
                                         FontWeight.w800),
                                   ),
                                   content: Text(
-                                      "You want to delete !"),
+                                    getTranslated(context,'t62'),  // "You want to delete !"
+                                  ),
                                   actions: <Widget>[
                                     FlatButton(
                                         onPressed: () {
                                           Navigator.of(context).pop(false);
                                         },
-                                        child: Text("No")),
+                                        child: Text(getTranslated(context,'t64'),  //   "No"
+
+                                        )),
                                     FlatButton(
                                         onPressed: delete,
-                                        child: Text("Yes"))
+                                        child: Text(getTranslated(context,'t63'),  //    "Yes"
+
+                                        ))
                                   ],
                                 );
                               });

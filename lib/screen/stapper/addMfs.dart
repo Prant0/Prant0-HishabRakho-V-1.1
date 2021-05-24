@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/custom_TextField.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -112,7 +113,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                         Container(
                             margin: EdgeInsets.only(bottom: 35,top: 35,),
                             child: Text(
-                              "Add a Mfs Account ",
+                              getTranslated(context,'t152'), //          "Add a Mfs Account ",
                               style: myStyle(20, Colors.white, FontWeight.w500),
                               textAlign: TextAlign.start,
                             )),
@@ -140,7 +141,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
 
                                       WidgetSpan(
                                         child:Text(
-                                          'Date:',
+                                          getTranslated(context,'t56'), // 'Date:',
                                           textScaleFactor: 1.0,
                                           style: myStyle(14,BrandColors.colorText),
                                         ),
@@ -169,7 +170,8 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Choose Mfs",style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
+                              child: Text(getTranslated(context,'t103'), //        "Choose Mfs",
+                                style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
                             ),
                             GestureDetector(
                               onTap: () async {
@@ -193,7 +195,8 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(mfsName??"Select your Mfs",style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),),
+                                    Text(mfsName??getTranslated(context,'t154')           //"Select your Mfs"
+                                      ,style: myStyle(12,BrandColors.colorDimText,FontWeight.w400),),
                                     SvgPicture.asset("assets/select MFS.svg",
                                       alignment: Alignment.bottomCenter,
                                       fit: BoxFit.contain,
@@ -204,13 +207,14 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 25,bottom: 6),
-                              child: Text("Choose MFS Number",style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
+                              child: Text(getTranslated(context,'t161') //    "Choose MFS Number"
+                                ,style: myStyle(16,BrandColors.colorText,FontWeight.w400),),
                             ),
                             SenderTextEdit(
                               keyy: "number",
                               data: _data,
                               name: mfsNumberController,
-                              lebelText: "MFS Number",
+                              lebelText:getTranslated(context,'t162'), // "MFS Number",
                               keytype: TextInputType.number,
                               formatter: <TextInputFormatter>[
                                 FilteringTextInputFormatter.allow(
@@ -218,13 +222,13 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                               ],
                               function: (String value) {
                                 if (value.isEmpty) {
-                                  return "Account Number required";
+                                  return getTranslated(context,'t72'); // "Account Number required";
                                 }
                                 if (value.length < 11) {
-                                  return "Number is Too Short.(Min 11 digits)";
+                                  return getTranslated(context,'t73'); // "Number is Too Short.(Min 11 digits)";
                                 }
                                 if (value.length > 13) {
-                                  return "Number is Too Long.(Max 13 digits)";
+                                  return getTranslated(context,'t163'); // "Number is Too Long.(Max 13 digits)";
                                 }
                               },
                             ),
@@ -240,8 +244,8 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                       MoneyDisplayFormat.symbolOnLeft),
                                   appearanceSettings: AppearanceSettings(
                                       padding: EdgeInsets.all(15.0),
-                                      labelText: 'Enter Amount* ',
-                                      hintText: 'Enter Amount',
+                                      labelText:getTranslated(context,'t60'), // 'Enter Amount* ',
+                                      hintText:getTranslated(context,'t60'), // 'Enter Amount',
                                       labelStyle: myStyle(
                                           16, BrandColors.colorText, FontWeight.w600),
                                       inputStyle:
@@ -286,7 +290,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                 border: Border.all(
                                     color: BrandColors.colorPurple, width: 2)),
                             child: Center(
-                                child: Text(widget.types=="addStorageHub"? "Back": "Skip",
+                                child: Text(widget.types=="addStorageHub"? getTranslated(context,'t75') :getTranslated(context,'t81'), // "goback" : "Skip",
                               style: myStyle(16, Colors.white),
                             ))),
                       ),
@@ -295,13 +299,13 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                             flex: 5,
                         child: InkWell(
                           onTap:mfsName==null? (){
-                            showInSnackBar("Please choose a Mfs");
+                            showInSnackBar(getTranslated(context,'t164'),); //"Please choose a Mfs");
                           }:() {
                             if (!_formKey.currentState.validate()) return;
                             _formKey.currentState.save();
                             print("true");
                             mfsBalanceController.text.toString().isEmpty
-                                ? showInSnackBar("Amount Required")
+                                ? showInSnackBar(getTranslated(context,'t78'),) // "Amount Required")
                                 : uploadMfs(context);
                           },
                           child: Container(
@@ -315,7 +319,7 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                                     color: BrandColors.colorPurple, width: 2)),
                             child: Center(
                                 child: Text(
-                              "Proceed",
+                                  getTranslated(context,'t76'), //        "Proceed",
                               style: myStyle(16, Colors.white, FontWeight.w500),
                             )),
                           ),
@@ -354,14 +358,14 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
       setState(() {
         onProgress = false;
       });
-      showInSnackBar("Add MFS storage successful");
+      showInSnackBar(getTranslated(context,'t165'),); //"Add MFS storage successful");
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           widget.types=="addStorageHub"? Navigator.pop(context) :  addMoreMfs(context);
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(getTranslated(context,'t95'),); //" Failed, Try again please");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -389,16 +393,17 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             elevation: 1,
             title: Text(
-              'Mfs Storage created successful.',
+              getTranslated(context,'t166'), //'Mfs Storage created successful.',
               style: myStyle(22, Colors.white),
             ),
-            content: Text(" Do you want to add more Mfs account ?"),
+            content: Text(getTranslated(context,'t167')), //" Do you want to add more Mfs account ?"),
             actions: <Widget>[
               FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
                 textColor: Colors.white,
-                child: Text('No',style: myStyle(14,BrandColors.colorText),),
+                child: Text(getTranslated(context,'t64'), //         'No',
+                  style: myStyle(14,BrandColors.colorText),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -418,7 +423,8 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
                 padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t63'), //'Yes',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;
@@ -471,18 +477,20 @@ class _AddMfsStapperState extends State<AddMfsStapper> {
               "Warning !",
               style: myStyle(16, Colors.black54, FontWeight.w800),
             ),
-            content:widget.types=="addStorageHub"?Text("Are you sure want to close?"): Text("Do you want to close the stepper ?"),
+            content:widget.types=="addStorageHub"?Text(getTranslated(context,'t160'),): Text(getTranslated(context,'t146'), ), //do you want to close the stepper?
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: Text("No",style: myStyle(14,BrandColors.colorText),)),
+                  child: Text(getTranslated(context,'t64'), // "No",
+                    style: myStyle(14,BrandColors.colorText),)),
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t63'), //    'Yes',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },

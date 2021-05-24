@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/services.dart';
@@ -106,7 +107,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     top: 30,
                                   ),
                                   child: Text(
-                                    "Add a Bank Account ",
+                                    getTranslated(context,'t151'), // "Add a Bank Account ",
                                     style: myStyle(
                                         20, Colors.white, FontWeight.w600),
                                     textAlign: TextAlign.start,
@@ -136,7 +137,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                           text: TextSpan(children: [
                                             WidgetSpan(
                                               child: Text(
-                                                'Date:',
+                                                getTranslated(context,'t56'), // 'Date:',
                                                 textScaleFactor: 1.0,
                                                 style: myStyle(
                                                     14, BrandColors.colorText),
@@ -170,7 +171,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                       top: 25,
                                     ),
                                     child: Text(
-                                      "Choose your bank",
+                                      getTranslated(context,'t102'), //       "Choose your bank",
                                       style: myStyle(14, BrandColors.colorText,
                                           FontWeight.w400),
                                     ),
@@ -204,7 +205,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            bankName ?? "Select Your Bank ",
+                                            bankName ?? getTranslated(context,'t153'), // "Select Your Bank ",
                                             style: myStyle(
                                                 12,
                                                 BrandColors.colorDimText,
@@ -225,7 +226,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     padding:
                                         EdgeInsets.only(top: 25, bottom: 6),
                                     child: Text(
-                                      "Account Number",
+                                      getTranslated(context,'t70'), // "Account Number",
                                       style: myStyle(14, BrandColors.colorText,
                                           FontWeight.w400),
                                     ),
@@ -235,20 +236,20 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     keytype: TextInputType.number,
                                     data: _data,
                                     name: bankAccountNumberController,
-                                    lebelText: "Enter your account no",
+                                    lebelText:getTranslated(context,'t155'), // "Enter your account no",
                                     formatter: <TextInputFormatter>[
                                       FilteringTextInputFormatter.allow(
                                           RegExp(r'[0-9]')),
                                     ],
                                     function: (String value) {
                                       if (value.isEmpty) {
-                                        return "Account Number required";
+                                        return getTranslated(context,'t72'); // "Account Number required";
                                       }
                                       if (value.length < 11) {
-                                        return "Account Number is Too Short( Min 11 digit )";
+                                        return getTranslated(context,'t73'); //"Account Number is Too Short( Min 11 digit )";
                                       }
                                       if (value.length > 18) {
-                                        return "Account Number is Too Long ( Max 18 digit )";
+                                        return getTranslated(context,'t74'); //"Account Number is Too Long ( Max 18 digit )";
                                       }
                                     },
                                   ),
@@ -256,7 +257,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     padding:
                                         EdgeInsets.only(top: 25, bottom: 6),
                                     child: Text(
-                                      "Account Name",
+                                      getTranslated(context,'t69'), //    "Account Name",
                                       style: myStyle(14, BrandColors.colorText,
                                           FontWeight.w400),
                                     ),
@@ -265,18 +266,18 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                     keyy: "name",
                                     data: _data,
                                     name: bankAccountNameController,
-                                    lebelText: "Enter your account name",
+                                    lebelText: getTranslated(context,'t156'), // "Enter your account name",
                                     // hintText: "Account Holder Name",
 
                                     function: (String value) {
                                       if (value.isEmpty) {
-                                        return "Name required";
+                                        return getTranslated(context,'t84'); //   "Name required";
                                       }
                                       if (value.length < 3) {
-                                        return "Name is Too Short.(Min 3 character)";
+                                        return getTranslated(context,'t85'); //"Name is Too Short.(Min 3 character)";
                                       }
                                       if (value.length > 25) {
-                                        return "Account Number is Too Long ( Max 25 character )";
+                                        return getTranslated(context,'t86'); // "Account Number is Too Long ( Max 25 character )";
                                       }
                                     },
                                   ),
@@ -293,7 +294,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                                         .symbolOnLeft),
                                         appearanceSettings: AppearanceSettings(
                                             padding: EdgeInsets.all(15.0),
-                                            labelText: 'Enter Amount* ',
+                                            labelText:getTranslated(context,'t60'), // 'Enter Amount* ',
                                             labelStyle: myStyle(
                                                 16,
                                                 BrandColors.colorText,
@@ -344,8 +345,8 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                   child: Center(
                                       child: Text(
                                     widget.types == "addStorageHub"
-                                        ? "Back"
-                                        : "Skip",
+                                        ?getTranslated(context,'t75') // "Back"
+                                        :getTranslated(context,'t81'), // "Skip",
                                     style: myStyle(16, Colors.white),
                                   ))),
                             ),
@@ -355,7 +356,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                               child: GestureDetector(
                                 onTap: bankName == null
                                     ? () {
-                                        showInSnackBar("Choose a Bank");
+                                        showInSnackBar(getTranslated(context,'t102'),); //   "Choose a Bank");
                                       }
                                     : () {
                                         if (!_formKey.currentState.validate())
@@ -365,7 +366,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                         bankBalanceController.text
                                                 .toString()
                                                 .isEmpty
-                                            ? showInSnackBar("Amount Required")
+                                            ? showInSnackBar(getTranslated(context,'t78')) // "Amount Required")
                                             : uploadBank(context);
                                       },
                                 child: Container(
@@ -379,7 +380,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
                                           width: 2)),
                                   child: Center(
                                       child: Text(
-                                    "Proceed",
+                                        getTranslated(context,'t76'), // "Proceed",
                                     style: myStyle(
                                         16, Colors.white, FontWeight.w500),
                                   )),
@@ -420,7 +421,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
     print("responseBody " + responseString);
     if (response.statusCode == 201) {
       print("responseBody1 " + responseString);
-      showInSnackBar("Add Bank Storage successful");
+      showInSnackBar(getTranslated(context,'t157'),); // "Add Bank Storage successful");
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           onProgress = false;
@@ -430,7 +431,7 @@ class _AddBankStapperState extends State<AddBankStapper> {
         });
       });
     } else {
-      showInSnackBar(" Failed, Try again please");
+      showInSnackBar(getTranslated(context,'t95'),); //   " Failed, Try again please");
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -460,15 +461,16 @@ class _AddBankStapperState extends State<AddBankStapper> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             elevation: 5,
             title: Text(
-              'Bank Storage created successful.',style: myStyle(16,Colors.white,FontWeight.w500),),
-            content: Text(" Do you want to add more Bank account ?"),
+              getTranslated(context,'t158'), //'Bank Storage created successful.',
+              style: myStyle(16,Colors.white,FontWeight.w500),),
+            content: Text(getTranslated(context,'t159'),), //" Do you want to add more Bank account ?"),
             actions: <Widget>[
               FlatButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 
                 textColor: Colors.white,
-                child: Text('No'),
+                child: Text(getTranslated(context,'t64'),), //       'No'),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -484,7 +486,8 @@ class _AddBankStapperState extends State<AddBankStapper> {
                 padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t63'), //             'Yes',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     //codeDialog = valueText;
@@ -536,19 +539,19 @@ class _AddBankStapperState extends State<AddBankStapper> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.0)),
             title: Text(
-              "Warning !",
+              getTranslated(context,'t145'), //   "Warning !",
               style: myStyle(16, Colors.white, FontWeight.w500),
             ),
             content: widget.types == "addStorageHub"
-                ? Text("Are you sure want to close?")
-                : Text("Do you want to close the stepper ?"),
+                ? Text(getTranslated(context,'t160'),)// "Are you sure want to close?")
+                : Text(getTranslated(context,'t146'),), //"Do you want to close the stepper ?"),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
                   child: Text(
-                    "No",
+                    getTranslated(context,'t64'), // "No",
                     style: myStyle(14, BrandColors.colorText),
                   )),
 
@@ -556,7 +559,8 @@ class _AddBankStapperState extends State<AddBankStapper> {
                 padding: EdgeInsets.symmetric(vertical: 16,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t63'), //       'Yes',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },

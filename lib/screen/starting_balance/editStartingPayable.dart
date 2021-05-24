@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -76,7 +77,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
         backgroundColor: BrandColors.colorPrimaryDark,
         elevation: 0.0,
         title: Text(
-          "Edit Entries",
+          getTranslated(context,'t82'),              // "Edit Entries",
           style: TextStyle(),
         ),
         centerTitle: true,
@@ -120,7 +121,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
 
                                   WidgetSpan(
                                     child:Text(
-                                      'Date:',
+                                      getTranslated(context,'t56'),              //'Date:',
                                       textScaleFactor: 1.0,
                                       style: myStyle(14,BrandColors.colorText),
                                     ),
@@ -147,7 +148,8 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
 
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
+                      child: Text(getTranslated(context,'t83'),              //"Pay/Payable to ",
+                        style: myStyle(16,BrandColors.colorDimText),),
                     ),
                     SenderTextEdit(
                       keyy: "Payable",
@@ -164,12 +166,12 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
                       ),
                       function: (String value) {
                         if (value.isEmpty) {
-                          return "Name required";
+                          return getTranslated(context,'t84');              //"Name required";
                         }
                         if (value.length < 3) {
-                          return "Name Too Short ( Min 3 character )";
+                          return getTranslated(context,'t85');              //"Name Too Short ( Min 3 character )";
                         }if (value.length > 30) {
-                          return "Name Too long (Max 30 character)";
+                          return getTranslated(context,'t86');              //"Name Too long (Max 30 character)";
                         }
                       },
                     ),
@@ -184,7 +186,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
                       data: _data,
                       name:detailsController ,
                       // lebelText: widget.model.details ?? "",
-                      hintText: " Details",
+                      hintText:getTranslated(context,'t88'),              // " Details",
                       //icon: Icons.details,
                       function: (String value) {
 
@@ -201,8 +203,8 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
                               displayFormat: MoneyDisplayFormat.symbolOnLeft),
                           appearanceSettings: AppearanceSettings(
                               padding: EdgeInsets.all(15.0),
-                              hintText: 'Amount required',
-                              labelText: 'Amount ',
+                              hintText:getTranslated(context,'t78'),              // 'Amount required',
+                              labelText:getTranslated(context,'t89'),              // 'Amount ',
                               labelStyle: myStyle(20,Colors.white,FontWeight.w600),
                               inputStyle: _ts.copyWith(color: Colors.white),
                               formattedStyle:
@@ -239,7 +241,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
                                 size: 15,
                               ),
                               Text(
-                                "Go Back",
+                                getTranslated(context,'t75'),              // "Go Back",
                                 style: myStyle(16, Colors.white),
                               )
                             ],
@@ -282,7 +284,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Proceed",
+                                getTranslated(context,'t76'),              // "Proceed",
                                 style: myStyle(16, Colors.white),
                               ),
                               Icon(
@@ -322,7 +324,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
       try{
         if (data.statusCode == 201) {
           return {print("Payable Data updated succesfully"),
-            showInSnackBar("Updated successfully"),
+            showInSnackBar(getTranslated(context,'t90'),),              //"Updated successfully"),
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 onProgress=false;
@@ -334,7 +336,7 @@ class _EditStartingPayableState extends State<EditStartingPayable> {
         } else
           setState(() {
             onProgress=false;
-            showInSnackBar("Updated failed");
+            showInSnackBar(getTranslated(context,'t79'));              //
           });
         throw Exception('Failed to update');
       }catch(e){

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +104,7 @@ class _EditTransactionState extends State<EditTransaction> {
         elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
-          "Edit Entries",
+          getTranslated(context,'t82'),   // "Edit Entries",
         ),
         centerTitle: true,
       ),
@@ -150,7 +151,7 @@ class _EditTransactionState extends State<EditTransaction> {
 
                                     WidgetSpan(
                                       child:Text(
-                                        'Date:',
+                                        getTranslated(context,'t56'),   // 'Date:',
                                         textScaleFactor: 1.0,
                                         style: myStyle(14,BrandColors.colorText),
                                       ),
@@ -183,7 +184,8 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Pay/Payable to",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
+                              child: Text( getTranslated(context,'t83'),   //"Pay/Payable to",
+                                style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
                             ),
                             SenderTextEdit(
                               keyy: "Payable",
@@ -201,12 +203,12 @@ class _EditTransactionState extends State<EditTransaction> {
                               ),
                               function: (String value) {
                                 if (value.isEmpty) {
-                                  return "Name required";
+                                  return  getTranslated(context,'t84');   //"Name required";
                                 }
                                 if (value.length < 3) {
-                                  return "Name Too Short ( Min 3 character )";
+                                  return  getTranslated(context,'t85');   //"Name Too Short ( Min 3 character )";
                                 }if (value.length > 30) {
-                                  return "Name Too long (Max 30 character)";
+                                  return  getTranslated(context,'t86');   // "Name Too long (Max 30 character)";
                                 }
                               },
                             ),
@@ -220,7 +222,8 @@ class _EditTransactionState extends State<EditTransaction> {
                           children: [
                             Padding(
                               padding: EdgeInsets.only(top: 25,),
-                              child: Text("Receive/Receivable from",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
+                              child: Text(getTranslated(context,'t87'),  //       "Receive/Receivable from",
+                                style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
                             ),
                             SenderTextEdit(
                               keyy: "Receivable",
@@ -238,12 +241,12 @@ class _EditTransactionState extends State<EditTransaction> {
                               ),
                               function: (String value) {
                                 if (value.isEmpty) {
-                                  return "Name required";
+                                  return getTranslated(context,'t84');    //"Name required";
                                 }
                                 if (value.length < 3) {
-                                  return "Name Too Short. ( Min 3 character )";
+                                  return getTranslated(context,'t85');     // "Name Too Short. ( Min 3 character )";
                                 }if (value.length > 30) {
-                                  return "Name Too long. ( Max 30 character )";
+                                  return getTranslated(context,'t86')  ;        // "Name Too long. ( Max 30 character )";
                                 }
                               },
                             ),
@@ -252,7 +255,8 @@ class _EditTransactionState extends State<EditTransaction> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 25,),
-                        child: Text("Details",style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
+                        child: Text(getTranslated(context,'t88'),            //"Details",
+                          style: myStyle(16,BrandColors.colorWhite,FontWeight.w600),),
                       ),
                       SenderTextEdit(
                         keyy: "Details",
@@ -260,7 +264,7 @@ class _EditTransactionState extends State<EditTransaction> {
                         data: _data,
                         name:detailsController ,
                         lebelText: widget.model.details ?? "",
-                        hintText: " Details",
+                        hintText:getTranslated(context,'t88'),            // " Details",
                         //icon: Icons.details,
                         function: (String value) {
 
@@ -278,8 +282,8 @@ class _EditTransactionState extends State<EditTransaction> {
                             appearanceSettings: AppearanceSettings(
 
                                 padding: EdgeInsets.all(15.0),
-                                hintText: 'Amount required',
-                                labelText: 'Amount ',
+                                hintText:getTranslated(context,'t78'),            // 'Amount required',
+                                labelText:getTranslated(context,'t89'),            // 'Amount ',
                                 labelStyle: myStyle(20,Colors.white,FontWeight.w600),
                                 inputStyle: _ts.copyWith(color: Colors.white),
                                 formattedStyle:
@@ -329,7 +333,7 @@ class _EditTransactionState extends State<EditTransaction> {
                                 size: 15,
                               ),
                               Text(
-                                "Go Back",
+                                getTranslated(context,'t75'),            // "Go Back",
                                 style: myStyle(16, Colors.white),
                               )
                             ],
@@ -366,13 +370,13 @@ class _EditTransactionState extends State<EditTransaction> {
                             friendName: nameController.text.toString(),
                           );
                           widget.type == "Earning"
-                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateEarning(note)
+                              ?amountController.text.toString().isEmpty?showInSnackBar(getTranslated(context,'t78')):updateEarning(note)   //amount required
                               : widget.type == "Expenditure"
-                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateExpenditure(note)
+                              ?amountController.text.toString().isEmpty?showInSnackBar(getTranslated(context,'t78')):updateExpenditure(note) //amount required
                               : widget.type == "Payable"
-                              ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updatePayable(payableNote)
+                              ?amountController.text.toString().isEmpty?showInSnackBar(getTranslated(context,'t78')):updatePayable(payableNote)//amount required
                               : widget.type == "Receivable"
-                              ? amountController.text.toString().isEmpty?showInSnackBar("Amount Required"):updateReceivable(payableNote)
+                              ? amountController.text.toString().isEmpty?showInSnackBar(getTranslated(context,'t78')):updateReceivable(payableNote)//amount required
                               : "";
                           setState(() {
                             amountController.clear();
@@ -394,7 +398,7 @@ class _EditTransactionState extends State<EditTransaction> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Proceed",
+                                getTranslated(context,'t76'),               // "Proceed",
                                 style: myStyle(16, Colors.white),
                               ),
                               Icon(
@@ -430,13 +434,14 @@ class _EditTransactionState extends State<EditTransaction> {
               'Content-type': 'application/json',
               "Authorization": "bearer ${sharedPreferences.getString("token")}",
             },
-            body: json.encode(item.toJson()))
+            body: json.encode(item.toJson()),)
         .then((data) {
       try{
         if (data.statusCode == 201) {
           return {
 
-            showInSnackBar("Updated successfully"),
+            showInSnackBar(getTranslated(context,'t90')                 //"Updated successfully"
+            ),
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
@@ -451,7 +456,8 @@ class _EditTransactionState extends State<EditTransaction> {
         } else
           setState(() {
             onProgress=true;
-            showInSnackBar("Updated failed");
+            showInSnackBar(getTranslated(context,'t79')                 // update failed
+                 );
           });
         throw Exception('Failed to update');
       }catch(e){
@@ -460,6 +466,7 @@ class _EditTransactionState extends State<EditTransaction> {
     });
   }
 
+  TextEditingController tx=TextEditingController();
   updateExpenditure(MyTransectionModel item) async {
     setState(() {
       onProgress=true;
@@ -477,7 +484,8 @@ class _EditTransactionState extends State<EditTransaction> {
         return {
 
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
-          showInSnackBar("Updated successfully"),
+          showInSnackBar(getTranslated(context,'t90')                 //"Updated successfully"
+          ),
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               amountController.clear();
@@ -506,7 +514,8 @@ class _EditTransactionState extends State<EditTransaction> {
         .then((data) {
       if (data.statusCode == 201) {
         return {
-          showInSnackBar("Updated successfully"),
+          showInSnackBar(getTranslated(context,'t90')                 //"Updated successfully"
+               ),
           Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction(),
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
@@ -536,7 +545,8 @@ class _EditTransactionState extends State<EditTransaction> {
         .then((data) {
       if (data.statusCode == 201) {
         Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
-          showInSnackBar("Updated successfully");
+          showInSnackBar(getTranslated(context,'t90')                 //"Updated successfully"
+          );
 
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {

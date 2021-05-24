@@ -2,6 +2,7 @@ import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
 import 'package:anthishabrakho/providers/myTransectionProvider.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/details.dart';
@@ -124,7 +125,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                     Expanded(
                       flex: 7,
                       child: Text(
-                        "Title",
+                        getTranslated(context,'t52'),  //  "Title",
                         style: myStyle(
                             12,
                             BrandColors.colorDimText.withOpacity(0.5),
@@ -134,7 +135,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                     Expanded(
                       flex: 5,
                       child: Text(
-                        "Transaction",
+                        getTranslated(context,'t26'),  //  "Transaction",
                         style: myStyle(
                             12,
                             BrandColors.colorDimText.withOpacity(0.5),
@@ -146,7 +147,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Balance",
+                          getTranslated(context,'t67'),  //    "Balance",
                           style: myStyle(
                               12,
                               BrandColors.colorDimText.withOpacity(0.5),
@@ -257,7 +258,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                 )),
                             secondaryActions: <Widget>[
                               new IconSlideAction(
-                                caption: 'Delete',
+                                caption: getTranslated(context,'t54'),  // delete
                                 color: BrandColors.colorPrimary,
 
                                 iconWidget: SvgPicture.asset(
@@ -277,18 +278,21 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                               borderRadius:
                                                   BorderRadius.circular(13.0)),
                                           title: Text(
-                                            "Are You Sure ?",
+                                            getTranslated(context,'t61'),  // "Are You Sure ?",
                                             style: myStyle(16, Colors.black54,
                                                 FontWeight.w800),
                                           ),
-                                          content: Text("You want to delete !"),
+                                          content: Text(getTranslated(context,'t62'),  // "You want to delete !"
+                                         ),
                                           actions: <Widget>[
                                             FlatButton(
                                                 onPressed: () {
                                                   Navigator.of(context)
                                                       .pop(false);
                                                 },
-                                                child: Text("No")),
+                                                child: Text(getTranslated(context,'t64'),  //   "No"
+
+                                                )),
                                             FlatButton(
                                                 onPressed: () {
                                                   CustomHttpRequests.deleteList(list[index].eventId).then((value) => value);
@@ -300,11 +304,12 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                                                         .deleteTransaction();
                                                   });
                                                   showInSnackBar(
-                                                    "1 Item Delete",
+                                                    getTranslated(context,'t65'),  //  "1 Item Delete",
                                                   );
                                                   Navigator.pop(context);
                                                 },
-                                                child: Text("Yes"))
+                                                child: Text(getTranslated(context,'t63'),  //    "Yes"
+                                                ))
                                           ],
                                         );
                                       });
@@ -318,7 +323,7 @@ class _TransectionMyEntriesState extends State<TransectionMyEntries> {
                       height: MediaQuery.of(context).size.height - 150,
                       alignment: Alignment.center,
                       child: Text(
-                        "Empty entries",
+                        getTranslated(context,'t66'),  //     "Empty entries",
                         style: myStyle(
                           16,
                           BrandColors.colorText,

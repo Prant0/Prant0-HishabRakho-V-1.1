@@ -1,4 +1,5 @@
 import 'package:anthishabrakho/screen/form_screen/fundTransfer_form.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
@@ -68,8 +69,9 @@ class _AddEntriesSubCategoriesState extends State<AddEntriesSubCategories> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("What kinds of ${widget.namee}",style: myStyle(20,Colors.white,FontWeight.w500),),
-                      Text("would you like to add ?",style: myStyle(20,Colors.white,FontWeight.w500),),
+                      Text("${getTranslated(context,'t91')} ${widget.namee}",style: myStyle(20,Colors.white,FontWeight.w500),),   //what kind of
+                      Text(getTranslated(context,'t92')                //"would you like to add ?"
+                        ,style: myStyle(20,Colors.white,FontWeight.w500),),
                     ],
                   )
 

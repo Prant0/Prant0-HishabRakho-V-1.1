@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,8 @@ class _EarningFormState extends State<EarningForm> {
           loanTypee();
         }
       } else
-        showInSnackBar("No Internet Connection");
+        showInSnackBar(getTranslated(context,'t93'),              //  "No Internet Connection"
+        );
     });
     super.initState();
   }
@@ -189,14 +191,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   // "Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   // " Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -228,14 +232,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //  "Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -276,14 +282,16 @@ class _EarningFormState extends State<EarningForm> {
                 amountController.clear();
                 receiveFrom.clear();
               });
-              showInSnackBar("Added successfully");
+              showInSnackBar(getTranslated(context,'t94')   // "Added successfully"
+              );
               Future.delayed(const Duration(seconds: 1), () {
                 setState(() {
                   Navigator.of(context).pop();
                 });
               });
             } else {
-              showInSnackBar(" Failed, Try again please");
+              showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+              );
               print(" failed " + responseString);
               setState(() {
                 onProgress = false;
@@ -317,14 +325,16 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Added successfully");
+          showInSnackBar(getTranslated(context,'t94')   // "Added successfully"
+          );
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
             });
           });
         } else {
-          showInSnackBar(" Failed, Try again please");
+          showInSnackBar(getTranslated(context,'t95')   // " Failed, Try again please"
+          );
           print(" failed " + responseString);
           setState(() {
             onProgress = false;
@@ -369,14 +379,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -413,14 +425,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -459,14 +473,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -499,14 +515,16 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Added successfully");
+          showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+          );
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
             });
           });
         } else {
-          showInSnackBar(" Failed, Try again please");
+          showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+          );
           print(" failed " + responseString);
           setState(() {
             onProgress = false;
@@ -552,14 +570,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   // " Failed, Try again please"
+            );
 
             setState(() {
               onProgress = false;
@@ -596,14 +616,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -639,14 +661,16 @@ class _EarningFormState extends State<EarningForm> {
               amountController.clear();
               receiveFrom.clear();
             });
-            showInSnackBar("Added successfully");
+            showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+            );
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 Navigator.of(context).pop();
               });
             });
           } else {
-            showInSnackBar(" Failed, Try again please");
+            showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+            );
             print(" failed " + responseString);
             setState(() {
               onProgress = false;
@@ -681,14 +705,16 @@ class _EarningFormState extends State<EarningForm> {
             amountController.clear();
             receiveFrom.clear();
           });
-          showInSnackBar("Added successfully");
+          showInSnackBar(getTranslated(context,'t94')   //"Added successfully"
+          );
           Future.delayed(const Duration(seconds: 1), () {
             setState(() {
               Navigator.of(context).pop();
             });
           });
         } else {
-          showInSnackBar(" Failed, Try again please");
+          showInSnackBar(getTranslated(context,'t95')   //" Failed, Try again please"
+          );
           print(" failed " + responseString);
           setState(() {
             onProgress = false;
@@ -788,7 +814,7 @@ class _EarningFormState extends State<EarningForm> {
 
                                         WidgetSpan(
                                           child:Text(
-                                            'Date:',
+                                            getTranslated(context,'t56'),   // 'Date:',
                                             textScaleFactor: 1.0,
                                             style: myStyle(14,BrandColors.colorText),
                                           ),
@@ -817,7 +843,7 @@ class _EarningFormState extends State<EarningForm> {
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 14, top: 25),
                               child: Text(
-                                "Transaction Type",
+                                getTranslated(context,'t96'),   // "Transaction Type",
                                 style: myStyle(14, BrandColors.colorText),
                               ),
                             ),
@@ -856,8 +882,8 @@ class _EarningFormState extends State<EarningForm> {
                                               width: 1)),
                                       child: Text(
                                         widget.name == "Expenditure"
-                                            ? "Pay Now"
-                                            : "Get Money Now",
+                                            ?getTranslated(context,'t97')   // "Pay Now"
+                                            : getTranslated(context,'t98'),   //"Get Money Now",
                                         style: myStyle(12,isGetMoneyNow==true? Colors.white :BrandColors.colorText.withOpacity(0.7),FontWeight.w500),
                                       ),
                                     ),
@@ -893,8 +919,8 @@ class _EarningFormState extends State<EarningForm> {
                                               width: 1)),
                                       child: Text(
                                         widget.name == "Expenditure"
-                                            ? "Pay Later"
-                                            : "Get Money Later",
+                                            ?getTranslated(context,'t99')   // "Pay Later"
+                                            :getTranslated(context,'t100'),   // "Get Money Later",
                                         style: myStyle(12,isGetMoneyLater == true? Colors.white :BrandColors.colorText.withOpacity(0.7),FontWeight.w500),
                                       ),
                                     ),
@@ -912,7 +938,8 @@ class _EarningFormState extends State<EarningForm> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 14,top: 25),
-                                  child: Text("Choose Storage Hub",style: myStyle(14,BrandColors.colorText,),),
+                                  child: Text(getTranslated(context,'t101')   //      "Choose Storage Hub"
+                                    ,style: myStyle(14,BrandColors.colorText,),),
                                 ),
 
 
@@ -947,7 +974,8 @@ class _EarningFormState extends State<EarningForm> {
                                             ),
 
                                             SizedBox(width: 8,),
-                                            Text("Cash",style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
+                                            Text(getTranslated(context,'t4')   //         "Cash"
+                                              ,style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
                                           ],
                                         ),
                                       ),
@@ -981,7 +1009,8 @@ class _EarningFormState extends State<EarningForm> {
                                             ),
 
                                             SizedBox(width: 8,),
-                                            Text("Bank",style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
+                                            Text(getTranslated(context,'t5')   //       "Bank"
+                                              ,style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
                                           ],
                                         ),
                                       ),
@@ -1012,7 +1041,8 @@ class _EarningFormState extends State<EarningForm> {
                                             ),
 
                                             SizedBox(width: 8,),
-                                            Text("Mfs",style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
+                                            Text(getTranslated(context,'t6')   //    "Mfs"
+                                              ,style: myStyle(12,BrandColors.colorText.withOpacity(0.7),FontWeight.w500),),
                                           ],
                                         ),
                                       ),
@@ -1052,7 +1082,8 @@ class _EarningFormState extends State<EarningForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(bankName??"Choose Bank",style: myStyle(14,BrandColors.colorText),),
+                                      Text(bankName?? getTranslated(context,'t102')   //"Choose Bank"
+                                        ,style: myStyle(14,BrandColors.colorText),),
                                       Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
                                     ],
                                   ),
@@ -1084,7 +1115,8 @@ class _EarningFormState extends State<EarningForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(mfsName??"Choose Mfs",style: myStyle(14,BrandColors.colorText),),
+                                      Text(mfsName??getTranslated(context,'t103')   //  "Choose Mfs"
+                                        ,style: myStyle(14,BrandColors.colorText),),
                                       Icon(Icons.mobile_screen_share_rounded,color: BrandColors.colorText,),
                                     ],
                                   ),
@@ -1097,16 +1129,17 @@ class _EarningFormState extends State<EarningForm> {
                             padding: EdgeInsets.only(top: 15,bottom: 10),
                             child: Text(
                               widget.name == "Earning"
-                                  ? "Receive/Receivable from"
+                                  ?getTranslated(context,'t104')   //   "Receive/Receivable from"
                                   : widget.name == "Expenditure"
-                                  ? "Pay/Payable to"
+                                  ?getTranslated(context,'t83')   //   "Pay/Payable to"
                                   : widget.name == "Loan"
                                   ? loanType == "Take Loan"
-                                  ? "Name "
+                                  ?getTranslated(context,'t105')   //   "Name "
                                   : loanType == "Give Loan"
-                                  ? "Name"
-                                  : "Name"
-                                  : "Pay Back Loan To",style: myStyle(14,Color(0xFFD2DCF7)),
+                                  ?getTranslated(context,'t105')   // "Name"
+                                  :getTranslated(context,'t105')   // "Name"
+                                  :getTranslated(context,'t106')   // "Pay Back Loan To"
+                              ,style: myStyle(14,Color(0xFFD2DCF7)),
                             ),
                           ),
 
@@ -1114,7 +1147,7 @@ class _EarningFormState extends State<EarningForm> {
                             keyy: "receive",
                             data: _data,
                             name: receiveFrom,
-                            lebelText: "Type name here....",
+                            lebelText:getTranslated(context,'t107') ,  // "Type name here....",
                             // icon: Icon(Icons.airline_seat_flat,color: Colors.red,size: 1,),
                             icon: Padding(
                               padding: const EdgeInsets.all(15.0),
@@ -1126,13 +1159,13 @@ class _EarningFormState extends State<EarningForm> {
                             ),
                             function: (String value) {
                               if (value.isEmpty) {
-                                return "Name required";
+                                return getTranslated(context,'t84');   // "Name required";
                               }
                               if (value.length < 3) {
-                                return "Name Too Short. ( Min 3 character )";
+                                return getTranslated(context,'t85');   //       "Name Too Short. ( Min 3 character )";
                               }
                               if (value.length > 30) {
-                                return "Name Too Long. ( Max 30 character )";
+                                return getTranslated(context,'t86');   // "Name Too Long. ( Max 30 character )";
                               }
                             },
                           ),
@@ -1141,7 +1174,8 @@ class _EarningFormState extends State<EarningForm> {
 
                           Padding(
                             padding: EdgeInsets.only(top: 20,bottom: 4),
-                            child: Text("Add details (optional)",style: myStyle(14,BrandColors.colorText),
+                            child: Text(getTranslated(context,'t59')   //   "Add details (optional)"
+                              ,style: myStyle(14,BrandColors.colorText),
                             ),
                           ),
 
@@ -1183,7 +1217,7 @@ class _EarningFormState extends State<EarningForm> {
                                     displayFormat: MoneyDisplayFormat.symbolOnLeft),
                                 appearanceSettings: AppearanceSettings(
                                     padding: EdgeInsets.all(15.0),
-                                    labelText: ' Amount* ',
+                                    labelText:getTranslated(context,'t89'),   // ' Amount* ',
                                     labelStyle: myStyle(16, BrandColors.colorText, FontWeight.w600),
                                     inputStyle: _ts.copyWith(color: Colors.white),
                                     formattedStyle:
@@ -1228,7 +1262,7 @@ class _EarningFormState extends State<EarningForm> {
                                           size: 15,
                                         ),
                                         Text(
-                                          "Go Back",
+                                            getTranslated(context,'t75') ,  // "Go Back",
                                           style: myStyle(16, Colors.white),
                                         )
                                       ],
@@ -1249,7 +1283,7 @@ class _EarningFormState extends State<EarningForm> {
                                     if (!_formKey.currentState.validate()) return;
                                     _formKey.currentState.save();
                                     print("widget name ${widget.name}");
-                                    transactionType ==false? showInSnackBar("Choose  a  Transaction type"):  isStorage==false? showInSnackBar("Choose a storage Hub"): amountController.text.toString().isEmpty ? showInSnackBar("Amount Required") :   widget.name == "Earning"
+                                    transactionType ==false? showInSnackBar(getTranslated(context,'t108')):  isStorage==false? showInSnackBar(getTranslated(context,'t109')): amountController.text.toString().isEmpty ? showInSnackBar(getTranslated(context,'t78')) :   widget.name == "Earning"
                                         ?  uploadEarningData(context)
                                         : widget.name == "Expenditure"
                                         ?
@@ -1271,7 +1305,7 @@ class _EarningFormState extends State<EarningForm> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Proceed",
+                                        getTranslated(context,'t76'),   // "Proceed",
                                           style: myStyle(16, Colors.white),
                                         ),
                                         Icon(

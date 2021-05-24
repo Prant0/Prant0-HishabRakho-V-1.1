@@ -1,4 +1,5 @@
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter/material.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,7 @@ class _MfsWidgetState extends State<MfsWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "MFS Balance",
+                  getTranslated(context,'t9'),  //mfs balance
                   style: myStyle(14, BrandColors.colorDimText.withOpacity(0.7),FontWeight.w400),
                 ),
 

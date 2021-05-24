@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/services.dart';
@@ -93,7 +94,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
         elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
         title: Text(
-          "Edit Storage Hub",
+          getTranslated(context,'t68'),   // "Edit Storage Hub",
           style: TextStyle(fontSize: 18),
         ),
         centerTitle: true,
@@ -125,7 +126,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
                           children: [
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 6),
-                              child: Text("Account Name",style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
+                              child: Text( getTranslated(context,'t69'),   // "Account Name",
+                                style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
                             ),
                             SenderTextEdit(
                               keyy: "name",
@@ -133,7 +135,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                               name:nameController,
                               //initialText: widget.model.userStorageHubAccountName,
 
-                              lebelText:  "Account Name" ,
+                              lebelText:getTranslated(context,'t69'),   //   "Account Name" ,
                              // icon: Icons.drive_file_rename_outline,
                               function: (String value) {
                                 if (value.isEmpty) {
@@ -155,7 +157,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 6),
-                        child: Text("Account Number",style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
+                        child: Text(getTranslated(context,'t70'),   //  "Account Number"
+                          style: myStyle(16,BrandColors.colorDimText.withOpacity(0.6),FontWeight.w600),),
                       ),
                       Visibility(
                         visible: isBank == true || isMfs == true,
@@ -167,17 +170,17 @@ class _EditStorageHubState extends State<EditStorageHub> {
                           keyy: "number",
                           data: _data,
                           name:  accountnumber,
-                          lebelText: "Account Number",
+                          lebelText: getTranslated(context,'t70'),   // "Account Number",
                           //icon: Icons.confirmation_number_outlined,
                           function: (String value) {
                             if (value.isEmpty) {
-                              return "Account Number required";
+                              return getTranslated(context,'t72');   // "Account Number required";
                             }
                             if (value.length < 11) {
-                              return "Account Number is Too Short( Min 11 digit )";
+                              return getTranslated(context,'t73');   // "Account Number is Too Short( Min 11 digit )";
                             }
                             if (value.length > 18) {
-                              return "Account Number is Too Long ( Max 18 digit )";
+                              return getTranslated(context,'t74');   // "Account Number is Too Long ( Max 18 digit )";
                             }
                           },
                         ),
@@ -192,7 +195,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                               displayFormat: MoneyDisplayFormat.symbolOnRight),
                           appearanceSettings: AppearanceSettings(
                               padding: EdgeInsets.all(15.0),
-                              labelText: 'Initial balance ',
+                              labelText:getTranslated(context,'t71'),   //  'Initial balance ',
 
                               labelStyle: myStyle(20,Colors.white,FontWeight.w600),
                               inputStyle: _ts.copyWith(color: Colors.white),
@@ -239,7 +242,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                                     size: 15,
                                   ),
                                   Text(
-                                    "Go Back",
+                                    getTranslated(context,'t75'),   //  "Go Back",
                                     style: myStyle(16, Colors.white),
                                   )
                                 ],
@@ -258,9 +261,11 @@ class _EditStorageHubState extends State<EditStorageHub> {
                               if (!_formKey.currentState.validate()) return;
                               _formKey.currentState.save();
                               widget.type == "bank"
-                                  ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateBankData(context)
+                                  ?amountController.text.toString().isEmpty?showInSnackBar(  getTranslated(context,'t78'),   // "Amount Required"
+                                   ): updateBankData(context)
                                   : widget.type == "mfs"
-                                  ?amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): updateMfs(context):"";
+                                  ?amountController.text.toString().isEmpty?showInSnackBar(  getTranslated(context,'t78'),   // "Amount Required"
+                              ): updateMfs(context):"";
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 20),
@@ -275,7 +280,7 @@ class _EditStorageHubState extends State<EditStorageHub> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Proceed",
+                                    getTranslated(context,'t76'),   //  "Proceed",
                                     style: myStyle(16, Colors.white),
                                   ),
                                   Icon(
@@ -322,7 +327,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
       if (response.statusCode == 201) {
         print("responseBody1 " + responseString);
         print("doneeeeeeee");
-        showInSnackBar("updated Storage successful");
+        showInSnackBar(  getTranslated(context,'t77'),   // "updated Storage successful"
+        );
         Future.delayed(const Duration(seconds: 1), () {
           setState(() {
             isLoading=false;
@@ -330,7 +336,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
           });
         });
       } else {
-        showInSnackBar("update Failed, Try again please");
+        showInSnackBar( getTranslated(context,'t79'),   // "update Failed, Try again please"
+        );
         print("update failed " + responseString);
       }
     } catch (e) {
@@ -358,7 +365,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
       if (response.statusCode == 201) {
         print("responseBody1 " + responseString);
         print("doneeeeeeee");
-        showInSnackBar("updated Storage successful");
+        showInSnackBar( getTranslated(context,'t77'),   //"updated Storage successful"
+        );
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {
             isLoading=false;
@@ -368,7 +376,8 @@ class _EditStorageHubState extends State<EditStorageHub> {
 
       } else {
 
-        showInSnackBar("update Failed, Try again please");
+        showInSnackBar( getTranslated(context,'t79'),   //"update Failed, Try again please"
+        );
         print("update failed " + responseString);
 
       }

@@ -1,5 +1,6 @@
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
@@ -73,7 +74,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
         backgroundColor: BrandColors.colorPrimaryDark,
         elevation: 0.0,
         title: Text(
-          "Edit Entries",
+          getTranslated(context,'t82'),              //  "Edit Entries",
           style: TextStyle(),
         ),
         centerTitle: true,
@@ -122,7 +123,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
 
                                       WidgetSpan(
                                         child:Text(
-                                          'Date:',
+                                          getTranslated(context,'t56'),              //  'Date:',
                                           textScaleFactor: 1.0,
                                           style: myStyle(14,BrandColors.colorText),
                                         ),
@@ -148,7 +149,8 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Text("Pay/Payable to ",style: myStyle(16,BrandColors.colorDimText),),
+                          child: Text(getTranslated(context,'t83')              // "Pay/Payable to "
+                            ,style: myStyle(16,BrandColors.colorDimText),),
                         ),
                         SenderTextEdit(
                           keyy: "Payable",
@@ -165,18 +167,19 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                           ),
                           function: (String value) {
                             if (value.isEmpty) {
-                              return "Name required";
+                              return getTranslated(context,'t84');            // "Name required";
                             }
                             if (value.length < 3) {
-                              return "Name Too Short ( Min 3 character )";
+                              return getTranslated(context,'t85');              // "Name Too Short ( Min 3 character )";
                             }if (value.length > 30) {
-                              return "Name Too long (Max 30 character)";
+                              return getTranslated(context,'t86');              //"Name Too long (Max 30 character)";
                             }
                           },
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Text("Details ",style: myStyle(16,BrandColors.colorDimText),),
+                          child: Text(getTranslated(context,'t88')              //"Details "
+                            ,style: myStyle(16,BrandColors.colorDimText),),
                         ),
                         SenderTextEdit(
                           keyy: "Details",
@@ -201,8 +204,8 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                                   displayFormat: MoneyDisplayFormat.symbolOnLeft),
                               appearanceSettings: AppearanceSettings(
                                   padding: EdgeInsets.all(15.0),
-                                  hintText: 'Amount required',
-                                  labelText: 'Amount ',
+                                  hintText:getTranslated(context,'t78'),              // 'Amount required',
+                                  labelText: getTranslated(context,'t89'),              //'Amount ',
                                   labelStyle: myStyle(16,Colors.white,FontWeight.w600),
                                   inputStyle: _ts.copyWith(color: Colors.white),
                                   formattedStyle:
@@ -246,7 +249,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                                     size: 15,
                                   ),
                                   Text(
-                                    "Go Back",
+                                    getTranslated(context,'t75'),              // "Go Back",
                                     style: myStyle(16, Colors.white),
                                   )
                                 ],
@@ -287,7 +290,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Proceed",
+                                    getTranslated(context,'t76'),              // "Proceed",
                                     style: myStyle(16, Colors.white),
                                   ),
                                   Icon(
@@ -331,7 +334,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
       try{
         if (data.statusCode == 201) {
           return {print("Payable Data updated succesfully"),
-            showInSnackBar("Updated successfully"),
+            showInSnackBar(getTranslated(context,'t90'),),              //"Updated successfully"),
             Future.delayed(const Duration(seconds: 1), () {
               setState(() {
                 onProgress=false;
@@ -343,7 +346,7 @@ class _EditStartingReceivableState extends State<EditStartingReceivable> {
         } else
           setState(() {
             onProgress=false;
-            showInSnackBar("Updated failed");
+            showInSnackBar(getTranslated(context,'t79'));              //"Updated failed");
           });
         throw Exception('Failed to update');
       }catch(e){

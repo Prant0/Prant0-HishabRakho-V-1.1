@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -94,19 +95,22 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                   children: [
                     Expanded(
                       flex: 6,
-                      child: Text("Title", style: myStyle(12,
+                      child: Text(getTranslated(context,'t52'),  //  "Title",
+                        style: myStyle(12,
                           BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                     Expanded(
                       flex: 4,
-                      child: Text("Transaction", style: myStyle(12,
+                      child: Text(getTranslated(context,'t26'),  //  "Transaction",
+                        style: myStyle(12,
                           BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                     ),
                     Expanded(
                       flex: 4,
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text("Balance", style: myStyle(12,
+                        child: Text(  getTranslated(context,'t67'),  //    "Balance",
+                          style: myStyle(12,
                             BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                       ),
                     ),
@@ -199,7 +203,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
 
                       secondaryActions: <Widget>[
                         new IconSlideAction(
-                          caption: 'Edit',
+                          caption:   getTranslated(context,'t53'),  //    "edit",
                           color: BrandColors.colorPrimary,
                           icon: Icons.more_horiz,
                           onTap:  () {
@@ -221,7 +225,7 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                         ),
                         new IconSlideAction(
 
-                          caption: 'Delete',
+                          caption:  getTranslated(context,'t54'),  // delete
                           color: BrandColors.colorPrimary,
                           iconWidget: SvgPicture.asset("assets/delete.svg",
                             alignment: Alignment.center,
@@ -238,21 +242,22 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                                         BorderRadius.circular(
                                             13.0)),
                                     title: Text(
-                                      "Are You Sure ?",
+                                      getTranslated(context,'t61'),  // "Are You Sure ?",
                                       style: myStyle(
                                           16,
                                           Colors.black54,
                                           FontWeight.w800),
                                     ),
-                                    content: Text(
-                                        "You want to delete !"),
+                                    content:  Text(getTranslated(context,'t62'),  // "You want to delete !"
+                                    ),
                                     actions: <Widget>[
                                       FlatButton(
                                           onPressed: () {
                                             Navigator.of(context)
                                                 .pop(false);
                                           },
-                                          child: Text("No")),
+                                          child: Text(getTranslated(context,'t64'),  //   "No"
+                                  )),
                                       FlatButton(
                                           onPressed: () {
                                             print("tap");
@@ -269,12 +274,13 @@ class _TransactionPayableEntriesState extends State<TransactionPayableEntries> {
                                               //Provider.of<MyTransectionprovider>(context,listen: false).deleteTransaction();
                                             });
                                             showInSnackBar(
-                                              "1 Item Delete",
+                                              getTranslated(context,'t65'),  //  "1 Item Delete",
                                             );
                                             Navigator.pop(
                                                 context);
                                           },
-                                          child: Text("Yes"))
+                                          child: Text(getTranslated(context,'t63'),  //    "Yes"
+                                          ))
                                     ],
                                   );
                                 });

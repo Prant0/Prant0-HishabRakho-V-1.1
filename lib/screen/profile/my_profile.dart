@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/screen/profile/reset_password.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -125,7 +126,7 @@ class _MyProfileState extends State<MyProfile> {
           elevation: 0,
           backgroundColor: BrandColors.colorPrimaryDark,
           title: Text(
-            "My Profile",
+            getTranslated(context,'t27'), //my profile
             style: myStyle(20, Colors.white, FontWeight.w500),
           ),
         ),
@@ -170,7 +171,8 @@ class _MyProfileState extends State<MyProfile> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text("My Starting Balance",style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
+                    child: Text(getTranslated(context,'t31') //my starting balance
+                      ,style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -201,7 +203,7 @@ class _MyProfileState extends State<MyProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Payables",
+                                    getTranslated(context,'t32'), //payables
                                     style:
                                         myStyle(12, Colors.redAccent,FontWeight.w400),
                                   ),
@@ -220,7 +222,7 @@ class _MyProfileState extends State<MyProfile> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Receivables",
+                                    getTranslated(context,'t33'),  //receivables
                                     style:
                                         myStyle(12, BrandColors.colorGreen,FontWeight.w400),
                                   ),
@@ -272,7 +274,7 @@ class _MyProfileState extends State<MyProfile> {
                   ),
                   SizedBox(height: 8,),
                   ProfileButton(
-                    title: "Edit Profile",
+                    title: getTranslated(context,'t34'),  //eidt profile
                     icon: Icons.person,
                     onPress: () {
                       Navigator.push(
@@ -284,12 +286,12 @@ class _MyProfileState extends State<MyProfile> {
                     },
                   ),
                   ProfileButton(
-                    title: "Notification",
+                    title: getTranslated(context,'t35'), //notification
                     icon: Icons.notification_important,
                     onPress: () {},
                   ),
                   ProfileButton(
-                    title: "Change Password ",
+                    title: getTranslated(context,'t36'),                                //change password
                     icon: Icons.lock,
                     onPress: () {
                       Navigator.push(
@@ -299,12 +301,12 @@ class _MyProfileState extends State<MyProfile> {
                     },
                   ),
                   ProfileButton(
-                    title: "Help Center",
-                    icon: Icons.help_rounded,
+                    title: getTranslated(context,'t37'),                              //help center
+                     icon: Icons.help_rounded,
                     onPress: () {},
                   ),
                   ProfileButton(
-                    title: "Invite A Friend",
+                    title: getTranslated(context,'t38'),                             // help center
                     icon: Icons.share,
                     onPress: () {},
                   ),
@@ -321,7 +323,7 @@ class _MyProfileState extends State<MyProfile> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 15),
                       child: Text(
-                        "Reset All Data",
+                        getTranslated(context,'t39'),                                       //reset all data
                         style: myStyle(16, BrandColors.colorPurple),
                       ),
                     ),
@@ -334,7 +336,7 @@ class _MyProfileState extends State<MyProfile> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 0, horizontal: 15),
                       child: Text(
-                        "Logout",
+                        getTranslated(context,'t30'),                                      //logout
                         style: myStyle(16, BrandColors.colorPurple),
                       ),
                     ),
@@ -367,7 +369,8 @@ class _MyProfileState extends State<MyProfile> {
             backgroundColor: BrandColors.colorPrimaryDark,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            title: Text('Reset all data?'),
+            title: Text( getTranslated(context,'t39'), //reset all data
+           ),
             titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
 
 
@@ -379,7 +382,8 @@ class _MyProfileState extends State<MyProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Text("Please enter your password",style: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
+                     Text(getTranslated(context,'t135')              //"Please enter your password"
+                       ,style: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
 
                     TextFormField(
                       style: myStyle(14.0, BrandColors.colorDimText,FontWeight.w400),
@@ -387,13 +391,13 @@ class _MyProfileState extends State<MyProfile> {
                       controller: _textFieldController,
                       validator: (String value) {
                         if (value.isEmpty) {
-                          return "Password required";
+                          return  getTranslated(context,'t137'); // "Password required";
                         }
                         if (value.length < 6) {
-                          return "Password Too Short ( 6 - 15 character )";
+                          return getTranslated(context,'t128'); // "Password Too Short ( 6 - 15 character )";
                         }
                         if (value.length > 15) {
-                          return "Password Too Long ( 6 - 15 character )";
+                          return getTranslated(context,'t129'); // "Password Too Long ( 6 - 15 character )";
                         }
                       },
                       decoration: InputDecoration(
@@ -434,7 +438,7 @@ class _MyProfileState extends State<MyProfile> {
                             height: 15,width: 15,
                           ),
                         ),
-                        hintText: 'Enter your password',
+                        hintText:getTranslated(context,'t135'), // 'Enter your password',
                       ),
                       obscureText: _obscureText,
                       cursorColor: Colors.white70,
@@ -448,7 +452,8 @@ class _MyProfileState extends State<MyProfile> {
               FlatButton(
                 color: Colors.transparent,
                 textColor: Colors.white,
-                child: Text('Cancel',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t136'), // 'Cancel',
+          style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   Navigator.pop(context);
 
@@ -460,7 +465,8 @@ class _MyProfileState extends State<MyProfile> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
 
-                child: Text('Reset All Data',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t39'), //   'Reset All Data',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   if (!_formKey.currentState.validate()) return;
                   _formKey.currentState.save();
@@ -509,7 +515,7 @@ class _MyProfileState extends State<MyProfile> {
       setState(() {
         isLoading = false;
       });
-      showInSnackBar("The current Password Is not Matched");
+      showInSnackBar(getTranslated(context,'t134'),); // "The current Password Is not Matched");
 
       print("something wrong pranto $e");
     }
@@ -538,9 +544,9 @@ class _MyProfileState extends State<MyProfile> {
             titlePadding: EdgeInsets.only(top: 30,bottom: 12,right: 20,left: 30),
             contentPadding: EdgeInsets.only(left: 30,right: 20,),
             backgroundColor:  BrandColors.colorPrimaryDark,
-            title: Text('Log out from the app?'),
+            title: Text(getTranslated(context,'t138'),), // 'Log out from the app?'),
             actionsPadding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
-            content: Text("Make sure you have checked everything  you wanted to.",),
+            content: Text(getTranslated(context,'t139'),), // ("Make sure you have checked everything  you wanted to.",),
             contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
             titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
             actions: <Widget>[
@@ -548,7 +554,8 @@ class _MyProfileState extends State<MyProfile> {
               FlatButton(
                 color: Colors.transparent,
                 textColor: Colors.white,
-                child: Text('Cancel',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text((getTranslated(context,'t136')) //'Cancel'
+                  ,style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   Navigator.pop(context);
 
@@ -558,7 +565,8 @@ class _MyProfileState extends State<MyProfile> {
                 padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Logout',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text( getTranslated(context,'t30'), //logout,
+               style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () async {
                   SharedPreferences preferences =
                   await SharedPreferences.getInstance();

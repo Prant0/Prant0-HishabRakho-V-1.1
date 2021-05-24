@@ -113,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
           print('nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee isssssssssssss is $userNames');
         });
 
-        // getUserDetails();
         return true;
       } else {
         return false;
@@ -166,7 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Expanded(
                           flex: 2,
                           child: Container(
@@ -182,7 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-
                         Expanded(
                           flex: 7,
                           child: Container(
@@ -197,9 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: Text("Welcome back!",style: myStyle(22,Colors.white,FontWeight.w500),),
                                   ),
 
-
                                   Container(
-
                                     child: TextFormField(
                                       style: myStyle(14.0, BrandColors.colorDimText,FontWeight.w400),
                                       onSaved: (val) => x = val,

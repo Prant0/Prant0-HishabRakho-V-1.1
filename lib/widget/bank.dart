@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/dashBoard_Model.dart';
@@ -35,7 +36,7 @@ class _BankWidgetState extends State<BankWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Bank Balance",
+                  getTranslated(context,'t7'), //bank balance
                   style: myStyle(14, BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
                 ),
                 moneyField(

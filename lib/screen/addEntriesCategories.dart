@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -73,8 +74,9 @@ class _AddEntriesCategoriesState extends State<AddEntriesCategories> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("What kind of ${widget.name}",style: myStyle(20,Colors.white,FontWeight.w500),),
-                      Text("would you like to add ?",style: myStyle(20,Colors.white,FontWeight.w500),),
+                      Text("${getTranslated(context,'t91')} ${widget.name}",style: myStyle(20,Colors.white,FontWeight.w500),),   //what kind of
+                      Text(getTranslated(context,'t92')                //"would you like to add ?"
+                        ,style: myStyle(20,Colors.white,FontWeight.w500),),
                     ],
                   )
 

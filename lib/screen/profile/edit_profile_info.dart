@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/custom_TextField.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -127,7 +128,7 @@ class _EditInfoState extends State<EditInfo> {
       key:_scaffoldKey ,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
-        title: Text("Edit Info"),
+        title: Text(getTranslated(context,'t117'),  ),            //"Edit Info"),
         backgroundColor: BrandColors.colorPrimaryDark,
         centerTitle: true,
       ),
@@ -150,7 +151,8 @@ class _EditInfoState extends State<EditInfo> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text("Click on image to update your photo",style: TextStyle(fontSize: 18,color: Colors.white),),
+                  Text(getTranslated(context,'t116'),              //"Click on image to update your photo",
+                    style: TextStyle(fontSize: 18,color: Colors.white),),
                   SizedBox(
                     height: 16.0,
                   ),
@@ -166,7 +168,7 @@ class _EditInfoState extends State<EditInfo> {
                       keyy: "Name",
                       data: _data,
                       name: nameController,
-                      lebelText: "User Name",
+                      lebelText:getTranslated(context,'t118'),              // "User Name",
                       //hintText: " ${widget.model.username}",
                       icon: Padding(
                         padding: const EdgeInsets.all(14.0),
@@ -178,12 +180,12 @@ class _EditInfoState extends State<EditInfo> {
                       ),
                       function: (String value) {
                         if (value.isEmpty) {
-                          return "Name required";
+                          return getTranslated(context,'t84');              //"Name required";
                         }
                         if (value.length < 3) {
-                          return "Name Too Short ( Min 3 character)";
+                          return getTranslated(context,'t85');              // "Name Too Short ( Min 3 character)";
                         }if (value.length > 30) {
-                          return "Name Too long (Max 30 character)";
+                          return getTranslated(context,'t86');              // "Name Too long (Max 30 character)";
                         }
                       },
                     ),
@@ -197,7 +199,7 @@ class _EditInfoState extends State<EditInfo> {
                       updateProfile(context);
                       print("tap");
                     },
-                    child: Text("Update Info"),
+                    child: Text(getTranslated(context,'t119'), ),             //"Update Info"),
                   )
                 ],
               ),
@@ -264,13 +266,13 @@ class _EditInfoState extends State<EditInfo> {
           });
         }
 
-        showInSnackBar("update successful");
+        showInSnackBar(getTranslated(context,'t90'));              //"update successful");
         Provider.of<UserDetailsProvider>(context,listen: false).deletedetails();
         Navigator.pop(context);
         Navigator.pop(context);
         }
         else {
-        showInSnackBar("update Failed, Try again please");
+        showInSnackBar(getTranslated(context,'t79'),);              //"update Failed, Try again please");
         print("update failed " + responseString);
         setState(() {
         onProgress = false;
@@ -278,7 +280,7 @@ class _EditInfoState extends State<EditInfo> {
         }
           }
         }
-        else showInSnackBar("No Internet Connection");
+        else showInSnackBar(getTranslated(context,'t90'),);              //"No Internet Connection");
       });
     } catch (e) {
       print("something went wrong $e");

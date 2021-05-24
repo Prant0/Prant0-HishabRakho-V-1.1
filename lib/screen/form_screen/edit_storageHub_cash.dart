@@ -1,6 +1,7 @@
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/my_transection_model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/stapper/add_Payable.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
@@ -45,7 +46,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
           elevation: 0,
           backgroundColor: BrandColors.colorPrimaryDark,
           title: Text(
-            widget.type == "cash" ? "Edit Storage Hub" : "Add Initial Balance",
+            widget.type == "cash" ?  getTranslated(context,'t68') //Edit Storage hub
+                :  getTranslated(context,'t80'),   //"Add Initial Balance",
             style: TextStyle(fontSize: 18),
           ),
         ),
@@ -76,8 +78,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                                   MoneyDisplayFormat.symbolOnLeft),
                               appearanceSettings: AppearanceSettings(
                                 padding: EdgeInsets.all(15.0),
-                                labelText: 'Initial Balance* ',
-                                hintText: ' Balance',
+                                labelText:  getTranslated(context,'t71'),   // 'Initial Balance* ',
+                                hintText: getTranslated(context,'t67'),   // ' Balance',
                                 labelStyle: myStyle(
                                     20, Colors.white, FontWeight.w600),
                                 inputStyle: _ts.copyWith(color: Colors.white),
@@ -122,8 +124,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                                   ),
                                   child: Text(
                                     widget.type == "cash"
-                                        ? "Go Back"
-                                        : "Skip",
+                                        ? getTranslated(context,'t75')   // "Go Back"
+                                        : getTranslated(context,'t81'),   // "Skip",
                                     style: myStyle(16, Colors.white),
                                   )),
                             ),
@@ -139,7 +141,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                                 if (!_formKey.currentState.validate()) return;
                                 _formKey.currentState.save();
                                 amountController.text.toString().isEmpty
-                                    ? showInSnackBar("Amount Required")
+                                    ? showInSnackBar( getTranslated(context,'t78'),   // "Amount Required"
+                                )
                                     : updateCash(context);
                               },
                               child: Container(
@@ -153,7 +156,7 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
                                       width: 1.0),
                                 ),
                                 child: Text(
-                                  "Proceed",
+                                  getTranslated(context,'t76'),   // "Proceed",
                                   style: myStyle(16, Colors.white),
                                 ),
                               ),
@@ -204,7 +207,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
       if (response.statusCode == 201) {
         print("responseBody1 " + responseString);
 
-        showInSnackBar("updated Storage successful");
+        showInSnackBar( getTranslated(context,'t77'),   //"updated Storage successful"
+        );
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {
             isLoading = false;
@@ -217,7 +221,8 @@ class _UpdateStorageHubCashState extends State<UpdateStorageHubCash> {
           });
         });
       } else {
-        showInSnackBar("update Failed, Try again please");
+        showInSnackBar( getTranslated(context,'t79'),   //"update Failed, Try again please"
+        );
         print("update failed " + responseString);
       }
     } catch (e) {

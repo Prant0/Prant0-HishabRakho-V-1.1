@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text("Reset password"),
+        title: Text(getTranslated(context,'t122'),),              //"Reset password"),
         centerTitle: true,
       ),
       body: Container(
@@ -56,7 +57,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       keyy: "password",
                       data: _data,
                       name: oldPasswordController,
-                      hintText: "Old Password",
+                      hintText:getTranslated(context,'t120'),              // "Old Password",
                       lebelText: "Enter your old Password",
                       icon: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -67,13 +68,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ),
                       function: (String value) {
                         if (value.isEmpty) {
-                          return "Old Password required";
+                          return getTranslated(context,'t123');              //"Old Password required";
                         }
                         if (value.length < 6) {
-                          return "Password Too Short. ( 6 - 15 character )";
+                          return getTranslated(context,'t124');             //"Password Too Short. ( 6 - 15 character )";
                         }
                         if (value.length > 15) {
-                          return "Password Too long. ( 6 - 15 character )";
+                          return getTranslated(context,'t125');              //"Password Too long. ( 6 - 15 character )";
                         }
                       },
                     ),
@@ -81,7 +82,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       keyy: "password",
                       data: _data,
                       name: passwordController,
-                      hintText: "New Password",
+                      hintText:getTranslated(context,'t121'),              // "New Password",
                       lebelText: "Enter your new password",
                       icon: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -92,13 +93,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ),
                       function: (String value) {
                         if (value.isEmpty) {
-                          return "New Password required.( 6 - 15 character/letter/digit/symbols )";
+                          return getTranslated(context,'t127');              //"New Password required.( 6 - 15 character/letter/digit/symbols )";
                         }
                         if (value.length < 6) {
-                          return "Password Too Short. ( 6 - 15 character/letter/digit/symbols  )";
+                          return getTranslated(context,'t128');              //"Password Too Short. ( 6 - 15 character/letter/digit/symbols  )";
                         }
                         if (value.length > 15) {
-                          return "Password Too long. ( 6 - 15 character/letter/digit/symbols  )";
+                          return getTranslated(context,'t129');              //"Password Too long. ( 6 - 15 character/letter/digit/symbols  )";
                         }
                       },
                     ),
@@ -106,8 +107,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                       keyy: "confirmPassword",
                       data: _data,
                       name: confirmPasswordController,
-                      lebelText: "Confirm Password",
-                      hintText: "Confirm Password",
+                      lebelText:getTranslated(context,'t122'),             // "Confirm Password",
+                      hintText:getTranslated(context,'t122'),             // "Confirm Password",
                       icon: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: SvgPicture.asset("assets/pass.svg",
@@ -117,16 +118,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ),
                       function: (String value) {
                         if (value.isEmpty) {
-                          return "Confirm Password required.( 6 - 15 character/letter/digit/symbols )";
+                          return getTranslated(context,'t130');              //"Confirm Password required.( 6 - 15 character/letter/digit/symbols )";
                         }
                         if (value.length < 6) {
-                          return "Password Too Short. ( 6 - 15 character/letter/digit/symbols  )";
+                          return getTranslated(context,'t128');              //"Password Too Short. ( 6 - 15 character/letter/digit/symbols  )";
                         }
                         if (value.length > 15) {
-                          return "Password Too long ( 6 - 15 character/letter/digit/symbols  )";
+                          return getTranslated(context,'t129');              //"Password Too long ( 6 - 15 character/letter/digit/symbols  )";
                         }
                         if (passwordController.text != confirmPasswordController.text) {
-                          return "Password do not match";
+                          return getTranslated(context,'t131');              // "Password do not match";
                         }
                       },
                     ),
@@ -152,7 +153,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             horizontal: 30.0, vertical: 30.0),
                         child: Center(
                           child: Text(
-                            'Submit',
+                              getTranslated(context,'t132'),             //'Submit',
                             style: myStyle(18, Colors.white, FontWeight.w600),
                           ),
                         ),
@@ -186,7 +187,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       print("responseBody " + responseString);
       if (response.statusCode == 201) {
         print("responseBody1 " + responseString);
-        showInSnackBar("Reset Password successful .");
+        showInSnackBar(getTranslated(context,'t133'),);              //"Reset Password successful .");
 
         Future.delayed(const Duration(seconds: 2), () {
           setState(() {
@@ -195,7 +196,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           });
         });
       } else {
-        showInSnackBar(" The current password is not matched !");
+        showInSnackBar(getTranslated(context,'t134'));              //" The current password is not matched !");
         print(" failed " + responseString);
         setState(() {
           onProgress = false;

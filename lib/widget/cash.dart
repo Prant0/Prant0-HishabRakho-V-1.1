@@ -1,4 +1,5 @@
 import 'package:anthishabrakho/globals.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
@@ -22,22 +23,15 @@ class _CashWidgetState extends State<CashWidget> {
         itemBuilder: (context,index){
           return ListTile(
             leading: Icon(Icons.money,color: Colors.white70,size: 22,),
-            title: Text("Cash",style: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
+            title: Text( getTranslated(context,'t4'), //cash
+              style: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),),
             trailing: moneyField(
               amount: widget.model[index].totalCashAmount,
               ts: myStyle(16,Colors.white,FontWeight.w500),
               offset: Offset(-0, -8),
               tks: myStyle(14,Colors.white),
             ),
-            /*Text(
-                NumberFormat
-                    .compactCurrency(
-                  symbol: ' ৳ ',
-                ).format(
-                    widget.model[index]
-                        .totalCashAmount),
-                style: myStyle(
-                    14, Colors.white))*/
+
           );
         },
 

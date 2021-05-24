@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,14 +44,14 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                       Expanded(
                         flex: 6,
                         child: Text(
-                          "Title",
+                          getTranslated(context,'t52'),              //      "Title",
                           style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                         ),
                       ),
                       Expanded(
                         flex: 4,
                         child: Text(
-                          "Transaction",
+                          getTranslated(context,'t26'),                       //"Transaction",
                           style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                         ),
                       ),
@@ -132,7 +133,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
                             )),
                         secondaryActions: <Widget>[
                           new IconSlideAction(
-                            caption: 'Edit',
+                            caption: getTranslated(context,'t53'),              // 'Edit',
                             color: Colors.black45,
                             icon: Icons.more_horiz,
                             onTap: () {
@@ -151,7 +152,7 @@ class _ViewStartingPayableState extends State<ViewStartingPayable> {
 
                           ),
                           new IconSlideAction(
-                            caption: 'Delete',
+                            caption:getTranslated(context,'t54'),              //  'Delete',
                             color: Colors.red,
                             icon: Icons.delete,
                             //onTap: () => _showSnackBar('Delete'),

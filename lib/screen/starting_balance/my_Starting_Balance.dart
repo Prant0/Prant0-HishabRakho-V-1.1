@@ -1,4 +1,5 @@
-import 'dart:convert';import 'package:http/http.dart' as http;
+import 'dart:convert';import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/models/starting_payable_Model.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 
@@ -93,7 +94,9 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
 
         elevation: 0,
         backgroundColor: BrandColors.colorPrimaryDark,
-        title: Text("My Starting Balance",style: myStyle(18,Colors.white),),
+        title: Text( getTranslated(context,'t31'), //My Starting balance
+
+          style: myStyle(18,Colors.white),),
         centerTitle: true,
 
       ),
@@ -120,7 +123,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
                       tabs: <Widget>[
                         Tab(
                           child: Text(
-                            "Starting Receivable",
+                            getTranslated(context,'t50'),   //          "Starting Receivable",
                             style: myStyle(
                                 14,
                                 BrandColors
@@ -129,7 +132,7 @@ class _MyStartingBalanceState extends State<MyStartingBalance>with SingleTickerP
                         ),
                         Tab(
                           child: Text(
-                            "Starting Payables",
+                            getTranslated(context,'t51'),      //"Starting Payables",
                             style: myStyle(
                                 14,
                                 BrandColors

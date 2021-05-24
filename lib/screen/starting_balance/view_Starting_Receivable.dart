@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/screen/starting_balance/Add_Starting_balance.dart';
 import 'package:anthishabrakho/screen/starting_balance/edit_starting_receivable.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
@@ -38,14 +39,14 @@ class _ViewStartingReceivableState extends State<ViewStartingReceivable> {
                   Expanded(
                     flex: 6,
                     child: Text(
-                      "Title",
+                      getTranslated(context,'t52'),                 //  "Title",
                       style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                     ),
                   ),
                   Expanded(
                     flex: 4,
                     child: Text(
-                      "Transaction",
+                      getTranslated(context,'t26'),                              // "Transaction",
                       style: myStyle(14, BrandColors.colorDimText.withOpacity(0.6)),
                     ),
                   ),

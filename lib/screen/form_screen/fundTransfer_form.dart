@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
@@ -29,7 +30,6 @@ class FundTransferForm extends StatefulWidget {
 
 class _FundTransferFormState extends State<FundTransferForm> {
   bool onProgress = false;
-  Map<String, dynamic> _data = Map<String, dynamic>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController amountController = TextEditingController();
@@ -38,16 +38,16 @@ class _FundTransferFormState extends State<FundTransferForm> {
 
   TextStyle _ts = TextStyle(fontSize: 18.0);
   DateTime _currentDate = DateTime.now();
-  List mfsList;
+
   String _myMfs;
   String cashId;
-  List bankList;
+
   String _myBank;
   String banktext;
   String mfstext;
   bool isBank = false;
   bool isMfs = false;
-  bool isCash = false;
+
   String bankName;
   String mfsName;
 
@@ -84,36 +84,36 @@ class _FundTransferFormState extends State<FundTransferForm> {
       setState(() {
         isBank = true;
         isMfs = true;
-        banktext = "Choose Bank (from)";
-        mfstext = "Choose MFS (to)";
+        banktext =getTranslated(context,'t110') ;  // "Choose Bank (from)";
+        mfstext =getTranslated(context,'t112') ;  // "Choose MFS (to)";
       });
     } else if (widget.title == "Bank to Cash") {
       setState(() {
         isBank = true;
         isMfs = false;
-        banktext = "Choose Bank (from)";
+        banktext =getTranslated(context,'t110') ;  // "Choose Bank (from)";
         mfstext = "";
       });
     } else if (widget.title == "Cash to Bank") {
       isBank = true;
       isMfs = false;
-      banktext = "Choose Bank (to)";
+      banktext = getTranslated(context,'t111') ;  //   "Choose Bank (to)";
       mfstext = "";
     } else if (widget.title == "Cash to MFS") {
       isBank = false;
       isMfs = true;
-      mfstext = "Choose MFS (to)";
+      mfstext =getTranslated(context,'t112') ;  //  "Choose MFS (to)";
       banktext = "";
     } else if (widget.title == "MFS to Bank") {
       isBank = true;
       isMfs = true;
-      banktext = "Choose Bank (to)";
-      mfstext = "Choose MFS (From)";
+      banktext = getTranslated(context,'t111') ;  // "Choose Bank (to)";
+      mfstext =getTranslated(context,'t113') ;  // "Choose MFS (From)";
     } else {
       isMfs = true;
       isBank = false;
       banktext = "";
-      mfstext = "Choose MFS (from)";
+      mfstext =getTranslated(context,'t113') ;  // "Choose MFS (from)";
     }
   }
 
@@ -218,7 +218,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
 
                                     WidgetSpan(
                                       child:Text(
-                                        'Date:',
+                                        getTranslated(context,'t56') ,  // 'Date:',
                                         textScaleFactor: 1.0,
                                         style: myStyle(14,BrandColors.colorText),
                                       ),
@@ -276,7 +276,8 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(bankName??"Choose Bank",style: myStyle(14,BrandColors.colorText),),
+                                      Text(bankName??getTranslated(context,'t102') ,  // "Choose Bank"
+                                        style: myStyle(14,BrandColors.colorText),),
                                       SvgPicture.asset("assets/select bank.svg",
                                         alignment: Alignment.bottomCenter,
                                         fit: BoxFit.contain,
@@ -320,7 +321,8 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(mfsName??"Choose Mfs",style: myStyle(14,BrandColors.colorText),),
+                                      Text(mfsName??getTranslated(context,'t103') ,  //  "Choose Mfs"
+                                  style: myStyle(14,BrandColors.colorText),),
                                       SvgPicture.asset("assets/select MFS.svg",
                                         alignment: Alignment.bottomCenter,
                                         fit: BoxFit.contain,
@@ -334,7 +336,8 @@ class _FundTransferFormState extends State<FundTransferForm> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 15),
-                        child: Text("Add details (optional)",style: myStyle(16,BrandColors.colorText),
+                        child: Text(getTranslated(context,'t59')   //       "Add details (optional)"
+                          ,style: myStyle(16,BrandColors.colorText),
                         ),
                       ),
                       Container(
@@ -374,7 +377,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 displayFormat: MoneyDisplayFormat.symbolOnLeft),
                             appearanceSettings: AppearanceSettings(
                                 padding: EdgeInsets.all(15.0),
-                                labelText: 'Amount* ',
+                                labelText:getTranslated(context,'t89') ,  // 'Amount* ',
                                 labelStyle: myStyle(16, BrandColors.colorText, FontWeight.w600),
                                 inputStyle: _ts.copyWith(color: Colors.white),
                                 formattedStyle:
@@ -422,7 +425,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                     ),
                                     SizedBox(width: 8,),
                                     Text(
-                                      "Go Back",
+                                      getTranslated(context,'t75') ,  // "Go Back",
                                       style: myStyle(16, Colors.white),
                                     )
                                   ],
@@ -444,32 +447,30 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                 print("widget name ${widget.title}");
                                 widget.title == "Bank to Cash"
                                     ? amountController.text.toString().isEmpty
-                                    ? showInSnackBar("Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : bankToCash(context)
                                     : widget.title == "Bank to MFS"
                                     ? amountController.text.toString().isEmpty
-                                    ? showInSnackBar("Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : bankToMfs(context)
                                     : widget.title == "Cash to Bank"
                                     ? amountController.text.toString().isEmpty
-                                    ? showInSnackBar("Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : cashToBank(context)
                                     : widget.title == "Cash to MFS"
                                     ? amountController.text.toString().isEmpty
-                                    ? showInSnackBar("Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : cashToMfs(context)
                                     : widget.title == "MFS to Bank"
                                     ? amountController.text
                                     .toString()
                                     .isEmpty
-                                    ? showInSnackBar(
-                                    "Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : mfsToBank(context)
                                     : amountController.text
                                     .toString()
                                     .isEmpty
-                                    ? showInSnackBar(
-                                    "Amount Required")
+                                    ? showInSnackBar(getTranslated(context,'t78') ,) //amount required
                                     : mfsTOCash(context);
                               },
                               child: Container(
@@ -485,7 +486,7 @@ class _FundTransferFormState extends State<FundTransferForm> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Proceed",
+                                    getTranslated(context,'t76' ,) ,// "Proceed",
                                       style: myStyle(16, Colors.white),
                                     ),
                                     SizedBox(width: 8,),
@@ -517,46 +518,19 @@ class _FundTransferFormState extends State<FundTransferForm> {
       if (intenet != null && intenet) {
         if (mounted) {
           updateForm();
-          getBankDetails();
-          getMfsDetails();
+        //  getBankDetails();
+        //  getMfsDetails();
           getCashDetails();
         }
       } else
-        showInSnackBar("No Internet Connection");
+        showInSnackBar(getTranslated(context,'t93' ,) ,//         "No Internet Connection"
+        );
     });
 
     super.initState();
   }
 
-  Future<dynamic> getBankDetails() async {
-    setState(() {
-      onProgress = true;
-    });
-    await CustomHttpRequests.bankDetails().then((responce) {
-      var dataa = json.decode(responce.body);
-      setState(() {
-        onProgress = false;
-        bankList = dataa;
-        bankList.isEmpty ? showInSnackBar("Empty Bank Storage") : "";
-        print("bank list${bankList}");
-      });
-    });
-  }
 
-  Future<dynamic> getMfsDetails() async {
-    setState(() {
-      onProgress = true;
-    });
-    await CustomHttpRequests.mfsDetails().then((responce) {
-      var dataa = json.decode(responce.body);
-      setState(() {
-        onProgress = false;
-        mfsList = dataa;
-        mfsList.isEmpty ? showInSnackBar("Empty MFS Storage") : "";
-        print("mfs list${mfsList}");
-      });
-    });
-  }
 
   Future<dynamic> getCashDetails() async {
     await CustomHttpRequests.cashDetails().then((responce) {
@@ -600,14 +574,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -645,14 +619,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -690,14 +664,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -735,14 +709,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -780,14 +754,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;
@@ -824,14 +798,14 @@ class _FundTransferFormState extends State<FundTransferForm> {
         amountController.clear();
         receiveFrom.clear();
       });
-      showInSnackBar("Add successfully");
+      showInSnackBar(getTranslated(context,'t94') );  //add succesfully
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           Navigator.of(context).pop();
         });
       });
     } else {
-      showInSnackBar(" Failed , Choose Storage Hub.");
+      showInSnackBar(getTranslated(context,'t115') );  //" Failed , Choose Storage Hub."
       print(" failed " + responseString);
       setState(() {
         onProgress = false;

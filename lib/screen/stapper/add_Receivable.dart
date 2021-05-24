@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -91,7 +92,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                         Container(
                             margin: EdgeInsets.only(bottom: 40,top: 30,),
                             child: Text(
-                              "Add your Receivable ",
+                              getTranslated(context,'t147'), // "Add your Receivable ",
                               style: myStyle(20, Colors.white, FontWeight.w500),
                               textAlign: TextAlign.start,
                             )),
@@ -121,7 +122,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
 
                                       WidgetSpan(
                                         child:Text(
-                                          'Date:',
+                                          getTranslated(context,'t56'), //    'Date:',
                                           textScaleFactor: 1.0,
                                           style: myStyle(14,BrandColors.colorText),
                                         ),
@@ -152,13 +153,14 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text("Receivable to ",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
+                          child: Text(getTranslated(context,'t148'),   //"Receivable to ",
+                            style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
                         ),
                         SenderTextEdit(
                           keyy: "pay",
                           data: _data,
                           name: nameController,
-                          lebelText: "Receivable from",
+                          lebelText:getTranslated(context,'t87'), // "Receivable from",
                           icon: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: SvgPicture.asset("assets/user1.svg",
@@ -169,25 +171,26 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                           ),
                           function: (String value) {
                             if (value.isEmpty) {
-                              return "Name required";
+                              return getTranslated(context,'t84'); // "Name required";
                             }
                             if (value.length < 3) {
-                              return "Name Too Short.(Min 3 character)";
+                              return getTranslated(context,'t85'); //"Name Too Short.(Min 3 character)";
                             }if (value.length > 25) {
-                              return "Name Too Long.(Max 25 character)";
+                              return getTranslated(context,'t86'); // "Name Too Long.(Max 25 character)";
                             }
                           },
                         ),
                         SizedBox(height: 10,),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text("Add details ",style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
+                          child: Text(getTranslated(context,'t59'), //   "Add details ",
+                            style: myStyle(16,BrandColors.colorText,FontWeight.w500),),
                         ),
                         SenderTextEdit(
                           keyy: "details",
                           data: _data,
                           name: details,
-                          lebelText: "Write details here...",
+                          lebelText:getTranslated(context,'t142'), // "Write details here...",
 
                           //icon: Icons.details_sharp,
                         ),
@@ -202,8 +205,8 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                                   displayFormat: MoneyDisplayFormat.symbolOnLeft),
                               appearanceSettings: AppearanceSettings(
                                   padding: EdgeInsets.all(15.0),
-                                  labelText: 'Enter Amount* ',
-                                  hintText: 'Enter Amount',
+                                  labelText:getTranslated(context,'t60'), // 'Enter Amount* ',
+                                  hintText:getTranslated(context,'t60'), // 'Enter Amount',
                                   labelStyle: myStyle(20,Colors.white,FontWeight.w600),
                                   inputStyle: _ts.copyWith(color: BrandColors.colorDimText),
                                   formattedStyle:
@@ -240,7 +243,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                               ),
                               child: Center(
                                   child: Text(
-                                    "Skip",
+                                    getTranslated(context,'t81'), //   "Skip",
                                     style: myStyle(16, Colors.white),
                                   ))),
                         ),
@@ -251,7 +254,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                           onTap:  () {
                             if (!_formKey.currentState.validate()) return;
                             _formKey.currentState.save();
-                            amountController.text.toString().isEmpty?showInSnackBar("Amount Required"): uploadReceivable(context);
+                            amountController.text.toString().isEmpty?showInSnackBar(getTranslated(context,'t78')): uploadReceivable(context);
                           },
                           child:  Container(
                             margin: EdgeInsets.only(right: 5,bottom: 12),
@@ -260,7 +263,8 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                                 color: BrandColors.colorPurple,
                                 borderRadius: BorderRadius.circular(12.0),border: Border.all(color: BrandColors.colorPurple,width: 2)
                             ),
-                            child: Center(child: Text("Proceed",style: myStyle(16,Colors.white,FontWeight.w500),)),
+                            child: Center(child: Text(getTranslated(context,'t76') //"Proceed"
+                              ,style: myStyle(16,Colors.white,FontWeight.w500),)),
                           ),
                         ),
                       )
@@ -292,13 +296,14 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
             contentTextStyle: myStyle(14,BrandColors.colorText.withOpacity(0.7),FontWeight.w400),
             titleTextStyle: myStyle(18,Colors.white,FontWeight.w500),
 
-            title: Text('Receivable entry added successful.',style: myStyle(22,Colors.white),),
-            content: Text(" Do you want to add more Receivable entry ?"),
+            title: Text(getTranslated(context,'t149'), //    'Receivable entry added successful.',
+              style: myStyle(22,Colors.white),),
+            content: Text(getTranslated(context,'t150'),), //" Do you want to add more Receivable entry ?"),
             actions: <Widget>[
               FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 textColor: Colors.white,
-                child: Text('No'),
+                child: Text(getTranslated(context,'t64'),), //           NO    ),
                 onPressed: () {
                   setState(() {
                     Provider.of<StorageHubProvider>(context, listen: false)
@@ -313,7 +318,8 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
                 padding: EdgeInsets.symmetric(vertical: 18,horizontal: 22),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
                 color: BrandColors.colorPurple,
-                child: Text('Yes',style: myStyle(14,Colors.white,FontWeight.w500),),
+                child: Text(getTranslated(context,'t63'), //           'Yes',
+                  style: myStyle(14,Colors.white,FontWeight.w500),),
                 onPressed: () {
                   setState(() {
                     Navigator.pop(context);
@@ -354,7 +360,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
           amountController.clear();
           nameController.clear();
         });
-        showInSnackBar("Add successfully");
+        showInSnackBar(getTranslated(context,'t94'),); //"Add successfully");
         Future.delayed(const Duration(seconds: 1), () {
           if(mounted){
             setState(() {
@@ -364,7 +370,7 @@ class _AddReceivableStepperState extends State<AddReceivableStepper> {
           }
         });
       } else {
-        showInSnackBar(" Failed, Try again please");
+        showInSnackBar(getTranslated(context,'t95'), );//" Failed, Try again please");
         print(" failed " + responseString);
         setState(() {
           onProgress = false;

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/reportCategory_model.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -149,7 +150,7 @@ class _MyReportsState extends State<MyReports> with SingleTickerProviderStateMix
             Padding(
               padding: EdgeInsets.symmetric(vertical: 40),
               child: Text(
-                "Expenses Overview  ",
+                getTranslated(context,'t23'), //"Expenses Overview  ",
                 style: myStyle(16, BrandColors.colorText, FontWeight.w400),
               ),
             ),
@@ -165,7 +166,7 @@ class _MyReportsState extends State<MyReports> with SingleTickerProviderStateMix
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                     child: Text(
-                      "Categories",
+                      getTranslated(context,'t24'),// "Categories",
                       style:
                           myStyle(14, isCategory ? Colors.white : Colors.grey),
                     ),
@@ -190,7 +191,7 @@ class _MyReportsState extends State<MyReports> with SingleTickerProviderStateMix
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                     child: Text(
-                      "Sub-Categories",
+                      getTranslated(context,'t25'),  //"Sub-Categories",
                       style: myStyle(
                           14, isSubCategory ? Colors.white : Colors.grey),
                     ),
@@ -619,7 +620,7 @@ class bottomChart extends StatelessWidget {
                 ),
               ),
               Text(
-                "${total} Transactions",
+                "${total} ${ getTranslated(context,'t26')}",  //tranactions
                 style: myStyle(12, BrandColors.colorText.withOpacity(0.6)),
               ),
             ],

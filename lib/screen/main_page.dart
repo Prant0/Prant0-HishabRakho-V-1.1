@@ -5,6 +5,7 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/entries_Home_Model.dart';
 import 'package:anthishabrakho/screen/addEntriesCategories.dart';
 import 'package:anthishabrakho/screen/addEntriesSubCategories.dart';
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:anthishabrakho/screen/tabs/myBudget.dart';
@@ -167,13 +168,13 @@ class _MainPageState extends State<MainPage>
             _currentSelected == 0
                 ? ""
                 : _currentSelected == 1
-                    ? "My Storage Hub"
+                    ? getTranslated(context,'t40')// "My Storage Hub"
                     : _currentSelected == 2
-                        ? "My Budget"
+                        ? getTranslated(context,'t41')  //  "My Budget"
                         : _currentSelected == 3
-                            ? "My Reports"
+                            ? getTranslated(context,'t42')  //  "My Reports"
                             : _currentSelected == 4
-                                ? "My Entries"
+                                ?getTranslated(context,'t43')  //  "My Entries"
                                 : "",
             style: myStyle(20),
           ),
@@ -403,7 +404,7 @@ class _MainPageState extends State<MainPage>
                     GButton(
                       
                       gap: gap,
-                      text: "Home",
+                      text:  getTranslated(context,'t12'), //home
                       leading:_currentSelected == 0 ? SvgPicture.asset(
                         "assets/home2.svg" ,
                         fit: BoxFit.contain,
@@ -424,7 +425,7 @@ class _MainPageState extends State<MainPage>
                     GButton(
                       backgroundColor: BrandColors.colorPrimaryDark.withOpacity(0.8),
                       gap: gap,
-                      text: "Storage",
+                      text:  getTranslated(context,'t13'), //storage
                       leading:_currentSelected == 1 ? SvgPicture.asset(
                         "assets/storage2.svg",
                         fit: BoxFit.contain,
@@ -445,7 +446,7 @@ class _MainPageState extends State<MainPage>
                     ),
                     GButton(
                       gap: gap,
-                      text: "Budget",
+                      text:  getTranslated(context,'t14'), //budget
                       leading: _currentSelected == 2 ? SvgPicture.asset(
                         "assets/budget2.svg",
                         fit: BoxFit.contain,
@@ -466,7 +467,7 @@ class _MainPageState extends State<MainPage>
                     ),
                     GButton(
                       gap: gap,
-                      text: "Reports",
+                      text: getTranslated(context,'t15'), //reports
                       leading:_currentSelected == 3? SvgPicture.asset(
                         "assets/report2.svg",
                         fit: BoxFit.contain,
@@ -487,7 +488,7 @@ class _MainPageState extends State<MainPage>
                     ),
                     GButton(
                       gap: gap,
-                      text: "Entries",
+                      text:  getTranslated(context,'t16'), //entries
                       leading: _currentSelected == 4 ? SvgPicture.asset(
                         "assets/entries2.svg",
                         fit: BoxFit.contain,

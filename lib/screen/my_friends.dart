@@ -1,3 +1,4 @@
+import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,7 +52,7 @@ class _MyFriendsState extends State<MyFriends> {
       backgroundColor:BrandColors.colorPrimaryDark,
       appBar: AppBar(
         backgroundColor:BrandColors.colorPrimaryDark,
-        title: Text("My Friends"),
+        title: Text(getTranslated(context,'t140'), ),//"My Friends"),
         centerTitle: true,
         elevation: 0,
       ),
@@ -64,7 +65,8 @@ class _MyFriendsState extends State<MyFriends> {
             children: [
               Container(
                   margin: EdgeInsets.symmetric(horizontal:25),
-                  child: Text("Total Friends : ${friends.length}" ?? "0",style: myStyle(18,Colors.white70),)),
+                  child: Text("${getTranslated(context,'t1')}  ${friends.length}" ?? "0",  //total friends
+                    style: myStyle(18,Colors.white70),)),
 
               SizedBox(height: 20,),
               friends.isEmpty ? Center(child: Text('',style: TextStyle(fontSize: 18,color: Colors.white),)) : ListView.builder(
@@ -122,7 +124,7 @@ class _MyFriendsState extends State<MyFriends> {
                                         setState(() {
                                           friends.removeAt(index);
                                         });
-                                        showInSnackBar("1 Item Delete",);
+                                        showInSnackBar(getTranslated(context,'t65'),); //"1 Item Delete",);
                                         Navigator.pop(context);
                                       },
                                     ),

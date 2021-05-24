@@ -202,6 +202,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.4"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_money_formatter:
     dependency: transitive
     description:
@@ -316,7 +321,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.8"
+    version: "0.17.0"
   introduction_screen:
     dependency: "direct main"
     description:
