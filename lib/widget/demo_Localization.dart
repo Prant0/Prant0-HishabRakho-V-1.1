@@ -36,7 +36,7 @@ class _DemoLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'fa', 'bn', 'hi'].contains(locale.languageCode);
+    return ['en', 'bn'].contains(locale.languageCode);
   }
 
   @override

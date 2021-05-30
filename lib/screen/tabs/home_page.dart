@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

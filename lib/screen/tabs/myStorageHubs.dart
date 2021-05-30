@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/demo_Localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';

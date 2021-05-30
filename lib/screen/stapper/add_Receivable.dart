@@ -1,4 +1,4 @@
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:anthishabrakho/globals.dart';

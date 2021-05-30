@@ -1,4 +1,4 @@
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/custom_TextField.dart';
 import 'dart:convert';
 import 'dart:io';

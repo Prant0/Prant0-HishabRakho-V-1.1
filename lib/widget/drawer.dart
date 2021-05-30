@@ -1,4 +1,4 @@
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/select_language.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';

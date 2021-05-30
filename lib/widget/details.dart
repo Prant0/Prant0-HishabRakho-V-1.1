@@ -1,4 +1,5 @@
 import 'package:anthishabrakho/http/http_requests.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ class _DetailsState extends State<Details> {
                 Padding(
                   padding: EdgeInsets.only(top: 31, bottom: 5),
                   child: Text(
-                    "Transaction type ",
+                    getTranslated(context,'t96'), //"Transaction type ",
                     style:
                         myStyle(14, BrandColors.colorWhite, FontWeight.w400),
                   ),

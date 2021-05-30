@@ -1,4 +1,4 @@
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/demo_Localization.dart';
 import 'package:flutter/material.dart';
@@ -74,9 +74,8 @@ class _MyAppState extends State<MyApp> {
           locale: _locale,
           supportedLocales: [
             Locale("en", "US"),
-            Locale("fa", "IR"),
             Locale("bn", "BN"),
-            Locale("hi", "IN")
+            Locale("bn", "IN")
           ],
           localizationsDelegates: [
             DemoLocalization.delegate,

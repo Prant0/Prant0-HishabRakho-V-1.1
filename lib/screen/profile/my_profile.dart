@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/screen/profile/reset_password.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
+import 'package:anthishabrakho/widget/select_language.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:anthishabrakho/globals.dart';
@@ -132,14 +133,15 @@ class _MyProfileState extends State<MyProfile> {
         ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-          child: ListView.builder(
-            itemCount: user.length,
-            itemBuilder: (context, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-                  ListTile(
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: user.length,
+                itemBuilder: (context,index){
+                  return ListTile(
                     contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                     leading: ClipRRect(
                       child: Image.network(
@@ -168,187 +170,197 @@ class _MyProfileState extends State<MyProfile> {
                       "${user[index].email}",
                       style: myStyle(14, Colors.grey, FontWeight.w400),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(getTranslated(context,'t31') //my starting balance
-                      ,style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyStartingBalance(
+                  );
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text(getTranslated(context,'t31') //my starting balance
+                  ,style: myStyle(14,BrandColors.colorText,FontWeight.w400),),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyStartingBalance(
 
 
-                              )));
-                    },
-                    child: Card(
-                        color: BrandColors.colorPrimary,
-                        //height: 60,
+                          )));
+                },
+                child: Card(
+                    color: BrandColors.colorPrimary,
+                    //height: 60,
 
-                        margin:
-                            EdgeInsets.symmetric( horizontal: 8),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 25, horizontal: 25),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                    margin:
+                    EdgeInsets.symmetric( horizontal: 8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    getTranslated(context,'t32'), //payables
-                                    style:
-                                        myStyle(12, Colors.redAccent,FontWeight.w400),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    NumberFormat.compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(totalPayable ?? 0),
-                                    style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
-                                  ),
-                                ],
+                              Text(
+                                getTranslated(context,'t32'), //payables
+                                style:
+                                myStyle(12, Colors.redAccent,FontWeight.w400),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    getTranslated(context,'t33'),  //receivables
-                                    style:
-                                        myStyle(12, BrandColors.colorGreen,FontWeight.w400),
-                                  ),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    NumberFormat.compactCurrency(
-                                      symbol: ' ৳ ',
-                                    ).format(totalReceivable ?? 0),
-                                    style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
-                                  )
-                                ],
+                              SizedBox(
+                                height: 4,
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  String type = "payable";
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddStartingBalance(
-                                                title: type,
-                                              ))).then((value) => setState(() {
-                                        fetchStartingPayableData();
-                                        fetchStartingReceivableData();
-                                      }));
-                                },
-
-
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: Colors.deepPurpleAccent)),
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                              Text(
+                                NumberFormat.compactCurrency(
+                                  symbol: ' ৳ ',
+                                ).format(totalPayable ?? 0),
+                                style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
                               ),
                             ],
                           ),
-                        )),
-                  ),
-                  SizedBox(height: 8,),
-                  ProfileButton(
-                    title: getTranslated(context,'t34'),  //eidt profile
-                    icon: Icons.person,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                getTranslated(context,'t33'),  //receivables
+                                style:
+                                myStyle(12, BrandColors.colorGreen,FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                NumberFormat.compactCurrency(
+                                  symbol: ' ৳ ',
+                                ).format(totalReceivable ?? 0),
+                                style: myStyle(16, BrandColors.colorWhite,FontWeight.w700),
+                              )
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              String type = "payable";
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddStartingBalance(
+                                            title: type,
+                                          ))).then((value) => setState(() {
+                                fetchStartingPayableData();
+                                fetchStartingReceivableData();
+                              }));
+                            },
+
+
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                      color: Colors.deepPurpleAccent)),
+                              child: Icon(
+                                Icons.add,
+                                size: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
+              SizedBox(height: 8,),
+              ProfileButton(
+                title: getTranslated(context,'t34'),  //edit profile
+                icon: Icons.person,
+                onPress: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditInfo(
+                            model: user[0],
+                          )));
+                },
+              ),
+              ProfileButton(
+                    title: getTranslated(context,'t29'), //notification
+                    icon: Icons.language,
                     onPress: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditInfo(
-                                    model: user[index],
-                                  )));
+                              builder: (context) => SelectLanguage())).then((value) => setState((){
+                                loadUserData();
+                      }));
                     },
                   ),
-                  ProfileButton(
-                    title: getTranslated(context,'t35'), //notification
-                    icon: Icons.notification_important,
-                    onPress: () {},
-                  ),
-                  ProfileButton(
-                    title: getTranslated(context,'t36'),                                //change password
-                    icon: Icons.lock,
-                    onPress: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ResetPassword()));
-                    },
-                  ),
-                  ProfileButton(
+              ProfileButton(
+                title: getTranslated(context,'t36'),                                //change password
+                icon: Icons.lock,
+                onPress: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResetPassword()));
+                },
+              ),
+              /*ProfileButton(
                     title: getTranslated(context,'t37'),                              //help center
                      icon: Icons.help_rounded,
                     onPress: () {},
                   ),
                   ProfileButton(
-                    title: getTranslated(context,'t38'),                             // help center
+                    title: getTranslated(context,'t38'),                             // invite friends
                     icon: Icons.share,
                     onPress: () {},
+                  ),*/
+              Spacer(),
+              Divider(
+                color: Color(0xFF9fa8da),
+                height: 15,
+                thickness: .4,
+              ),
+              GestureDetector(
+                onTap: () {
+                  _displayTextInputDialog(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8, horizontal: 25),
+                  child: Text(
+                    getTranslated(context,'t39'),                                       //reset all data
+                    style: myStyle(16, BrandColors.colorPurple),
                   ),
-                  Divider(
-                    color: Color(0xFF9fa8da),
-                    height: 15,
-                    thickness: .4,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _displayTextInputDialog(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 15),
-                      child: Text(
-                        getTranslated(context,'t39'),                                       //reset all data
-                        style: myStyle(16, BrandColors.colorPurple),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      displayTextInputDialog(context);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 15),
-                      child: Text(
-                        getTranslated(context,'t30'),                                      //logout
-                        style: myStyle(16, BrandColors.colorPurple),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  )
+                ),
+              ),
 
-                ],
-              );
-            },
-          ),
+
+              GestureDetector(
+                onTap: () {
+                  displayTextInputDialog(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 0, horizontal: 25),
+                  child: Text(
+                    getTranslated(context,'t30'),                                      //logout
+                    style: myStyle(16, BrandColors.colorPurple),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              )
+
+            ],
+          )
         ),
       ),
     );
@@ -521,6 +533,9 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
+
+
+
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: Text(
@@ -588,6 +603,21 @@ class _MyProfileState extends State<MyProfile> {
         });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class ProfileButton extends StatelessWidget {
   Function onPress;

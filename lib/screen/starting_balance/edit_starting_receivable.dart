@@ -1,6 +1,6 @@
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/models/Starting_receivable_model.dart';
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/screen/registation_page.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';

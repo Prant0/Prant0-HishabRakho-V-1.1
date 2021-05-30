@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:anthishabrakho/globals.dart';
@@ -72,7 +73,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                             child: InputDecorator(
                               decoration: InputDecoration(
                                 errorStyle: TextStyle(fontSize: 14.0),
-                                hintText: 'Choose Storage Hub',
+                                hintText:getTranslated(context,'t109'),  // 'Choose Storage Hub',
                                 labelStyle: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.white,
@@ -85,7 +86,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   dropdownColor: BrandColors.colorPrimary,
                                   icon: Icon(Icons.arrow_drop_down,size: 25,color: Colors.white,),
                                   hint: Text(
-                                    "Choose Storage Hub ",
+                                    getTranslated(context,'t109'),  // "Choose Storage Hub ",
                                     style: myStyle(14, Colors.white70),
                                   ),
                                   value: storageType,
@@ -148,11 +149,11 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                   ),
                                   decoration: InputDecoration.collapsed(hintText: ''),
                                   hint: Text(
-                                    "Select Bank ",
+                                    getTranslated(context,'t153'),  // "Select Bank ",
                                     style: myStyle(14, Colors.white),
                                   ),
                                   validator: (value) =>
-                                  value == null ? 'field required' : null,
+                                  value == null ? getTranslated(context,'t174'): null,
                                   value: _myBank,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -201,7 +202,7 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                                     style: myStyle(16, Colors.white),
                                   ),
                                   validator: (value) =>
-                                  value == null ? 'field required' : null,
+                                  value == null ? getTranslated(context,'t174')   : null,
                                   value: _myMfs,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -269,19 +270,22 @@ class _TransectionStorageEntriesState extends State<TransectionStorageEntries> {
                         children: [
                           Expanded(
                             flex: 7,
-                            child: Text("Title", style: myStyle(12,
+                            child: Text(getTranslated(context,'t52'),  // "Title",
+                              style: myStyle(12,
                                 BrandColors.colorDimText),),
                           ),
                           Expanded(
                             flex: 6,
-                            child: Text("Transaction", style: myStyle(12,
+                            child: Text(getTranslated(context,'t26'),  // "Transaction",
+                              style: myStyle(12,
                                 BrandColors.colorDimText),),
                           ),
                           Expanded(
                             flex: 3,
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: Text("Balance", style: myStyle(12,
+                              child: Text(getTranslated(context,'t67'),  // "Balance",
+                                style: myStyle(12,
                                   BrandColors.colorDimText),),
                             ),
                           ),

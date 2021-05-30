@@ -5,7 +5,7 @@ import 'package:anthishabrakho/http/http_requests.dart';
 import 'package:anthishabrakho/models/entries_Home_Model.dart';
 import 'package:anthishabrakho/screen/addEntriesCategories.dart';
 import 'package:anthishabrakho/screen/addEntriesSubCategories.dart';
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'file:///H:/antipoints/hishabRakho%20v1.0/anthishabrakho/lib/screen/tabs/home_page.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:anthishabrakho/screen/tabs/myBudget.dart';

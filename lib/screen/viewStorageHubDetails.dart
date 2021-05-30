@@ -1,5 +1,6 @@
 
 
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +44,8 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
         progressIndicator: Spin(),
         inAsyncCall: onProgress,
         child: ListView(children: [
-          widget.number==null? Center(child: Text("Cash",style: myStyle(16,BrandColors.colorText,FontWeight.w500),)):   Container(
+          widget.number==null? Center(child: Text(getTranslated(context,'t4')  // "Cash"
+            ,style: myStyle(16,BrandColors.colorText,FontWeight.w500),)):   Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -84,15 +86,18 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
               children: [
                 Expanded(
                   flex: 5,
-                  child: Text("Title", style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                  child: Text(getTranslated(context,'t52'),  //"Title",
+                    style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text("Transaction", style:  myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                  child: Text(getTranslated(context,'t26'),  //"Transaction",
+                    style:  myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text("Balance", style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
+                  child: Text(getTranslated(context,'t67'),  //"Balance",
+                    style: myStyle(12, BrandColors.colorDimText.withOpacity(0.5),FontWeight.w400),),
                 ),
               ],
             ),
@@ -104,7 +109,8 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
               children: [
                 Expanded(
                   flex: 9,
-                  child: Text("Starting Balance",style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
+                  child: Text(getTranslated(context,'t31'),  //    "Starting Balance",
+                    style: myStyle(16,BrandColors.colorWhite,FontWeight.w500),),
                 ),
                 Expanded(
                   flex: 3,
@@ -124,7 +130,8 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
           dataa.isEmpty?Container(
             height: MediaQuery.of(context).size.height,
             alignment: Alignment.bottomCenter,
-            child: Text("Empty List",style: myStyle(18,Colors.white,FontWeight.w600),),)  :ListView.builder(
+            child: Text(getTranslated(context,'t173'),  //"Empty List",
+              style: myStyle(18,Colors.white,FontWeight.w600),),)  :ListView.builder(
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -230,4 +237,5 @@ class _ViewStorageHubDetailsState extends State<ViewStorageHubDetails> {
     getData();
     super.initState();
   }
+
 }

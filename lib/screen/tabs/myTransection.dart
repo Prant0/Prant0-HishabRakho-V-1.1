@@ -1,4 +1,4 @@
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:anthishabrakho/screen/profile/my_profile.dart';
 import 'package:flutter/cupertino.dart';

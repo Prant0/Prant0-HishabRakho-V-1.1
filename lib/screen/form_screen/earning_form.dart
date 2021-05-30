@@ -1,6 +1,7 @@
 
 import 'dart:convert';
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/localization/localization_Constants.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:anthishabrakho/widget/Circular_progress.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';

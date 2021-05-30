@@ -2,8 +2,7 @@
 
 import 'package:anthishabrakho/globals.dart';
 import 'package:anthishabrakho/main.dart';
-import 'package:anthishabrakho/models/language_model.dart';
-import 'package:anthishabrakho/screen/localization/localization_Constants.dart';
+import 'package:anthishabrakho/models/language_model.dart';import 'package:anthishabrakho/localization/localization_Constants.dart';
 import 'package:anthishabrakho/widget/brand_colors.dart';
 import 'package:anthishabrakho/widget/demo_Localization.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +24,13 @@ class _SelectLanguageState extends State<SelectLanguage> {
   Future<Locale> setLocale(String languageCode) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString(LAGUAGE_CODE, languageCode);
-
-
-    String languageCodee = _prefs.getString(LAGUAGE_CODE) ?? "hi";
+    String languageCodee = _prefs.getString(LAGUAGE_CODE) ?? "bn";
     print("language isssssssssssssssssssssss ${languageCodee}");
     //return _locale(languageCode);
   }
+
+
+
   void _changeLanguage(String language){
     print(language);
     Locale _temp;
@@ -59,7 +59,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
       key: _scaffoldKey,
       backgroundColor: BrandColors.colorPrimaryDark,
       appBar: AppBar(
-        title: Text(getTranslated(context, 'home_page')),
+        title: Text(getTranslated(context, 't172')),
         backgroundColor: BrandColors.colorPrimaryDark,
       ),
 
@@ -105,8 +105,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 onTap: (){
                   setState((){
                     showInSnackBar("ভাষা পরিবর্তন সম্পন্ন হয়েছে");
-                    _changeLanguage("hi");
-                    setLocale("hi");
+                    _changeLanguage("bn");
+                    setLocale("bn");
                     isEnglish=false;isBangla=true;
 
                   });
@@ -144,7 +144,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
       setState(() {
 
         print("mucking is ${locale.languageCode}");
-        locale.languageCode=="hi"?isBangla=true:isEnglish=true;
+        locale.languageCode=="bn"?isBangla=true:isEnglish=true;
 
       });
     } );
